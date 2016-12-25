@@ -1,0 +1,695 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{39BDF665-4C46-45BB-8562-F046535B5065}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RNGReporter</RootNamespace>
+    <AssemblyName>RNGReporter</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\ReporterRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <NoStdLib>false</NoStdLib>
+    <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <LangVersion>default</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="3rdGenSeedToTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3rdGenSeedToTime.Designer.cs">
+      <DependentUpon>3rdGenSeedToTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AbstractProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AbstractProgressPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CandyCaneBackgroundPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CandyCaneProgressPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ChainedGlossPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CheckBoxComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CheckBoxComboBox.designer.cs">
+      <DependentUpon>CheckBoxComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Adjacents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Adjacents.Designer.cs">
+      <DependentUpon>Adjacents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DualProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\GlassComboBox.Designer.cs" />
+    <Compile Include="Controls\GlassComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\GlassButton.Designer.cs" />
+    <Compile Include="Controls\GlassButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\GradientGlossPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\IVFilters.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\IVFilters.Designer.cs">
+      <DependentUpon>IVFilters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RarBorderPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\RoundGlossPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EntralinkSeedSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EntralinkSeedSearch.Designer.cs">
+      <DependentUpon>EntralinkSeedSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenderRatioLookup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenderRatioLookup.Designer.cs">
+      <DependentUpon>GenderRatioLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DSParametersIVCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSParametersIVCheck.Designer.cs">
+      <DependentUpon>DSParametersIVCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HSV.cs" />
+    <Compile Include="Controls\IAnimatedProgressPainter.cs" />
+    <Compile Include="Controls\IGlossPainter.cs" />
+    <Compile Include="Controls\IProgressBackgroundPainter.cs" />
+    <Compile Include="Controls\IProgressBorderPainter.cs" />
+    <Compile Include="Controls\IProgressPainter.cs" />
+    <Compile Include="Controls\PlainBackgroundPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PlainBorderPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PlainProgressPainter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ProgressBarEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Objects\EggSeedSearcher.cs" />
+    <Compile Include="Objects\FormsFunctions.cs" />
+    <Compile Include="Objects\Generators\DreamRadarGenerator.cs" />
+    <Compile Include="Objects\Generators\HiddenGrottoGenerator.cs" />
+    <Compile Include="Objects\IVFilter.cs" />
+    <Compile Include="Objects\Nazos.cs" />
+    <Compile Include="Objects\ResearcherProfile.cs" />
+    <Compile Include="Objects\Searchers\DreamRadarSearcher.cs" />
+    <Compile Include="Objects\Searchers\Gen3Searcher.cs" />
+    <Compile Include="Objects\Searchers\HiddenGrottoSearcher.cs" />
+    <Compile Include="Objects\Searchers\Searcher.cs" />
+    <Compile Include="ProfileEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProfileEditor.Designer.cs">
+      <DependentUpon>ProfileEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnovaLinkCalibration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnovaLinkCalibration.Designer.cs">
+      <DependentUpon>UnovaLinkCalibration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WarningSZ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WarningSZ.Designer.cs">
+      <DependentUpon>WarningSZ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeFinder3rd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeFinder3rd.Designer.cs">
+      <DependentUpon>TimeFinder3rd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeFinder4th.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeFinder4th.Designer.cs">
+      <DependentUpon>TimeFinder4th.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DoubleBufferedDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Objects\CSVWriter.cs" />
+    <Compile Include="Controls\GripBounds.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Objects\Language.cs" />
+    <Compile Include="Controls\NativeMethods.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Popup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Popup.Designer.cs">
+      <DependentUpon>Popup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PopupComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PopupComboBox.Designer.cs">
+      <DependentUpon>PopupComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="Controls\TextBox2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DonationBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DonationBox.Designer.cs">
+      <DependentUpon>DonationBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChainToSID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChainToSID.Designer.cs">
+      <DependentUpon>ChainToSID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\ComboBoxItem.cs" />
+    <Compile Include="Objects\IFrameCaptureXD.cs" />
+    <Compile Include="Objects\IFrameRSEggPID.cs" />
+    <Compile Include="Objects\Profiles.cs" />
+    <Compile Include="ProfilesManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProfilesManager.Designer.cs">
+      <DependentUpon>ProfilesManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EggParents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EggParents.Designer.cs">
+      <DependentUpon>EggParents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IVtoPID_SID_SEED.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IVtoPID_SID_SEED.Designer.cs">
+      <DependentUpon>IVtoPID_SID_SEED.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MaskedTextBox2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Objects\Activation.cs" />
+    <Compile Include="Objects\Adjacent.cs" />
+    <Compile Include="Objects\ButtonComboType.cs" />
+    <Compile Include="Objects\CalculateChainSid.cs" />
+    <Compile Include="Objects\CalculateChainSidPokemon.cs" />
+    <Compile Include="Objects\Characteristic.cs" />
+    <Compile Include="Objects\CoinFlips.cs" />
+    <Compile Include="Objects\CompareType.cs" />
+    <Compile Include="DexIVCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DexIVCheck.Designer.cs">
+      <DependentUpon>DexIVCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DSIDWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSIDWizard.Designer.cs">
+      <DependentUpon>DSIDWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\DSParameterCapture.cs" />
+    <Compile Include="Objects\Responses.cs" />
+    <Compile Include="Objects\EncounterSlotCalc.cs" />
+    <Compile Include="Objects\EncounterMods.cs" />
+    <Compile Include="Objects\Frame.cs" />
+    <Compile Include="Objects\FrameCompare.cs" />
+    <Compile Include="Objects\FrameGenerator.cs" />
+    <Compile Include="Objects\FrameResearch.cs" />
+    <Compile Include="Objects\FrameType.cs" />
+    <Compile Include="Objects\Functions.cs" />
+    <Compile Include="Objects\Gen5IVs.cs" />
+    <Compile Include="Objects\GenderGenderRatio.cs" />
+    <Compile Include="Objects\HgSsRoamers.cs" />
+    <Compile Include="Objects\HgSsRoamerSW.cs" />
+    <Compile Include="Objects\IDList.cs" />
+    <Compile Include="Objects\IRNG.cs" />
+    <Compile Include="Objects\IRNG64.cs" />
+    <Compile Include="Objects\IVCheck.cs" />
+    <Compile Include="Objects\IVtoSeed.cs" />
+    <Compile Include="Objects\LCRNG.cs" />
+    <Compile Include="Objects\LCRNG64.cs" />
+    <Compile Include="Objects\MTRNG.cs" />
+    <Compile Include="Objects\Nature.cs" />
+    <Compile Include="Objects\IFrameBreeding.cs" />
+    <Compile Include="Objects\IFrameCapture.cs" />
+    <Compile Include="Objects\IFrameEggPID.cs" />
+    <Compile Include="Objects\Pokemon.cs" />
+    <Compile Include="Objects\Seed.cs" />
+    <Compile Include="Objects\SeedInitial.cs" />
+    <Compile Include="Objects\VersionType.cs" />
+    <Compile Include="Pandora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pandora.Designer.cs">
+      <DependentUpon>Pandora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Researcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Researcher.Designer.cs">
+      <DependentUpon>Researcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RoamerMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RoamerMap.Designer.cs">
+      <DependentUpon>RoamerMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchElm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchElm.Designer.cs">
+      <DependentUpon>SearchElm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchElmV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchElmV.Designer.cs">
+      <DependentUpon>SearchElmV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchFlips.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchFlips.Designer.cs">
+      <DependentUpon>SearchFlips.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchIVs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchIVs.Designer.cs">
+      <DependentUpon>SearchIVs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchNature.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchNature.Designer.cs">
+      <DependentUpon>SearchNature.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchRoamers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchRoamers.Designer.cs">
+      <DependentUpon>SearchRoamers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SeedFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeedFinder.Designer.cs">
+      <DependentUpon>SeedFinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeFinder5th.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeFinder5th.Designer.cs">
+      <DependentUpon>TimeFinder5th.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlatinumTimeAdjacent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlatinumTimeAdjacent.Designer.cs">
+      <DependentUpon>PlatinumTimeAdjacent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Poketech.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Poketech.Designer.cs">
+      <DependentUpon>Poketech.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Progress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Progress.Designer.cs">
+      <DependentUpon>Progress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="3rdGenSeedToTime.resx">
+      <DependentUpon>3rdGenSeedToTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Adjacents.resx">
+      <DependentUpon>Adjacents.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\IVFilters.resx">
+      <DependentUpon>IVFilters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntralinkSeedSearch.resx">
+      <DependentUpon>EntralinkSeedSearch.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenderRatioLookup.resx">
+      <DependentUpon>GenderRatioLookup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DSParametersIVCheck.resx">
+      <DependentUpon>DSParametersIVCheck.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProfileEditor.resx">
+      <DependentUpon>ProfileEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnovaLinkCalibration.resx">
+      <DependentUpon>UnovaLinkCalibration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WarningSZ.resx">
+      <DependentUpon>WarningSZ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeFinder3rd.resx">
+      <DependentUpon>TimeFinder3rd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeFinder4th.resx">
+      <DependentUpon>TimeFinder4th.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DonationBox.resx">
+      <DependentUpon>DonationBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChainToSID.resx">
+      <DependentUpon>ChainToSID.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProfilesManager.resx">
+      <DependentUpon>ProfilesManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EggParents.resx">
+      <DependentUpon>EggParents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IVtoPID_SID_SEED.resx">
+      <DependentUpon>IVtoPID_SID_SEED.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DexIVCheck.resx">
+      <DependentUpon>DexIVCheck.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DSIDWizard.resx">
+      <DependentUpon>DSIDWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pandora.resx">
+      <DependentUpon>Pandora.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Researcher.resx">
+      <DependentUpon>Researcher.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RoamerMap.resx">
+      <DependentUpon>RoamerMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchElm.resx">
+      <DependentUpon>SearchElm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchElmV.resx">
+      <DependentUpon>SearchElmV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchFlips.resx">
+      <DependentUpon>SearchFlips.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchIVs.resx">
+      <DependentUpon>SearchIVs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchNature.resx">
+      <DependentUpon>SearchNature.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchRoamers.resx">
+      <DependentUpon>SearchRoamers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedFinder.resx">
+      <DependentUpon>SeedFinder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeFinder5th.resx">
+      <DependentUpon>TimeFinder5th.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlatinumTimeAdjacent.resx">
+      <DependentUpon>PlatinumTimeAdjacent.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Poketech.resx">
+      <DependentUpon>Poketech.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Progress.resx">
+      <DependentUpon>Progress.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedToTime.resx">
+      <DependentUpon>SeedToTime.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedToTimeEgg.resx">
+      <DependentUpon>SeedToTimeEgg.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SeedToTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeedToTime.Designer.cs">
+      <DependentUpon>SeedToTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SeedToTimeEgg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeedToTimeEgg.Designer.cs">
+      <DependentUpon>SeedToTimeEgg.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\tails.png" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame27-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame28-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame29-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame30-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame7D.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame8D.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame21-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame22-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame23-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame24-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame25-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame26-Entralink.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame1D-Roamer.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame1D.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame2D-Roamer.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame2D.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame3D-Roamer.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame3D.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame4D-Roamer.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame4D.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame5D-Roamer.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame5D.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame6D-Roamer.txt" />
+    <EmbeddedResource Include="Resources\MTRNG-Frame6D.txt" />
+    <None Include="Resources\btn_donate_SM.gif" />
+    <None Include="Resources\tails.png" />
+    <None Include="Resources\heads.png" />
+    <None Include="Images\raikou.png" />
+    <None Include="Images\entei.png" />
+    <None Include="Images\latias.png" />
+    <None Include="Images\latios.png" />
+    <Content Include="Images\heads.png" />
+    <Content Include="Images\roamers.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

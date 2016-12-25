@@ -259,6 +259,10 @@ namespace RNGReporter
                 cbNature.CheckBoxItems[checkBoxIndex].Text =
                     (cbNature.CheckBoxItems[checkBoxIndex].ComboBoxItem).ToString();
                 cbNature.CheckBoxItems[checkBoxIndex].Font = CellStyle.Font;
+                
+                comboBoxNature.CheckBoxItems[checkBoxIndex].Text =
+                    (comboBoxNature.CheckBoxItems[checkBoxIndex].ComboBoxItem).ToString();
+                comboBoxNature.CheckBoxItems[checkBoxIndex].Font = CellStyle.Font;
             }
 
             comboBoxShiny3rdNature.CheckBoxItems[0].Checked = true;
@@ -269,6 +273,9 @@ namespace RNGReporter
 
             cbNature.CheckBoxItems[0].Checked = true;
             cbNature.CheckBoxItems[0].Checked = false;
+            
+            comboBoxNature.CheckBoxItems[0].Checked = true;
+            comboBoxNature.CheckBoxItems[0].Checked = false;
 
             dataGridViewShinyRSResults.Refresh();
         }

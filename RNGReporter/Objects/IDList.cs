@@ -77,11 +77,4 @@ namespace RNGReporter.Objects
     {
         public string Time { get; set; }
     }
-
-    internal class AdjacentSeeds
-    {
-        public string Seed { get; set; }
-
-        public int Frame { get; set; }
-    }
 }

@@ -32,11 +32,6 @@ namespace RNGReporter
 {
     public partial class TimeFinder3rd : Form
     {
-        private int CapHPIndex;
-        private int CapNatureIndex;
-        private int CapSpeedIndex;
-        private int cpus;
-
         private static readonly object threadLock = new object();
         private FrameCompare frameCompare;
         private ulong gameTick;
@@ -259,7 +254,7 @@ namespace RNGReporter
                 cbNature.CheckBoxItems[checkBoxIndex].Text =
                     (cbNature.CheckBoxItems[checkBoxIndex].ComboBoxItem).ToString();
                 cbNature.CheckBoxItems[checkBoxIndex].Font = CellStyle.Font;
-                
+
                 comboBoxNature.CheckBoxItems[checkBoxIndex].Text =
                     (comboBoxNature.CheckBoxItems[checkBoxIndex].ComboBoxItem).ToString();
                 comboBoxNature.CheckBoxItems[checkBoxIndex].Font = CellStyle.Font;
@@ -273,7 +268,7 @@ namespace RNGReporter
 
             cbNature.CheckBoxItems[0].Checked = true;
             cbNature.CheckBoxItems[0].Checked = false;
-            
+
             comboBoxNature.CheckBoxItems[0].Checked = true;
             comboBoxNature.CheckBoxItems[0].Checked = false;
 
@@ -1472,27 +1467,6 @@ namespace RNGReporter
             if (!searcher.ParseInput()) return;
             searcher.RunSearch();
         }
-
-
-        private void glassButton2_Click(object sender, EventArgs e)
-        {
-            var searchParams = new Gen3SearchParams
-                {
-                    ability = comboBoxAbility,
-                    capButton = glassButton2,
-                    dataGridView = dataGridViewCapValues,
-                    gender = comboBoxGender,
-                    id = maskedTextBoxID,
-                    isShiny = checkBoxShinyOnly,
-                    ivfilters = ivFilters1,
-                    nature = comboBoxNature,
-                    sid = maskedTextBoxSID,
-                };
-            Searcher searcher = new Gen3Searcher(searchParams, threadLock, this);
-            if (!searcher.ParseInput()) return;
-            searcher.RunSearch();
-        }
-
 
         private void rbRS_CheckedChanged(object sender, EventArgs e)
         {

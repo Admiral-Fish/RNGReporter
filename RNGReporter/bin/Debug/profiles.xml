@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>
+    <Name>white 1</Name>
+    <ID>5050</ID>
+    <SID>33136</SID>
+    <MAC_Address>41860346966</MAC_Address>
+    <Version>White</Version>
+    <Language>English</Language>
+    <DSType>DS_Lite</DSType>
+    <VCount>47</VCount>
+    <VFrame>5</VFrame>
+    <Timer0Min>1569</Timer0Min>
+    <Timer0Max>1569</Timer0Max>
+    <GxStat>6</GxStat>
+    <Keypresses>15</Keypresses>
+    <SoftReset>false</SoftReset>
+    <SkipLR>false</SkipLR>
+    <MemoryLink>false</MemoryLink>
+  </Profile>
+</ArrayOfProfile>

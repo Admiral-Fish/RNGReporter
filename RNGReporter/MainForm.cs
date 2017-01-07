@@ -55,6 +55,7 @@ namespace RNGReporter
         private TimeFinder3rd timeFinder3rd;
         private TimeFinder4th timeFinder4th;
         private TimeFinder5th timeFinder5th;
+        private GameCube timeFinderGameCube;
 
         public MainForm()
         {
@@ -2080,6 +2081,23 @@ namespace RNGReporter
 
             timeFinder3rd.Show();
             timeFinder3rd.Focus();
+        }
+
+        private void buttonFindTimeGameCube_Click(object sender, EventArgs e)
+        {
+            if (timeFinderGameCube == null)
+            {
+                int id;
+                int sid;
+
+                int.TryParse(maskedTextBoxID.Text, out id);
+                int.TryParse(maskedTextBoxSID.Text, out sid);
+
+                timeFinderGameCube = new GameCube(id, sid);
+            }
+
+            timeFinderGameCube.Show();
+            timeFinderGameCube.Focus();
         }
 
         private void comboBoxMethod_SelectedIndexChanged(object sender, EventArgs e)

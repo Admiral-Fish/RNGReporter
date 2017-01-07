@@ -151,8 +151,8 @@ namespace RNGReporter
             this.contextMenuStripTimeFinder = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.FifthGenerationTimeFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FourthGenerationTimeFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.GameCubeTimeFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ThirdGenerationTimeFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GameCubeTimeFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTipDataGrid = new System.Windows.Forms.ToolTip(this.components);
             this.buttonLead = new System.Windows.Forms.Button();
             this.checkBoxBW2 = new System.Windows.Forms.CheckBox();
@@ -1223,7 +1223,8 @@ namespace RNGReporter
             this.contextMenuStripTimeFinder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FifthGenerationTimeFinderToolStripMenuItem,
             this.FourthGenerationTimeFinderToolStripMenuItem,
-            this.ThirdGenerationTimeFinderToolStripMenuItem});
+            this.ThirdGenerationTimeFinderToolStripMenuItem,
+            this.GameCubeTimeFinderToolStripMenuItem});
             this.contextMenuStripTimeFinder.Name = "contextMenuStripTimeFinder";
             this.contextMenuStripTimeFinder.Size = new System.Drawing.Size(219, 70);
             // 
@@ -1253,6 +1254,7 @@ namespace RNGReporter
             this.GameCubeTimeFinderToolStripMenuItem.Name = "GameCubeTimeFinderToolStripMenuItem";
             this.GameCubeTimeFinderToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.GameCubeTimeFinderToolStripMenuItem.Text = "GameCube Time Finder";
+            this.GameCubeTimeFinderToolStripMenuItem.Click += new System.EventHandler(this.buttonFindTimeGameCube_Click);
             //
             // toolTipDataGrid
             // 

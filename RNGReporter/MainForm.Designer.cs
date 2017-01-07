@@ -151,6 +151,7 @@ namespace RNGReporter
             this.contextMenuStripTimeFinder = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.FifthGenerationTimeFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FourthGenerationTimeFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GameCubeTimeFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ThirdGenerationTimeFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTipDataGrid = new System.Windows.Forms.ToolTip(this.components);
             this.buttonLead = new System.Windows.Forms.Button();
@@ -1246,7 +1247,13 @@ namespace RNGReporter
             this.ThirdGenerationTimeFinderToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.ThirdGenerationTimeFinderToolStripMenuItem.Text = "3rd Generation Time Finder";
             this.ThirdGenerationTimeFinderToolStripMenuItem.Click += new System.EventHandler(this.buttonFindTime3rdGen_Click);
-            // 
+            //
+            //GameCubeTimeFinderToolStripMenuItem
+            //
+            this.GameCubeTimeFinderToolStripMenuItem.Name = "GameCubeTimeFinderToolStripMenuItem";
+            this.GameCubeTimeFinderToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.GameCubeTimeFinderToolStripMenuItem.Text = "GameCube Time Finder";
+            //
             // toolTipDataGrid
             // 
             this.toolTipDataGrid.AutoPopDelay = 6000;
@@ -2151,6 +2158,7 @@ namespace RNGReporter
         private System.Windows.Forms.ToolStripMenuItem FifthGenerationTimeFinderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem FourthGenerationTimeFinderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ThirdGenerationTimeFinderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem GameCubeTimeFinderToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTipDataGrid;
         private System.Windows.Forms.ToolStripMenuItem showToolTipsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adjacentSeedToolToolStripMenuItem;

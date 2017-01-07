@@ -171,3 +171,4 @@ C:\Users\Admiral\Documents\GitHub\RNGReporter\RNGReporter\obj\Debug\RNGReporter.
 C:\Users\Admiral\Documents\GitHub\RNGReporter\RNGReporter\obj\Debug\RNGReporter.SeedToTime.resources
 C:\Users\Admiral\Documents\GitHub\RNGReporter\RNGReporter\obj\Debug\RNGReporter.SeedToTimeEgg.resources
 C:\Users\Admiral\Documents\GitHub\RNGReporter\RNGReporter\obj\Debug\RNGReporter.csproj.GenerateResource.Cache
+C:\Users\Admiral\Documents\GitHub\RNGReporter\RNGReporter\obj\Debug\RNGReporter.TogamiCalc.resources

@@ -85,6 +85,7 @@ namespace RNGReporter
             this.rdGenToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tIDSIDManipulationPandorasBoxToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.bitSeedToTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.togamiCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.rubyEncounterTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sapphireEncounterTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -654,6 +655,7 @@ namespace RNGReporter
             this.rdGenToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tIDSIDManipulationPandorasBoxToolStripMenuItem2,
             this.bitSeedToTimeToolStripMenuItem,
+            this.togamiCalcToolStripMenuItem,
             this.toolStripSeparator4,
             this.rubyEncounterTableToolStripMenuItem,
             this.sapphireEncounterTableToolStripMenuItem,
@@ -677,6 +679,13 @@ namespace RNGReporter
             this.bitSeedToTimeToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
             this.bitSeedToTimeToolStripMenuItem.Text = "16-Bit Seed to Time";
             this.bitSeedToTimeToolStripMenuItem.Click += new System.EventHandler(this.bitSeedToTimeToolStripMenuItem_Click);
+            // 
+            // togamiCalcToolStripMenuItem
+            // 
+            this.togamiCalcToolStripMenuItem.Name = "togamiCalcToolStripMenuItem";
+            this.togamiCalcToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
+            this.togamiCalcToolStripMenuItem.Text = "TogamiCalc";
+            this.togamiCalcToolStripMenuItem.Click += new System.EventHandler(this.togamiCalcToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
@@ -2190,6 +2199,7 @@ namespace RNGReporter
         private System.Windows.Forms.ToolStripMenuItem unovaLinkParametersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hiddenGrottoEncounterTablesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitSeedToTimeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem togamiCalcToolStripMenuItem;
     }
 }
 

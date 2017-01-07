@@ -77,4 +77,11 @@ namespace RNGReporter.Objects
     {
         public string Time { get; set; }
     }
+
+    internal class RTCTime
+    {
+        public string Time { get; set; }
+
+        public int Frame { get; set; }
+    }
 }

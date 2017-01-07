@@ -3110,5 +3110,11 @@ namespace RNGReporter
             var thirdSeedtoTime = new thirdGenSeedToTime();
             thirdSeedtoTime.Show();
         }
+
+        private void togamiCalcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var togamiCalc = new TogamiCalc();
+            togamiCalc.Show();
+        }
     }
 }

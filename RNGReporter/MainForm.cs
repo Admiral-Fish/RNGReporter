@@ -2461,73 +2461,73 @@ namespace RNGReporter
 
         private void rubyEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterruby.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iii/ruby");
         }
 
         private void sapphireEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encountersapphire.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iii/sapphire");
         }
 
         private void emeraldEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounteremerald.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iii/emerald");
         }
 
         private void fireRedEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterfirered.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iii/fire-red");
         }
 
         private void leafGreenEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterleafgreen.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iii/leaf-green");
         }
 
         private void diamondEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterdiamond.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iv/diamond");
         }
 
         private void pearlEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterpearl.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iv/pearl");
         }
 
         private void platinumEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterplat.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iv/platinum");
         }
 
         private void heartGoldEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterheartgold.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iv/heartgold");
         }
 
         private void soulSilverEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encountersoulsilver.htm");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-iv/soulsilver");
         }
 
         private void blackEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterblack.html");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-v/black");
         }
 
         private void whiteEncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterwhite.html");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-v/white");
         }
 
 
         private void black2EncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterblack2.html");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-v/black-2");
         }
 
         private void white2EncounterTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://eggmove.com/encounterwhite2.html");
+            Process.Start(@"https://sites.google.com/site/pokemonslots/gen-v/white-2");
         }
 
         private void findSeedByIVsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3105,7 +3105,7 @@ namespace RNGReporter
 
         private void hiddenGrottoEncounterTablesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("http://eggmove.com/hollow.htm");
+            Process.Start("https://sites.google.com/site/pokemonslots/gen-v/hidden-grottos");
         }
 
         #region Filter Button Routines

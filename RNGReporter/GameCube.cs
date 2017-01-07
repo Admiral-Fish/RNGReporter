@@ -41,6 +41,14 @@ namespace RNGReporter
             k_dataGridView.AutoGenerateColumns = false;
         }
 
+        private void GameCube_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            if (searchThread != null)
+                searchThread.Abort();
+            Hide();
+        }
+
         private void search_Click(object sender, EventArgs e)
         {
             uint[] ivsLower = { (uint)HPLow.Value, (uint)AtkLow.Value, (uint)DefLow.Value, (uint)SpALow.Value, (uint)SpDLow.Value, (uint)SpeLow.Value };

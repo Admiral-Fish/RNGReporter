@@ -130,10 +130,6 @@ namespace RNGReporter
             cbNature.Items.AddRange(Objects.Nature.NatureDropDownCollectionSearchNatures());
             cbAbility.DataSource = ability;
             comboBoxGenderXD.DataSource = GenderFilter.GenderFilterCollection();
-
-            comboBoxNature.Items.AddRange(Objects.Nature.NatureDropDownCollectionSearchNatures());
-            comboBoxAbility.DataSource = ability;
-            comboBoxGender.DataSource = GenderFilter.GenderFilterCollection();
             
             var everstoneList = new BindingSource {DataSource = Objects.Nature.NatureDropDownCollectionSynch()};
             comboEPIDEverstone.DataSource = everstoneList;
@@ -161,9 +157,6 @@ namespace RNGReporter
             cbSynchNature.SelectedIndex = 0;
             cbNature.SelectedIndex = 0;
 
-            comboBoxNature.SelectedIndex = 0;
-            comboBoxGender.SelectedIndex = 0;
-
             dataGridViewShinyRSResults.AutoGenerateColumns = false;
             shiny3rdPID.DefaultCellStyle.Format = "X8";
 
@@ -188,8 +181,6 @@ namespace RNGReporter
 
             maskedTextBoxShiny3rdSID.Text = Settings.Default.SID;
             maskedTextBoxShiny3rdID.Text = Settings.Default.ID;
-            maskedTextBoxID.Text = Settings.Default.ID;
-            maskedTextBoxSID.Text = Settings.Default.ID;
             textEPIDSID.Text = Settings.Default.SID;
             textEPIDID.Text = Settings.Default.ID;
             txtSID.Text = Settings.Default.SID;
@@ -254,10 +245,6 @@ namespace RNGReporter
                 cbNature.CheckBoxItems[checkBoxIndex].Text =
                     (cbNature.CheckBoxItems[checkBoxIndex].ComboBoxItem).ToString();
                 cbNature.CheckBoxItems[checkBoxIndex].Font = CellStyle.Font;
-
-                comboBoxNature.CheckBoxItems[checkBoxIndex].Text =
-                    (comboBoxNature.CheckBoxItems[checkBoxIndex].ComboBoxItem).ToString();
-                comboBoxNature.CheckBoxItems[checkBoxIndex].Font = CellStyle.Font;
             }
 
             comboBoxShiny3rdNature.CheckBoxItems[0].Checked = true;
@@ -268,9 +255,6 @@ namespace RNGReporter
 
             cbNature.CheckBoxItems[0].Checked = true;
             cbNature.CheckBoxItems[0].Checked = false;
-
-            comboBoxNature.CheckBoxItems[0].Checked = true;
-            comboBoxNature.CheckBoxItems[0].Checked = false;
 
             dataGridViewShinyRSResults.Refresh();
         }
@@ -1508,10 +1492,5 @@ namespace RNGReporter
         private delegate void UpdateGridDelegate(BindingSource bindingSource);
 
         #endregion
-
-        private void glassButton1_Click(object sender, EventArgs e)
-        {
-            comboBoxNature.ClearSelection();
-        }
     }
 }

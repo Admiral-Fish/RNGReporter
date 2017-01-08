@@ -970,9 +970,9 @@
             // 
             this.label4.Location = new System.Drawing.Point(527, 112);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(188, 20);
+            this.label4.Size = new System.Drawing.Size(220, 20);
             this.label4.TabIndex = 273;
-            this.label4.Text = "Gales of Darkness is not currently supported.";
+            this.label4.Text = "Gales of Darkness is not currently supported";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // wshMkr
@@ -1027,7 +1027,6 @@
             // 
             // GameCube
             // 
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 622);
@@ -1090,6 +1089,7 @@
             this.MinimizeBox = false;
             this.Name = "GameCube";
             this.Text = "GameCube RNG";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpeHigh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HPLow)).EndInit();

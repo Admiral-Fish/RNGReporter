@@ -180,6 +180,12 @@
     <Compile Include="Controls\RoundGlossPainter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="JirachiGeneration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JirachiGeneration.Designer.cs">
+      <DependentUpon>JirachiGeneration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Objects\DisplayList.cs" />
     <Compile Include="EntralinkSeedSearch.cs">
       <SubType>Form</SubType>
@@ -500,6 +506,9 @@
     <EmbeddedResource Include="DSParametersIVCheck.resx">
       <DependentUpon>DSParametersIVCheck.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JirachiGeneration.resx">
+      <DependentUpon>JirachiGeneration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProfileEditor.resx">
       <DependentUpon>ProfileEditor.cs</DependentUpon>

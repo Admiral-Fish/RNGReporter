@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace RNGReporter.Objects
 {
@@ -83,5 +84,10 @@ namespace RNGReporter.Objects
         public string Time { get; set; }
 
         public int Frame { get; set; }
+    }
+
+    internal class ProbableGeneration
+    {
+        public String Result { get; set; }
     }
 }

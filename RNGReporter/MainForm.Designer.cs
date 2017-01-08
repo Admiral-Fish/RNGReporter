@@ -33,9 +33,9 @@ namespace RNGReporter
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -213,6 +213,7 @@ namespace RNGReporter
             this.maskedTextBoxMaxFrames = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxMethod = new RNGReporter.GlassComboBox();
             this.checkBoxMemoryLink = new System.Windows.Forms.CheckBox();
+            this.jirachiGenerationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripGrid.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripTimeFinder.SuspendLayout();
@@ -656,6 +657,7 @@ namespace RNGReporter
             this.rdGenToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tIDSIDManipulationPandorasBoxToolStripMenuItem2,
             this.bitSeedToTimeToolStripMenuItem,
+            this.jirachiGenerationToolStripMenuItem,
             this.togamiCalcToolStripMenuItem,
             this.toolStripSeparator4,
             this.rubyEncounterTableToolStripMenuItem,
@@ -1226,7 +1228,7 @@ namespace RNGReporter
             this.ThirdGenerationTimeFinderToolStripMenuItem,
             this.GameCubeTimeFinderToolStripMenuItem});
             this.contextMenuStripTimeFinder.Name = "contextMenuStripTimeFinder";
-            this.contextMenuStripTimeFinder.Size = new System.Drawing.Size(219, 70);
+            this.contextMenuStripTimeFinder.Size = new System.Drawing.Size(219, 92);
             // 
             // FifthGenerationTimeFinderToolStripMenuItem
             // 
@@ -1248,14 +1250,14 @@ namespace RNGReporter
             this.ThirdGenerationTimeFinderToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.ThirdGenerationTimeFinderToolStripMenuItem.Text = "3rd Generation Time Finder";
             this.ThirdGenerationTimeFinderToolStripMenuItem.Click += new System.EventHandler(this.buttonFindTime3rdGen_Click);
-            //
-            //GameCubeTimeFinderToolStripMenuItem
-            //
+            // 
+            // GameCubeTimeFinderToolStripMenuItem
+            // 
             this.GameCubeTimeFinderToolStripMenuItem.Name = "GameCubeTimeFinderToolStripMenuItem";
             this.GameCubeTimeFinderToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.GameCubeTimeFinderToolStripMenuItem.Text = "GameCube Time Finder";
             this.GameCubeTimeFinderToolStripMenuItem.Click += new System.EventHandler(this.buttonFindTimeGameCube_Click);
-            //
+            // 
             // toolTipDataGrid
             // 
             this.toolTipDataGrid.AutoPopDelay = 6000;
@@ -1484,8 +1486,8 @@ namespace RNGReporter
             // comboBoxEncounterSlot
             // 
             this.comboBoxEncounterSlot.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxEncounterSlot.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxEncounterSlot.CheckBoxProperties = checkBoxProperties3;
             this.comboBoxEncounterSlot.DisplayMemberSingleItem = "";
             this.comboBoxEncounterSlot.DropDownHeight = 300;
             this.comboBoxEncounterSlot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1552,8 +1554,8 @@ namespace RNGReporter
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties1;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1716,8 +1718,8 @@ namespace RNGReporter
             // PID
             // 
             this.PID.DataPropertyName = "Pid";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.PID.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.PID.DefaultCellStyle = dataGridViewCellStyle2;
             this.PID.HeaderText = "PID";
             this.PID.Name = "PID";
             this.PID.ReadOnly = true;
@@ -1949,6 +1951,13 @@ namespace RNGReporter
             this.checkBoxMemoryLink.Text = "Memory Link?";
             this.checkBoxMemoryLink.UseVisualStyleBackColor = true;
             this.checkBoxMemoryLink.Visible = false;
+            // 
+            // jirachiGenerationToolStripMenuItem
+            // 
+            this.jirachiGenerationToolStripMenuItem.Name = "jirachiGenerationToolStripMenuItem";
+            this.jirachiGenerationToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
+            this.jirachiGenerationToolStripMenuItem.Text = "Jirachi Generation";
+            this.jirachiGenerationToolStripMenuItem.Click += new System.EventHandler(this.jirachiGenerationToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -2210,6 +2219,7 @@ namespace RNGReporter
         private System.Windows.Forms.ToolStripMenuItem hiddenGrottoEncounterTablesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitSeedToTimeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem togamiCalcToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem jirachiGenerationToolStripMenuItem;
     }
 }
 

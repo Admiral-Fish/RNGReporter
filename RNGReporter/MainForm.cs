@@ -3134,5 +3134,11 @@ namespace RNGReporter
             var togamiCalc = new TogamiCalc();
             togamiCalc.Show();
         }
+
+        private void jirachiGenerationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var jirachi = new JirachiGeneration();
+            jirachi.Show();
+        }
     }
 }

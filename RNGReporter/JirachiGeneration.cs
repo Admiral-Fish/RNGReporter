@@ -71,17 +71,6 @@ namespace RNGReporter
             });
         }
 
-        public string Reverse(string text)
-        {
-            char[] cArray = text.ToCharArray();
-            string reverse = String.Empty;
-            for (int i = cArray.Length - 1; i > -1; i--)
-            {
-                reverse += cArray[i];
-            }
-            return reverse;
-        }
-
         //Credits to amab for this
         private String calcProbable(uint seed)
         {

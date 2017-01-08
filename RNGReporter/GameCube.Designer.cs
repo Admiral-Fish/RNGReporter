@@ -1027,6 +1027,7 @@
             // 
             // GameCube
             // 
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 622);
@@ -1109,6 +1110,7 @@
 
         #endregion
 
+        
         private System.Windows.Forms.DataGridView k_dataGridView;
         private System.Windows.Forms.CheckBox Shiny_Check;
         private System.Windows.Forms.Label L_ball;

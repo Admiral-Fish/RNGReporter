@@ -110,6 +110,7 @@ namespace RNGReporter
                     new ComboBoxItem("Method J", FrameType.MethodJ),
                     new ComboBoxItem("Method K", FrameType.MethodK),
                     new ComboBoxItem("Wondercard IVs", FrameType.WondercardIVs),
+                    new ComboBoxItem("PokeWalker IVs", FrameType.WondercardIVs),
                     new ComboBoxItem("Chained Spreads", FrameType.ChainedShiny)
                 });
 
@@ -860,6 +861,13 @@ namespace RNGReporter
                 maskedTextBoxCapMinOffset.Focus();
                 maskedTextBoxCapMinOffset.SelectAll();
                 return;
+            }
+
+            if (comboBoxMethod.SelectedIndex == 4)
+            {
+                year = 2000;
+                minDelay = 0;
+                maxDelay = 100;
             }
 
             generator = new FrameGenerator

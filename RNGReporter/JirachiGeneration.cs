@@ -50,7 +50,7 @@ namespace RNGReporter
         private void genListOut(uint seed)
         {
             String genlistout = calcProbable(seed);
-            String genlistend = genlistout.Substring(genlistout.Length -7);
+            String genlistend = genlistout.Substring(genlistout.Length - 7);
             int advance = 3;
 
             if (genlistend[0] == '0')
@@ -67,7 +67,7 @@ namespace RNGReporter
             result = result.Replace("|", " | ");
             generation.Add(new ProbableGeneration
             {
-                Result = result
+                Probable = result
             });
         }
 

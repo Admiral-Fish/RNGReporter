@@ -88,6 +88,6 @@ namespace RNGReporter.Objects
 
     internal class ProbableGeneration
     {
-        public String Result { get; set; }
+        public String Probable { get; set; }
     }
 }

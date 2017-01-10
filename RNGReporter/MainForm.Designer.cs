@@ -85,6 +85,7 @@ namespace RNGReporter
             this.rdGenToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tIDSIDManipulationPandorasBoxToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.bitSeedToTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jirachiGenerationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.togamiCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.rubyEncounterTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -213,7 +214,7 @@ namespace RNGReporter
             this.maskedTextBoxMaxFrames = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxMethod = new RNGReporter.GlassComboBox();
             this.checkBoxMemoryLink = new System.Windows.Forms.CheckBox();
-            this.jirachiGenerationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pIDToIVsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripGrid.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripTimeFinder.SuspendLayout();
@@ -658,6 +659,7 @@ namespace RNGReporter
             this.tIDSIDManipulationPandorasBoxToolStripMenuItem2,
             this.bitSeedToTimeToolStripMenuItem,
             this.jirachiGenerationToolStripMenuItem,
+            this.pIDToIVsToolStripMenuItem,
             this.togamiCalcToolStripMenuItem,
             this.toolStripSeparator4,
             this.rubyEncounterTableToolStripMenuItem,
@@ -682,6 +684,13 @@ namespace RNGReporter
             this.bitSeedToTimeToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
             this.bitSeedToTimeToolStripMenuItem.Text = "16-Bit Seed to Time";
             this.bitSeedToTimeToolStripMenuItem.Click += new System.EventHandler(this.bitSeedToTimeToolStripMenuItem_Click);
+            // 
+            // jirachiGenerationToolStripMenuItem
+            // 
+            this.jirachiGenerationToolStripMenuItem.Name = "jirachiGenerationToolStripMenuItem";
+            this.jirachiGenerationToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
+            this.jirachiGenerationToolStripMenuItem.Text = "Jirachi Generation";
+            this.jirachiGenerationToolStripMenuItem.Click += new System.EventHandler(this.jirachiGenerationToolStripMenuItem_Click);
             // 
             // togamiCalcToolStripMenuItem
             // 
@@ -1952,12 +1961,12 @@ namespace RNGReporter
             this.checkBoxMemoryLink.UseVisualStyleBackColor = true;
             this.checkBoxMemoryLink.Visible = false;
             // 
-            // jirachiGenerationToolStripMenuItem
+            // pIDToIVsToolStripMenuItem
             // 
-            this.jirachiGenerationToolStripMenuItem.Name = "jirachiGenerationToolStripMenuItem";
-            this.jirachiGenerationToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
-            this.jirachiGenerationToolStripMenuItem.Text = "Jirachi Generation";
-            this.jirachiGenerationToolStripMenuItem.Click += new System.EventHandler(this.jirachiGenerationToolStripMenuItem_Click);
+            this.pIDToIVsToolStripMenuItem.Name = "pIDToIVsToolStripMenuItem";
+            this.pIDToIVsToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
+            this.pIDToIVsToolStripMenuItem.Text = "PID to IVs";
+            this.pIDToIVsToolStripMenuItem.Click += new System.EventHandler(this.pIDToIVsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -2220,6 +2229,7 @@ namespace RNGReporter
         private System.Windows.Forms.ToolStripMenuItem bitSeedToTimeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem togamiCalcToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem jirachiGenerationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pIDToIVsToolStripMenuItem;
     }
 }
 

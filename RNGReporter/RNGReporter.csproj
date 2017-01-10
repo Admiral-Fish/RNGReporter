@@ -240,6 +240,12 @@
     <Compile Include="Objects\Searchers\Gen3Searcher.cs" />
     <Compile Include="Objects\Searchers\HiddenGrottoSearcher.cs" />
     <Compile Include="Objects\Searchers\Searcher.cs" />
+    <Compile Include="PIDToIVs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PIDToIVs.Designer.cs">
+      <DependentUpon>PIDToIVs.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProfileEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -509,6 +515,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="JirachiGeneration.resx">
       <DependentUpon>JirachiGeneration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PIDToIVs.resx">
+      <DependentUpon>PIDToIVs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProfileEditor.resx">
       <DependentUpon>ProfileEditor.cs</DependentUpon>

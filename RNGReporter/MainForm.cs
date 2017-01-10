@@ -3140,5 +3140,11 @@ namespace RNGReporter
             var jirachi = new JirachiGeneration();
             jirachi.Show();
         }
+
+        private void pIDToIVsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var pidToIVs = new PIDToIVs();
+            pidToIVs.Show();
+        }
     }
 }

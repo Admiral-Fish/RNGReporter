@@ -90,4 +90,11 @@ namespace RNGReporter.Objects
     {
         public String Probable { get; set; }
     }
+
+    internal class PIDIVS
+    {
+        public String Seed { get; set; }
+        public String Method { get; set; }
+        public String IVs { get; set; }
+    }
 }

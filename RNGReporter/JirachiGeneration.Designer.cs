@@ -52,9 +52,9 @@
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label1.Location = new System.Drawing.Point(12, 62);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 13);
+            this.label1.Size = new System.Drawing.Size(114, 13);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Credits to amab for tis";
+            this.label1.Text = "Credits to amab for this";
             // 
             // buttonGenerate
             // 

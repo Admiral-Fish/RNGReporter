@@ -100,6 +100,7 @@
             this.anyGender = new System.Windows.Forms.Button();
             this.anyAbility = new System.Windows.Forms.Button();
             this.anyHiddenPower = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpeHigh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HPLow)).BeginInit();
@@ -1025,11 +1026,21 @@
             this.anyHiddenPower.UseVisualStyleBackColor = true;
             this.anyHiddenPower.Click += new System.EventHandler(this.anyHiddenPower_Click);
             // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(915, 593);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(129, 20);
+            this.label5.TabIndex = 279;
+            this.label5.Text = "Credits to amab and Zari";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // GameCube
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 622);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.anyHiddenPower);
             this.Controls.Add(this.anyAbility);
             this.Controls.Add(this.anyGender);
@@ -1183,6 +1194,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Quarter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Half;
         private System.Windows.Forms.DataGridViewTextBoxColumn Three_Fourths;
+        private System.Windows.Forms.Label label5;
     }
 }
 

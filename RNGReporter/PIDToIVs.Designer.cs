@@ -35,6 +35,7 @@
             this.textBoxSeed = new RNGReporter.Controls.MaskedTextBox2();
             this.label12 = new System.Windows.Forms.Label();
             this.buttonGenerate = new RNGReporter.GlassButton();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,11 +121,22 @@
             this.buttonGenerate.Text = "Generate";
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label1.Location = new System.Drawing.Point(12, 94);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Credits to Kaphotics";
+            // 
             // PIDToIVs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(463, 335);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.textBoxSeed);
@@ -143,5 +155,6 @@
         private Controls.MaskedTextBox2 textBoxSeed;
         private System.Windows.Forms.Label label12;
         private GlassButton buttonGenerate;
+        private System.Windows.Forms.Label label1;
     }
 }

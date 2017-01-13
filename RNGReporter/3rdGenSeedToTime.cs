@@ -100,14 +100,16 @@ namespace RNGReporter
                             addTime = new TimeSpan((int)d, (int)h, (int)m, 0);
                             DateTime finalTime = date + addTime;
                             String result = finalTime.ToString();
-                            seedTime.Add(new SeedtoTime { Time = result});
+                            String seconds = (((int)d * 86400) + ((int)h * 3600) + ((int)m * 60)).ToString();
+                            seedTime.Add(new SeedtoTime { Time = result, Seconds = seconds});
                         }
                         else if (v2 == v)
                         {
                             addTime = new TimeSpan((int)d, (int)h, (int)m, 0);
                             DateTime finalTime = date + addTime;
                             String result = finalTime.ToString();
-                            seedTime.Add(new SeedtoTime { Time = result});
+                            String seconds = (((int)d * 86400)) + ((int)h * 3600) + ((int)m * 60).ToString();
+                            seedTime.Add(new SeedtoTime { Time = result, Seconds = seconds});
                         }
                         m++;
                     }

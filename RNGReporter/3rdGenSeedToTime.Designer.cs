@@ -39,6 +39,7 @@
             this.buttonGenerate = new RNGReporter.GlassButton();
             this.dataGridViewValues = new RNGReporter.DoubleBufferedDataGridView();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seconds = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.seedToTimeSeed = new RNGReporter.Controls.MaskedTextBox2();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).BeginInit();
             this.SuspendLayout();
@@ -110,7 +111,8 @@
             this.dataGridViewValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Time});
+            this.Time,
+            this.Seconds});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -137,7 +139,7 @@
             this.dataGridViewValues.ShowCellToolTips = false;
             this.dataGridViewValues.ShowEditingIcon = false;
             this.dataGridViewValues.ShowRowErrors = false;
-            this.dataGridViewValues.Size = new System.Drawing.Size(200, 258);
+            this.dataGridViewValues.Size = new System.Drawing.Size(199, 258);
             this.dataGridViewValues.TabIndex = 45;
             // 
             // Time
@@ -149,6 +151,13 @@
             this.Time.Name = "Time";
             this.Time.ReadOnly = true;
             this.Time.Width = 123;
+            // 
+            // Seconds
+            // 
+            this.Seconds.DataPropertyName = "Seconds";
+            this.Seconds.HeaderText = "Seconds";
+            this.Seconds.Name = "Seconds";
+            this.Seconds.ReadOnly = true;
             // 
             // seedToTimeSeed
             // 
@@ -163,7 +172,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(224, 388);
+            this.ClientSize = new System.Drawing.Size(223, 388);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label43);
@@ -188,8 +197,9 @@
         private DoubleBufferedDataGridView dataGridViewValues;
         private GlassButton buttonGenerate;
         private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Seconds;
     }
 }

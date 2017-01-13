@@ -77,6 +77,8 @@ namespace RNGReporter.Objects
     internal class SeedtoTime
     {
         public string Time { get; set; }
+
+        public string Seconds { get; set; }
     }
 
     internal class RTCTime

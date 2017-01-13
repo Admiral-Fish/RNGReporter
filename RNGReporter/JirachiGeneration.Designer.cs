@@ -127,7 +127,6 @@
         private Controls.MaskedTextBox2 textBoxSeed;
         private System.Windows.Forms.Label label12;
         private DoubleBufferedDataGridView dataGridViewValues;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Generation;
         private GlassButton buttonGenerate;
         private System.Windows.Forms.Label label1;
     }

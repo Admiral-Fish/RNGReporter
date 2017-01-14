@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RNGReporter.Objects;
+using System.Globalization;
 
 namespace RNGReporter.Objects
 {
@@ -59,7 +60,7 @@ namespace RNGReporter.Objects
             shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
 
             uint seed = 0;
-            uint.TryParse(textBoxSeed.Text, out seed);
+            seed = uint.Parse(textBoxSeed.Text, NumberStyles.HexNumber);
             uint frame = 3000000;
             uint.TryParse(maxFrame.Text, out frame);
             uint nature = (uint)natureType.SelectedIndex;
@@ -93,7 +94,7 @@ namespace RNGReporter.Objects
 
         private void filterPokeSpot(uint seed, uint frame, uint nature, uint gender, uint ability, uint type, bool shinyCheck)
         {
-            uint rng3 = forward(forward(forward(seed)));
+            uint rng3 = forward(forward(forward(forward(seed))));
             uint rng4 = forward(rng3);
             uint pid = ((rng3 >> 16) << 16) + (rng4 >> 16);
 
@@ -186,12 +187,15 @@ namespace RNGReporter.Objects
         private void calcPokeSpot(uint seed, uint pid, uint frame, uint nature, uint gender, uint ability, uint type, String shiny)
         {
             uint call1 = forward(seed);
+            call1 >>= 16;
 
             if (call1 % 3 == 0)
             {
                 String spotType = "";
-                uint call2 = forward(call1);
+                uint call2 = forward(forward(seed));
                 uint call3 = forward(call2);
+                call2 >>= 16;
+                call3 >>= 16;
 
                 if (shiny == "")
                 {
@@ -200,27 +204,27 @@ namespace RNGReporter.Objects
                         shiny = "!!!";
                 }
 
-                if (frame != 0)
+                if (type != 0)
                 {
-                    if (frame == 1)
+                    if (type == 1)
                     {
                         if (call3 % 100 > 49)
                             return;
                         spotType = "Common";
                     }
-                    else if (frame == 2)
+                    else if (type == 2)
                     {
                         if (call3 % 100 < 50 && call3 % 100 > 84)
                             return;
                         spotType = "Uncommon";
                     }
-                    else if (frame == 3)
+                    else if (type == 3)
                     {
                         if (call3 % 100 < 85)
                             return;
                         spotType = "Rare";
                     }
-                    else if (frame == 4)
+                    else if (type == 4)
                     {
                         if (call2 % 100 > 9)
                             return;

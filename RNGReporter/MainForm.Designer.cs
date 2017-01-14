@@ -33,9 +33,9 @@ namespace RNGReporter
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -88,6 +88,7 @@ namespace RNGReporter
             this.jirachiGenerationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pIDToIVsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.togamiCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pokespotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.rubyEncounterTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sapphireEncounterTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -215,7 +216,6 @@ namespace RNGReporter
             this.maskedTextBoxMaxFrames = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxMethod = new RNGReporter.GlassComboBox();
             this.checkBoxMemoryLink = new System.Windows.Forms.CheckBox();
-            this.pokespotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripGrid.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripTimeFinder.SuspendLayout();
@@ -707,6 +707,13 @@ namespace RNGReporter
             this.togamiCalcToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
             this.togamiCalcToolStripMenuItem.Text = "TogamiCalc";
             this.togamiCalcToolStripMenuItem.Click += new System.EventHandler(this.togamiCalcToolStripMenuItem_Click);
+            // 
+            // pokespotToolStripMenuItem
+            // 
+            this.pokespotToolStripMenuItem.Name = "pokespotToolStripMenuItem";
+            this.pokespotToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
+            this.pokespotToolStripMenuItem.Text = "Pokespot";
+            this.pokespotToolStripMenuItem.Click += new System.EventHandler(this.pokespotToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
@@ -1504,8 +1511,8 @@ namespace RNGReporter
             // comboBoxEncounterSlot
             // 
             this.comboBoxEncounterSlot.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxEncounterSlot.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxEncounterSlot.CheckBoxProperties = checkBoxProperties3;
             this.comboBoxEncounterSlot.DisplayMemberSingleItem = "";
             this.comboBoxEncounterSlot.DropDownHeight = 300;
             this.comboBoxEncounterSlot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1572,8 +1579,8 @@ namespace RNGReporter
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties1;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1736,8 +1743,8 @@ namespace RNGReporter
             // PID
             // 
             this.PID.DataPropertyName = "Pid";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.PID.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.PID.DefaultCellStyle = dataGridViewCellStyle2;
             this.PID.HeaderText = "PID";
             this.PID.Name = "PID";
             this.PID.ReadOnly = true;
@@ -1970,13 +1977,6 @@ namespace RNGReporter
             this.checkBoxMemoryLink.UseVisualStyleBackColor = true;
             this.checkBoxMemoryLink.Visible = false;
             // 
-            // pokespotToolStripMenuItem
-            // 
-            this.pokespotToolStripMenuItem.Name = "pokespotToolStripMenuItem";
-            this.pokespotToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
-            this.pokespotToolStripMenuItem.Text = "Pokespot";
-            this.pokespotToolStripMenuItem.Click += new System.EventHandler(this.pokespotToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2045,7 +2045,7 @@ namespace RNGReporter
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = " RNG Reporter 10.0 BETA";
+            this.Text = " RNG Reporter 10.1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.contextMenuStripGrid.ResumeLayout(false);

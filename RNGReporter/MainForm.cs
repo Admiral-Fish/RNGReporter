@@ -3146,5 +3146,17 @@ namespace RNGReporter
             var pidToIVs = new PIDToIVs();
             pidToIVs.Show();
         }
+
+        private void pokespotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int id;
+            int sid;
+
+            int.TryParse(maskedTextBoxID.Text, out id);
+            int.TryParse(maskedTextBoxSID.Text, out sid);
+
+            var pokespot = new PokeSpot(id, sid);
+            pokespot.Show();
+        }
     }
 }

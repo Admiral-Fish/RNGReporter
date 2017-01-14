@@ -39,4 +39,29 @@ namespace RNGReporter
         public char Three_Fourths { get; set; }
     }
 
+    internal class PokeSpotDisplay
+    {
+        public String Seed { get; set; }
+        
+        public int Frame { get; set; }
+
+        public String PID { get; set; }
+
+        public String Shiny { get; set; }
+
+        public String Type { get; set; }
+
+        public String Nature { get; set; }
+
+        public int Ability { get; set; }
+
+        public char Eighth { get; set; }
+
+        public char Quarter { get; set; }
+
+        public char Half { get; set; }
+
+        public char Three_Fourths { get; set; }
+    }
+
 }

@@ -235,6 +235,12 @@
     <Compile Include="Objects\Generators\HiddenGrottoGenerator.cs" />
     <Compile Include="Objects\IVFilter.cs" />
     <Compile Include="Objects\Nazos.cs" />
+    <Compile Include="PokeSpot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PokeSpot.Designer.cs">
+      <DependentUpon>PokeSpot.cs</DependentUpon>
+    </Compile>
     <Compile Include="Objects\ResearcherProfile.cs" />
     <Compile Include="Objects\Searchers\DreamRadarSearcher.cs" />
     <Compile Include="Objects\Searchers\Gen3Searcher.cs" />
@@ -515,6 +521,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="JirachiGeneration.resx">
       <DependentUpon>JirachiGeneration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PokeSpot.resx">
+      <DependentUpon>PokeSpot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PIDToIVs.resx">
       <DependentUpon>PIDToIVs.cs</DependentUpon>

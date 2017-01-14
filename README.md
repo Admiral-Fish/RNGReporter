@@ -25,3 +25,5 @@ Box Time Finder
 Wshmkr Time Finder
 
 PID to IVs
+
+Pokespot RNG

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label12 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,6 +39,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.searchText = new System.Windows.Forms.Label();
+            this.cancel = new RNGReporter.GlassButton();
             this.buttonSearch = new RNGReporter.GlassButton();
             this.dataGridViewValues = new RNGReporter.DoubleBufferedDataGridView();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +48,6 @@
             this.minFrame = new RNGReporter.Controls.MaskedTextBox2();
             this.targetSeed = new RNGReporter.Controls.MaskedTextBox2();
             this.initialSeed = new RNGReporter.Controls.MaskedTextBox2();
-            this.cancel = new RNGReporter.GlassButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).BeginInit();
             this.SuspendLayout();
             // 
@@ -103,6 +103,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label5.Location = new System.Drawing.Point(241, 337);
@@ -113,13 +114,30 @@
             // 
             // searchText
             // 
+            this.searchText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.searchText.AutoSize = true;
+            this.searchText.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.searchText.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.searchText.Location = new System.Drawing.Point(12, 337);
             this.searchText.Name = "searchText";
             this.searchText.Size = new System.Drawing.Size(96, 13);
             this.searchText.TabIndex = 49;
             this.searchText.Text = "Awaiting command";
+            this.searchText.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // cancel
+            // 
+            this.cancel.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.cancel.ForeColor = System.Drawing.Color.Black;
+            this.cancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.cancel.Location = new System.Drawing.Point(355, 138);
+            this.cancel.Name = "cancel";
+            this.cancel.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.cancel.ShineColor = System.Drawing.SystemColors.Window;
+            this.cancel.Size = new System.Drawing.Size(52, 23);
+            this.cancel.TabIndex = 50;
+            this.cancel.Text = "Cancel";
+            this.cancel.Click += new System.EventHandler(this.cancel_Click);
             // 
             // buttonSearch
             // 
@@ -143,38 +161,38 @@
             this.dataGridViewValues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Time,
             this.Frame});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewValues.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewValues.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewValues.Location = new System.Drawing.Point(15, 167);
             this.dataGridViewValues.MultiSelect = false;
             this.dataGridViewValues.Name = "dataGridViewValues";
             this.dataGridViewValues.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewValues.RowHeadersVisible = false;
             this.dataGridViewValues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewValues.ShowCellErrors = false;
@@ -187,8 +205,8 @@
             // Time
             // 
             this.Time.DataPropertyName = "Time";
-            dataGridViewCellStyle6.Format = "X";
-            this.Time.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Format = "X";
+            this.Time.DefaultCellStyle = dataGridViewCellStyle2;
             this.Time.HeaderText = "Time";
             this.Time.Name = "Time";
             this.Time.ReadOnly = true;
@@ -209,6 +227,7 @@
             this.maxFrame.Name = "maxFrame";
             this.maxFrame.Size = new System.Drawing.Size(51, 20);
             this.maxFrame.TabIndex = 25;
+            this.maxFrame.Text = "1000000";
             this.maxFrame.ValidatingType = typeof(int);
             // 
             // minFrame
@@ -219,6 +238,7 @@
             this.minFrame.Name = "minFrame";
             this.minFrame.Size = new System.Drawing.Size(51, 20);
             this.minFrame.TabIndex = 24;
+            this.minFrame.Text = "500000";
             this.minFrame.ValidatingType = typeof(int);
             // 
             // targetSeed
@@ -239,20 +259,6 @@
             this.initialSeed.Size = new System.Drawing.Size(96, 20);
             this.initialSeed.TabIndex = 8;
             // 
-            // cancel
-            // 
-            this.cancel.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.cancel.ForeColor = System.Drawing.Color.Black;
-            this.cancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cancel.Location = new System.Drawing.Point(355, 138);
-            this.cancel.Name = "cancel";
-            this.cancel.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.cancel.ShineColor = System.Drawing.SystemColors.Window;
-            this.cancel.Size = new System.Drawing.Size(52, 23);
-            this.cancel.TabIndex = 50;
-            this.cancel.Text = "Cancel";
-            this.cancel.Click += new System.EventHandler(this.cancel_Click);
-            // 
             // TogamiCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,9 +278,9 @@
             this.Controls.Add(this.minFrame);
             this.Controls.Add(this.targetSeed);
             this.Controls.Add(this.initialSeed);
-            this.MaximizeBox = false;
             this.Name = "TogamiCalc";
             this.Text = "TogamiCalc";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TogamiCalc_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

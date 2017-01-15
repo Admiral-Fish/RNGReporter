@@ -45,7 +45,10 @@ namespace RNGReporter
         {
             e.Cancel = true;
             if (searchThread != null)
+            {
                 searchThread.Abort();
+                status.Text = "Cancelled. - Awaiting Command";
+            }
             Hide();
         }
 
@@ -128,10 +131,10 @@ namespace RNGReporter
         {
             isSearching = true;
             uint nature = getNature();
-            if (nature != 0)
-            {
+            if (nature == 0)
+                nature = 100;
+            else
                 nature = natures[nature];
-            }
             uint ability = getAbility();
             uint gender = getGender();
             uint hp = getHP();
@@ -201,7 +204,7 @@ namespace RNGReporter
             if (test_hp == hp && test_atk == atk && test_def == def)
             {
 
-                if (nature == 0)
+                if (nature == 100)
                 {
                     ret = true;
                 }
@@ -222,7 +225,8 @@ namespace RNGReporter
         private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint rng1XD, uint rng3XD, uint rng4XD, uint seed)
         {
             uint pid = (rng3XD << 16) | rng4XD;
-            nature = pid % 25;
+            if (nature == 100)
+                nature = pid % 25;
 
             String shiny = "";
             if (Shiny_Check.Checked == true)
@@ -325,7 +329,9 @@ namespace RNGReporter
             uint srange = 1048576;
             isSearching = true;
 
-            if (nature != 0)
+            if (nature == 0)
+                nature = 100;
+            else
                 nature = natures[nature];
 
             uint ability = getAbility();
@@ -344,12 +350,12 @@ namespace RNGReporter
                         {
                             uint pid = pidChk(n, 0);
                             uint actualNature = pid % 25;
-                            if (nature == 0 || nature == actualNature)
+                            if (nature == 100 || nature == actualNature)
                                 filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, slist[(int)n], pid);
 
                             pid = pidChk(n, 1);
                             actualNature = pid % 25;
-                            if (nature == 0 || nature == actualNature)
+                            if (nature == 100 || nature == actualNature)
                                 filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, (slist[(int)n] ^ 0x80000000), pid);
                         }
                     }
@@ -548,7 +554,9 @@ namespace RNGReporter
             uint srange = 1048576;
             isSearching = true;
 
-            if (nature != 0)
+            if (nature == 0)
+                nature = 100;
+            else
                 nature = natures[nature];
 
             uint ability = getAbility();
@@ -736,10 +744,10 @@ namespace RNGReporter
         {
             isSearching = true;
             uint nature = getNature();
-            if (nature != 0)
-            {
+            if (nature == 0)
+                nature = 100;
+            else
                 nature = natures[nature];
-            }
             uint ability = getAbility();
             uint gender = getGender();
             uint hp = getHP();
@@ -807,7 +815,8 @@ namespace RNGReporter
                 return;
 
             uint pid = (rng3XD << 16) | rng4XD;
-            nature = pid % 25;
+            if (nature == 100)
+                nature = pid % 25;
 
             String shiny = "";
             if (Shiny_Check.Checked == true)
@@ -909,7 +918,9 @@ namespace RNGReporter
             uint srange = 1048576;
             isSearching = true;
 
-            if (nature != 0)
+            if (nature == 0)
+                nature = 100;
+            else
                 nature = natures[nature];
 
             uint ability = getAbility();
@@ -928,7 +939,7 @@ namespace RNGReporter
                         {
                             uint pid = pidChkR(n, 0);
                             uint actualNature = pid % 25;
-                            if (nature == 0 || nature == actualNature)
+                            if (nature == 100 || nature == actualNature)
                                 if (wshMkr.Checked == true)
                                     filterSeed2Wsh(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, slist[(int)(n)], pid);
                                 else
@@ -936,7 +947,7 @@ namespace RNGReporter
 
                             pid = pidChkR(n, 1);
                             actualNature = pid % 25;
-                            if (nature == 0 || nature == actualNature)
+                            if (nature == 100 || nature == actualNature)
                                 if (wshMkr.Checked == true)
                                     filterSeed2Wsh(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, (slist[(int)(n)] ^ 0x80000000), pid);
                                 else

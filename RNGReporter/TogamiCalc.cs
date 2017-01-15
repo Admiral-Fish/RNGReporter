@@ -23,12 +23,21 @@ namespace RNGReporter
         DateTime date = new DateTime(2000, 1, 1, 0, 0, 0);
         TimeSpan addTime;
         private bool isSearching = false;
+        private bool abort = false;
 
         public TogamiCalc()
         {
             InitializeComponent();
             dataGridViewValues.DataSource = binding;
             dataGridViewValues.AutoGenerateColumns = false;
+            abort = false;
+        }
+
+        private void TogamiCalc_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (searchThread != null)
+                searchThread.Abort();
+            abort = true;
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -52,6 +61,12 @@ namespace RNGReporter
             if (!testPRNG)
             {
                 MessageBox.Show("Please enter your seed in proper hex format.");
+                return;
+            }
+
+            if (initial == target)
+            {
+                MessageBox.Show("Initial and target seed are the same. Please change one of them.");
                 return;
             }
 
@@ -164,8 +179,11 @@ namespace RNGReporter
             }
             finally
             {
-                Invoke(gridUpdate);
-                Invoke(resizeGrid);
+                if (!abort)
+                {
+                    Invoke(gridUpdate);
+                    Invoke(resizeGrid);
+                }
             }
         }
 

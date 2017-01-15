@@ -43,9 +43,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.k_dataGridView = new System.Windows.Forms.DataGridView();
-            this.anyPokeSpot = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.pokeSpotType = new System.Windows.Forms.ComboBox();
             this.Seed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Frame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +54,9 @@
             this.Quarter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Half = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Three_Fourths = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.anyPokeSpot = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pokeSpotType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cancel = new System.Windows.Forms.Button();
             this.search = new System.Windows.Forms.Button();
@@ -271,40 +271,6 @@
             this.k_dataGridView.Size = new System.Drawing.Size(780, 187);
             this.k_dataGridView.TabIndex = 292;
             // 
-            // anyPokeSpot
-            // 
-            this.anyPokeSpot.Location = new System.Drawing.Point(294, 142);
-            this.anyPokeSpot.Name = "anyPokeSpot";
-            this.anyPokeSpot.Size = new System.Drawing.Size(36, 21);
-            this.anyPokeSpot.TabIndex = 295;
-            this.anyPokeSpot.Text = "Any";
-            this.anyPokeSpot.UseVisualStyleBackColor = true;
-            this.anyPokeSpot.Click += new System.EventHandler(this.anyPokeSpot_Click);
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(16, 142);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 20);
-            this.label3.TabIndex = 294;
-            this.label3.Text = "PokeSpot Type";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // pokeSpotType
-            // 
-            this.pokeSpotType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.pokeSpotType.FormattingEnabled = true;
-            this.pokeSpotType.Items.AddRange(new object[] {
-            "Any",
-            "Common",
-            "Uncommon",
-            "Rare",
-            "Munchlax Only"});
-            this.pokeSpotType.Location = new System.Drawing.Point(100, 142);
-            this.pokeSpotType.Name = "pokeSpotType";
-            this.pokeSpotType.Size = new System.Drawing.Size(188, 21);
-            this.pokeSpotType.TabIndex = 293;
-            // 
             // Seed
             // 
             this.Seed.DataPropertyName = "Seed";
@@ -393,6 +359,40 @@
             this.Three_Fourths.ReadOnly = true;
             this.Three_Fourths.Width = 61;
             // 
+            // anyPokeSpot
+            // 
+            this.anyPokeSpot.Location = new System.Drawing.Point(294, 142);
+            this.anyPokeSpot.Name = "anyPokeSpot";
+            this.anyPokeSpot.Size = new System.Drawing.Size(36, 21);
+            this.anyPokeSpot.TabIndex = 295;
+            this.anyPokeSpot.Text = "Any";
+            this.anyPokeSpot.UseVisualStyleBackColor = true;
+            this.anyPokeSpot.Click += new System.EventHandler(this.anyPokeSpot_Click);
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(16, 142);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 20);
+            this.label3.TabIndex = 294;
+            this.label3.Text = "PokeSpot Type";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pokeSpotType
+            // 
+            this.pokeSpotType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.pokeSpotType.FormattingEnabled = true;
+            this.pokeSpotType.Items.AddRange(new object[] {
+            "Any",
+            "Common",
+            "Uncommon",
+            "Rare",
+            "Munchlax Only"});
+            this.pokeSpotType.Location = new System.Drawing.Point(100, 142);
+            this.pokeSpotType.Name = "pokeSpotType";
+            this.pokeSpotType.Size = new System.Drawing.Size(188, 21);
+            this.pokeSpotType.TabIndex = 293;
+            // 
             // label4
             // 
             this.label4.Location = new System.Drawing.Point(9, 362);
@@ -424,6 +424,7 @@
             // 
             // status
             // 
+            this.status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.status.Location = new System.Drawing.Point(9, 577);
             this.status.Name = "status";
             this.status.Size = new System.Drawing.Size(279, 20);
@@ -472,6 +473,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PokeSpot_FormClosing);
             this.ClientSize = new System.Drawing.Size(804, 606);
             this.Controls.Add(this.textBoxSeed);
             this.Controls.Add(this.label6);
@@ -499,7 +501,6 @@
             this.Controls.Add(this.L_sex);
             this.Controls.Add(this.L_ability);
             this.Controls.Add(this.abilityType);
-            this.MaximizeBox = false;
             this.Name = "PokeSpot";
             this.Text = "PokeSpot";
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).EndInit();

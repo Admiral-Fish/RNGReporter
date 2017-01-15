@@ -24,6 +24,8 @@ namespace RNGReporter.Objects
         private BindingSource binding = new BindingSource();
         private bool isSearching = false;
         private uint shinyval;
+        private bool abort = false;
+        private bool natureAny = false;
 
         public PokeSpot()
         {
@@ -41,6 +43,14 @@ namespace RNGReporter.Objects
             sid.Text = SID.ToString();
             k_dataGridView.DataSource = binding;
             k_dataGridView.AutoGenerateColumns = false;
+            abort = false;
+        }
+
+        private void PokeSpot_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (searchThread != null)
+                searchThread.Abort();
+            abort = true;
         }
 
         private void search_Click(object sender, EventArgs e)
@@ -60,10 +70,12 @@ namespace RNGReporter.Objects
             shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
 
             uint seed = 0;
-            seed = uint.Parse(textBoxSeed.Text, NumberStyles.HexNumber);
+            uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out seed);
             uint frame = 3000000;
             uint.TryParse(maxFrame.Text, out frame);
             uint nature = (uint)natureType.SelectedIndex;
+            if (nature == 0)
+                natureAny = true;
             if (nature != 0)
                 nature = natures[nature];
             uint gender = (uint)genderType.SelectedIndex;
@@ -90,6 +102,7 @@ namespace RNGReporter.Objects
             }
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+            natureAny = false;
         }
 
         private void filterPokeSpot(uint seed, uint frame, uint nature, uint gender, uint ability, uint type, bool shinyCheck)
@@ -98,11 +111,12 @@ namespace RNGReporter.Objects
             uint rng4 = forward(rng3);
             uint pid = ((rng3 >> 16) << 16) + (rng4 >> 16);
 
-            if (nature != 0)
+            if (!natureAny)
             {
                 if ((pid % 25) != nature)
                     return;
             }
+            nature = pid % 25;
 
             String shiny = "";
             if (shinyCheck)
@@ -333,8 +347,11 @@ namespace RNGReporter.Objects
             }
             finally
             {
-                Invoke(gridUpdate);
-                Invoke(resizeGrid);
+                if (!abort)
+                {
+                    Invoke(gridUpdate);
+                    Invoke(resizeGrid);
+                }
             }
         }
 

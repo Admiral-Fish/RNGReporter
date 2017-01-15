@@ -823,6 +823,7 @@
             // 
             // status
             // 
+            this.status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.status.Location = new System.Drawing.Point(12, 593);
             this.status.Name = "status";
             this.status.Size = new System.Drawing.Size(305, 20);
@@ -1028,6 +1029,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.Location = new System.Drawing.Point(915, 593);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(129, 20);
@@ -1096,8 +1098,6 @@
             this.Controls.Add(this.abilityType);
             this.Controls.Add(this.search);
             this.Controls.Add(this.k_dataGridView);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "GameCube";
             this.Text = "GameCube RNG";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);

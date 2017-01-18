@@ -230,6 +230,7 @@ namespace RNGReporter.Objects
                 Spa = ((uint) dv2 & 0x3E0) >> 5;
                 Spd = ((uint) dv2 & 0x7C00) >> 10;
 
+
                 //  Calculate the inheretence for this frame
                 if (FrameType == FrameType.Bred ||
                     FrameType == FrameType.BredSplit ||
@@ -833,6 +834,56 @@ namespace RNGReporter.Objects
                     Dv = (dv2 << 16) + dv1
                 };
 
+
+            //  Set up the ID and SID before we calculate 
+            //  the pid, as we are going to need this.
+
+
+            return frame;
+        }
+
+        //for Channel Method
+        public static Frame GenerateChannel(
+            uint seed,
+            FrameType frameType,
+            uint number,
+            uint rngResult,
+            uint pid1,
+            uint pid2,
+            uint dv1,
+            uint dv2,
+            uint dv3,
+            uint dv4,
+            uint dv5,
+            uint dv6,
+            uint id,
+            uint sid)
+        {
+            pid1 += 0x80000000;
+            if (pid1 > 0xFFFFFFFF)
+                pid1 &= 0xFFFFFFFF;
+
+            var frame = new Frame(frameType)
+            {
+
+                seed = seed,
+                number = number,
+                RngResult = rngResult,
+            };
+
+            uint monPID = ((pid1 >> 16) << 16) + pid2;
+
+            frame.id = id;
+            frame.sid = sid;
+            frame.pid = monPID;
+            frame.Hp = dv1;
+            frame.Atk = dv2;
+            frame.Def = dv3;
+            frame.Spa = dv4;
+            frame.Spd = dv5;
+            frame.Spe = dv6;
+            frame.Nature = (monPID % 25);
+            frame.ability = monPID & 1;
 
             //  Set up the ID and SID before we calculate 
             //  the pid, as we are going to need this.

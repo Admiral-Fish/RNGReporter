@@ -62,7 +62,6 @@ namespace RNGReporter
         private String calcProbable(uint seed)
         {
             uint m = 0;
-            List<uint> ms = new List<uint>();
             String genlistout = (seed >> 30).ToString();
             uint f = seed >> 30;
             uint[] checker = { 0, 0, 0, 0 };
@@ -76,28 +75,12 @@ namespace RNGReporter
                 backseed = reverse(backseed);
                 genlistout = (backseed >> 30).ToString() + "|" + genlistout;
 
-                if (m == advance - 1)
+                if (m == (advance - 1))
                 {
                     f = backseed >> 30;
-                    ms.Clear();
-                    for (int x = 0; x < 4; x++)
-                        checker[x] = 0;
                     genlistout = " M: " + genlistout;
                 }
 
-                uint g = backseed >> 30;
-                
-                if (g != 0)
-                {
-                    if (checker[g] != 1)
-                        checker[g] = 1;
-                }
-                if (checker == compare)
-                {
-                    for (int x = 0; x < 4; x++)
-                        checker[x] = 0;
-                    ms.Add(m);
-                }
                 m += 1;
             }
 
@@ -122,8 +105,6 @@ namespace RNGReporter
             String string2Search = genlistout.Substring(0, index);
             genlistend = genlistout.Substring(index);
             string2Search = flip(string2Search);
-            for (int x = 0; x < 4; x++)
-                checker[x] = 0;
             checker[int.Parse(targetNum.ToString())] = 1;
             for (int x = 0; x < string2Search.Length; x++)
             {
@@ -133,7 +114,7 @@ namespace RNGReporter
                     {
                         if (string2Search[x] == targetNum)
                         {
-                            if (checker != compare)
+                            if (checker[0] == 1 || checker[1] == 0 || checker[2] == 0 || checker[3] == 0)
                             {
                                 string2Search = string2Search.Substring(0, x) + "XXX" + string2Search.Substring(x);
                                 xCheck = true;

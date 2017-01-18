@@ -47,6 +47,7 @@ namespace RNGReporter.Objects
         Wondercard5thGen,
         Wondercard5thGenFixed,
         ColoXD,
+        Channel,
         RSBredLower,
         RSBredUpper,
         RSBredUpperSplit,

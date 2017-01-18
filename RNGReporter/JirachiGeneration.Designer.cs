@@ -101,7 +101,7 @@
             this.textBoxSeed.Location = new System.Drawing.Point(12, 25);
             this.textBoxSeed.Mask = "AAAAAAAA";
             this.textBoxSeed.Name = "textBoxSeed";
-            this.textBoxSeed.Size = new System.Drawing.Size(57, 20);
+            this.textBoxSeed.Size = new System.Drawing.Size(68, 20);
             this.textBoxSeed.TabIndex = 8;
             // 
             // JirachiGeneration

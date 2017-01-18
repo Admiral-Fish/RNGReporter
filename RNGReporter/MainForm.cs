@@ -105,7 +105,8 @@ namespace RNGReporter
                     new ComboBoxItem("Wondercard (5th Gen)", FrameType.Wondercard5thGen),
                     new ComboBoxItem("GLAN Wondercard (5th Gen)",
                                      FrameType.Wondercard5thGenFixed),
-                    new ComboBoxItem("Colosseum\\XD", FrameType.ColoXD)
+                    new ComboBoxItem("Colosseum\\XD", FrameType.ColoXD),
+                    new ComboBoxItem("Channel", FrameType.Channel)
                 });
 
             cuteCharm = new[]
@@ -542,6 +543,7 @@ namespace RNGReporter
                      generator.FrameType == FrameType.Method4 ||
                      generator.FrameType == FrameType.ChainedShiny ||
                      generator.FrameType == FrameType.ColoXD ||
+                     generator.FrameType == FrameType.Channel ||
                      generator.FrameType == FrameType.WondercardIVs)
             {
                 frameCompare = new FrameCompare(
@@ -1317,7 +1319,8 @@ namespace RNGReporter
             if (generator.FrameType == FrameType.Method2 ||
                 generator.FrameType == FrameType.Method3 ||
                 generator.FrameType == FrameType.Method4 ||
-                generator.FrameType == FrameType.ColoXD)
+                generator.FrameType == FrameType.ColoXD ||
+                generator.FrameType == FrameType.Channel)
             {
                 //  Show ALL columns
                 Frame.Visible = true;
@@ -1326,7 +1329,7 @@ namespace RNGReporter
                 ItemCalc.Visible = false;
                 PID.Visible = true;
 
-                if (generator.FrameType != FrameType.ColoXD)
+                if (generator.FrameType != FrameType.ColoXD && generator.FrameType != FrameType.Channel)
                 {
                     Time.Visible = true;
                     Time.DataPropertyName = "Time";

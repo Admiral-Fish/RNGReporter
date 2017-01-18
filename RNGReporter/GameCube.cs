@@ -570,18 +570,22 @@ namespace RNGReporter
                     populate(s, srange);
                     for (uint n = 0; n < srange; n++)
                     {
-                        uint[] ivs = calcIVsChannel(ivsLower, ivsUpper, n);
+                        uint[] ivs = calcIVsChannel(ivsLower, ivsUpper, n, 0);
                         if (ivs.Length != 1)
                         {
                             uint pid = pidChkChannel(n, 0);
                             uint actualNature = pid % 25;
-                            if (nature == 0 || nature == actualNature)
+                            if (nature == 100 || nature == actualNature)
                                 filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, slist[(int)n], pid);
 
-                            pid = pidChkChannel(n, 1);
-                            actualNature = pid % 25;
-                            if (nature == 0 || nature == actualNature)
-                                filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, (slist[(int)n] ^ 0x80000000), pid);
+                            ivs = calcIVsChannel(ivsLower, ivsUpper, n, 1);
+                            if (ivs.Length != 1)
+                            {
+                                pid = pidChkChannel(n, 1);
+                                actualNature = pid % 25;
+                                if (nature == 100 || nature == actualNature)
+                                    filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, (slist[(int)n] ^ 0x80000000), pid);
+                            }
                         }
                     }
                     s = slist[(int)srange];
@@ -593,11 +597,20 @@ namespace RNGReporter
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
-        private uint[] calcIVsChannel(uint[] ivsLower, uint[] ivsUpper, uint frame)
+        private uint[] calcIVsChannel(uint[] ivsLower, uint[] ivsUpper, uint frame, uint xorvalue)
         {
             uint[] ivs;
-            uint[] iv = { rlist[(int)(frame + 7)], rlist[(int)(frame + 8)], rlist[(int)(frame + 9)], rlist[(int)(frame + 11)], rlist[(int)(frame + 12)], rlist[(int)(frame + 10)] };
-            ivs = createIVsChannel(iv, ivsLower, ivsUpper);
+            if (xorvalue == 0)
+            {
+                uint[] iv = { rlist[(int)(frame + 7)], rlist[(int)(frame + 8)], rlist[(int)(frame + 9)], rlist[(int)(frame + 11)], rlist[(int)(frame + 12)], rlist[(int)(frame + 10)] };
+                ivs = createIVsChannel(iv, ivsLower, ivsUpper);
+            }
+            else
+            {
+                uint[] iv = { rlist[(int)(frame + 7)] ^ 0x8000, rlist[(int)(frame + 8)] ^ 0x8000, rlist[(int)(frame + 9)] ^ 0x8000, rlist[(int)(frame + 11)] ^ 0x8000, rlist[(int)(frame + 12)] ^ 0x8000, rlist[(int)(frame + 10)] ^ 0x8000 };
+                ivs = createIVsChannel(iv, ivsLower, ivsUpper);
+            }
+
             return ivs;
         }
 
@@ -635,6 +648,9 @@ namespace RNGReporter
         private void filterSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hiddenPowerValue, uint seed, uint pid)
         {
             String shiny = "";
+
+            if (nature == 100)
+                nature = pid % 25;
 
             if (hiddenPowerValue != 0)
             {

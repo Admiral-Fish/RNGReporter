@@ -3798,7 +3798,7 @@ namespace RNGReporter.Objects
             {
                 var rng = new XdRng((uint) InitialSeed);
 
-                for (uint cnt = 1; cnt < InitialFrame - 1; cnt++)
+                for (uint cnt = 1; cnt < InitialFrame; cnt++)
                     rng.GetNext32BitNumber();
 
                 rngArray = new uint[maxResults + 5];
@@ -3818,6 +3818,42 @@ namespace RNGReporter.Objects
                         rngArray[0 + cnt],
                         rngArray[1 + cnt],
                         id, sid);
+
+
+                    if (frameCompare.Compare(frame))
+                    {
+                        frames.Add(frame);
+                    }
+                }
+            }
+            else if(frameType == FrameType.Channel)
+            {
+                var rng = new XdRng((uint)InitialSeed);
+
+                for (uint cnt = 1; cnt < InitialFrame; cnt++)
+                    rng.GetNext32BitNumber();
+
+                rngArray = new uint[maxResults + 12];
+
+                for (uint cnt = 0; cnt < maxResults + 12; cnt++)
+                    rngArray[cnt] = rng.GetNext32BitNumber();
+
+                for (uint cnt = 0; cnt < maxResults; cnt++)
+                {
+                    frame = Frame.GenerateChannel(
+                        0,
+                        FrameType.Channel,
+                        cnt + InitialFrame,
+                        (rngArray[0 + cnt]) >> 16,
+                        rngArray[1 + cnt],
+                        (rngArray[2 + cnt]) >> 16,
+                        (rngArray[6 + cnt]) >> 27,
+                        (rngArray[7 + cnt]) >> 27,
+                        (rngArray[8 + cnt]) >> 27,
+                        (rngArray[10 + cnt]) >> 27,
+                        (rngArray[11 + cnt]) >> 27,
+                        (rngArray[9 + cnt]) >> 27,
+                        40122, (rngArray[1 + cnt] >> 16));
 
 
                     if (frameCompare.Compare(frame))

@@ -4291,7 +4291,7 @@ namespace RNGReporter.Objects
             if (Everstone) useEverstone = (rngArray[i++] >> 15) == 0;
 
             // set up the TRNG
-            var trng = new PokeRng((cnt + InitialFrame - Calibration)%0x10000);
+            var trng = new PokeRng((cnt + InitialFrame - Calibration)&0xFFFF);
 
             if (!useEverstone)
             {

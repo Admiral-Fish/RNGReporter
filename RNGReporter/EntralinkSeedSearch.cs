@@ -325,7 +325,7 @@ namespace RNGReporter
                         //  Loop through all seconds
                         for (int second = 0; second <= 59; second++)
                         {
-                            if (ab != ((month*day + minute + second)%0x100)) continue;
+                            if (ab != ((month*day + minute + second)&0xFF)) continue;
                             var dateTime = new DateTime(generateYear, month, day, hour, minute, second);
 
                             // Standard seed time will be the C-Gear seed time, minus the delay

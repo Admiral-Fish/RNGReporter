@@ -93,7 +93,7 @@ namespace RNGReporter.Objects
         {
             uint route = 0;
 
-            uint rngmod = (ushort) (rng%16);
+            uint rngmod = (ushort) (rng&15);
 
             if (rngmod < 11)
                 route = rngmod + 29;

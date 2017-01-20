@@ -286,7 +286,7 @@ namespace RNGReporter.Objects
                             break;
                     }
 
-                    uint inherited3 = ACDS[inh3%4];
+                    uint inherited3 = ACDS[inh3&3];
                     switch (inherited3)
                     {
                         case 1:
@@ -781,7 +781,7 @@ namespace RNGReporter.Objects
                             break;
                     }
 
-                    uint inherited3 = ACDS[inh3%4];
+                    uint inherited3 = ACDS[inh3&3];
                     switch (inherited3)
                     {
                         case 1:

@@ -397,7 +397,7 @@ namespace RNGReporter
                              || (((Month == 2)
                                   && (Day > 29))
                                  || ((Month == 2)
-                                     && (((Year%4)
+                                     && (((Year&3)
                                           != 0)
                                          && (Day > 28))))))))
                 {
@@ -473,8 +473,7 @@ namespace RNGReporter
                     {
                         // Establish seed
                         SeedAA = (((Month*Day)
-                                   + (Minute + Second))
-                                  %256);
+                                   + (Minute + Second)) &0xFF);
                         Seed = (SeedCCCC
                                 + ((65536*SeedBB) + (16777216*SeedAA)));
                         // Initialize Mersenne Twister (or IRNG) with new seed

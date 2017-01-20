@@ -159,7 +159,7 @@ namespace RNGReporter
                         //  Loop through all seconds
                         for (int second = 0; second <= 59; second++)
                         {
-                            if (ab == ((month*day + minute + second)%0x100))
+                            if (ab == ((month*day + minute + second)&0xFF))
                             {
                                 //  Create Date/Time and add item to collection
                                 var timeAndDelay = new TimeAndDelay();

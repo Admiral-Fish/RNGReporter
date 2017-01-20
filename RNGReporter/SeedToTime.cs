@@ -304,7 +304,7 @@ namespace RNGReporter
                         //  Loop through all seconds
                         for (int second = 0; second <= 59; second++)
                         {
-                            if (ab == ((month*day + minute + second)%0x100))
+                            if (ab == ((month*day + minute + second)&0xFF))
                             {
                                 if (!checkBoxLockSeconds.Checked || second == lockedSecond)
                                 {
@@ -487,7 +487,7 @@ namespace RNGReporter
                                 Seed = ((((uint) seedTime.Month*
                                           (uint) seedTime.Day +
                                           (uint) seedTime.Minute +
-                                          (uint) seedTime.Second)%0x100)*0x1000000) +
+                                          (uint) seedTime.Second)&0xFF)*0x1000000) +
                                        ((uint) seedTime.Hour*0x10000) +
                                        ((uint) seedTime.Year - 2000 + (uint) delayCnt) +
                                        // only part of the MAC Address is used

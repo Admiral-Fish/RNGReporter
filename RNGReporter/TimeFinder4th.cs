@@ -637,7 +637,7 @@ namespace RNGReporter
                             ((((uint) adjacentTime.Month*
                                (uint) adjacentTime.Day +
                                (uint) adjacentTime.Minute +
-                               (uint) adjacentTime.Second)%0x100) << 24) +
+                               (uint) adjacentTime.Second)&0xFF) << 24) +
                             ((uint) adjacentTime.Hour << 16) +
                             ((uint) adjacentTime.Year - 2000 + rdelay);
 

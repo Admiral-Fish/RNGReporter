@@ -540,17 +540,17 @@ namespace RNGReporter.Objects
                         break;
 
                     case CompareType.Hidden:
-                        if (((frameIv + 2)%4 != 0) && ((frameIv + 5)%4 != 0))
+                        if ((((frameIv + 2)&3) != 0) && (((frameIv + 5)&3) != 0))
                             passed = false;
                         break;
 
                     case CompareType.HiddenEven:
-                        if ((frameIv + 2)%4 != 0)
+                        if (((frameIv + 2)&3) != 0)
                             passed = false;
                         break;
 
                     case CompareType.HiddenOdd:
-                        if ((frameIv + 5)%4 != 0)
+                        if (((frameIv + 5)&3) != 0)
                             passed = false;
                         break;
                 }
@@ -635,17 +635,17 @@ namespace RNGReporter.Objects
                         break;
 
                     case CompareType.Hidden:
-                        if (((frameIv + 2)%4 != 0) && ((frameIv + 5)%4 != 0))
+                        if ((((frameIv + 2)&3) != 0) && (((frameIv + 5)&3) != 0))
                             passed = false;
                         break;
 
                     case CompareType.HiddenEven:
-                        if ((frameIv + 2)%4 != 0)
+                        if (((frameIv + 2)&3) != 0)
                             passed = false;
                         break;
 
                     case CompareType.HiddenOdd:
-                        if ((frameIv + 5)%4 != 0)
+                        if (((frameIv + 5)&3) != 0)
                             passed = false;
                         break;
 

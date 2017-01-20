@@ -980,8 +980,8 @@ namespace RNGReporter
         private void btnGetCurrentTick_Click(object sender, EventArgs e)
         {
             var tickDifference = (ulong) (DateTime.Now.Ticks - gameTime.Ticks);
-            ulong currentTick = (gameTick + tickDifference/10*6)%0x100000000;
-            ulong currentTickAlt = (gameTickAlt + tickDifference/10*6)%0x100000000;
+            ulong currentTick = (gameTick + tickDifference/10*6)&0xFFFFFFFF;
+            ulong currentTickAlt = (gameTickAlt + tickDifference/10*6)&0xFFFFFFFF;
 
             lblCurrentTick.Text = "Tick: " + currentTick.ToString("X8");
             lblCurrentTickAlt.Text = "Tick 2: " + currentTickAlt.ToString("X8");

@@ -107,7 +107,7 @@ namespace RNGReporter.Objects
 
                     for (int adjustCnt = 0; adjustCnt < 13; adjustCnt++)
                     {
-                        uint adjustRng = rng.GetNext16BitNumber()%2U;
+                        uint adjustRng = rng.GetNext16BitNumber()&1U;
                         adjust |= (adjustRng << (15 - adjustCnt));
                     }
 
@@ -117,7 +117,7 @@ namespace RNGReporter.Objects
 
                     uint adjustedLow = adjust | (pid1 & 7);
 
-                    uint abilityNumber = adjustedLow%0x2;
+                    uint abilityNumber = adjustedLow & 1;
                     uint genderNumber = adjustedLow & 0xFF;
 
                     // lol make this not suck

@@ -464,7 +464,7 @@ namespace RNGReporter
                                 {
                                     for (uint secondsCount = 0; secondsCount < 60; secondsCount++)
                                     {
-                                        if (((month_a*date_a + minutes_a + secondsCount)%0x100) == seedAB)
+                                        if (((month_a*date_a + minutes_a + secondsCount)&0xFF) == seedAB)
                                         {
                                             var initialSeed =
                                                 new SeedInitial(
@@ -739,7 +739,7 @@ namespace RNGReporter
                                     {
                                         for (uint secondsCount = 0; secondsCount < 60; secondsCount++)
                                         {
-                                            if (((month_stat*date_stat + minutes_stat + secondsCount)%0x100) == seedAB)
+                                            if (((month_stat*date_stat + minutes_stat + secondsCount)&0xFF) == seedAB)
                                             {
                                                 var initialSeed =
                                                     new SeedInitial(
@@ -854,10 +854,10 @@ namespace RNGReporter
 
             //  Set seed variable
             if (radioButton4thGen.Checked)
-                ReturnSeed = (((month*date + minutes + seconds)%0x100)*0x1000000) + (hours*0x10000) +
+                ReturnSeed = (((month*date + minutes + seconds)&0xFF)*0x1000000) + (hours*0x10000) +
                              (year - 2000 + wait);
             else if (radioButton5thGenCGear.Checked)
-                ReturnSeed = (((month*date + minutes + seconds)%0x100)*0x1000000) + (hours*0x10000) +
+                ReturnSeed = (((month*date + minutes + seconds)&0xFF)*0x1000000) + (hours*0x10000) +
                              (year - 2000 + wait) + (mac_address & 0xFFFFFF);
             else if (radioButton5thGenNonCGear.Checked)
             {
@@ -1035,7 +1035,7 @@ namespace RNGReporter
                                 {
                                     for (uint secondsCount = 0; secondsCount < 60; secondsCount++)
                                     {
-                                        if (((month_ivrange*date_ivrange + minutes_ivrange + secondsCount)%0x100) ==
+                                        if (((month_ivrange*date_ivrange + minutes_ivrange + secondsCount)&0xFF) ==
                                             seedAB)
                                         {
                                             var initialSeed =

@@ -573,7 +573,7 @@ namespace RNGReporter
                         uint[] ivs = calcIVsChannel(ivsLower, ivsUpper, n, 0);
                         if (ivs.Length != 1)
                         {
-                            uint pid = pidChkChannel(n, 0);
+                            uint pid = pidChkChannel(n, 0, rlist[(int)n+1]);
                             uint actualNature = pid % 25;
                             if (nature == 100 || nature == actualNature)
                                 filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, slist[(int)n], pid);
@@ -581,7 +581,7 @@ namespace RNGReporter
                             ivs = calcIVsChannel(ivsLower, ivsUpper, n, 1);
                             if (ivs.Length != 1)
                             {
-                                pid = pidChkChannel(n, 1);
+                                pid = pidChkChannel(n, 1, rlist[(int)n+1] ^ 0x8000);
                                 actualNature = pid % 25;
                                 if (nature == 100 || nature == actualNature)
                                     filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, (slist[(int)n] ^ 0x80000000), pid);
@@ -633,12 +633,15 @@ namespace RNGReporter
             return ivs;
         }
 
-        private uint pidChkChannel(uint frame, uint xor_val)
+        private uint pidChkChannel(uint frame, uint xor_val, uint sid)
         {
-            uint pid1 = slist[(int)(frame + 2)] + 0x80000000;
-            if (pid1 > 0xFFFFFFFF)
-                pid1 = pid1 & 0xFFFFFFFF;
-            uint pid = ((pid1 >> 16) << 16) + rlist[(int)(frame + 3)];
+            uint pid1 = slist[(int)(frame + 2)];
+            uint pidtemp = pid1 + 0x80000000;
+            if (pidtemp > 0xFFFFFFFF)
+                pidtemp &= 0xFFFFFFFF;
+            uint pid = ((pidtemp >> 16) << 16) + rlist[(int)(frame + 3)];
+            if (Functions.Shiny(pid, 40122, (ushort)sid))
+                pid = ((pid1 >> 16) << 16) + rlist[(int)(frame + 3)];
             if (xor_val == 1)
                 pid = pid ^ 0x80008000;
 

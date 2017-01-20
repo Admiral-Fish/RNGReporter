@@ -859,19 +859,20 @@ namespace RNGReporter.Objects
             uint id,
             uint sid)
         {
-            pid1 += 0x80000000;
-            if (pid1 > 0xFFFFFFFF)
-                pid1 &= 0xFFFFFFFF;
+            uint pidtemp = pid1 + 0x80000000;
+            if (pidtemp > 0xFFFFFFFF)
+                pidtemp &= 0xFFFFFFFF;
 
             var frame = new Frame(frameType)
             {
-
                 seed = seed,
                 number = number,
                 RngResult = rngResult,
             };
 
-            uint monPID = ((pid1 >> 16) << 16) + pid2;
+            uint monPID = ((pidtemp >> 16) << 16) + pid2;
+            if (Functions.Shiny(monPID, 40122, (ushort)sid))
+                monPID = ((pid1 >> 16) << 16) + pid2;
 
             frame.id = id;
             frame.sid = sid;

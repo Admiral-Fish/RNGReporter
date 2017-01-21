@@ -928,7 +928,7 @@ namespace RNGReporter.Objects
 
             //  Now we want to start with IV2 and call the RNG for
             //  values between 0 and FFFF in the low order bits.
-            for (uint cnt = 0; cnt <= 0x1FFFE; cnt++)
+            for (uint cnt = 0; cnt <= 0xFFFE; cnt++)
             {
                 uint x_test;
                 uint x_testXD;
@@ -947,19 +947,8 @@ namespace RNGReporter.Objects
                 //  of the information we were provided 
                 //  is a match.
 
-                uint seed;
-                uint seedXD;
-
-                if (cnt < 0xFFFF)
-                {
-                    seed = (x_test << 16) + (cnt & 0xFFFF);
-                    seedXD = (x_testXD << 16) + (cnt & 0xFFFF);
-                }
-                else
-                {
-                    seed = (x_test << 16) + ((cnt + 1) & 0xFFFF);
-                    seedXD = (x_testXD << 16) + ((cnt + 1) & 0xFFFF);
-                }
+                uint seed = (x_test << 16) + (cnt & 0xFFFF);
+                uint seedXD = (x_testXD << 16) + (cnt & 0xFFFF);
 
                 var rng = new PokeRngR(seed);
 
@@ -1002,6 +991,76 @@ namespace RNGReporter.Objects
                             Pid = ((uint) rng2 << 16) + rng3,
                             MonsterSeed = method1Seed
                         };
+
+                    seeds.Add(newSeed);
+                }
+            }
+
+            //  Now we want to start with IV2 and call the RNG for
+            //  values between 0 and FFFF in the low order bits.
+            for (uint cnt = 0xFFFF; cnt <= 0x1FFFE; cnt++)
+            {
+                uint x_test;
+                uint x_testXD;
+
+                //  We want to test with the high bit
+                //  both set and not set, so we're going
+                //  to sneakily do them both.  god help
+                //  me if i ever have to figure this out
+                //  in the future.
+                x_test = (cnt & 1) == 0 ? x4 : x4_2;
+
+                x_testXD = (cnt & 1) == 0 ? x8 : x8_2;
+
+                //  Set our test seed here so we can start
+                //  working backwards to see if the rest
+                //  of the information we were provided 
+                //  is a match.
+
+                uint seed = (x_test << 16) + ((cnt + 1) & 0xFFFF);
+                uint seedXD = (x_testXD << 16) + ((cnt + 1) & 0xFFFF);
+
+                var rng = new PokeRngR(seed);
+
+                var rngXD = new XdRng(seedXD);
+                var rngXDR = new XdRngR(seedXD);
+                uint XDColoSeed = rngXDR.GetNext32BitNumber();
+
+                //  Right now, this simply assumes method
+                //  1 and gets the value previous to check
+                //  for  match.  We need a clean way to do
+                //  this for all of our methods.
+
+                //  We have a max of 5 total RNG calls
+                //  to make a pokemon and we already have
+                //  one so lets go ahead and get 4 more.
+                ushort rng1 = rng.GetNext16BitNumber();
+                ushort rng2 = rng.GetNext16BitNumber();
+                ushort rng3 = rng.GetNext16BitNumber();
+                ushort rng4 = rng.GetNext16BitNumber();
+
+                ushort rng1XD = rngXD.GetNext16BitNumber();
+                ushort rng2XD = rngXD.GetNext16BitNumber();
+                ushort rng3XD = rngXD.GetNext16BitNumber();
+                ushort rng4XD = rngXD.GetNext16BitNumber();
+
+                uint method1Seed = rng.Seed;
+
+                rng.GetNext16BitNumber();
+                uint method234Seed = rng.Seed;
+
+                //  Check Method 1
+                // [PID] [PID] [IVs] [IVs]
+                // [rng3] [rng2] [rng1] [START]
+                if (Check(rng1, rng2, rng3, hp, atk, def, nature))
+                {
+                    //  Build a seed to add to our collection
+                    var newSeed = new Seed
+                    {
+                        Method = "Method 1",
+                        Pid = ((uint)rng2 << 16) + rng3,
+                        MonsterSeed = method1Seed
+                    };
 
                     seeds.Add(newSeed);
                 }

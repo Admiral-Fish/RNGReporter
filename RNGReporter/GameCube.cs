@@ -171,7 +171,7 @@ namespace RNGReporter
             x8 = hp + (atk << 5) + (def << 10);
             x8_2 = x8 ^ 0x8000;
 
-            for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
+            for (uint cnt = 0; cnt <= 0xFFFE; cnt++)
             {
                 uint x_testXD = (cnt & 1) == 0 ? x8 : x8_2;
                 uint seed = (x_testXD << 16) + (cnt & 0xFFFF);

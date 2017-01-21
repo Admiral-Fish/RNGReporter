@@ -50,7 +50,7 @@ namespace RNGReporter.Objects
 
             //  Now we want to start with IV2 and call the RNG for
             //  values between 0 and FFFF in the low order bits.
-            for (uint cnt = 0; cnt <= 0x1FFFE; cnt++)
+            for (uint cnt = 0; cnt <= 0xFFFE; cnt++)
             {
                 //  We want to test with the high bit
                 //  both set and not set, so we're going
@@ -64,7 +64,7 @@ namespace RNGReporter.Objects
                 //  of the information we were provided 
                 //  is a match.
 
-                uint seed = (x_testXD << 16) + (cnt%0xFFFF);
+                uint seed = (x_testXD << 16) + (cnt & 0xFFFF);
 
                 var rngXD = new XdRng(seed);
                 var rngXDR = new XdRngR(seed);
@@ -100,6 +100,59 @@ namespace RNGReporter.Objects
                     seeds.Add(newSeed);
                 }
             }
+
+            //  Now we want to start with IV2 and call the RNG for
+            //  values between 0 and FFFF in the low order bits.
+            for (uint cnt = 0xFFFF; cnt <= 0x1FFFE; cnt++)
+            {
+                //  We want to test with the high bit
+                //  both set and not set, so we're going
+                //  to sneakily do them both.  god help
+                //  me if i ever have to figure this out
+                //  in the future.
+                uint x_testXD = (cnt & 1) == 0 ? x8 : x8_2;
+
+                //  Set our test seed here so we can start
+                //  working backwards to see if the rest
+                //  of the information we were provided 
+                //  is a match.
+
+                uint seed = (x_testXD << 16) + ((cnt + 1) & 0xFFFF);
+
+                var rngXD = new XdRng(seed);
+                var rngXDR = new XdRngR(seed);
+                uint XDColoSeed = rngXDR.GetNext32BitNumber();
+
+                //  Right now, this simply assumes method
+                //  1 and gets the value previous to check
+                //  for  match.  We need a clean way to do
+                //  this for all of our methods.
+
+                //  We have a max of 5 total RNG calls
+                //  to make a pokemon and we already have
+                //  one so lets go ahead and get 4 more.
+                ushort rng1XD = rngXD.GetNext16BitNumber();
+                ushort rng2XD = rngXD.GetNext16BitNumber();
+                ushort rng3XD = rngXD.GetNext16BitNumber();
+                ushort rng4XD = rngXD.GetNext16BitNumber();
+
+                //  Check Colosseum\XD
+                // [IVs] [IVs] [xxx] [PID] [PID]
+                // [START] [rng1] [rng3] [rng4]
+
+                if (Check(rng1XD, rng3XD, rng4XD, spe, spa, spd, nature))
+                {
+                    var newSeed = new Seed
+                    {
+                        Method = "Colosseum/XD",
+                        Pid = ((uint)rng3XD << 16) + rng4XD,
+                        MonsterSeed = XDColoSeed
+                    };
+
+
+                    seeds.Add(newSeed);
+                }
+            }
             return seeds;
         }
 
@@ -129,7 +182,7 @@ namespace RNGReporter.Objects
 
             //  Now we want to start with IV2 and call the RNG for
             //  values between 0 and FFFF in the low order bits.
-            for (uint cnt = 0; cnt <= 0x1FFFE; cnt++)
+            for (uint cnt = 0; cnt <= 0xFFFE; cnt++)
             {
                 uint x_test;
                 uint x_testXD;
@@ -148,8 +201,8 @@ namespace RNGReporter.Objects
                 //  of the information we were provided 
                 //  is a match.
 
-                uint seed = (x_test << 16) + (cnt%0xFFFF);
-                uint seedXD = (x_testXD << 16) + (cnt%0xFFFF);
+                uint seed = (x_test << 16) + (cnt & 0xFFFF);
+                uint seedXD = (x_testXD << 16) + (cnt & 0xFFFF);
                 var rng = new PokeRngR(seed);
 
                 var rngXD = new XdRng(seedXD);
@@ -486,6 +539,366 @@ namespace RNGReporter.Objects
                 }
             }
 
+            //  Now we want to start with IV2 and call the RNG for
+            //  values between 0 and FFFF in the low order bits.
+            for (uint cnt = 0xFFFF; cnt <= 0x1FFFE; cnt++)
+            {
+                uint x_test;
+                uint x_testXD;
+
+                //  We want to test with the high bit
+                //  both set and not set, so we're going
+                //  to sneakily do them both.  god help
+                //  me if i ever have to figure this out
+                //  in the future.
+                x_test = (cnt & 1) == 0 ? x4 : x4_2;
+
+                x_testXD = (cnt & 1) == 0 ? x8 : x8_2;
+
+                //  Set our test seed here so we can start
+                //  working backwards to see if the rest
+                //  of the information we were provided 
+                //  is a match.
+
+                uint seed = (x_test << 16) + ((cnt + 1) & 0xFFFF);
+                uint seedXD = (x_testXD << 16) + ((cnt + 1) & 0xFFFF);
+                
+                var rng = new PokeRngR(seed);
+
+                var rngXD = new XdRng(seedXD);
+                var rngXDR = new XdRngR(seedXD);
+                uint XDColoSeed = rngXDR.GetNext32BitNumber();
+
+                //  Right now, this simply assumes method
+                //  1 and gets the value previous to check
+                //  for  match.  We need a clean way to do
+                //  this for all of our methods.
+
+                //  We have a max of 5 total RNG calls
+                //  to make a pokemon and we already have
+                //  one so lets go ahead and get 4 more.
+                ushort rng1 = rng.GetNext16BitNumber();
+                ushort rng2 = rng.GetNext16BitNumber();
+                ushort rng3 = rng.GetNext16BitNumber();
+                ushort rng4 = rng.GetNext16BitNumber();
+
+                ushort rng1XD = rngXD.GetNext16BitNumber();
+                ushort rng2XD = rngXD.GetNext16BitNumber();
+                ushort rng3XD = rngXD.GetNext16BitNumber();
+                ushort rng4XD = rngXD.GetNext16BitNumber();
+
+                uint method1Seed = rng.Seed;
+
+                rng.GetNext16BitNumber();
+                uint method234Seed = rng.Seed;
+                ushort choppedPID;
+
+                //  Check Method 1
+                // [PID] [PID] [IVs] [IVs]
+                // [rng3] [rng2] [rng1] [START]
+                if (Check(rng1, rng2, rng3, hp, atk, def, nature))
+                {
+                    //  Build a seed to add to our collection
+                    var newSeed = new Seed();
+                    newSeed.Method = "Method 1";
+                    newSeed.Pid = ((uint)rng2 << 16) + rng3;
+                    newSeed.MonsterSeed = method1Seed;
+                    newSeed.Sid = (rng2 ^ (uint)rng3 ^ id) & 0xFFF8;
+
+                    seeds.Add(newSeed);
+                }
+
+                //  Check Wishmkr
+                // [PID] [PID] [IVs] [IVs]
+                // [rng3] [rng2] [rng1] [START]
+                if (Check(rng1, rng3, rng2, hp, atk, def, nature))
+                {
+                    if (method1Seed < 0x10000)
+                    {
+                        //  Build a seed to add to our collection
+                        var newSeed = new Seed();
+                        newSeed.Pid = ((uint)rng3 << 16) + rng2;
+                        newSeed.MonsterSeed = method1Seed;
+                        newSeed.Sid = (rng2 ^ (uint)rng3 ^ id) & 0xFFF8;
+                        if (Functions.Shiny(newSeed.Pid, 20043, 0))
+                        {
+                            newSeed.Method = "Wishmkr Shiny";
+                        }
+                        else
+                        {
+                            newSeed.Method = "Wishmkr";
+                        }
+                        seeds.Add(newSeed);
+                    }
+                }
+
+                //  Check Method 2
+                // [PID] [PID] [xxxx] [IVs] [IVs]
+                // [rng4] [rng3] [xxxx] [rng1] [START]
+                if (Check(rng1, rng3, rng4, hp, atk, def, nature))
+                {
+                    //  Build a seed to add to our collection
+                    var newSeed = new Seed
+                    {
+                        Method = "Method 2",
+                        Pid = ((uint)rng3 << 16) + rng4,
+                        MonsterSeed = method234Seed,
+                        Sid = (rng3 ^ (uint)rng4 ^ id) & 0xFFF8
+                    };
+
+                    seeds.Add(newSeed);
+                }
+
+                /*
+                 * Removed because Method 3 doesn't exist in-game
+                //  Check Method 3
+                //  [PID] [xxxx] [PID] [IVs] [IVs]
+                //  [rng4] [xxxx] [rng2] [rng1] [START]
+                if (Check(rng1, rng2, rng4, hp, atk, def, nature))
+                {
+                    //  Build a seed to add to our collection
+                    Seed newSeed = new Seed();
+                    newSeed.Method = "Method 3";
+                    newSeed.Pid = ((uint)rng2 << 16) + (uint)rng4;
+                    newSeed.MonsterSeed = method234Seed;
+                    newSeed.Sid = ((uint)rng2 ^ (uint)rng4 ^ id) & 0xFFF8;
+
+                    seeds.Add(newSeed);
+                }
+                 */
+
+                //  Check Method 4
+                //  [PID] [PID] [IVs] [xxxx] [IVs]
+                //  [rng4] [rng3] [rng2] [xxxx] [START]
+                if (Check(rng2, rng3, rng4, hp, atk, def, nature))
+                {
+                    //  Build a seed to add to our collection
+                    var newSeed = new Seed
+                    {
+                        Method = "Method 4",
+                        Pid = ((uint)rng3 << 16) + rng4,
+                        MonsterSeed = method234Seed,
+                        Sid = (rng3 ^ (uint)rng4 ^ id) & 0xFFF8
+                    };
+
+                    seeds.Add(newSeed);
+                }
+
+                //  Check Colosseum\XD
+                // [IVs] [IVs] [xxx] [PID] [PID]
+                // [START] [rng1] [rng3]
+
+                if (Check(rng1XD, rng3XD, rng4XD, spe, spa, spd, nature))
+                {
+                    var newSeed = new Seed
+                    {
+                        Method = "Colosseum/XD",
+                        Pid = ((uint)rng3XD << 16) + rng4XD,
+                        MonsterSeed = XDColoSeed,
+                        Sid = (rng4XD ^ (uint)rng3XD ^ id) & 0xFFF8
+                    };
+
+
+                    seeds.Add(newSeed);
+                }
+
+                if (rng3 / 0x5556 != 0)
+                {
+                    //  Check DPPt Cute Charm
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 / 0xA3E);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (DPPt)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+
+                    //  Check DPPt Cute Charm (50% male)
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 / 0xA3E + 0x96);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (DPPt)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+
+                    //  Check DPPt Cute Charm (25% male)
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 / 0xA3E + 0xC8);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (DPPt)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+
+                    //  Check DPPt Cute Charm (75% male)
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 / 0xA3E + 0x4B);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (DPPt)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+
+                    //  Check DPPt Cute Charm (87.5% male)
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 / 0xA3E + 0x32);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (DPPt)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+                }
+
+                if (rng3 % 3 != 0)
+                {
+                    //  Check HGSS Cute Charm
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 % 25);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (HGSS)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+
+                    //  Check HGSS Cute Charm (50% male)
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 % 25 + 0x96);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (HGSS)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+
+                    //  Check HGSS Cute Charm (25% male)
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 % 25 + 0xC8);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (HGSS)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+
+                    //  Check HGSS Cute Charm (75% male)
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 % 25 + 0x4B);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (HGSS)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+
+                    //  Check HGSS Cute Charm (87.5% male)
+                    //  [CC Check] [PID] [IVs] [IVs]
+                    //  [rng3] [rng2] [rng1] [START]
+
+                    choppedPID = (ushort)(rng2 % 25 + 0x32);
+                    if (Check(rng1, 0, choppedPID, hp, atk, def, nature))
+                    {
+                        var newSeed = new Seed
+                        {
+                            Method = "Cute Charm (HGSS)",
+                            Pid = choppedPID,
+                            MonsterSeed = method1Seed,
+                            Sid = (choppedPID ^ id) & 0xFFF8
+                        };
+
+
+                        seeds.Add(newSeed);
+                    }
+                }
+            }
+
             return seeds;
         }
 
@@ -534,8 +947,20 @@ namespace RNGReporter.Objects
                 //  of the information we were provided 
                 //  is a match.
 
-                uint seed = (x_test << 16) + (cnt%0xFFFF);
-                uint seedXD = (x_testXD << 16) + (cnt%0xFFFF);
+                uint seed;
+                uint seedXD;
+
+                if (cnt < 0xFFFF)
+                {
+                    seed = (x_test << 16) + (cnt & 0xFFFF);
+                    seedXD = (x_testXD << 16) + (cnt & 0xFFFF);
+                }
+                else
+                {
+                    seed = (x_test << 16) + ((cnt + 1) & 0xFFFF);
+                    seedXD = (x_testXD << 16) + ((cnt + 1) & 0xFFFF);
+                }
+
                 var rng = new PokeRngR(seed);
 
                 var rngXD = new XdRng(seedXD);

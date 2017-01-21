@@ -171,10 +171,32 @@ namespace RNGReporter
             x8 = hp + (atk << 5) + (def << 10);
             x8_2 = x8 ^ 0x8000;
 
-            for (uint cnt = 0; cnt <= 0x1FFFE; cnt++)
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
             {
                 uint x_testXD = (cnt & 1) == 0 ? x8 : x8_2;
-                uint seed = (x_testXD << 16) + (cnt % 0xFFFF);
+                uint seed = (x_testXD << 16) + (cnt & 0xFFFF);
+                
+                uint ColoSeed = reverse(seed);
+
+                uint rng1XD = forward(seed);
+                uint rng2XD = forward(rng1XD);
+                uint rng3XD = forward(rng2XD);
+                uint rng4XD = forward(rng3XD);
+                rng1XD >>= 16;
+                rng2XD >>= 16;
+                rng3XD >>= 16;
+                rng4XD >>= 16;
+
+                if (Check(rng1XD, rng3XD, rng4XD, spe, spa, spd, nature))
+                {
+                    filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, ColoSeed);
+                }
+            }
+
+            for (uint cnt = 0xFFFF; cnt <= 0x1fffe; cnt++)
+            {
+                uint x_testXD = (cnt & 1) == 0 ? x8 : x8_2;
+                uint seed = (x_testXD << 16) + ((cnt + 1) & 0xFFFF);
                 uint ColoSeed = reverse(seed);
 
                 uint rng1XD = forward(seed);
@@ -803,10 +825,34 @@ namespace RNGReporter
             x4 = spe + (spa << 5) + (spd << 10);
             x4_2 = x4 ^ 0x8000;
 
-            for (uint cnt = 0; cnt <= 0x1FFFE; cnt++)
+            for (uint cnt = 0; cnt <= 0xFFFE; cnt++)
             {
                 uint x_test = (cnt & 1) == 0 ? x4 : x4_2;
-                uint seed = (x_test << 16) + (cnt % 0xFFFF);
+                uint seed = (x_test << 16) + (cnt & 0xFFFF);
+                
+                uint rng1 = reverseR(seed);
+                uint rng2 = reverseR(rng1);
+                uint rng3 = reverseR(rng2);
+                uint rng4 = reverseR(rng3);
+                uint Method1Seed = rng4;
+                rng1 >>= 16;
+                rng2 >>= 16;
+                rng3 >>= 16;
+                rng4 >>= 16;
+
+                if (Check(rng1, rng3, rng2, hp, atk, def, nature))
+                {
+                    if (wshMkr.Checked == true)
+                        filterSeedWsh(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1, rng3, rng2, Method1Seed);
+                    else
+                        filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1, rng3, rng2, Method1Seed);
+                }
+            }
+
+            for (uint cnt = 0xFFFF; cnt <= 0x1fffe; cnt++)
+            {
+                uint x_test = (cnt & 1) == 0 ? x4 : x4_2;
+                uint seed = (x_test << 16) + ((cnt + 1) & 0xFFFF);
 
                 uint rng1 = reverseR(seed);
                 uint rng2 = reverseR(rng1);

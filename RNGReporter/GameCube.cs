@@ -827,24 +827,23 @@ namespace RNGReporter
                     uint ivs_2 = forward(seedList[x]) >> 16;
                     if (ivs_2 == ex4 || ivs_2 == ex4_2)
                     {
-                        uint seed = reverse(reverse(reverse(seedList[x])));
+                        uint pid2 = reverse(seedList[x]);
+                        uint pid1 = reverse(pid2);
+                        uint ivs1 = forward(seedList[x]);
+                        uint seed = reverse(pid1);
+                        pid1 >>= 16;
+                        pid2 >>= 16;
+                        ivs1 >>= 16;
 
-                        uint rng1 = forward(seed);
-                        uint rng2 = forward(rng1);
-                        uint rng3 = forward(forward(rng2));
-                        rng1 >>= 16;
-                        rng2 >>= 16;
-                        rng3 >>= 16;
-
-                        if (Check(rng3, rng1, rng2, spd, spa, spe, nature))
+                        if (Check(ivs1, pid1, pid2, spd, spa, spe, nature))
                         {
                             if (wishMkr)
                             {
                                 if (seed < 0x10000)
-                                    filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng3, rng1, rng2, seed);
+                                    filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, ivs1, pid1, pid2, seed);
                             }
                             else
-                                filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng3, rng1, rng2, seed);
+                                filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, ivs1, pid1, pid2, seed);
                         }
                     }
                 }

@@ -1,7 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="RNGReporter.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RNGReporter.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="MyState" Type="System.Windows.Forms.FormWindowState" Scope="User">
@@ -35,7 +33,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="CapYear" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2012</Value>
+      <Value Profile="(Default)">2017</Value>
     </Setting>
     <Setting Name="CapOffset" Type="System.String" Scope="User">
       <Value Profile="(Default)">1000</Value>
@@ -47,10 +45,10 @@
       <Value Profile="(Default)">610</Value>
     </Setting>
     <Setting Name="ShinyYear" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2012</Value>
+      <Value Profile="(Default)">2017</Value>
     </Setting>
     <Setting Name="fYear" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2012</Value>
+      <Value Profile="(Default)">2017</Value>
     </Setting>
     <Setting Name="fMinOffset" Type="System.String" Scope="User">
       <Value Profile="(Default)">5</Value>
@@ -65,7 +63,7 @@
       <Value Profile="(Default)">610</Value>
     </Setting>
     <Setting Name="fCapYear" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2012</Value>
+      <Value Profile="(Default)">2017</Value>
     </Setting>
     <Setting Name="fCapOffset" Type="System.String" Scope="User">
       <Value Profile="(Default)">1000</Value>
@@ -83,7 +81,7 @@
       <Value Profile="(Default)">610</Value>
     </Setting>
     <Setting Name="fShinyYear" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2012</Value>
+      <Value Profile="(Default)">2017</Value>
     </Setting>
     <Setting Name="sttSeconds" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -104,7 +102,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="Year" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2012</Value>
+      <Value Profile="(Default)">2017</Value>
     </Setting>
     <Setting Name="Month" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -125,7 +123,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="YearA" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2012</Value>
+      <Value Profile="(Default)">2017</Value>
     </Setting>
     <Setting Name="MonthA" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -143,7 +141,7 @@
       <Value Profile="(Default)">DPP</Value>
     </Setting>
     <Setting Name="YearIVR" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2012</Value>
+      <Value Profile="(Default)">2017</Value>
     </Setting>
     <Setting Name="MonthIVR" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -170,7 +168,7 @@
       <Value Profile="(Default)">1200</Value>
     </Setting>
     <Setting Name="YearS" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2012</Value>
+      <Value Profile="(Default)">2017</Value>
     </Setting>
     <Setting Name="MonthS" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>

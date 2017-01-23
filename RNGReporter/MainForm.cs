@@ -70,6 +70,7 @@ namespace RNGReporter
             comboBoxMethod.Items.AddRange(new object[]
                 {
                     new ComboBoxItem("Method 1", FrameType.Method1),
+                    new ComboBoxItem("Method 1 Reverse PID", FrameType.Method1Reverse),
                     new ComboBoxItem("Method 2 (Gen 3)", FrameType.Method2),
                     new ComboBoxItem("Method 4 (Gen 3)", FrameType.Method4),
                     new ComboBoxItem("Method H-1 (Gen 3)", FrameType.MethodH1),
@@ -538,6 +539,7 @@ namespace RNGReporter
                     (GenderFilter) (comboBoxGender.SelectedItem));
             }
             else if (generator.FrameType == FrameType.Method1 ||
+                     generator.FrameType == FrameType.Method1Reverse ||
                      generator.FrameType == FrameType.Method2 ||
                      generator.FrameType == FrameType.Method3 ||
                      generator.FrameType == FrameType.Method4 ||
@@ -1316,7 +1318,8 @@ namespace RNGReporter
                 MaleOnlySpecies.Visible = false;
             }
 
-            if (generator.FrameType == FrameType.Method2 ||
+            if (generator.FrameType == FrameType.Method1Reverse ||
+                generator.FrameType == FrameType.Method2 ||
                 generator.FrameType == FrameType.Method3 ||
                 generator.FrameType == FrameType.Method4 ||
                 generator.FrameType == FrameType.ColoXD ||

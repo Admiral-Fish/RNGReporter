@@ -22,6 +22,7 @@ namespace RNGReporter.Objects
     public enum FrameType
     {
         Method1,
+        Method1Reverse,
         Method2,
         Method3,
         Method4,

@@ -42,11 +42,8 @@ namespace RNGReporter.Objects
         {
             var seeds = new List<Seed>();
 
-            uint x8 = 0;
-            uint x8_2 = 0;
-
-            x8 = hp + (atk << 5) + (def << 10);
-            x8_2 = x8 ^ 0x8000;
+            uint x8 = hp + (atk << 5) + (def << 10);
+            uint x8_2 = x8 ^ 0x8000;
 
             //  Now we want to start with IV2 and call the RNG for
             //  values between 0 and FFFF in the low order bits.
@@ -64,7 +61,7 @@ namespace RNGReporter.Objects
                 //  of the information we were provided 
                 //  is a match.
 
-                uint seed = (x_testXD << 16) + (cnt & 0xFFFF);
+                uint seed = (x_testXD << 16) + cnt;
 
                 var rngXD = new XdRng(seed);
                 var rngXDR = new XdRngR(seed);
@@ -168,17 +165,11 @@ namespace RNGReporter.Objects
         {
             var seeds = new List<Seed>();
 
-            uint x4 = 0;
-            uint x4_2 = 0;
+            uint x4 = spe + (spa << 5) + (spd << 10);
+            uint x4_2 = x4 ^ 0x8000;
 
-            x4 = spe + (spa << 5) + (spd << 10);
-            x4_2 = x4 ^ 0x8000;
-
-            uint x8 = 0;
-            uint x8_2 = 0;
-
-            x8 = hp + (atk << 5) + (def << 10);
-            x8_2 = x8 ^ 0x8000;
+            uint x8 = hp + (atk << 5) + (def << 10);
+            uint x8_2 = x8 ^ 0x8000;
 
             //  Now we want to start with IV2 and call the RNG for
             //  values between 0 and FFFF in the low order bits.
@@ -201,8 +192,8 @@ namespace RNGReporter.Objects
                 //  of the information we were provided 
                 //  is a match.
 
-                uint seed = (x_test << 16) + (cnt & 0xFFFF);
-                uint seedXD = (x_testXD << 16) + (cnt & 0xFFFF);
+                uint seed = (x_test << 16) + cnt;
+                uint seedXD = (x_testXD << 16) + cnt;
                 var rng = new PokeRngR(seed);
 
                 var rngXD = new XdRng(seedXD);
@@ -914,17 +905,11 @@ namespace RNGReporter.Objects
         {
             var seeds = new List<Seed>();
 
-            uint x4 = 0;
-            uint x4_2 = 0;
+            uint x4 = spe + (spa << 5) + (spd << 10);
+            uint x4_2 = x4 ^ 0x8000;
 
-            x4 = spe + (spa << 5) + (spd << 10);
-            x4_2 = x4 ^ 0x8000;
-
-            uint x8 = 0;
-            uint x8_2 = 0;
-
-            x8 = hp + (atk << 5) + (def << 10);
-            x8_2 = x8 ^ 0x8000;
+            uint x8 = hp + (atk << 5) + (def << 10);
+            uint x8_2 = x8 ^ 0x8000;
 
             //  Now we want to start with IV2 and call the RNG for
             //  values between 0 and FFFF in the low order bits.

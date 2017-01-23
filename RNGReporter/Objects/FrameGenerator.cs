@@ -3899,6 +3899,22 @@ namespace RNGReporter.Objects
 
                             break;
 
+                        case FrameType.Method1Reverse:
+                            frame =
+                                Frame.GenerateFrame(
+                                    0,
+                                    FrameType.Method1,
+                                    cnt + InitialFrame,
+                                    rngArray[0 + cnt],
+                                    rngArray[1 + cnt],
+                                    rngArray[0 + cnt],
+                                    rngArray[2 + cnt],
+                                    rngArray[3 + cnt],
+                                    0, 0, 0, 0, 0, 0,
+                                    id, sid, cnt);
+
+                            break;
+
                         case FrameType.Method2:
                             frame =
                                 Frame.GenerateFrame(

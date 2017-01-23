@@ -152,16 +152,16 @@ namespace RNGReporter
                 int q = x * 5;
                 long iv = (iv1 >> q) & 31;
                 ivs += iv.ToString();
-                ivs += ",";
+                ivs += ".";
             }
 
             long iV = (iv2 >> 5) & 31;
             ivs += iV.ToString();
-            ivs += ",";
+            ivs += ".";
 
             iV = (iv2 >> 10) & 31;
             ivs += iV.ToString();
-            ivs += ",";
+            ivs += ".";
 
             iV = iv2 & 31;
             ivs += iV.ToString();
@@ -182,16 +182,16 @@ namespace RNGReporter
                 int q = x * 5;
                 long iv = (iv1 >> q) & 31;
                 ivs += iv.ToString();
-                ivs += ",";
+                ivs += ".";
             }
 
             long iV = (iv2 >> 5) & 31;
             ivs += iV.ToString();
-            ivs += ",";
+            ivs += ".";
 
             iV = (iv2 >> 10) & 31;
             ivs += iV.ToString();
-            ivs += ",";
+            ivs += ".";
 
             iV = iv2 & 31;
             ivs += iV.ToString();
@@ -212,16 +212,16 @@ namespace RNGReporter
                 int q = x * 5;
                 long iv = (iv1 >> q) & 31;
                 ivs += iv.ToString();
-                ivs += ",";
+                ivs += ".";
             }
 
             long iV = (iv2 >> 5) & 31;
             ivs += iV.ToString();
-            ivs += ",";
+            ivs += ".";
 
             iV = (iv2 >> 10) & 31;
             ivs += iV.ToString();
-            ivs += ",";
+            ivs += ".";
 
             iV = iv2 & 31;
             ivs += iV.ToString();
@@ -242,16 +242,16 @@ namespace RNGReporter
                 int q = x * 5;
                 long iv = (iv1 >> q) & 31;
                 ivs += iv.ToString();
-                ivs += ",";
+                ivs += ".";
             }
 
             long iV = (iv2 >> 5) & 31;
             ivs += iV.ToString();
-            ivs += ",";
+            ivs += ".";
 
             iV = (iv2 >> 10) & 31;
             ivs += iV.ToString();
-            ivs += ",";
+            ivs += ".";
 
             iV = iv2 & 31;
             ivs += iV.ToString();

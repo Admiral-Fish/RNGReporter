@@ -21,6 +21,7 @@ namespace RNGReporter
         private List<uint> rlist = new List<uint>();
         List<uint> cntNum = new List<uint>();
         private uint shinyval;
+        private uint[] natureLock;
 
         public GameCube(int TID, int SID)
         {
@@ -100,12 +101,428 @@ namespace RNGReporter
             if (test == 0)
                 getRMethod(ivsLower, ivsUpper);
             else if (test == 1)
-                getMethod(ivsLower, ivsUpper);
+                if (galesCheck.Checked == true)
+                    getGalesMethod(ivsLower, ivsUpper);
+                else
+                    getMethod(ivsLower, ivsUpper);
             else
                 generateChannel(ivsLower, ivsUpper, getNature());
         }
 
-        #region Gales/Colo search
+        #region Gales Search
+        private void getGalesMethod(uint[] ivsLower, uint[] ivsUpper)
+        {
+            int natureLockIndex = getNatureLock();
+            natureLock = natureLockList(natureLockIndex);
+
+            uint method = 1;
+
+            for (int x = 0; x < 6; x++)
+            {
+                uint temp = ivsUpper[x] - ivsLower[x] + 1;
+                method *= temp;
+            }
+
+            if (method > 16384)
+                generateGales2(ivsLower, ivsUpper, getNature());
+            else
+                generateGales(ivsLower, ivsUpper);
+        }
+
+        private uint[] natureLockList(int natureLockIndex)
+        {
+            uint[] list = new uint[1];
+
+            switch(natureLockIndex)
+            {
+                case 0:
+                    list = new uint[] { 0, 0 }; //Houndour 1
+                    break;
+                case 1:
+                    list = new uint[] { 0, 0 }; //To do houndour 2
+                    break;
+                case 2:
+                    list = new uint[] { 0, 0 }; //Houndour 3
+                    break;
+                case 3:
+                    list = new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Spheal 1
+                    break;
+                case 4:
+                    list = new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Soheal 2
+                    break;
+                case 5:
+                    list = new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 3
+                    break;
+                case 6:
+                    list = new uint[] { 0, 0 }; //Baltoy 1
+                    break;
+                case 7:
+                    list = new uint[] { 2, 1, 127, 255, 0, 127, 255, 24 }; //To do baltoy 2
+                    break;
+                case 8:
+                    list = new uint[] { 0, 0 }; //Baltoy 3
+                    break;
+                case 9:
+                    list = new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Mareep 1
+                    break;
+                case 10:
+                    list = new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //To do mareep 2
+                    break;
+                case 11:
+                    list = new uint[] { 0, 0 }; //Mareep 3
+                    break;
+                case 12:
+                    list = new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 1
+                    break;
+                case 13:
+                    list = new uint[] { 4, 1, 0, 126, 0, 0, 126, 0, 127, 255, 6, 0, 126, 12 }; //Gulpin 2
+                    break;
+                case 14:
+                    list = new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 3
+                    break;
+                case 15:
+                    list = new uint[] { 5, 1, 127, 255, 12, 127, 255, 0, 0, 126, 12, 0, 126, 24, 127, 255, 6 }; //Seedot 1
+                    break;
+                case 16:
+                    list = new uint[] { 0, 0 }; //To do seedot 2
+                    break;
+                case 17:
+                    list = new uint[] { 0, 0 }; //To do seedot 3
+                    break;
+                case 18:
+                    list = new uint[] { 0, 0 }; //Teddiursa
+                    break;
+                case 19:
+                    list = new uint[] { 0, 0 }; //Carvanha
+                    break;
+                case 20:
+                    list = new uint[] { 0, 0 }; //Zangoose
+                    break;
+                case 21:
+                    list = new uint[] { 0, 0 }; //Togepi
+                    break;
+                case 22:
+                    list = new uint[] { 0, 0 }; //Shellder
+                    break;
+                case 23:
+                    list = new uint[] { 0, 0 }; //Beedrill
+                    break;
+                case 24:
+                    list = new uint[] { 0, 0 }; //Swellow
+                    break;
+                case 25:
+                    list = new uint[] { 0, 0 }; //Lugia
+                    break;
+                case 26:
+                    list = new uint[] { 0, 0 }; //Rhydon
+                    break;
+                case 27:
+                    list = new uint[] { 0, 0 }; //Moltres
+                    break;
+                case 28:
+                    list = new uint[] { 0, 0 }; //Exeggutor
+                    break;
+                case 29:
+                    list = new uint[] { 0, 0 }; //Tauros
+                    break;
+                case 30:
+                    list = new uint[] { 0, 0 }; //Articuno
+                    break;
+                case 31:
+                    list = new uint[] { 0, 0 }; //Zapdos
+                    break;
+                case 32:
+                    list = new uint[] { 1, 1, 0, 126, 12 }; //Poochyena
+                    break;
+                case 33:
+                    list = new uint[] { 1, 1, 0, 126, 0 }; //Ledyba
+                    break;
+                case 34:
+                    list = new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Spinarak
+                    break;
+                case 35:
+                    list = new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Makuhita
+                    break;
+                case 36:
+                    list = new uint[] { 3, 1, 127, 255, 24, 0, 126, 18, 127, 255, 12 }; //Duskull
+                    break;
+                case 37:
+                    list = new uint[] { 3, 1, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Farfetch'd
+                    break;
+                case 38:
+                    list = new uint[] { 3, 6, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Altaria
+                    break;
+                case 39:
+                    list = new uint[] { 3, 1, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Kangaskhan
+                    break;
+                case 40:
+                    list = new uint[] { 3, 6, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Banette
+                    break;
+                case 41:
+                    list = new uint[] { 3, 1, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Magmar
+                    break;
+                case 42:
+                    list = new uint[] { 3, 6, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Pinsir
+                    break;
+                case 43:
+                    list = new uint[] { 3, 1, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Rapidash
+                    break;
+                case 44:
+                    list = new uint[] { 3, 6, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Marcargo
+                    break;
+                case 45:
+                    list = new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Hitmonchan
+                    break;
+                case 46:
+                    list = new uint[] { 4, 1, 0, 126, 24, 0, 255, 6, 0, 126, 12, 127, 255, 18 }; //Hitmonlee
+                    break;
+                case 47:
+                    list = new uint[] { 2, 1, 0, 255, 6, 127, 255, 24 }; //Lickitung
+                    break;
+                case 48:
+                    list = new uint[] { 2, 1, 127, 255, 24, 0, 126, 6 }; //Scyther
+                    break;
+                case 49:
+                    list = new uint[] { 2, 6, 127, 255, 24, 0, 126, 6 }; //Chansey
+                    break;
+                case 50:
+                    list = new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Solrock
+                    break;
+                case 51:
+                    list = new uint[] { 2, 6, 0, 126, 6, 127, 255, 24 }; //Growlithe
+                    break;
+                case 52:
+                    list = new uint[] { 3, 6, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Butterfree
+                    break;
+                case 53:
+                    list = new uint[] { 3, 6, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Weepinbell
+                    break;
+                case 54:
+                    list = new uint[] { 4, 6, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Hypno
+                    break;
+                case 55:
+                    list = new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Sableye
+                    break;
+                case 56:
+                    list = new uint[] { 3, 1, 127, 255, 18, 500, 500, 500, 0, 126, 18 }; //Raticate
+                    break;
+                case 57:
+                    list = new uint[] { 5, 1, 127, 255, 18, 500, 500, 500, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Starmie
+                    break;
+                case 58:
+                    list = new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Electabuzz
+                    break;
+                case 59:
+                    list = new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Snorlax
+                    break;
+                case 60:
+                    list = new uint[] { 4, 6, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Mr. Mime
+                    break;
+                case 61:
+                    list = new uint[] { 1, 6, 0, 126, 6 }; //Salamence
+                    break;
+                case 62:
+                    list = new uint[] { 4, 1, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Marowak
+                    break;
+                case 63:
+                    list = new uint[] { 4, 6, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Lapras
+                    break;
+                case 64:
+                    list = new uint[] { 3, 1, 0, 126, 24, 0, 255, 0, 127, 255, 6 }; //Numel
+                    break;
+                case 65:
+                    list = new uint[] { 2, 1, 0, 126, 0, 0, 126, 24 }; //Shroomish
+                    break;
+                case 66:
+                    list = new uint[] { 3, 1, 127, 255, 24, 127, 255, 0, 0, 190, 6 }; //Delcatty
+                    break;
+                case 67:
+                    list = new uint[] { 3, 1, 0, 126, 12, 127, 255, 12, 127, 255, 0 }; //Voltorb
+                    break;
+                case 68:
+                    list = new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 127, 255, 0 }; //Vulpix
+                    break;
+                case 69:
+                    list = new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 63, 255, 0 }; //Ralts
+                    break;
+                case 70:
+                    list = new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Mawile
+                    break;
+                case 71:
+                    list = new uint[] { 1, 1, 0, 126, 6 }; //Snorunt
+                    break;
+                case 72:
+                    list = new uint[] { 1, 1, 127, 255, 6 }; //Pineco
+                    break;
+                case 73:
+                    list = new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Natu
+                    break;
+                case 74:
+                    list = new uint[] { 2, 1, 127, 255, 18, 127, 255, 6 }; //Roselia
+                    break;
+                case 75:
+                    list = new uint[] { 3, 1, 0, 126, 18, 0, 126, 0, 63, 255, 6 }; //Meowth
+                    break;
+                case 76:
+                    list = new uint[] { 2, 1, 127, 255, 0, 0, 126, 18 }; //Swinub
+                    break;
+                case 77:
+                    list = new uint[] { 2, 1, 0, 126, 6, 127, 255, 18 }; //Spearow
+                    break;
+                case 78:
+                    list = new uint[] { 2, 1, 127, 255, 18, 127, 255, 12 }; //Grimer
+                    break;
+                case 79:
+                    list = new uint[] { 3, 1, 0, 126, 18, 127, 255, 12, 127, 255, 6 }; //Seel
+                    break;
+                case 80:
+                    list = new uint[] { 2, 1, 127, 255, 18, 0, 126, 0 }; //Lunatone
+                    break;
+                case 81:
+                    list = new uint[] { 3, 1, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Nosepass
+                    break;
+                case 82:
+                    list = new uint[] { 2, 1, 0, 126, 6, 127, 255, 24 }; //Paras
+                    break;
+                case 83:
+                    list = new uint[] { 2, 1, 32, 255, 18, 127, 255, 12 }; //Pidgeotto
+                    break;
+                case 84:
+                    list = new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Tangela
+                    break;
+                case 85:
+                    list = new uint[] { 3, 1, 0, 126, 12, 127, 255, 0, 0, 255, 18 }; //Magneton
+                    break;
+                case 86:
+                    list = new uint[] { 3, 1, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Venomoth
+                    break;
+                case 87:
+                    list = new uint[] { 4, 1, 0, 126, 18, 0, 126, 12, 0, 126, 0, 127, 255, 6 }; //Arbok
+                    break;
+                case 88:
+                    list = new uint[] { 4, 1, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Primeape
+                    break;
+                case 89:
+                    list = new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Golduck
+                    break;
+                case 90:
+                    list = new uint[] { 1, 1, 0, 126, 18 }; //Dodrio
+                    break;
+                case 91:
+                    list = new uint[] { 4, 1, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Poliwrath
+                    break;
+                case 92:
+                    list = new uint[] { 4, 1, 127, 255, 12, 0, 126, 6, 127, 255, 18, 127, 255, 0 }; //Dugtrio
+                    break;
+                case 93:
+                    list = new uint[] { 1, 1, 0, 126, 6 }; //Manectric
+                    break;
+                case 94:
+                    list = new uint[] { 5, 1, 127, 255, 0, 0, 126, 12, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Dragonite
+                    break;
+            }
+
+            return list;
+        }
+
+        #region First search method
+        private void generateGales(uint[] ivsLower, uint[] ivsUpper)
+        {
+            isSearching = true;
+            uint nature = getNature();
+            if (nature == 0)
+                nature = 100;
+            else
+                nature = natures[nature];
+            uint ability = getAbility();
+            uint gender = getGender();
+            uint hp = getHP();
+
+            if (cntNum.Count == 0)
+                for (uint num = 0; num <= 0xFFFF; num += 2)
+                    cntNum.Add(num);
+
+            for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
+            {
+                for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
+                {
+                    for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
+                    {
+                        for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
+                        {
+                            for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
+                            {
+                                for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
+                                {
+                                    checkSeedGales(a, b, c, d, e, f, nature, ability, gender, hp);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        private void checkSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP)
+        {
+            uint x8 = hp + (atk << 5) + (def << 10);
+            uint x8_2 = x8 ^ 0x8000;
+            uint ex8 = spe + (spa << 5) + (spd << 10);
+            uint ex8_2 = ex8 ^ 0x8000;
+            uint ivs_1a = x8_2 << 16;
+            uint ivs_1b = x8 << 16;
+
+            foreach (uint cnt in cntNum)
+            {
+                uint seeda = ivs_1a + cnt;
+                uint seedb = ivs_1b + cnt;
+                uint[] seedList = { seeda, seedb, seeda + 1, seedb + 1 };
+                for (int x = 0; x < 4; x++)
+                {
+                    uint ivs_2 = forwardXD(seedList[x]) >> 16;
+                    if (ivs_2 == ex8 || ivs_2 == ex8_2)
+                    {
+                        uint coloSeed = reverseXD(seedList[x]);
+                        uint rng1XD = forwardXD(seedList[x]);
+                        uint rng2XD = forwardXD(rng1XD);
+                        uint rng3XD = forwardXD(rng2XD);
+                        uint rng4XD = forwardXD(rng3XD);
+                        rng1XD >>= 16;
+                        rng2XD >>= 16;
+                        rng3XD >>= 16;
+                        rng4XD >>= 16;
+
+                        if (Check(rng1XD, rng3XD, rng4XD, spe, spa, spd, nature))
+                            if (nlCheck(coloSeed))
+                                filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed);
+                    }
+                }
+            }
+        }
+
+        private bool nlCheck(uint seed)
+        {
+            //To do
+
+            return true;
+        }
+        #endregion
+
+        #region Second search method
+        private void generateGales2(uint[] ivsLower, uint[] ivsUpper, uint nature)
+        {
+            //To do
+        }
+
+
+        #endregion
+
+
+        #endregion
+
+        #region Colo search
         private void getMethod(uint[] ivsLower, uint[] ivsUpper)
         {
             uint method = 1;
@@ -1001,6 +1418,14 @@ namespace RNGReporter
                 return (uint)natureType.Invoke(new Func<uint>(getNature));
             else
                 return (uint)natureType.SelectedIndex;
+        }
+
+        private int getNatureLock()
+        {
+            if (shadowPokemon.InvokeRequired)
+                return (int)shadowPokemon.Invoke(new Func<int>(getNatureLock));
+            else
+                return (int)shadowPokemon.SelectedIndex;
         }
 
         private uint getAbility()

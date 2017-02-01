@@ -131,298 +131,200 @@ namespace RNGReporter
 
         private uint[] natureLockList(int natureLockIndex)
         {
-            uint[] list = new uint[1];
-
             switch(natureLockIndex)
             {
                 case 0:
-                    list = new uint[] { 0, 0 }; //Houndour 1
-                    break;
+                    return new uint[] { 0, 0 }; //Houndour 1
                 case 1:
-                    list = new uint[] { 0, 0 }; //To do houndour 2
-                    break;
+                    return new uint[] { 0, 0 }; //To do houndour 2
                 case 2:
-                    list = new uint[] { 0, 0 }; //Houndour 3
-                    break;
+                    return new uint[] { 0, 0 }; //Houndour 3
                 case 3:
-                    list = new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Spheal 1
-                    break;
+                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Spheal 1
                 case 4:
-                    list = new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Soheal 2
-                    break;
+                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 2
                 case 5:
-                    list = new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 3
-                    break;
+                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 3
                 case 6:
-                    list = new uint[] { 0, 0 }; //Baltoy 1
-                    break;
+                    return new uint[] { 0, 0 }; //Baltoy 1
                 case 7:
-                    list = new uint[] { 2, 1, 127, 255, 0, 127, 255, 24 }; //To do baltoy 2
-                    break;
+                    return new uint[] { 2, 1, 127, 255, 0, 127, 255, 24 }; //To do baltoy 2
                 case 8:
-                    list = new uint[] { 0, 0 }; //Baltoy 3
-                    break;
+                    return new uint[] { 0, 0 }; //Baltoy 3
                 case 9:
-                    list = new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Mareep 1
-                    break;
+                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Mareep 1
                 case 10:
-                    list = new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //To do mareep 2
-                    break;
+                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //To do mareep 2
                 case 11:
-                    list = new uint[] { 0, 0 }; //Mareep 3
-                    break;
+                    return new uint[] { 0, 0 }; //Mareep 3
                 case 12:
-                    list = new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 1
-                    break;
+                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 1
                 case 13:
-                    list = new uint[] { 4, 1, 0, 126, 0, 0, 126, 0, 127, 255, 6, 0, 126, 12 }; //Gulpin 2
-                    break;
+                    return new uint[] { 4, 1, 0, 126, 0, 0, 126, 0, 127, 255, 6, 0, 126, 12 }; //Gulpin 2
                 case 14:
-                    list = new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 3
-                    break;
+                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 3
                 case 15:
-                    list = new uint[] { 5, 1, 127, 255, 12, 127, 255, 0, 0, 126, 12, 0, 126, 24, 127, 255, 6 }; //Seedot 1
-                    break;
+                    return new uint[] { 5, 1, 127, 255, 12, 127, 255, 0, 0, 126, 12, 0, 126, 24, 127, 255, 6 }; //Seedot 1
                 case 16:
-                    list = new uint[] { 0, 0 }; //To do seedot 2
-                    break;
+                    return new uint[] { 0, 0 }; //To do seedot 2
                 case 17:
-                    list = new uint[] { 0, 0 }; //To do seedot 3
-                    break;
+                    return new uint[] { 0, 0 }; //To do seedot 3
                 case 18:
-                    list = new uint[] { 0, 0 }; //Teddiursa
-                    break;
+                    return new uint[] { 0, 0 }; //Teddiursa 
                 case 19:
-                    list = new uint[] { 0, 0 }; //Carvanha
-                    break;
+                    return new uint[] { 0, 0 }; //Carvanha
                 case 20:
-                    list = new uint[] { 0, 0 }; //Zangoose
-                    break;
+                    return new uint[] { 0, 0 }; //Zangoose
                 case 21:
-                    list = new uint[] { 0, 0 }; //Togepi
-                    break;
+                    return new uint[] { 0, 0 }; //Togepi
                 case 22:
-                    list = new uint[] { 0, 0 }; //Shellder
-                    break;
+                    return new uint[] { 0, 0 }; //Shellder
                 case 23:
-                    list = new uint[] { 0, 0 }; //Beedrill
-                    break;
+                    return new uint[] { 0, 0 }; //Beedrill
                 case 24:
-                    list = new uint[] { 0, 0 }; //Swellow
-                    break;
+                    return new uint[] { 0, 0 }; //Swellow
                 case 25:
-                    list = new uint[] { 0, 0 }; //Lugia
-                    break;
+                    return new uint[] { 0, 0 }; //Lugia
                 case 26:
-                    list = new uint[] { 0, 0 }; //Rhydon
-                    break;
+                    return new uint[] { 0, 0 }; //Rhydon
                 case 27:
-                    list = new uint[] { 0, 0 }; //Moltres
-                    break;
+                    return new uint[] { 0, 0 }; //Moltres
                 case 28:
-                    list = new uint[] { 0, 0 }; //Exeggutor
-                    break;
+                    return new uint[] { 0, 0 }; //Exeggutor
                 case 29:
-                    list = new uint[] { 0, 0 }; //Tauros
-                    break;
+                    return new uint[] { 0, 0 }; //Tauros
                 case 30:
-                    list = new uint[] { 0, 0 }; //Articuno
-                    break;
+                    return new uint[] { 0, 0 }; //Articuno 
                 case 31:
-                    list = new uint[] { 0, 0 }; //Zapdos
-                    break;
+                    return new uint[] { 0, 0 }; //Zapdos 
                 case 32:
-                    list = new uint[] { 1, 1, 0, 126, 12 }; //Poochyena
-                    break;
+                    return new uint[] { 1, 1, 0, 126, 12 }; //Poochyena
                 case 33:
-                    list = new uint[] { 1, 1, 0, 126, 0 }; //Ledyba
-                    break;
+                    return new uint[] { 1, 1, 0, 126, 0 }; //Ledyba  
                 case 34:
-                    list = new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Spinarak
-                    break;
+                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Spinarak
                 case 35:
-                    list = new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Makuhita
-                    break;
+                    return new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Makuhita
                 case 36:
-                    list = new uint[] { 3, 1, 127, 255, 24, 0, 126, 18, 127, 255, 12 }; //Duskull
-                    break;
+                    return new uint[] { 3, 1, 127, 255, 24, 0, 126, 18, 127, 255, 12 }; //Duskull
                 case 37:
-                    list = new uint[] { 3, 1, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Farfetch'd
-                    break;
+                    return new uint[] { 3, 1, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Farfetch'd  
                 case 38:
-                    list = new uint[] { 3, 6, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Altaria
-                    break;
+                    return new uint[] { 3, 6, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Altaria
                 case 39:
-                    list = new uint[] { 3, 1, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Kangaskhan
-                    break;
+                    return new uint[] { 3, 1, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Kangaskhan
                 case 40:
-                    list = new uint[] { 3, 6, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Banette
-                    break;
+                    return new uint[] { 3, 6, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Banette
                 case 41:
-                    list = new uint[] { 3, 1, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Magmar
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Magmar 
                 case 42:
-                    list = new uint[] { 3, 6, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Pinsir
-                    break;
+                    return new uint[] { 3, 6, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Pinsir
                 case 43:
-                    list = new uint[] { 3, 1, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Rapidash
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Rapidash
                 case 44:
-                    list = new uint[] { 3, 6, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Marcargo
-                    break;
+                    return new uint[] { 3, 6, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Marcargo
                 case 45:
-                    list = new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Hitmonchan
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Hitmonchan
                 case 46:
-                    list = new uint[] { 4, 1, 0, 126, 24, 0, 255, 6, 0, 126, 12, 127, 255, 18 }; //Hitmonlee
-                    break;
+                    return new uint[] { 4, 1, 0, 126, 24, 0, 255, 6, 0, 126, 12, 127, 255, 18 }; //Hitmonlee
                 case 47:
-                    list = new uint[] { 2, 1, 0, 255, 6, 127, 255, 24 }; //Lickitung
-                    break;
+                    return new uint[] { 2, 1, 0, 255, 6, 127, 255, 24 }; //Lickitung
                 case 48:
-                    list = new uint[] { 2, 1, 127, 255, 24, 0, 126, 6 }; //Scyther
-                    break;
+                    return new uint[] { 2, 1, 127, 255, 24, 0, 126, 6 }; //Scyther
                 case 49:
-                    list = new uint[] { 2, 6, 127, 255, 24, 0, 126, 6 }; //Chansey
-                    break;
+                    return new uint[] { 2, 6, 127, 255, 24, 0, 126, 6 }; //Chansey
                 case 50:
-                    list = new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Solrock
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Solrock
                 case 51:
-                    list = new uint[] { 2, 6, 0, 126, 6, 127, 255, 24 }; //Growlithe
-                    break;
+                    return new uint[] { 2, 6, 0, 126, 6, 127, 255, 24 }; //Growlithe
                 case 52:
-                    list = new uint[] { 3, 6, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Butterfree
-                    break;
+                    return new uint[] { 3, 6, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Butterfree
                 case 53:
-                    list = new uint[] { 3, 6, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Weepinbell
-                    break;
+                    return new uint[] { 3, 6, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Weepinbell
                 case 54:
-                    list = new uint[] { 4, 6, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Hypno
-                    break;
+                    return new uint[] { 4, 6, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Hypno
                 case 55:
-                    list = new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Sableye
-                    break;
+                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Sableye
                 case 56:
-                    list = new uint[] { 3, 1, 127, 255, 18, 500, 500, 500, 0, 126, 18 }; //Raticate
-                    break;
+                    return new uint[] { 3, 1, 127, 255, 18, 500, 500, 500, 0, 126, 18 }; //Raticate
                 case 57:
-                    list = new uint[] { 5, 1, 127, 255, 18, 500, 500, 500, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Starmie
-                    break;
+                    return new uint[] { 5, 1, 127, 255, 18, 500, 500, 500, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Starmie
                 case 58:
-                    list = new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Electabuzz
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Electabuzz
                 case 59:
-                    list = new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Snorlax
-                    break;
+                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Snorlax
                 case 60:
-                    list = new uint[] { 4, 6, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Mr. Mime
-                    break;
+                    return new uint[] { 4, 6, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Mr. Mime
                 case 61:
-                    list = new uint[] { 1, 6, 0, 126, 6 }; //Salamence
-                    break;
+                    return new uint[] { 1, 6, 0, 126, 6 }; //Salamence
                 case 62:
-                    list = new uint[] { 4, 1, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Marowak
-                    break;
+                    return new uint[] { 4, 1, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Marowak
                 case 63:
-                    list = new uint[] { 4, 6, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Lapras
-                    break;
+                    return new uint[] { 4, 6, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Lapras
                 case 64:
-                    list = new uint[] { 3, 1, 0, 126, 24, 0, 255, 0, 127, 255, 6 }; //Numel
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 24, 0, 255, 0, 127, 255, 6 }; //Numel
                 case 65:
-                    list = new uint[] { 2, 1, 0, 126, 0, 0, 126, 24 }; //Shroomish
-                    break;
+                    return new uint[] { 2, 1, 0, 126, 0, 0, 126, 24 }; //Shroomish  
                 case 66:
-                    list = new uint[] { 3, 1, 127, 255, 24, 127, 255, 0, 0, 190, 6 }; //Delcatty
-                    break;
+                    return new uint[] { 3, 1, 127, 255, 24, 127, 255, 0, 0, 190, 6 }; //Delcatty
                 case 67:
-                    list = new uint[] { 3, 1, 0, 126, 12, 127, 255, 12, 127, 255, 0 }; //Voltorb
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 12, 127, 255, 0 }; //Voltorb
                 case 68:
-                    list = new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 127, 255, 0 }; //Vulpix
-                    break;
+                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 127, 255, 0 }; //Vulpix
                 case 69:
-                    list = new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 63, 255, 0 }; //Ralts
-                    break;
+                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 63, 255, 0 }; //Ralts
                 case 70:
-                    list = new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Mawile
-                    break;
+                    return new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Mawile
                 case 71:
-                    list = new uint[] { 1, 1, 0, 126, 6 }; //Snorunt
-                    break;
+                    return new uint[] { 1, 1, 0, 126, 6 }; //Snorunt
                 case 72:
-                    list = new uint[] { 1, 1, 127, 255, 6 }; //Pineco
-                    break;
+                    return new uint[] { 1, 1, 127, 255, 6 }; //Pineco
                 case 73:
-                    list = new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Natu
-                    break;
+                    return new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Natu
                 case 74:
-                    list = new uint[] { 2, 1, 127, 255, 18, 127, 255, 6 }; //Roselia
-                    break;
+                    return new uint[] { 2, 1, 127, 255, 18, 127, 255, 6 }; //Roselia
                 case 75:
-                    list = new uint[] { 3, 1, 0, 126, 18, 0, 126, 0, 63, 255, 6 }; //Meowth
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 0, 63, 255, 6 }; //Meowth
                 case 76:
-                    list = new uint[] { 2, 1, 127, 255, 0, 0, 126, 18 }; //Swinub
-                    break;
+                    return new uint[] { 2, 1, 127, 255, 0, 0, 126, 18 }; //Swinub
                 case 77:
-                    list = new uint[] { 2, 1, 0, 126, 6, 127, 255, 18 }; //Spearow
-                    break;
+                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 18 }; //Spearow
                 case 78:
-                    list = new uint[] { 2, 1, 127, 255, 18, 127, 255, 12 }; //Grimer
-                    break;
+                    return new uint[] { 2, 1, 127, 255, 18, 127, 255, 12 }; //Grimer
                 case 79:
-                    list = new uint[] { 3, 1, 0, 126, 18, 127, 255, 12, 127, 255, 6 }; //Seel
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 18, 127, 255, 12, 127, 255, 6 }; //Seel
                 case 80:
-                    list = new uint[] { 2, 1, 127, 255, 18, 0, 126, 0 }; //Lunatone
-                    break;
+                    return new uint[] { 2, 1, 127, 255, 18, 0, 126, 0 }; //Lunatone
                 case 81:
-                    list = new uint[] { 3, 1, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Nosepass
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Nosepass
                 case 82:
-                    list = new uint[] { 2, 1, 0, 126, 6, 127, 255, 24 }; //Paras
-                    break;
+                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 24 }; //Paras
                 case 83:
-                    list = new uint[] { 2, 1, 32, 255, 18, 127, 255, 12 }; //Pidgeotto
-                    break;
+                    return new uint[] { 2, 1, 32, 255, 18, 127, 255, 12 }; //Pidgeotto
                 case 84:
-                    list = new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Tangela
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Tangela
                 case 85:
-                    list = new uint[] { 3, 1, 0, 126, 12, 127, 255, 0, 0, 255, 18 }; //Magneton
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 0, 0, 255, 18 }; //Magneton
                 case 86:
-                    list = new uint[] { 3, 1, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Venomoth
-                    break;
+                    return new uint[] { 3, 1, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Venomoth
                 case 87:
-                    list = new uint[] { 4, 1, 0, 126, 18, 0, 126, 12, 0, 126, 0, 127, 255, 6 }; //Arbok
-                    break;
+                    return new uint[] { 4, 1, 0, 126, 18, 0, 126, 12, 0, 126, 0, 127, 255, 6 }; //Arbok
                 case 88:
-                    list = new uint[] { 4, 1, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Primeape
-                    break;
+                    return new uint[] { 4, 1, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Primeape
                 case 89:
-                    list = new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Golduck
-                    break;
+                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Golduck
                 case 90:
-                    list = new uint[] { 1, 1, 0, 126, 18 }; //Dodrio
-                    break;
+                    return new uint[] { 1, 1, 0, 126, 18 }; //Dodrio
                 case 91:
-                    list = new uint[] { 4, 1, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Poliwrath
-                    break;
+                    return new uint[] { 4, 1, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Poliwrath
                 case 92:
-                    list = new uint[] { 4, 1, 127, 255, 12, 0, 126, 6, 127, 255, 18, 127, 255, 0 }; //Dugtrio
-                    break;
+                    return new uint[] { 4, 1, 127, 255, 12, 0, 126, 6, 127, 255, 18, 127, 255, 0 }; //Dugtrio
                 case 93:
-                    list = new uint[] { 1, 1, 0, 126, 6 }; //Manectric
-                    break;
-                case 94:
-                    list = new uint[] { 5, 1, 127, 255, 0, 0, 126, 12, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Dragonite
-                    break;
+                    return new uint[] { 1, 1, 0, 126, 6 }; //Manectric
+                default:
+                    return new uint[] { 5, 1, 127, 255, 0, 0, 126, 12, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Dragonite
+                    
             }
-
-            return list;
         }
 
         #region First search method
@@ -486,11 +388,9 @@ namespace RNGReporter
                     {
                         uint coloSeed = reverseXD(seedList[x]);
                         uint rng1XD = forwardXD(seedList[x]);
-                        uint rng2XD = forwardXD(rng1XD);
-                        uint rng3XD = forwardXD(rng2XD);
+                        uint rng3XD = forwardXD(forwardXD(rng1XD));
                         uint rng4XD = forwardXD(rng3XD);
                         rng1XD >>= 16;
-                        rng2XD >>= 16;
                         rng3XD >>= 16;
                         rng4XD >>= 16;
 
@@ -601,11 +501,9 @@ namespace RNGReporter
                     {
                         uint coloSeed = reverseXD(seedList[x]);
                         uint rng1XD = forwardXD(seedList[x]);
-                        uint rng2XD = forwardXD(rng1XD);
-                        uint rng3XD = forwardXD(rng2XD);
+                        uint rng3XD = forwardXD(forwardXD(rng1XD));
                         uint rng4XD = forwardXD(rng3XD);
                         rng1XD >>= 16;
-                        rng2XD >>= 16;
                         rng3XD >>= 16;
                         rng4XD >>= 16;
 
@@ -1255,10 +1153,8 @@ namespace RNGReporter
                         if (Check(ivs1, pid1, pid2, spd, spa, spe, nature))
                         {
                             if (wishMkr)
-                            {
                                 if (seed < 0x10000)
                                     filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, ivs1, pid1, pid2, seed);
-                            }
                             else
                                 filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, ivs1, pid1, pid2, seed);
                         }

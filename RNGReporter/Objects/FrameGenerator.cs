@@ -3836,7 +3836,7 @@ namespace RNGReporter.Objects
                 rngArray = new uint[maxResults + 12];
 
                 for (uint cnt = 0; cnt < maxResults + 12; cnt++)
-                    rngArray[cnt] = rng.GetNext32BitNumber();
+                    rngArray[cnt] = rng.GetNext16BitNumber();
 
                 for (uint cnt = 0; cnt < maxResults; cnt++)
                 {
@@ -3844,16 +3844,16 @@ namespace RNGReporter.Objects
                         0,
                         FrameType.Channel,
                         cnt + InitialFrame,
-                        (rngArray[0 + cnt]) >> 16,
+                        rngArray[cnt],
                         rngArray[1 + cnt],
-                        (rngArray[2 + cnt]) >> 16,
-                        (rngArray[6 + cnt]) >> 27,
-                        (rngArray[7 + cnt]) >> 27,
-                        (rngArray[8 + cnt]) >> 27,
-                        (rngArray[10 + cnt]) >> 27,
-                        (rngArray[11 + cnt]) >> 27,
-                        (rngArray[9 + cnt]) >> 27,
-                        40122, (rngArray[1 + cnt] >> 16));
+                        rngArray[2 + cnt],
+                        (rngArray[6 + cnt]) >> 11,
+                        (rngArray[7 + cnt]) >> 11,
+                        (rngArray[8 + cnt]) >> 11,
+                        (rngArray[10 + cnt]) >> 11,
+                        (rngArray[11 + cnt]) >> 11,
+                        (rngArray[9 + cnt]) >> 11,
+                        40122, rngArray[cnt]);
 
 
                     if (frameCompare.Compare(frame))

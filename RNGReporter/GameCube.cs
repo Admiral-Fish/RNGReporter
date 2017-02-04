@@ -958,13 +958,9 @@ namespace RNGReporter
 
         private uint pidChkChannel(uint frame, uint xor_val, uint sid)
         {
-            uint pid1 = slist[(int)(frame + 2)];
-            uint pidtemp = pid1 + 0x80000000;
-            if (pidtemp > 0xFFFFFFFF)
-                pidtemp &= 0xFFFFFFFF;
-            uint pid = ((pidtemp >> 16) << 16) + rlist[(int)(frame + 3)];
+            uint pid = ((rlist[(int)(frame + 2)] ^ 0x8000) << 16) + rlist[(int)(frame + 3)];
             if (Functions.Shiny(pid, 40122, (ushort)sid))
-                pid = ((pid1 >> 16) << 16) + rlist[(int)(frame + 3)];
+                pid ^= 0x80000000;
             if (xor_val == 1)
                 pid = pid ^ 0x80008000;
 

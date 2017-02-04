@@ -859,10 +859,6 @@ namespace RNGReporter.Objects
             uint id,
             uint sid)
         {
-            uint pidtemp = pid1 + 0x80000000;
-            if (pidtemp > 0xFFFFFFFF)
-                pidtemp &= 0xFFFFFFFF;
-
             var frame = new Frame(frameType)
             {
                 seed = seed,
@@ -870,9 +866,9 @@ namespace RNGReporter.Objects
                 RngResult = rngResult,
             };
 
-            uint monPID = ((pidtemp >> 16) << 16) + pid2;
+            uint monPID = ((pid1 ^ 0x8000) << 16) + pid2;
             if (Functions.Shiny(monPID, 40122, (ushort)sid))
-                monPID = ((pid1 >> 16) << 16) + pid2;
+                monPID ^= 0x80000000;
 
             frame.id = id;
             frame.sid = sid;
@@ -885,10 +881,6 @@ namespace RNGReporter.Objects
             frame.Spe = dv6;
             frame.Nature = (monPID % 25);
             frame.ability = monPID & 1;
-
-            //  Set up the ID and SID before we calculate 
-            //  the pid, as we are going to need this.
-
 
             return frame;
         }

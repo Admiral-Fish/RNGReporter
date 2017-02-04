@@ -125,8 +125,6 @@ namespace RNGReporter
         {
             long pidl = (long)pid & 0xFFFF;
             long pidh = ((long)pid >> 16) ^ 0x8000;
-            long sid;
-            long pidhNew;
 
             long test = pidl * 0x10000;
             for (int x = 0; x < 65536; x++)
@@ -135,25 +133,7 @@ namespace RNGReporter
                 long prevseed = reverseXD(testseed);
                 long temp = prevseed >> 16;
                 if (temp == pidh)
-                {
-                    sid = reverseXD(prevseed);
-                    if (!Functions.Shiny(pid, 40122, (ushort)(sid >> 16)))
-                        addSeed(reverseXD(sid), 4);
-                    else
-                    {
-                        pidhNew = pidh ^ 0x8000;
-                        for (int y = 0; x < 65536; x++)
-                        {
-                            testseed = test + y;
-                            prevseed = reverseXD(testseed);
-                            temp = prevseed >> 16;
-                            if (temp == pidh)
-                            {
-                                addSeed(reverseXD(reverseXD(prevseed)), 4);
-                            }
-                        }
-                    }
-                }
+                    addSeed(reverseXD(reverseXD(prevseed)), 4);
             }
         }
 

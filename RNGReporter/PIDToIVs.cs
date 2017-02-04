@@ -20,7 +20,7 @@ namespace RNGReporter
         private ThreadDelegate gridUpdate;
         private BindingSource binding = new BindingSource();
         private List<PIDIVS> results;
-        private readonly String[] Method = { "Method 1", "Method 2", "Method 4", "XD/Colo" };
+        private readonly String[] Method = { "Method 1", "Method 2", "Method 4", "XD/Colo", "Channel" };
 
         public PIDToIVs()
         {
@@ -54,6 +54,7 @@ namespace RNGReporter
             calcMethod2(pid);
             calcMethod4(pid);
             calcMethodXD(pid);
+            calcMethodChannel(pid);
         }
 
         private void calcMethod1(uint pid)
@@ -120,6 +121,22 @@ namespace RNGReporter
             }
         }
 
+        private void calcMethodChannel(uint pid)
+        {
+            long pidl = (long)pid & 0xFFFF;
+            long pidh = ((long)pid >> 16) ^ 0x8000;
+
+            long test = pidl * 0x10000;
+            for (int x = 0; x < 65536; x++)
+            {
+                long testseed = test + x;
+                long prevseed = reverseXD(testseed);
+                long temp = prevseed >> 16;
+                if (temp == pidh)
+                    addSeed(reverseXD(reverseXD(prevseed)),4);
+            }
+        }
+
         private void addSeed(long seed, int method)
         {
             String methodType = Method[method];
@@ -133,8 +150,10 @@ namespace RNGReporter
                 IVs = calcIVs2(seed);
             else if (method == 2)
                 IVs = calcIVs4(seed);
-            else
+            else if (method == 3)
                 IVs = calcIVsXD(seed);
+            else
+                IVs = calcIVsChannel(seed);
 
             results.Add(new PIDIVS { Seed = MonsterSeed, Method = methodType, IVs = IVs});
         }
@@ -255,6 +274,28 @@ namespace RNGReporter
 
             iV = iv2 & 31;
             ivs += iV.ToString();
+
+            return ivs;
+        }
+
+        private String calcIVsChannel(long seed)
+        {
+            String ivs = "";
+
+            long iv1 = forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(seed)))))));
+            long iv2 = forwardXD(iv1);
+            long iv3 = forwardXD(iv2);
+            long iv4 = forwardXD(iv3);
+            long iv5 = forwardXD(iv4);
+            long iv6 = forwardXD(iv5);
+            long[] ivContiner = new long[] { iv1, iv2, iv3, iv6, iv4, iv5 };
+            for (int x = 0; x < 6; x ++)
+            {
+                long iv = ivContiner[x] >> 27;
+                ivs += iv.ToString();
+                if (x != 5)
+                    ivs += ".";
+            }
 
             return ivs;
         }

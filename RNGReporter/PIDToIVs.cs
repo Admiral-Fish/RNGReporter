@@ -125,6 +125,8 @@ namespace RNGReporter
         {
             long pidl = (long)pid & 0xFFFF;
             long pidh = ((long)pid >> 16) ^ 0x8000;
+            long sid;
+            long pidhNew;
 
             long test = pidl * 0x10000;
             for (int x = 0; x < 65536; x++)
@@ -133,7 +135,25 @@ namespace RNGReporter
                 long prevseed = reverseXD(testseed);
                 long temp = prevseed >> 16;
                 if (temp == pidh)
-                    addSeed(reverseXD(reverseXD(prevseed)),4);
+                {
+                    sid = reverseXD(prevseed);
+                    if (!Functions.Shiny(pid, 40122, (ushort)(sid >> 16)))
+                        addSeed(reverseXD(sid), 4);
+                    else
+                    {
+                        pidhNew = pidh ^ 0x8000;
+                        for (int y = 0; x < 65536; x++)
+                        {
+                            testseed = test + y;
+                            prevseed = reverseXD(testseed);
+                            temp = prevseed >> 16;
+                            if (temp == pidh)
+                            {
+                                addSeed(reverseXD(reverseXD(prevseed)), 4);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -288,7 +308,7 @@ namespace RNGReporter
             long iv4 = forwardXD(iv3);
             long iv5 = forwardXD(iv4);
             long iv6 = forwardXD(iv5);
-            long[] ivContiner = new long[] { iv1, iv2, iv3, iv6, iv4, iv5 };
+            long[] ivContiner = new long[] { iv1, iv2, iv3, iv5, iv6, iv4 };
             for (int x = 0; x < 6; x ++)
             {
                 long iv = ivContiner[x] >> 27;

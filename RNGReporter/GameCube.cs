@@ -106,7 +106,7 @@ namespace RNGReporter
                 else
                     getMethod(ivsLower, ivsUpper);
             else
-                generateChannel(ivsLower, ivsUpper, getNature());
+                getChannelMethod(ivsLower, ivsUpper);
         }
 
         #region Gales Search
@@ -870,8 +870,110 @@ namespace RNGReporter
 
         #region Channel
 
+        private void getChannelMethod(uint[] ivsLower, uint[] ivsUpper)
+        {
+            uint method = 1;
+
+            for (int x = 0; x < 6; x++)
+            {
+                uint temp = ivsUpper[x] - ivsLower[x] + 1;
+                method *= temp;
+            }
+
+            if (method > 16384)
+                generateChannel2(ivsLower, ivsUpper, getNature());
+            else
+                generateChannel(ivsLower, ivsUpper);
+        }
+
+        private void generateChannel(uint[] ivsLower, uint[] ivsUpper)
+        {
+            isSearching = true;
+            uint nature = getNature();
+            if (nature == 0)
+                nature = 100;
+            else
+                nature = natures[nature];
+            uint ability = getAbility();
+            uint gender = getGender();
+            uint hp = getHP();
+
+            for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
+            {
+                for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
+                {
+                    for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
+                    {
+                        for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
+                        {
+                            for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
+                            {
+                                for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
+                                {
+                                    checkSeedChannel(a, b, c, d, e, f, nature, ability, gender, hp);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP)
+        {
+            uint x16 = spd << 27;
+
+            for(uint cnt = 1; cnt <= 0x7FFFFFF; cnt++)
+            {
+                uint testseed = x16 + cnt;
+                uint prevseed = reverseXD(testseed);
+                uint temp = prevseed >> 27;
+                if (temp == spa)
+                {
+                    prevseed = reverseXD(prevseed);
+                    temp = prevseed >> 27;
+                    if (temp == spe)
+                    {
+                        prevseed = reverseXD(prevseed);
+                        temp = prevseed >> 27;
+                        if (temp == def)
+                        {
+                            prevseed = reverseXD(prevseed);
+                            temp = prevseed >> 27;
+                            if (temp == atk)
+                            {
+                                prevseed = reverseXD(prevseed);
+                                temp = prevseed >> 27;
+                                if (temp == hp)
+                                {
+                                    uint pid2 = reverseXD(reverseXD(reverseXD(reverseXD(prevseed))));
+                                    uint pid1 = reverseXD(pid2);
+                                    uint sid = reverseXD(pid1);
+                                    uint seed = reverseXD(sid);
+                                    uint pid = (((pid1 >> 16) << 16) + (pid2 >> 16)) ^ 0x80000000;
+                                    if(Functions.Shiny(pid, 40122,(ushort)(sid >> 16)))
+                                    {
+                                        pid ^= 0x80000000;
+                                    }
+                                    if (nature != 100)
+                                    {
+                                        if (pid % 25 == nature)
+                                            filterSeedChannel(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, seed, pid);
+                                    }
+                                    else
+                                        filterSeedChannel(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, seed, pid);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         //Credits to Zari and amab for this
-        public void generateChannel(uint[] ivsLower, uint[] ivsUpper, uint nature)
+        private void generateChannel2(uint[] ivsLower, uint[] ivsUpper, uint nature)
         {
             uint s = 0;
             uint srange = 1048576;

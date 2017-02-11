@@ -19,7 +19,6 @@ namespace RNGReporter
         private bool isSearching = false;
         private List<uint> slist = new List<uint>();
         private List<uint> rlist = new List<uint>();
-        List<uint> cntNum = new List<uint>();
         private uint shinyval;
         private uint[] natureLock;
 
@@ -340,10 +339,6 @@ namespace RNGReporter
             uint gender = getGender();
             uint hp = getHP();
 
-            if (cntNum.Count == 0)
-                for (uint num = 0; num <= 0xFFFF; num += 2)
-                    cntNum.Add(num);
-
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
             {
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
@@ -376,7 +371,7 @@ namespace RNGReporter
             uint ivs_1a = x8_2 << 16;
             uint ivs_1b = x8 << 16;
 
-            foreach (uint cnt in cntNum)
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
             {
                 uint seeda = ivs_1a + cnt;
                 uint seedb = ivs_1b + cnt;
@@ -452,10 +447,6 @@ namespace RNGReporter
             uint gender = getGender();
             uint hp = getHP();
 
-            if (cntNum.Count == 0)
-                for (uint num = 0; num <= 0xFFFF; num += 2)
-                    cntNum.Add(num);
-
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
             {
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
@@ -489,7 +480,7 @@ namespace RNGReporter
             uint ivs_1a = x8_2 << 16;
             uint ivs_1b = x8 << 16;
 
-            foreach (uint cnt in cntNum)
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
             {
                 uint seeda = ivs_1a + cnt;
                 uint seedb = ivs_1b + cnt;
@@ -925,45 +916,54 @@ namespace RNGReporter
         {
             uint x16 = spd << 27;
 
-            for(uint cnt = 1; cnt <= 0x7FFFFFF; cnt++)
+            for (uint a = 0; a < 8; a++)
             {
-                uint testseed = x16 + cnt;
-                uint prevseed = reverseXD(testseed);
-                uint temp = prevseed >> 27;
-                if (temp == spa)
+                for (uint b  = 0; b < 256; b++)
                 {
-                    prevseed = reverseXD(prevseed);
-                    temp = prevseed >> 27;
-                    if (temp == spe)
+                    for (uint c = 0; c < 256; c++)
                     {
-                        prevseed = reverseXD(prevseed);
-                        temp = prevseed >> 27;
-                        if (temp == def)
+                        for (uint d = 0; d < 256; d++)
                         {
-                            prevseed = reverseXD(prevseed);
-                            temp = prevseed >> 27;
-                            if (temp == atk)
+                            x16++;
+                            uint prevseed = reverseXD(x16);
+                            uint temp = prevseed >> 27;
+                            if (temp == spa)
                             {
                                 prevseed = reverseXD(prevseed);
                                 temp = prevseed >> 27;
-                                if (temp == hp)
+                                if (temp == spe)
                                 {
-                                    uint pid2 = reverseXD(reverseXD(reverseXD(reverseXD(prevseed))));
-                                    uint pid1 = reverseXD(pid2);
-                                    uint sid = reverseXD(pid1);
-                                    uint seed = reverseXD(sid);
-                                    uint pid = (((pid1 >> 16) << 16) + (pid2 >> 16)) ^ 0x80000000;
-                                    if(Functions.Shiny(pid, 40122,(ushort)(sid >> 16)))
+                                    prevseed = reverseXD(prevseed);
+                                    temp = prevseed >> 27;
+                                    if (temp == def)
                                     {
-                                        pid ^= 0x80000000;
+                                        prevseed = reverseXD(prevseed);
+                                        temp = prevseed >> 27;
+                                        if (temp == atk)
+                                        {
+                                            prevseed = reverseXD(prevseed);
+                                            temp = prevseed >> 27;
+                                            if (temp == hp)
+                                            {
+                                                uint pid2 = reverseXD(reverseXD(reverseXD(reverseXD(prevseed))));
+                                                uint pid1 = reverseXD(pid2);
+                                                uint sid = reverseXD(pid1);
+                                                uint seed = reverseXD(sid);
+                                                uint pid = (((pid1 >> 16) << 16) + (pid2 >> 16)) ^ 0x80000000;
+                                                if (Functions.Shiny(pid, 40122, (ushort)(sid >> 16)))
+                                                {
+                                                    pid ^= 0x80000000;
+                                                }
+                                                if (nature != 100)
+                                                {
+                                                    if (pid % 25 == nature)
+                                                        filterSeedChannel(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, seed, pid);
+                                                }
+                                                else
+                                                    filterSeedChannel(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, seed, pid);
+                                            }
+                                        }
                                     }
-                                    if (nature != 100)
-                                    {
-                                        if (pid % 25 == nature)
-                                            filterSeedChannel(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, seed, pid);
-                                    }
-                                    else
-                                        filterSeedChannel(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, seed, pid);
                                 }
                             }
                         }
@@ -1192,10 +1192,6 @@ namespace RNGReporter
             uint gender = getGender();
             uint hp = getHP();
 
-            if (cntNum.Count == 0)
-                for (uint num = 0; num <= 0xFFFF; num += 2)
-                    cntNum.Add(num);
-
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
             {
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
@@ -1230,7 +1226,7 @@ namespace RNGReporter
             uint ivs_1b = x4 << 16;
             bool wishMkr = wshMkr.Checked;
 
-            foreach (uint cnt in cntNum)
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
             {
                 uint seeda = ivs_1a + cnt;
                 uint seedb = ivs_1b + cnt;

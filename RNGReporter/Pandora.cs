@@ -1911,7 +1911,7 @@ namespace RNGReporter
 
             isSearching = true;
             //get to the proper starting frame and throw out the first call at that frame (generation takes 3 calls)
-            for (int i = 0; i < minFrame; ++i) rng.GetNext32BitNumber();
+            for (int i = 1; i < minFrame; ++i) rng.GetNext32BitNumber();
             //prepare for the first sid call by setting the is now
             ushort sid = rng.GetNext16BitNumber();
 

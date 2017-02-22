@@ -122,6 +122,7 @@ namespace RNGReporter
             if (natureLock.Length == 2)
             {
                 getMethod(ivsLower, ivsUpper);
+                return;
             }
             else
             {

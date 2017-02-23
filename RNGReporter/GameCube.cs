@@ -351,9 +351,10 @@ namespace RNGReporter
             uint gender = getGender();
             uint hp = getHP();
 
-            if (natureLock[0] != 1)
+            if (natureLock[1] == 6)
             {
                 MessageBox.Show("This shadow isn't currently supported.");
+                status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
                 return;
             }
 
@@ -452,30 +453,36 @@ namespace RNGReporter
             rlist.Clear();
             backwardCounter = 0;
             forwardCounter = 0;
-            int count2 = 1;
-            galesPopulateBackward(seed, 2500);
-
             int count = ((natureLock.Length - 2) / 3) - 1;
 
-            uint pid = (rlist[2] << 16) + rlist[1];
+            //Build temp pid first to not waste time populating if first nl fails
+            uint pid2 = reverseXD(reverseXD(seed));
+            uint pid1 = reverseXD(pid2);
+
+            //Backwards nature lock check
+            backwardCounter += 7;
+            uint pid = ((pid1 >> 16) << 16) + (pid2 >> 16);
             uint genderval = pid & 255;
             if (genderval > natureLock[2] && genderval < natureLock[3])
             {
                 if (pid % 25 == natureLock[4])
-                    backwardCounter += 7;
+                {
+                    //advances already accounted for
+                }
             }
             else
                 return false;
 
+            galesPopulateBackward(seed, 2500);
+
             for (int x = 1; x <= count; x++)
             {
                 bool flag = true;
-                count2 = 1;
 
                 backwardCounter += 5;
-                pid = (rlist[2 + backwardCounter] << 16) + rlist[1 + backwardCounter];
+                pid = (rlist[backwardCounter - 5] << 16) + rlist[backwardCounter - 6];
                 genderval = pid & 255;
-                if ((genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x]) || (natureLock[2 + 3 * x] == 500 && natureLock[3 + 3 * x] == 500)) 
+                if ((genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x]) || (natureLock[2 + 3 * x] == 500 && natureLock[3 + 3 * x] == 500))
                 {
                     if ((pid % 25 == natureLock[4 + 3 * x]) || (natureLock[4 + 3 * x] == 500))
                     {
@@ -486,7 +493,7 @@ namespace RNGReporter
                         while (flag)
                         {
                             backwardCounter += 2;
-                            pid = (rlist[2 + backwardCounter] << 16) + rlist[1 + backwardCounter];
+                            pid = (rlist[backwardCounter - 5] << 16) + rlist[backwardCounter - 6];
                             genderval = pid & 255;
                             if (genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x])
                             {
@@ -512,7 +519,7 @@ namespace RNGReporter
                     while (flag)
                     {
                         backwardCounter += 2;
-                        pid = (rlist[2 + backwardCounter] << 16) + rlist[1 + backwardCounter];
+                        pid = (rlist[backwardCounter - 5] << 16) + rlist[backwardCounter - 6];
                         genderval = pid & 255;
                         if (genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x])
                         {
@@ -537,20 +544,19 @@ namespace RNGReporter
             seed = slist[backwardCounter - 1];
             slist.Clear();
             rlist.Clear();
-            galesPopulateForward(seed, backwardCounter + 20);
-            int lastIndex = natureLock.Length - 1;
+            galesPopulateForward(seed, 2500);
+            int lastIndex = natureLock.Length - 4;
 
-            //this needs work
+            //Forwards nature lock check
             for (int x = 1; x <= count; x++)
             {
                 bool flag = true;
-                count2 = 1;
-                pid = (rlist[5 * x + 3] << 16) + rlist[5 * x + 4];
-                genderval = pid & 255;
                 forwardCounter += 5;
-                if (genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x])
+                pid = (rlist[forwardCounter + 3] << 16) + rlist[forwardCounter + 4];
+                genderval = pid & 255;
+                if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
                 {
-                    if (pid % 25 == natureLock[lastIndex + 3 - 3 * x])
+                    if ((pid % 25 == natureLock[lastIndex + 3 - 3 * x]) || (natureLock[lastIndex + 3 - 3 * x] == 500))
                     {
                         //nothing since i already accounted for forwards counter
                     }
@@ -558,21 +564,25 @@ namespace RNGReporter
                     {
                         while (flag)
                         {
-                            pid = (rlist[5 * x + 3 + 2 * count2] << 16) + rlist[5 * x + 4 + 2 * count2];
+                            forwardCounter += 2;
+                            pid = (rlist[forwardCounter + 3] << 16) + rlist[forwardCounter + 4];
                             genderval = pid & 255;
-                            if (genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x])
+                            if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
                             {
                                 if (pid % 25 == natureLock[lastIndex + 3 - 3 * x])
                                 {
-                                    forwardCounter += 2;
+                                    //advances already accounted for
                                     flag = false;
                                 }
                                 else
-                                    forwardCounter += 2;
+                                {
+                                    //advances already accounted for
+                                }
                             }
                             else
-                                forwardCounter += 2;
-                            count2++;
+                            {
+                                //advances already accounted for
+                            }
                         }
                     }
                 }
@@ -580,80 +590,32 @@ namespace RNGReporter
                 {
                     while (flag)
                     {
-                        pid = (rlist[5 * x + 3 + 2 * count2] << 16) + rlist[1 + 5 * x + 4 + 2 * count2];
+                        forwardCounter += 2;
+                        pid = (rlist[forwardCounter + 3] << 16) + rlist[forwardCounter + 4];
                         genderval = pid & 255;
-                        if (genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x])
+                        if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
                         {
                             if (pid % 25 == natureLock[lastIndex + 3 - 3 * x])
                             {
-                                forwardCounter += 2;
+                                //advances already accounted for
                                 flag = false;
                             }
                             else
-                                forwardCounter += 2;
-                        }
-                        else
-                            forwardCounter += 2;
-                        count2++;
-                    }
-                }
-            }
-
-            bool check = true;
-            forwardCounter += 7;
-            pid = (rlist[5 * count + 3 + 2 * count2 + 7] << 16) + rlist[5 * count + 4 + 2 * count2 + 7];
-            count2 = 1;
-            if (genderval > natureLock[lastIndex + 2 - 3 * count] && genderval < natureLock[lastIndex + 1 - 3 * count])
-            {
-                if (pid % 25 == natureLock[lastIndex + 3 - 3 * count])
-                {
-                    //blank since i accounted for forward counter
-                }
-                else
-                {
-                    while (check)
-                    {
-                        pid = (rlist[5 * count + 3 + 2 * count2] << 16) + rlist[5 * count + 4 + 2 * count2];
-                        genderval = pid & 255;
-                        if (genderval > natureLock[lastIndex + 2 - 3 * count] && genderval < natureLock[lastIndex + 1 - 3 * count])
-                        {
-                            if (pid % 25 == natureLock[lastIndex + 3 - 3 * count])
                             {
-                                forwardCounter += 2;
-                                check = false;
+                                //advances already accounted for
                             }
-                            else
-                                forwardCounter += 2;
                         }
                         else
-                            forwardCounter += 2;
-                        count2++;
-                    }
-                }
-            }
-            else
-            {
-                while (check)
-                {
-                    pid = (rlist[5 * count + 3 + 2 * count2] << 16) + rlist[5 * count + 4 + 2 * count2];
-                    genderval = pid & 255;
-                    if (genderval > natureLock[lastIndex + 2 - 3 * count] && genderval < natureLock[lastIndex + 1 - 3 * count])
-                    {
-                        if (pid % 25 == natureLock[lastIndex + 3 - 3 * count])
                         {
-                            forwardCounter += 2;
-                            check = false;
+                            //advances already accounted for
                         }
-                        else
-                            forwardCounter += 2;
                     }
-                    else
-                        forwardCounter += 2;
-                    count2++;
                 }
             }
 
-                return forwardCounter == backwardCounter;
+            forwardCounter += 7;
+
+            return forwardCounter == backwardCounter;
         }
 
         private bool secondShadowNlCheck(uint seed)

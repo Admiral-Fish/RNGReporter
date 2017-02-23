@@ -649,6 +649,9 @@ namespace RNGReporter
         private void generateGales2(uint[] ivsLower, uint[] ivsUpper, uint nature)
         {
             //To do
+            MessageBox.Show("Please lower your IV ranges. Bigger IV ranges aren't currently supported.");
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+            return;
         }
 
 

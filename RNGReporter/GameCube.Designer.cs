@@ -58,37 +58,13 @@
             this.L_search_B = new System.Windows.Forms.Label();
             this.L_search_A = new System.Windows.Forms.Label();
             this.L_search_H = new System.Windows.Forms.Label();
-            this.SpeHigh = new System.Windows.Forms.NumericUpDown();
-            this.HPLow = new System.Windows.Forms.NumericUpDown();
-            this.label109 = new System.Windows.Forms.Label();
-            this.AtkLow = new System.Windows.Forms.NumericUpDown();
-            this.DefLow = new System.Windows.Forms.NumericUpDown();
-            this.SpDHigh = new System.Windows.Forms.NumericUpDown();
-            this.SpALow = new System.Windows.Forms.NumericUpDown();
-            this.label110 = new System.Windows.Forms.Label();
-            this.SpDLow = new System.Windows.Forms.NumericUpDown();
-            this.SpeLow = new System.Windows.Forms.NumericUpDown();
-            this.SpAHigh = new System.Windows.Forms.NumericUpDown();
-            this.label112 = new System.Windows.Forms.Label();
-            this.label113 = new System.Windows.Forms.Label();
-            this.HPHigh = new System.Windows.Forms.NumericUpDown();
-            this.DefHigh = new System.Windows.Forms.NumericUpDown();
-            this.label114 = new System.Windows.Forms.Label();
-            this.label115 = new System.Windows.Forms.Label();
-            this.AtkHigh = new System.Windows.Forms.NumericUpDown();
             this.abilityType = new System.Windows.Forms.ComboBox();
-            this.search = new System.Windows.Forms.Button();
             this.L_mezapa = new System.Windows.Forms.Label();
             this.natureType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.id = new System.Windows.Forms.MaskedTextBox();
             this.sid = new System.Windows.Forms.MaskedTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.cancel = new System.Windows.Forms.Button();
             this.status = new System.Windows.Forms.Label();
             this.searchMethod = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -96,24 +72,44 @@
             this.galesCheck = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.wshMkr = new System.Windows.Forms.CheckBox();
-            this.anyNature = new System.Windows.Forms.Button();
-            this.anyGender = new System.Windows.Forms.Button();
-            this.anyAbility = new System.Windows.Forms.Button();
-            this.anyHiddenPower = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.hpValue = new System.Windows.Forms.MaskedTextBox();
+            this.atkValue = new System.Windows.Forms.MaskedTextBox();
+            this.defValue = new System.Windows.Forms.MaskedTextBox();
+            this.spaValue = new System.Windows.Forms.MaskedTextBox();
+            this.spdValue = new System.Windows.Forms.MaskedTextBox();
+            this.speValue = new System.Windows.Forms.MaskedTextBox();
+            this.hpLogic = new System.Windows.Forms.ComboBox();
+            this.atkLogic = new System.Windows.Forms.ComboBox();
+            this.defLogic = new System.Windows.Forms.ComboBox();
+            this.spaLogic = new System.Windows.Forms.ComboBox();
+            this.spdLogic = new System.Windows.Forms.ComboBox();
+            this.speLogic = new System.Windows.Forms.ComboBox();
+            this.spe30Above = new RNGReporter.GlassButton();
+            this.spe30Quick = new RNGReporter.GlassButton();
+            this.spe31Quick = new RNGReporter.GlassButton();
+            this.spd30Above = new RNGReporter.GlassButton();
+            this.spd30Quick = new RNGReporter.GlassButton();
+            this.spd31Quick = new RNGReporter.GlassButton();
+            this.spa30Above = new RNGReporter.GlassButton();
+            this.spa30Quick = new RNGReporter.GlassButton();
+            this.spa31Quick = new RNGReporter.GlassButton();
+            this.def30Above = new RNGReporter.GlassButton();
+            this.def30Quick = new RNGReporter.GlassButton();
+            this.def31Quick = new RNGReporter.GlassButton();
+            this.atk30Above = new RNGReporter.GlassButton();
+            this.atk30Quick = new RNGReporter.GlassButton();
+            this.atk31Quick = new RNGReporter.GlassButton();
+            this.hp30Above = new RNGReporter.GlassButton();
+            this.hp30Quick = new RNGReporter.GlassButton();
+            this.hp31Quick = new RNGReporter.GlassButton();
+            this.cancel = new RNGReporter.GlassButton();
+            this.search = new RNGReporter.GlassButton();
+            this.anyNature = new RNGReporter.GlassButton();
+            this.anyGender = new RNGReporter.GlassButton();
+            this.anyAbility = new RNGReporter.GlassButton();
+            this.anyHiddenPower = new RNGReporter.GlassButton();
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpeHigh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HPLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AtkLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DefLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpDHigh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpALow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpDLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpeLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpAHigh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HPHigh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DefHigh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AtkHigh)).BeginInit();
             this.SuspendLayout();
             // 
             // k_dataGridView
@@ -289,7 +285,7 @@
             // Shiny_Check
             // 
             this.Shiny_Check.AutoSize = true;
-            this.Shiny_Check.Location = new System.Drawing.Point(221, 250);
+            this.Shiny_Check.Location = new System.Drawing.Point(480, 319);
             this.Shiny_Check.Name = "Shiny_Check";
             this.Shiny_Check.Size = new System.Drawing.Size(76, 17);
             this.Shiny_Check.TabIndex = 253;
@@ -298,7 +294,7 @@
             // 
             // L_ball
             // 
-            this.L_ball.Location = new System.Drawing.Point(190, 179);
+            this.L_ball.Location = new System.Drawing.Point(396, 179);
             this.L_ball.Name = "L_ball";
             this.L_ball.Size = new System.Drawing.Size(57, 20);
             this.L_ball.TabIndex = 252;
@@ -327,7 +323,7 @@
             "Ice",
             "Dragon",
             "Dark"});
-            this.hiddenpower.Location = new System.Drawing.Point(249, 178);
+            this.hiddenpower.Location = new System.Drawing.Point(455, 178);
             this.hiddenpower.Name = "hiddenpower";
             this.hiddenpower.Size = new System.Drawing.Size(188, 21);
             this.hiddenpower.TabIndex = 238;
@@ -348,14 +344,14 @@
             "Female (87.5% Male / 12.5% Female)",
             "Male (100% Male)",
             "Female (100% Female)"});
-            this.genderType.Location = new System.Drawing.Point(249, 109);
+            this.genderType.Location = new System.Drawing.Point(455, 109);
             this.genderType.Name = "genderType";
             this.genderType.Size = new System.Drawing.Size(188, 21);
             this.genderType.TabIndex = 235;
             // 
             // L_sex
             // 
-            this.L_sex.Location = new System.Drawing.Point(190, 109);
+            this.L_sex.Location = new System.Drawing.Point(396, 109);
             this.L_sex.Name = "L_sex";
             this.L_sex.Size = new System.Drawing.Size(57, 20);
             this.L_sex.TabIndex = 251;
@@ -364,7 +360,7 @@
             // 
             // L_ability
             // 
-            this.L_ability.Location = new System.Drawing.Point(190, 145);
+            this.L_ability.Location = new System.Drawing.Point(396, 145);
             this.L_ability.Name = "L_ability";
             this.L_ability.Size = new System.Drawing.Size(57, 20);
             this.L_ability.TabIndex = 249;
@@ -425,246 +421,6 @@
             this.L_search_H.Text = "HP";
             this.L_search_H.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // SpeHigh
-            // 
-            this.SpeHigh.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpeHigh.Location = new System.Drawing.Point(139, 245);
-            this.SpeHigh.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.SpeHigh.Name = "SpeHigh";
-            this.SpeHigh.Size = new System.Drawing.Size(45, 22);
-            this.SpeHigh.TabIndex = 232;
-            this.SpeHigh.Value = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            // 
-            // HPLow
-            // 
-            this.HPLow.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HPLow.Location = new System.Drawing.Point(72, 72);
-            this.HPLow.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.HPLow.Name = "HPLow";
-            this.HPLow.Size = new System.Drawing.Size(45, 22);
-            this.HPLow.TabIndex = 221;
-            // 
-            // label109
-            // 
-            this.label109.AutoSize = true;
-            this.label109.Location = new System.Drawing.Point(119, 251);
-            this.label109.Name = "label109";
-            this.label109.Size = new System.Drawing.Size(19, 13);
-            this.label109.TabIndex = 248;
-            this.label109.Text = "～";
-            // 
-            // AtkLow
-            // 
-            this.AtkLow.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AtkLow.Location = new System.Drawing.Point(72, 107);
-            this.AtkLow.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.AtkLow.Name = "AtkLow";
-            this.AtkLow.Size = new System.Drawing.Size(45, 22);
-            this.AtkLow.TabIndex = 223;
-            // 
-            // DefLow
-            // 
-            this.DefLow.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DefLow.Location = new System.Drawing.Point(72, 141);
-            this.DefLow.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.DefLow.Name = "DefLow";
-            this.DefLow.Size = new System.Drawing.Size(45, 22);
-            this.DefLow.TabIndex = 225;
-            // 
-            // SpDHigh
-            // 
-            this.SpDHigh.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpDHigh.Location = new System.Drawing.Point(139, 211);
-            this.SpDHigh.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.SpDHigh.Name = "SpDHigh";
-            this.SpDHigh.Size = new System.Drawing.Size(45, 22);
-            this.SpDHigh.TabIndex = 230;
-            this.SpDHigh.Value = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            // 
-            // SpALow
-            // 
-            this.SpALow.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpALow.Location = new System.Drawing.Point(72, 176);
-            this.SpALow.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.SpALow.Name = "SpALow";
-            this.SpALow.Size = new System.Drawing.Size(45, 22);
-            this.SpALow.TabIndex = 227;
-            // 
-            // label110
-            // 
-            this.label110.AutoSize = true;
-            this.label110.Location = new System.Drawing.Point(119, 216);
-            this.label110.Name = "label110";
-            this.label110.Size = new System.Drawing.Size(19, 13);
-            this.label110.TabIndex = 247;
-            this.label110.Text = "～";
-            // 
-            // SpDLow
-            // 
-            this.SpDLow.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpDLow.Location = new System.Drawing.Point(72, 211);
-            this.SpDLow.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.SpDLow.Name = "SpDLow";
-            this.SpDLow.Size = new System.Drawing.Size(45, 22);
-            this.SpDLow.TabIndex = 229;
-            // 
-            // SpeLow
-            // 
-            this.SpeLow.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpeLow.Location = new System.Drawing.Point(72, 245);
-            this.SpeLow.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.SpeLow.Name = "SpeLow";
-            this.SpeLow.Size = new System.Drawing.Size(45, 22);
-            this.SpeLow.TabIndex = 231;
-            // 
-            // SpAHigh
-            // 
-            this.SpAHigh.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpAHigh.Location = new System.Drawing.Point(139, 176);
-            this.SpAHigh.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.SpAHigh.Name = "SpAHigh";
-            this.SpAHigh.Size = new System.Drawing.Size(45, 22);
-            this.SpAHigh.TabIndex = 228;
-            this.SpAHigh.Value = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            // 
-            // label112
-            // 
-            this.label112.AutoSize = true;
-            this.label112.Location = new System.Drawing.Point(119, 78);
-            this.label112.Name = "label112";
-            this.label112.Size = new System.Drawing.Size(19, 13);
-            this.label112.TabIndex = 243;
-            this.label112.Text = "～";
-            // 
-            // label113
-            // 
-            this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(119, 182);
-            this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(19, 13);
-            this.label113.TabIndex = 246;
-            this.label113.Text = "～";
-            // 
-            // HPHigh
-            // 
-            this.HPHigh.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HPHigh.Location = new System.Drawing.Point(139, 72);
-            this.HPHigh.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.HPHigh.Name = "HPHigh";
-            this.HPHigh.Size = new System.Drawing.Size(45, 22);
-            this.HPHigh.TabIndex = 222;
-            this.HPHigh.Value = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            // 
-            // DefHigh
-            // 
-            this.DefHigh.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DefHigh.Location = new System.Drawing.Point(139, 141);
-            this.DefHigh.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.DefHigh.Name = "DefHigh";
-            this.DefHigh.Size = new System.Drawing.Size(45, 22);
-            this.DefHigh.TabIndex = 226;
-            this.DefHigh.Value = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            // 
-            // label114
-            // 
-            this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(119, 112);
-            this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(19, 13);
-            this.label114.TabIndex = 244;
-            this.label114.Text = "～";
-            // 
-            // label115
-            // 
-            this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(119, 147);
-            this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(19, 13);
-            this.label115.TabIndex = 245;
-            this.label115.Text = "～";
-            // 
-            // AtkHigh
-            // 
-            this.AtkHigh.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AtkHigh.Location = new System.Drawing.Point(139, 107);
-            this.AtkHigh.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.AtkHigh.Name = "AtkHigh";
-            this.AtkHigh.Size = new System.Drawing.Size(45, 22);
-            this.AtkHigh.TabIndex = 224;
-            this.AtkHigh.Value = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            // 
             // abilityType
             // 
             this.abilityType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -673,24 +429,14 @@
             "Any",
             "Ability 0",
             "Ability 1"});
-            this.abilityType.Location = new System.Drawing.Point(249, 144);
+            this.abilityType.Location = new System.Drawing.Point(455, 144);
             this.abilityType.Name = "abilityType";
             this.abilityType.Size = new System.Drawing.Size(188, 21);
             this.abilityType.TabIndex = 233;
             // 
-            // search
-            // 
-            this.search.Location = new System.Drawing.Point(888, 348);
-            this.search.Name = "search";
-            this.search.Size = new System.Drawing.Size(75, 25);
-            this.search.TabIndex = 220;
-            this.search.Text = "Search";
-            this.search.UseVisualStyleBackColor = true;
-            this.search.Click += new System.EventHandler(this.search_Click);
-            // 
             // L_mezapa
             // 
-            this.L_mezapa.Location = new System.Drawing.Point(190, 75);
+            this.L_mezapa.Location = new System.Drawing.Point(396, 75);
             this.L_mezapa.Name = "L_mezapa";
             this.L_mezapa.Size = new System.Drawing.Size(57, 20);
             this.L_mezapa.TabIndex = 255;
@@ -728,14 +474,14 @@
             "Hardy",
             "Quirky",
             "Serious"});
-            this.natureType.Location = new System.Drawing.Point(249, 75);
+            this.natureType.Location = new System.Drawing.Point(455, 75);
             this.natureType.Name = "natureType";
             this.natureType.Size = new System.Drawing.Size(188, 21);
             this.natureType.TabIndex = 254;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(207, 224);
+            this.label1.Location = new System.Drawing.Point(466, 293);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(20, 20);
             this.label1.TabIndex = 257;
@@ -744,7 +490,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(278, 224);
+            this.label2.Location = new System.Drawing.Point(537, 293);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 20);
             this.label2.TabIndex = 259;
@@ -753,7 +499,7 @@
             // 
             // id
             // 
-            this.id.Location = new System.Drawing.Point(233, 225);
+            this.id.Location = new System.Drawing.Point(492, 294);
             this.id.Mask = "00000";
             this.id.Name = "id";
             this.id.Size = new System.Drawing.Size(39, 20);
@@ -763,63 +509,13 @@
             // 
             // sid
             // 
-            this.sid.Location = new System.Drawing.Point(323, 225);
+            this.sid.Location = new System.Drawing.Point(582, 294);
             this.sid.Mask = "00000";
             this.sid.Name = "sid";
             this.sid.Size = new System.Drawing.Size(39, 20);
             this.sid.TabIndex = 261;
             this.sid.Text = "0";
             this.sid.ValidatingType = typeof(int);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(42, 290);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 25);
-            this.button1.TabIndex = 262;
-            this.button1.Text = "Physical";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(123, 290);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 25);
-            this.button2.TabIndex = 263;
-            this.button2.Text = "Special";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(42, 321);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 25);
-            this.button3.TabIndex = 264;
-            this.button3.Text = "6 IV";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(123, 321);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 25);
-            this.button4.TabIndex = 265;
-            this.button4.Text = "Default";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // cancel
-            // 
-            this.cancel.Location = new System.Drawing.Point(969, 348);
-            this.cancel.Name = "cancel";
-            this.cancel.Size = new System.Drawing.Size(75, 25);
-            this.cancel.TabIndex = 266;
-            this.cancel.Text = "Cancel";
-            this.cancel.UseVisualStyleBackColor = true;
-            this.cancel.Click += new System.EventHandler(this.cancel_Click);
             // 
             // status
             // 
@@ -839,14 +535,14 @@
             "Reverse Method 1",
             "Gales / Colo",
             "Channel"});
-            this.searchMethod.Location = new System.Drawing.Point(311, 295);
+            this.searchMethod.Location = new System.Drawing.Point(128, 295);
             this.searchMethod.Name = "searchMethod";
             this.searchMethod.Size = new System.Drawing.Size(126, 21);
             this.searchMethod.TabIndex = 268;
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(218, 294);
+            this.label3.Location = new System.Drawing.Point(35, 294);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 20);
             this.label3.TabIndex = 269;
@@ -953,7 +649,7 @@
             "Weepinbell",
             "Zangoose",
             "Zapdos"});
-            this.shadowPokemon.Location = new System.Drawing.Point(589, 75);
+            this.shadowPokemon.Location = new System.Drawing.Point(809, 75);
             this.shadowPokemon.Name = "shadowPokemon";
             this.shadowPokemon.Size = new System.Drawing.Size(174, 21);
             this.shadowPokemon.TabIndex = 271;
@@ -961,7 +657,7 @@
             // galesCheck
             // 
             this.galesCheck.AutoSize = true;
-            this.galesCheck.Location = new System.Drawing.Point(530, 77);
+            this.galesCheck.Location = new System.Drawing.Point(750, 77);
             this.galesCheck.Name = "galesCheck";
             this.galesCheck.Size = new System.Drawing.Size(53, 17);
             this.galesCheck.TabIndex = 272;
@@ -970,7 +666,7 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(527, 112);
+            this.label4.Location = new System.Drawing.Point(747, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(220, 20);
             this.label4.TabIndex = 273;
@@ -980,52 +676,12 @@
             // wshMkr
             // 
             this.wshMkr.AutoSize = true;
-            this.wshMkr.Location = new System.Drawing.Point(233, 321);
+            this.wshMkr.Location = new System.Drawing.Point(50, 321);
             this.wshMkr.Name = "wshMkr";
             this.wshMkr.Size = new System.Drawing.Size(100, 17);
             this.wshMkr.TabIndex = 274;
             this.wshMkr.Text = "Wishmkr Jirachi";
             this.wshMkr.UseVisualStyleBackColor = true;
-            // 
-            // anyNature
-            // 
-            this.anyNature.Location = new System.Drawing.Point(443, 75);
-            this.anyNature.Name = "anyNature";
-            this.anyNature.Size = new System.Drawing.Size(36, 21);
-            this.anyNature.TabIndex = 275;
-            this.anyNature.Text = "Any";
-            this.anyNature.UseVisualStyleBackColor = true;
-            this.anyNature.Click += new System.EventHandler(this.anyNature_Click);
-            // 
-            // anyGender
-            // 
-            this.anyGender.Location = new System.Drawing.Point(443, 111);
-            this.anyGender.Name = "anyGender";
-            this.anyGender.Size = new System.Drawing.Size(36, 21);
-            this.anyGender.TabIndex = 276;
-            this.anyGender.Text = "Any";
-            this.anyGender.UseVisualStyleBackColor = true;
-            this.anyGender.Click += new System.EventHandler(this.anyGender_Click);
-            // 
-            // anyAbility
-            // 
-            this.anyAbility.Location = new System.Drawing.Point(443, 144);
-            this.anyAbility.Name = "anyAbility";
-            this.anyAbility.Size = new System.Drawing.Size(36, 21);
-            this.anyAbility.TabIndex = 277;
-            this.anyAbility.Text = "Any";
-            this.anyAbility.UseVisualStyleBackColor = true;
-            this.anyAbility.Click += new System.EventHandler(this.anyAbility_Click);
-            // 
-            // anyHiddenPower
-            // 
-            this.anyHiddenPower.Location = new System.Drawing.Point(443, 177);
-            this.anyHiddenPower.Name = "anyHiddenPower";
-            this.anyHiddenPower.Size = new System.Drawing.Size(36, 21);
-            this.anyHiddenPower.TabIndex = 278;
-            this.anyHiddenPower.Text = "Any";
-            this.anyHiddenPower.UseVisualStyleBackColor = true;
-            this.anyHiddenPower.Click += new System.EventHandler(this.anyHiddenPower_Click);
             // 
             // label5
             // 
@@ -1037,16 +693,494 @@
             this.label5.Text = "Credits to amab and Zari";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // hpValue
+            // 
+            this.hpValue.Location = new System.Drawing.Point(78, 72);
+            this.hpValue.Mask = "00";
+            this.hpValue.Name = "hpValue";
+            this.hpValue.Size = new System.Drawing.Size(25, 20);
+            this.hpValue.TabIndex = 280;
+            this.hpValue.Text = "31";
+            this.hpValue.ValidatingType = typeof(int);
+            // 
+            // atkValue
+            // 
+            this.atkValue.Location = new System.Drawing.Point(78, 105);
+            this.atkValue.Mask = "00";
+            this.atkValue.Name = "atkValue";
+            this.atkValue.Size = new System.Drawing.Size(25, 20);
+            this.atkValue.TabIndex = 281;
+            this.atkValue.Text = "31";
+            this.atkValue.ValidatingType = typeof(int);
+            // 
+            // defValue
+            // 
+            this.defValue.Location = new System.Drawing.Point(78, 141);
+            this.defValue.Mask = "00";
+            this.defValue.Name = "defValue";
+            this.defValue.Size = new System.Drawing.Size(25, 20);
+            this.defValue.TabIndex = 282;
+            this.defValue.Text = "31";
+            this.defValue.ValidatingType = typeof(int);
+            // 
+            // spaValue
+            // 
+            this.spaValue.Location = new System.Drawing.Point(78, 175);
+            this.spaValue.Mask = "00";
+            this.spaValue.Name = "spaValue";
+            this.spaValue.Size = new System.Drawing.Size(25, 20);
+            this.spaValue.TabIndex = 283;
+            this.spaValue.Text = "0";
+            this.spaValue.ValidatingType = typeof(int);
+            // 
+            // spdValue
+            // 
+            this.spdValue.Location = new System.Drawing.Point(78, 210);
+            this.spdValue.Mask = "00";
+            this.spdValue.Name = "spdValue";
+            this.spdValue.Size = new System.Drawing.Size(25, 20);
+            this.spdValue.TabIndex = 284;
+            this.spdValue.Text = "31";
+            this.spdValue.ValidatingType = typeof(int);
+            // 
+            // speValue
+            // 
+            this.speValue.Location = new System.Drawing.Point(78, 244);
+            this.speValue.Mask = "00";
+            this.speValue.Name = "speValue";
+            this.speValue.Size = new System.Drawing.Size(25, 20);
+            this.speValue.TabIndex = 285;
+            this.speValue.Text = "31";
+            this.speValue.ValidatingType = typeof(int);
+            // 
+            // hpLogic
+            // 
+            this.hpLogic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.hpLogic.FormattingEnabled = true;
+            this.hpLogic.Items.AddRange(new object[] {
+            "==",
+            ">=",
+            "<="});
+            this.hpLogic.Location = new System.Drawing.Point(109, 71);
+            this.hpLogic.Name = "hpLogic";
+            this.hpLogic.Size = new System.Drawing.Size(41, 21);
+            this.hpLogic.TabIndex = 286;
+            // 
+            // atkLogic
+            // 
+            this.atkLogic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.atkLogic.FormattingEnabled = true;
+            this.atkLogic.Items.AddRange(new object[] {
+            "==",
+            ">=",
+            "<="});
+            this.atkLogic.Location = new System.Drawing.Point(109, 104);
+            this.atkLogic.Name = "atkLogic";
+            this.atkLogic.Size = new System.Drawing.Size(41, 21);
+            this.atkLogic.TabIndex = 297;
+            // 
+            // defLogic
+            // 
+            this.defLogic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.defLogic.FormattingEnabled = true;
+            this.defLogic.Items.AddRange(new object[] {
+            "==",
+            ">=",
+            "<="});
+            this.defLogic.Location = new System.Drawing.Point(109, 140);
+            this.defLogic.Name = "defLogic";
+            this.defLogic.Size = new System.Drawing.Size(41, 21);
+            this.defLogic.TabIndex = 301;
+            // 
+            // spaLogic
+            // 
+            this.spaLogic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.spaLogic.FormattingEnabled = true;
+            this.spaLogic.Items.AddRange(new object[] {
+            "==",
+            ">=",
+            "<="});
+            this.spaLogic.Location = new System.Drawing.Point(109, 174);
+            this.spaLogic.Name = "spaLogic";
+            this.spaLogic.Size = new System.Drawing.Size(41, 21);
+            this.spaLogic.TabIndex = 305;
+            // 
+            // spdLogic
+            // 
+            this.spdLogic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.spdLogic.FormattingEnabled = true;
+            this.spdLogic.Items.AddRange(new object[] {
+            "==",
+            ">=",
+            "<="});
+            this.spdLogic.Location = new System.Drawing.Point(109, 208);
+            this.spdLogic.Name = "spdLogic";
+            this.spdLogic.Size = new System.Drawing.Size(41, 21);
+            this.spdLogic.TabIndex = 309;
+            // 
+            // speLogic
+            // 
+            this.speLogic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.speLogic.FormattingEnabled = true;
+            this.speLogic.Items.AddRange(new object[] {
+            "==",
+            ">=",
+            "<="});
+            this.speLogic.Location = new System.Drawing.Point(109, 243);
+            this.speLogic.Name = "speLogic";
+            this.speLogic.Size = new System.Drawing.Size(41, 21);
+            this.speLogic.TabIndex = 313;
+            // 
+            // spe30Above
+            // 
+            this.spe30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spe30Above.ForeColor = System.Drawing.Color.Black;
+            this.spe30Above.Location = new System.Drawing.Point(256, 242);
+            this.spe30Above.Name = "spe30Above";
+            this.spe30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spe30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.spe30Above.Size = new System.Drawing.Size(44, 23);
+            this.spe30Above.TabIndex = 316;
+            this.spe30Above.Text = ">=30";
+            this.spe30Above.Click += new System.EventHandler(this.spe30Above_Click);
+            // 
+            // spe30Quick
+            // 
+            this.spe30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spe30Quick.ForeColor = System.Drawing.Color.Black;
+            this.spe30Quick.Location = new System.Drawing.Point(206, 242);
+            this.spe30Quick.Name = "spe30Quick";
+            this.spe30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spe30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spe30Quick.Size = new System.Drawing.Size(44, 23);
+            this.spe30Quick.TabIndex = 315;
+            this.spe30Quick.Text = "==30";
+            this.spe30Quick.Click += new System.EventHandler(this.spe30Quick_Click);
+            // 
+            // spe31Quick
+            // 
+            this.spe31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spe31Quick.ForeColor = System.Drawing.Color.Black;
+            this.spe31Quick.Location = new System.Drawing.Point(156, 242);
+            this.spe31Quick.Name = "spe31Quick";
+            this.spe31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spe31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spe31Quick.Size = new System.Drawing.Size(44, 23);
+            this.spe31Quick.TabIndex = 314;
+            this.spe31Quick.Text = "==31";
+            this.spe31Quick.Click += new System.EventHandler(this.spe31Quick_Click);
+            // 
+            // spd30Above
+            // 
+            this.spd30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spd30Above.ForeColor = System.Drawing.Color.Black;
+            this.spd30Above.Location = new System.Drawing.Point(256, 207);
+            this.spd30Above.Name = "spd30Above";
+            this.spd30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spd30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.spd30Above.Size = new System.Drawing.Size(44, 23);
+            this.spd30Above.TabIndex = 312;
+            this.spd30Above.Text = ">=30";
+            this.spd30Above.Click += new System.EventHandler(this.spd30Above_Click);
+            // 
+            // spd30Quick
+            // 
+            this.spd30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spd30Quick.ForeColor = System.Drawing.Color.Black;
+            this.spd30Quick.Location = new System.Drawing.Point(206, 207);
+            this.spd30Quick.Name = "spd30Quick";
+            this.spd30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spd30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spd30Quick.Size = new System.Drawing.Size(44, 23);
+            this.spd30Quick.TabIndex = 311;
+            this.spd30Quick.Text = "==30";
+            this.spd30Quick.Click += new System.EventHandler(this.spd30Quick_Click);
+            // 
+            // spd31Quick
+            // 
+            this.spd31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spd31Quick.ForeColor = System.Drawing.Color.Black;
+            this.spd31Quick.Location = new System.Drawing.Point(156, 207);
+            this.spd31Quick.Name = "spd31Quick";
+            this.spd31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spd31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spd31Quick.Size = new System.Drawing.Size(44, 23);
+            this.spd31Quick.TabIndex = 310;
+            this.spd31Quick.Text = "==31";
+            this.spd31Quick.Click += new System.EventHandler(this.spd31Quick_Click);
+            // 
+            // spa30Above
+            // 
+            this.spa30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spa30Above.ForeColor = System.Drawing.Color.Black;
+            this.spa30Above.Location = new System.Drawing.Point(256, 173);
+            this.spa30Above.Name = "spa30Above";
+            this.spa30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spa30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.spa30Above.Size = new System.Drawing.Size(44, 23);
+            this.spa30Above.TabIndex = 308;
+            this.spa30Above.Text = ">=30";
+            this.spa30Above.Click += new System.EventHandler(this.spa30Above_Click);
+            // 
+            // spa30Quick
+            // 
+            this.spa30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spa30Quick.ForeColor = System.Drawing.Color.Black;
+            this.spa30Quick.Location = new System.Drawing.Point(206, 173);
+            this.spa30Quick.Name = "spa30Quick";
+            this.spa30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spa30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spa30Quick.Size = new System.Drawing.Size(44, 23);
+            this.spa30Quick.TabIndex = 307;
+            this.spa30Quick.Text = "==30";
+            this.spa30Quick.Click += new System.EventHandler(this.spa30Quick_Click);
+            // 
+            // spa31Quick
+            // 
+            this.spa31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spa31Quick.ForeColor = System.Drawing.Color.Black;
+            this.spa31Quick.Location = new System.Drawing.Point(156, 173);
+            this.spa31Quick.Name = "spa31Quick";
+            this.spa31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spa31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spa31Quick.Size = new System.Drawing.Size(44, 23);
+            this.spa31Quick.TabIndex = 306;
+            this.spa31Quick.Text = "==31";
+            this.spa31Quick.Click += new System.EventHandler(this.spa31Quick_Click);
+            // 
+            // def30Above
+            // 
+            this.def30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.def30Above.ForeColor = System.Drawing.Color.Black;
+            this.def30Above.Location = new System.Drawing.Point(256, 139);
+            this.def30Above.Name = "def30Above";
+            this.def30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.def30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.def30Above.Size = new System.Drawing.Size(44, 23);
+            this.def30Above.TabIndex = 304;
+            this.def30Above.Text = ">=30";
+            this.def30Above.Click += new System.EventHandler(this.def30Above_Click);
+            // 
+            // def30Quick
+            // 
+            this.def30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.def30Quick.ForeColor = System.Drawing.Color.Black;
+            this.def30Quick.Location = new System.Drawing.Point(206, 139);
+            this.def30Quick.Name = "def30Quick";
+            this.def30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.def30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.def30Quick.Size = new System.Drawing.Size(44, 23);
+            this.def30Quick.TabIndex = 303;
+            this.def30Quick.Text = "==30";
+            this.def30Quick.Click += new System.EventHandler(this.def30Quick_Click);
+            // 
+            // def31Quick
+            // 
+            this.def31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.def31Quick.ForeColor = System.Drawing.Color.Black;
+            this.def31Quick.Location = new System.Drawing.Point(156, 139);
+            this.def31Quick.Name = "def31Quick";
+            this.def31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.def31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.def31Quick.Size = new System.Drawing.Size(44, 23);
+            this.def31Quick.TabIndex = 302;
+            this.def31Quick.Text = "==31";
+            this.def31Quick.Click += new System.EventHandler(this.def31Quick_Click);
+            // 
+            // atk30Above
+            // 
+            this.atk30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.atk30Above.ForeColor = System.Drawing.Color.Black;
+            this.atk30Above.Location = new System.Drawing.Point(256, 103);
+            this.atk30Above.Name = "atk30Above";
+            this.atk30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.atk30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.atk30Above.Size = new System.Drawing.Size(44, 23);
+            this.atk30Above.TabIndex = 300;
+            this.atk30Above.Text = ">=30";
+            this.atk30Above.Click += new System.EventHandler(this.atk30Above_Click);
+            // 
+            // atk30Quick
+            // 
+            this.atk30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.atk30Quick.ForeColor = System.Drawing.Color.Black;
+            this.atk30Quick.Location = new System.Drawing.Point(206, 103);
+            this.atk30Quick.Name = "atk30Quick";
+            this.atk30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.atk30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.atk30Quick.Size = new System.Drawing.Size(44, 23);
+            this.atk30Quick.TabIndex = 299;
+            this.atk30Quick.Text = "==30";
+            this.atk30Quick.Click += new System.EventHandler(this.atk30Quick_Click);
+            // 
+            // atk31Quick
+            // 
+            this.atk31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.atk31Quick.ForeColor = System.Drawing.Color.Black;
+            this.atk31Quick.Location = new System.Drawing.Point(156, 103);
+            this.atk31Quick.Name = "atk31Quick";
+            this.atk31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.atk31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.atk31Quick.Size = new System.Drawing.Size(44, 23);
+            this.atk31Quick.TabIndex = 298;
+            this.atk31Quick.Text = "==31";
+            this.atk31Quick.Click += new System.EventHandler(this.atk31Quick_Click);
+            // 
+            // hp30Above
+            // 
+            this.hp30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.hp30Above.ForeColor = System.Drawing.Color.Black;
+            this.hp30Above.Location = new System.Drawing.Point(256, 70);
+            this.hp30Above.Name = "hp30Above";
+            this.hp30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.hp30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.hp30Above.Size = new System.Drawing.Size(44, 23);
+            this.hp30Above.TabIndex = 296;
+            this.hp30Above.Text = ">=30";
+            this.hp30Above.Click += new System.EventHandler(this.hp30Above_Click);
+            // 
+            // hp30Quick
+            // 
+            this.hp30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.hp30Quick.ForeColor = System.Drawing.Color.Black;
+            this.hp30Quick.Location = new System.Drawing.Point(206, 70);
+            this.hp30Quick.Name = "hp30Quick";
+            this.hp30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.hp30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.hp30Quick.Size = new System.Drawing.Size(44, 23);
+            this.hp30Quick.TabIndex = 295;
+            this.hp30Quick.Text = "==30";
+            this.hp30Quick.Click += new System.EventHandler(this.hp30Quick_Click);
+            // 
+            // hp31Quick
+            // 
+            this.hp31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.hp31Quick.ForeColor = System.Drawing.Color.Black;
+            this.hp31Quick.Location = new System.Drawing.Point(156, 70);
+            this.hp31Quick.Name = "hp31Quick";
+            this.hp31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.hp31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.hp31Quick.Size = new System.Drawing.Size(44, 23);
+            this.hp31Quick.TabIndex = 294;
+            this.hp31Quick.Text = "==31";
+            this.hp31Quick.Click += new System.EventHandler(this.hp31Quick_Click);
+            // 
+            // cancel
+            // 
+            this.cancel.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.cancel.ForeColor = System.Drawing.Color.Black;
+            this.cancel.Location = new System.Drawing.Point(969, 349);
+            this.cancel.Name = "cancel";
+            this.cancel.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.cancel.ShineColor = System.Drawing.SystemColors.Window;
+            this.cancel.Size = new System.Drawing.Size(75, 23);
+            this.cancel.TabIndex = 293;
+            this.cancel.Text = "Cancel";
+            this.cancel.Click += new System.EventHandler(this.cancel_Click);
+            // 
+            // search
+            // 
+            this.search.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.search.ForeColor = System.Drawing.Color.Black;
+            this.search.Location = new System.Drawing.Point(888, 349);
+            this.search.Name = "search";
+            this.search.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.search.ShineColor = System.Drawing.SystemColors.Window;
+            this.search.Size = new System.Drawing.Size(75, 23);
+            this.search.TabIndex = 292;
+            this.search.Text = "Search";
+            this.search.Click += new System.EventHandler(this.search_Click);
+            // 
+            // anyNature
+            // 
+            this.anyNature.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyNature.ForeColor = System.Drawing.Color.Black;
+            this.anyNature.Location = new System.Drawing.Point(649, 75);
+            this.anyNature.Name = "anyNature";
+            this.anyNature.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyNature.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyNature.Size = new System.Drawing.Size(33, 23);
+            this.anyNature.TabIndex = 291;
+            this.anyNature.Text = "Any";
+            // 
+            // anyGender
+            // 
+            this.anyGender.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyGender.ForeColor = System.Drawing.Color.Black;
+            this.anyGender.Location = new System.Drawing.Point(649, 109);
+            this.anyGender.Name = "anyGender";
+            this.anyGender.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyGender.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyGender.Size = new System.Drawing.Size(33, 23);
+            this.anyGender.TabIndex = 290;
+            this.anyGender.Text = "Any";
+            // 
+            // anyAbility
+            // 
+            this.anyAbility.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyAbility.ForeColor = System.Drawing.Color.Black;
+            this.anyAbility.Location = new System.Drawing.Point(649, 145);
+            this.anyAbility.Name = "anyAbility";
+            this.anyAbility.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyAbility.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyAbility.Size = new System.Drawing.Size(33, 23);
+            this.anyAbility.TabIndex = 289;
+            this.anyAbility.Text = "Any";
+            // 
+            // anyHiddenPower
+            // 
+            this.anyHiddenPower.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyHiddenPower.ForeColor = System.Drawing.Color.Black;
+            this.anyHiddenPower.Location = new System.Drawing.Point(649, 179);
+            this.anyHiddenPower.Name = "anyHiddenPower";
+            this.anyHiddenPower.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyHiddenPower.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyHiddenPower.Size = new System.Drawing.Size(33, 23);
+            this.anyHiddenPower.TabIndex = 288;
+            this.anyHiddenPower.Text = "Any";
+            // 
             // GameCube
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 622);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.anyHiddenPower);
-            this.Controls.Add(this.anyAbility);
-            this.Controls.Add(this.anyGender);
+            this.Controls.Add(this.spe30Above);
+            this.Controls.Add(this.spe30Quick);
+            this.Controls.Add(this.spe31Quick);
+            this.Controls.Add(this.speLogic);
+            this.Controls.Add(this.spd30Above);
+            this.Controls.Add(this.spd30Quick);
+            this.Controls.Add(this.spd31Quick);
+            this.Controls.Add(this.spdLogic);
+            this.Controls.Add(this.spa30Above);
+            this.Controls.Add(this.spa30Quick);
+            this.Controls.Add(this.spa31Quick);
+            this.Controls.Add(this.spaLogic);
+            this.Controls.Add(this.def30Above);
+            this.Controls.Add(this.def30Quick);
+            this.Controls.Add(this.def31Quick);
+            this.Controls.Add(this.defLogic);
+            this.Controls.Add(this.atk30Above);
+            this.Controls.Add(this.atk30Quick);
+            this.Controls.Add(this.atk31Quick);
+            this.Controls.Add(this.atkLogic);
+            this.Controls.Add(this.hp30Above);
+            this.Controls.Add(this.hp30Quick);
+            this.Controls.Add(this.hp31Quick);
+            this.Controls.Add(this.cancel);
+            this.Controls.Add(this.search);
             this.Controls.Add(this.anyNature);
+            this.Controls.Add(this.anyGender);
+            this.Controls.Add(this.anyAbility);
+            this.Controls.Add(this.anyHiddenPower);
+            this.Controls.Add(this.hpLogic);
+            this.Controls.Add(this.speValue);
+            this.Controls.Add(this.spdValue);
+            this.Controls.Add(this.spaValue);
+            this.Controls.Add(this.defValue);
+            this.Controls.Add(this.atkValue);
+            this.Controls.Add(this.hpValue);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.wshMkr);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.galesCheck);
@@ -1054,11 +1188,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.searchMethod);
             this.Controls.Add(this.status);
-            this.Controls.Add(this.cancel);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.sid);
             this.Controls.Add(this.id);
             this.Controls.Add(this.label2);
@@ -1077,43 +1206,12 @@
             this.Controls.Add(this.L_search_B);
             this.Controls.Add(this.L_search_A);
             this.Controls.Add(this.L_search_H);
-            this.Controls.Add(this.SpeHigh);
-            this.Controls.Add(this.HPLow);
-            this.Controls.Add(this.label109);
-            this.Controls.Add(this.AtkLow);
-            this.Controls.Add(this.DefLow);
-            this.Controls.Add(this.SpDHigh);
-            this.Controls.Add(this.SpALow);
-            this.Controls.Add(this.label110);
-            this.Controls.Add(this.SpDLow);
-            this.Controls.Add(this.SpeLow);
-            this.Controls.Add(this.SpAHigh);
-            this.Controls.Add(this.label112);
-            this.Controls.Add(this.label113);
-            this.Controls.Add(this.HPHigh);
-            this.Controls.Add(this.DefHigh);
-            this.Controls.Add(this.label114);
-            this.Controls.Add(this.label115);
-            this.Controls.Add(this.AtkHigh);
             this.Controls.Add(this.abilityType);
-            this.Controls.Add(this.search);
             this.Controls.Add(this.k_dataGridView);
             this.Name = "GameCube";
             this.Text = "GameCube RNG";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpeHigh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HPLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AtkLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DefLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpDHigh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpALow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpDLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpeLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpAHigh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HPHigh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DefHigh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AtkHigh)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1135,37 +1233,13 @@
         private System.Windows.Forms.Label L_search_B;
         private System.Windows.Forms.Label L_search_A;
         private System.Windows.Forms.Label L_search_H;
-        private System.Windows.Forms.NumericUpDown SpeHigh;
-        private System.Windows.Forms.NumericUpDown HPLow;
-        private System.Windows.Forms.Label label109;
-        private System.Windows.Forms.NumericUpDown AtkLow;
-        private System.Windows.Forms.NumericUpDown DefLow;
-        private System.Windows.Forms.NumericUpDown SpDHigh;
-        private System.Windows.Forms.NumericUpDown SpALow;
-        private System.Windows.Forms.Label label110;
-        private System.Windows.Forms.NumericUpDown SpDLow;
-        private System.Windows.Forms.NumericUpDown SpeLow;
-        private System.Windows.Forms.NumericUpDown SpAHigh;
-        private System.Windows.Forms.Label label112;
-        private System.Windows.Forms.Label label113;
-        private System.Windows.Forms.NumericUpDown HPHigh;
-        private System.Windows.Forms.NumericUpDown DefHigh;
-        private System.Windows.Forms.Label label114;
-        private System.Windows.Forms.Label label115;
-        private System.Windows.Forms.NumericUpDown AtkHigh;
         private System.Windows.Forms.ComboBox abilityType;
-        private System.Windows.Forms.Button search;
         private System.Windows.Forms.Label L_mezapa;
         private System.Windows.Forms.ComboBox natureType;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MaskedTextBox id;
         private System.Windows.Forms.MaskedTextBox sid;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Label status;
         private System.Windows.Forms.ComboBox searchMethod;
         private System.Windows.Forms.Label label3;
@@ -1173,10 +1247,6 @@
         private System.Windows.Forms.CheckBox galesCheck;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox wshMkr;
-        private System.Windows.Forms.Button anyNature;
-        private System.Windows.Forms.Button anyGender;
-        private System.Windows.Forms.Button anyAbility;
-        private System.Windows.Forms.Button anyHiddenPower;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seed;
         private System.Windows.Forms.DataGridViewTextBoxColumn PID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Shiny;
@@ -1195,6 +1265,42 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Half;
         private System.Windows.Forms.DataGridViewTextBoxColumn Three_Fourths;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.MaskedTextBox hpValue;
+        private System.Windows.Forms.MaskedTextBox atkValue;
+        private System.Windows.Forms.MaskedTextBox defValue;
+        private System.Windows.Forms.MaskedTextBox spaValue;
+        private System.Windows.Forms.MaskedTextBox spdValue;
+        private System.Windows.Forms.MaskedTextBox speValue;
+        private System.Windows.Forms.ComboBox hpLogic;
+        private GlassButton anyHiddenPower;
+        private GlassButton anyAbility;
+        private GlassButton anyGender;
+        private GlassButton anyNature;
+        private GlassButton search;
+        private GlassButton cancel;
+        private GlassButton hp31Quick;
+        private GlassButton hp30Quick;
+        private GlassButton hp30Above;
+        private GlassButton atk30Above;
+        private GlassButton atk30Quick;
+        private GlassButton atk31Quick;
+        private System.Windows.Forms.ComboBox atkLogic;
+        private GlassButton def30Above;
+        private GlassButton def30Quick;
+        private GlassButton def31Quick;
+        private System.Windows.Forms.ComboBox defLogic;
+        private GlassButton spa30Above;
+        private GlassButton spa30Quick;
+        private GlassButton spa31Quick;
+        private System.Windows.Forms.ComboBox spaLogic;
+        private GlassButton spd30Above;
+        private GlassButton spd30Quick;
+        private GlassButton spd31Quick;
+        private System.Windows.Forms.ComboBox spdLogic;
+        private GlassButton spe30Above;
+        private GlassButton spe30Quick;
+        private GlassButton spe31Quick;
+        private System.Windows.Forms.ComboBox speLogic;
     }
 }
 

@@ -34,6 +34,12 @@ namespace RNGReporter
             hiddenpower.SelectedIndex = 0;
             searchMethod.SelectedIndex = 0;
             shadowPokemon.SelectedIndex = 0;
+            hpLogic.SelectedIndex = 0;
+            atkLogic.SelectedIndex = 0;
+            defLogic.SelectedIndex = 0;
+            spaLogic.SelectedIndex = 0;
+            spdLogic.SelectedIndex = 0;
+            speLogic.SelectedIndex = 0;
             id.Text = TID.ToString();
             sid.Text = SID.ToString();
             k_dataGridView.DataSource = binding;
@@ -53,8 +59,9 @@ namespace RNGReporter
 
         private void search_Click(object sender, EventArgs e)
         {
-            uint[] ivsLower = { (uint)HPLow.Value, (uint)AtkLow.Value, (uint)DefLow.Value, (uint)SpALow.Value, (uint)SpDLow.Value, (uint)SpeLow.Value };
-            uint[] ivsUpper = { (uint)HPHigh.Value, (uint)AtkHigh.Value, (uint)DefHigh.Value, (uint)SpAHigh.Value, (uint)SpDHigh.Value, (uint)SpeHigh.Value };
+            uint[] ivsLower;
+            uint[] ivsUpper;
+            getIVs(out ivsLower, out ivsUpper);
 
             if (ivsLower[0] > ivsUpper[0])
                 MessageBox.Show("HP: Lower limit > Upper limit");
@@ -96,6 +103,48 @@ namespace RNGReporter
 
                 var update = new Thread(updateGUI);
                 update.Start();
+            }
+        }
+
+        private void getIVs(out uint[] IVsLower, out uint[] IVsUpper)
+        {
+            IVsLower = new uint[6];
+            IVsUpper = new uint[6];
+
+            uint hp = 0;
+            uint atk = 0;
+            uint def = 0;
+            uint spa = 0;
+            uint spd = 0;
+            uint spe = 0;
+
+            uint.TryParse(hpValue.Text, out hp);
+            uint.TryParse(atkValue.Text, out atk);
+            uint.TryParse(defValue.Text, out def);
+            uint.TryParse(spaValue.Text, out spa);
+            uint.TryParse(spdValue.Text, out spd);
+            uint.TryParse(speValue.Text, out spe);
+
+            uint[] ivs = { hp, atk, def, spa, spd, spe };
+            int[] ivsLogic = { hpLogic.SelectedIndex, atkLogic.SelectedIndex, defLogic.SelectedIndex, spaLogic.SelectedIndex, spdLogic.SelectedIndex, speLogic.SelectedIndex };
+
+            for (int x = 0; x < 6; x++)
+            {
+                if (ivsLogic[x] == 0)
+                {
+                    IVsLower[x] = ivs[x];
+                    IVsUpper[x] = ivs[x];
+                }
+                else if (ivsLogic[x] == 1)
+                {
+                    IVsLower[x] = ivs[x];
+                    IVsUpper[x] = 31;
+                }
+                else
+                {
+                    IVsLower[x] = 0;
+                    IVsUpper[x] = ivs[x];
+                }
             }
         }
 
@@ -653,11 +702,7 @@ namespace RNGReporter
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
             return;
         }
-
-
         #endregion
-
-
         #endregion
 
         #region Colo search
@@ -1836,68 +1881,112 @@ namespace RNGReporter
         #endregion
 
         #region Quick search settings
-        private void button1_Click(object sender, EventArgs e)
+        private void hp31Quick_Click(object sender, EventArgs e)
         {
-            HPLow.Value = 31;
-            HPHigh.Value = 31;
-            AtkLow.Value = 31;
-            AtkHigh.Value = 31;
-            DefLow.Value = 31;
-            DefHigh.Value = 31;
-            SpALow.Value = 0;
-            SpAHigh.Value = 31;
-            SpDLow.Value = 31;
-            SpDHigh.Value = 31;
-            SpeLow.Value = 31;
-            SpeHigh.Value = 31;
+            hpValue.Text = "31";
+            hpLogic.SelectedIndex = 0;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void hp30Quick_Click(object sender, EventArgs e)
         {
-            HPLow.Value = 31;
-            HPHigh.Value = 31;
-            AtkLow.Value = 0;
-            AtkHigh.Value = 31;
-            DefLow.Value = 31;
-            DefHigh.Value = 31;
-            SpALow.Value = 31;
-            SpAHigh.Value = 31;
-            SpDLow.Value = 31;
-            SpDHigh.Value = 31;
-            SpeLow.Value = 31;
-            SpeHigh.Value = 31;
+            hpValue.Text = "30";
+            hpLogic.SelectedIndex = 0;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void hp30Above_Click(object sender, EventArgs e)
         {
-            HPLow.Value = 31;
-            HPHigh.Value = 31;
-            AtkLow.Value = 31;
-            AtkHigh.Value = 31;
-            DefLow.Value = 31;
-            DefHigh.Value = 31;
-            SpALow.Value = 31;
-            SpAHigh.Value = 31;
-            SpDLow.Value = 31;
-            SpDHigh.Value = 31;
-            SpeLow.Value = 31;
-            SpeHigh.Value = 31;
+            hpValue.Text = "30";
+            hpLogic.SelectedIndex = 1;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void atk31Quick_Click(object sender, EventArgs e)
         {
-            HPLow.Value = 0;
-            HPHigh.Value = 31;
-            AtkLow.Value = 0;
-            AtkHigh.Value = 31;
-            DefLow.Value = 0;
-            DefHigh.Value = 31;
-            SpALow.Value = 0;
-            SpAHigh.Value = 31;
-            SpDLow.Value = 0;
-            SpDHigh.Value = 31;
-            SpeLow.Value = 0;
-            SpeHigh.Value = 31;
+            atkValue.Text = "31";
+            atkLogic.SelectedIndex = 0;
+        }
+
+        private void atk30Quick_Click(object sender, EventArgs e)
+        {
+            atkValue.Text = "30";
+            atkLogic.SelectedIndex = 0;
+        }
+
+        private void atk30Above_Click(object sender, EventArgs e)
+        {
+            atkValue.Text = "30";
+            atkLogic.SelectedIndex = 1;
+        }
+
+        private void def31Quick_Click(object sender, EventArgs e)
+        {
+            defValue.Text = "31";
+            defLogic.SelectedIndex = 0;
+        }
+
+        private void def30Quick_Click(object sender, EventArgs e)
+        {
+            defValue.Text = "30";
+            defLogic.SelectedIndex = 0;
+        }
+
+        private void def30Above_Click(object sender, EventArgs e)
+        {
+            defValue.Text = "30";
+            defLogic.SelectedIndex = 1;
+        }
+
+        private void spa31Quick_Click(object sender, EventArgs e)
+        {
+            spaValue.Text = "31";
+            spaLogic.SelectedIndex = 0;
+        }
+
+        private void spa30Quick_Click(object sender, EventArgs e)
+        {
+            spaValue.Text = "30";
+            spaLogic.SelectedIndex = 0;
+        }
+
+        private void spa30Above_Click(object sender, EventArgs e)
+        {
+            spaValue.Text = "30";
+            spaLogic.SelectedIndex = 1;
+        }
+
+        private void spd31Quick_Click(object sender, EventArgs e)
+        {
+            spdValue.Text = "31";
+            spdLogic.SelectedIndex = 0;
+        }
+
+        private void spd30Quick_Click(object sender, EventArgs e)
+        {
+            spdValue.Text = "30";
+            spdLogic.SelectedIndex = 0;
+        }
+
+        private void spd30Above_Click(object sender, EventArgs e)
+        {
+            spdValue.Text = "30";
+            spdLogic.SelectedIndex = 1;
+        }
+
+        private void spe31Quick_Click(object sender, EventArgs e)
+        {
+            speValue.Text = "31";
+            speLogic.SelectedIndex = 0;
+        }
+
+        private void spe30Quick_Click(object sender, EventArgs e)
+        {
+            speValue.Text = "30";
+            speLogic.SelectedIndex = 0;
+        }
+
+        private void spe30Above_Click(object sender, EventArgs e)
+        {
+            speValue.Text = "30";
+            speLogic.SelectedIndex = 1;
         }
 
         private void cancel_Click(object sender, EventArgs e)
@@ -1929,6 +2018,7 @@ namespace RNGReporter
         {
             hiddenpower.SelectedIndex = 0;
         }
+
         #endregion
     }
 }

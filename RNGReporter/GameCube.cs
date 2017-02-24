@@ -1490,8 +1490,10 @@ namespace RNGReporter
                         if (Check(ivs1, pid1, pid2, spd, spa, spe, nature))
                         {
                             if (wishMkr)
+                            {
                                 if (seed < 0x10000)
                                     filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, ivs1, pid1, pid2, seed);
+                            }
                             else
                                 filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, ivs1, pid1, pid2, seed);
                         }

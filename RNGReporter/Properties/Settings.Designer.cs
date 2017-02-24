@@ -181,7 +181,7 @@ namespace RNGReporter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("610")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
         public string CapDelayMax {
             get {
                 return ((string)(this["CapDelayMax"]));

@@ -154,10 +154,12 @@ namespace RNGReporter
             if (test == 0)
                 getRMethod(ivsLower, ivsUpper);
             else if (test == 1)
+            {
                 if (galesCheck.Checked == true)
                     getGalesMethod(ivsLower, ivsUpper);
                 else
                     getMethod(ivsLower, ivsUpper);
+            }
             else
                 getChannelMethod(ivsLower, ivsUpper);
         }

@@ -42,7 +42,7 @@
       <Value Profile="(Default)">600</Value>
     </Setting>
     <Setting Name="CapDelayMax" Type="System.String" Scope="User">
-      <Value Profile="(Default)">610</Value>
+      <Value Profile="(Default)">2000</Value>
     </Setting>
     <Setting Name="ShinyYear" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2017</Value>

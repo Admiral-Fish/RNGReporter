@@ -69,6 +69,24 @@
             this.spdLogic = new System.Windows.Forms.ComboBox();
             this.speLogic = new System.Windows.Forms.ComboBox();
             this.k_dataGridView = new RNGReporter.DoubleBufferedDataGridView();
+            this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HiddenPowerPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.f125 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.f25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.f50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.f75 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Reason = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.spe30Above = new RNGReporter.GlassButton();
             this.spe30Quick = new RNGReporter.GlassButton();
             this.spe31Quick = new RNGReporter.GlassButton();
@@ -93,23 +111,6 @@
             this.anyGender = new RNGReporter.GlassButton();
             this.anyAbility = new RNGReporter.GlassButton();
             this.anyHiddenPower = new RNGReporter.GlassButton();
-            this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HiddenPowerPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.f125 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.f25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.f50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.f75 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -426,6 +427,7 @@
             "Magmar",
             "Magneton",
             "Makuhita",
+            "Makuhita (Colo)",
             "Manectric",
             "Mareep (Citadark)",
             "Mareep (Initial)",
@@ -517,7 +519,7 @@
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.Location = new System.Drawing.Point(915, 593);
+            this.label5.Location = new System.Drawing.Point(935, 593);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(129, 20);
             this.label5.TabIndex = 279;
@@ -689,7 +691,8 @@
             this.f125,
             this.f25,
             this.f50,
-            this.f75});
+            this.f75,
+            this.Reason});
             this.k_dataGridView.Location = new System.Drawing.Point(15, 397);
             this.k_dataGridView.MultiSelect = false;
             this.k_dataGridView.Name = "k_dataGridView";
@@ -702,8 +705,152 @@
             this.k_dataGridView.ShowCellToolTips = false;
             this.k_dataGridView.ShowEditingIcon = false;
             this.k_dataGridView.ShowRowErrors = false;
-            this.k_dataGridView.Size = new System.Drawing.Size(1029, 193);
+            this.k_dataGridView.Size = new System.Drawing.Size(1049, 193);
             this.k_dataGridView.TabIndex = 317;
+            // 
+            // dataGridViewTextBoxColumn0
+            // 
+            this.dataGridViewTextBoxColumn0.DataPropertyName = "Seed";
+            this.dataGridViewTextBoxColumn0.HeaderText = "Seed";
+            this.dataGridViewTextBoxColumn0.Name = "dataGridViewTextBoxColumn0";
+            this.dataGridViewTextBoxColumn0.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "PID";
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewTextBoxColumn1.HeaderText = "PID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Shiny";
+            this.dataGridViewTextBoxColumn2.HeaderText = "!!!";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 25;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Nature";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Nature";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Ability";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Ability";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 45;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "HP";
+            this.dataGridViewTextBoxColumn5.HeaderText = "HP";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Atk";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Atk";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "Def";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Def";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "SpA";
+            this.dataGridViewTextBoxColumn8.HeaderText = "SpA";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "SpD";
+            this.dataGridViewTextBoxColumn9.HeaderText = "SpD";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "Spe";
+            this.dataGridViewTextBoxColumn10.HeaderText = "Spe";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "Hidden";
+            this.dataGridViewTextBoxColumn11.HeaderText = "Hidden";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            this.dataGridViewTextBoxColumn11.Width = 50;
+            // 
+            // HiddenPowerPower
+            // 
+            this.HiddenPowerPower.DataPropertyName = "Power";
+            this.HiddenPowerPower.HeaderText = "Power";
+            this.HiddenPowerPower.Name = "HiddenPowerPower";
+            this.HiddenPowerPower.ReadOnly = true;
+            this.HiddenPowerPower.Width = 50;
+            // 
+            // f125
+            // 
+            this.f125.DataPropertyName = "Eighth";
+            this.f125.HeaderText = "12.5%F";
+            this.f125.Name = "f125";
+            this.f125.ReadOnly = true;
+            this.f125.Width = 50;
+            // 
+            // f25
+            // 
+            this.f25.DataPropertyName = "Quarter";
+            this.f25.HeaderText = "25% F";
+            this.f25.Name = "f25";
+            this.f25.ReadOnly = true;
+            this.f25.Width = 50;
+            // 
+            // f50
+            // 
+            this.f50.DataPropertyName = "Half";
+            this.f50.HeaderText = "50% F";
+            this.f50.Name = "f50";
+            this.f50.ReadOnly = true;
+            this.f50.Width = 50;
+            // 
+            // f75
+            // 
+            this.f75.DataPropertyName = "Three_Fourths";
+            this.f75.HeaderText = "75% F";
+            this.f75.Name = "f75";
+            this.f75.ReadOnly = true;
+            this.f75.Width = 50;
+            // 
+            // Reason
+            // 
+            this.Reason.DataPropertyName = "Reason";
+            this.Reason.HeaderText = "Reason";
+            this.Reason.Name = "Reason";
+            this.Reason.ReadOnly = true;
             // 
             // spe30Above
             // 
@@ -943,7 +1090,7 @@
             // 
             this.cancel.BackColor = System.Drawing.Color.AntiqueWhite;
             this.cancel.ForeColor = System.Drawing.Color.Black;
-            this.cancel.Location = new System.Drawing.Point(969, 349);
+            this.cancel.Location = new System.Drawing.Point(989, 368);
             this.cancel.Name = "cancel";
             this.cancel.OuterBorderColor = System.Drawing.Color.Transparent;
             this.cancel.ShineColor = System.Drawing.SystemColors.Window;
@@ -956,7 +1103,7 @@
             // 
             this.search.BackColor = System.Drawing.Color.AntiqueWhite;
             this.search.ForeColor = System.Drawing.Color.Black;
-            this.search.Location = new System.Drawing.Point(888, 349);
+            this.search.Location = new System.Drawing.Point(908, 368);
             this.search.Name = "search";
             this.search.OuterBorderColor = System.Drawing.Color.Transparent;
             this.search.ShineColor = System.Drawing.SystemColors.Window;
@@ -976,6 +1123,7 @@
             this.anyNature.Size = new System.Drawing.Size(33, 23);
             this.anyNature.TabIndex = 291;
             this.anyNature.Text = "Any";
+            this.anyNature.Click += new System.EventHandler(this.anyNature_Click);
             // 
             // anyGender
             // 
@@ -988,6 +1136,7 @@
             this.anyGender.Size = new System.Drawing.Size(33, 23);
             this.anyGender.TabIndex = 290;
             this.anyGender.Text = "Any";
+            this.anyGender.Click += new System.EventHandler(this.anyGender_Click);
             // 
             // anyAbility
             // 
@@ -1000,6 +1149,7 @@
             this.anyAbility.Size = new System.Drawing.Size(33, 23);
             this.anyAbility.TabIndex = 289;
             this.anyAbility.Text = "Any";
+            this.anyAbility.Click += new System.EventHandler(this.anyAbility_Click);
             // 
             // anyHiddenPower
             // 
@@ -1012,149 +1162,13 @@
             this.anyHiddenPower.Size = new System.Drawing.Size(33, 23);
             this.anyHiddenPower.TabIndex = 288;
             this.anyHiddenPower.Text = "Any";
-            // 
-            // dataGridViewTextBoxColumn0
-            // 
-            this.dataGridViewTextBoxColumn0.DataPropertyName = "Seed";
-            this.dataGridViewTextBoxColumn0.HeaderText = "Seed";
-            this.dataGridViewTextBoxColumn0.Name = "dataGridViewTextBoxColumn0";
-            this.dataGridViewTextBoxColumn0.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "PID";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewTextBoxColumn1.HeaderText = "PID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Shiny";
-            this.dataGridViewTextBoxColumn2.HeaderText = "!!!";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 25;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Nature";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Nature";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Ability";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Ability";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 45;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "HP";
-            this.dataGridViewTextBoxColumn5.HeaderText = "HP";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Atk";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Atk";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "Def";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Def";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "SpA";
-            this.dataGridViewTextBoxColumn8.HeaderText = "SpA";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "SpD";
-            this.dataGridViewTextBoxColumn9.HeaderText = "SpD";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "Spe";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Spe";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "Hidden";
-            this.dataGridViewTextBoxColumn11.HeaderText = "Hidden";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            this.dataGridViewTextBoxColumn11.Width = 50;
-            // 
-            // HiddenPowerPower
-            // 
-            this.HiddenPowerPower.DataPropertyName = "Power";
-            this.HiddenPowerPower.HeaderText = "Power";
-            this.HiddenPowerPower.Name = "HiddenPowerPower";
-            this.HiddenPowerPower.ReadOnly = true;
-            this.HiddenPowerPower.Width = 50;
-            // 
-            // f125
-            // 
-            this.f125.DataPropertyName = "Eighth";
-            this.f125.HeaderText = "12.5%F";
-            this.f125.Name = "f125";
-            this.f125.ReadOnly = true;
-            this.f125.Width = 50;
-            // 
-            // f25
-            // 
-            this.f25.DataPropertyName = "Quarter";
-            this.f25.HeaderText = "25% F";
-            this.f25.Name = "f25";
-            this.f25.ReadOnly = true;
-            this.f25.Width = 50;
-            // 
-            // f50
-            // 
-            this.f50.DataPropertyName = "Half";
-            this.f50.HeaderText = "50% F";
-            this.f50.Name = "f50";
-            this.f50.ReadOnly = true;
-            this.f50.Width = 50;
-            // 
-            // f75
-            // 
-            this.f75.DataPropertyName = "Three_Fourths";
-            this.f75.HeaderText = "75% F";
-            this.f75.Name = "f75";
-            this.f75.ReadOnly = true;
-            this.f75.Width = 50;
+            this.anyHiddenPower.Click += new System.EventHandler(this.anyHiddenPower_Click);
             // 
             // GameCube
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1056, 622);
+            this.ClientSize = new System.Drawing.Size(1076, 622);
             this.Controls.Add(this.k_dataGridView);
             this.Controls.Add(this.spe30Above);
             this.Controls.Add(this.spe30Quick);
@@ -1311,6 +1325,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn f25;
         private System.Windows.Forms.DataGridViewTextBoxColumn f50;
         private System.Windows.Forms.DataGridViewTextBoxColumn f75;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Reason;
     }
 }
 

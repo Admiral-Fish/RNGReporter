@@ -37,6 +37,8 @@ namespace RNGReporter
         public char Half { get; set; }
 
         public char Three_Fourths { get; set; }
+
+        public String Reason { get; set; }
     }
 
     internal class PokeSpotDisplay

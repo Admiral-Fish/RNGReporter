@@ -279,110 +279,112 @@ namespace RNGReporter
                 case 40:
                     return new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Makuhita
                 case 41:
-                    return new uint[] { 1, 1, 0, 126, 6 }; //Manectric
+                    return new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Makuhita Colo
                 case 42:
-                    return new uint[] { 0, 0 }; //Mareep 3
+                    return new uint[] { 1, 1, 0, 126, 6 }; //Manectric
                 case 43:
-                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Mareep 1
+                    return new uint[] { 0, 0 }; //Mareep 3
                 case 44:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //To do mareep 2
+                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Mareep 1
                 case 45:
-                    return new uint[] { 4, 1, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Marowak
+                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //To do mareep 2
                 case 46:
-                    return new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Mawile
+                    return new uint[] { 4, 1, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Marowak
                 case 47:
-                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 0, 63, 255, 6 }; //Meowth
+                    return new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Mawile
                 case 48:
-                    return new uint[] { 0, 0 }; //Moltres
+                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 0, 63, 255, 6 }; //Meowth
                 case 49:
-                    return new uint[] { 4, 6, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Mr. Mime
+                    return new uint[] { 0, 0 }; //Moltres
                 case 50:
-                    return new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Natu
+                    return new uint[] { 4, 6, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Mr. Mime
                 case 51:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Nosepass
+                    return new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Natu
                 case 52:
-                    return new uint[] { 3, 1, 0, 126, 24, 0, 255, 0, 127, 255, 6 }; //Numel
+                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Nosepass
                 case 53:
-                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 24 }; //Paras
+                    return new uint[] { 3, 1, 0, 126, 24, 0, 255, 0, 127, 255, 6 }; //Numel
                 case 54:
-                    return new uint[] { 2, 1, 32, 255, 18, 127, 255, 12 }; //Pidgeotto
+                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 24 }; //Paras
                 case 55:
-                    return new uint[] { 1, 1, 127, 255, 6 }; //Pineco
+                    return new uint[] { 2, 1, 32, 255, 18, 127, 255, 12 }; //Pidgeotto
                 case 56:
-                    return new uint[] { 3, 6, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Pinsir
+                    return new uint[] { 1, 1, 127, 255, 6 }; //Pineco
                 case 57:
-                    return new uint[] { 4, 1, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Poliwrath
+                    return new uint[] { 3, 6, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Pinsir
                 case 58:
-                    return new uint[] { 1, 1, 0, 126, 12 }; //Poochyena
+                    return new uint[] { 4, 1, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Poliwrath
                 case 59:
-                    return new uint[] { 4, 1, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Primeape
+                    return new uint[] { 1, 1, 0, 126, 12 }; //Poochyena
                 case 60:
-                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 63, 255, 0 }; //Ralts
+                    return new uint[] { 4, 1, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Primeape
                 case 61:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Rapidash
+                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 63, 255, 0 }; //Ralts
                 case 62:
-                    return new uint[] { 3, 1, 127, 255, 18, 500, 500, 500, 0, 126, 18 }; //Raticate
+                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Rapidash
                 case 63:
-                    return new uint[] { 0, 0 }; //Rhydon
+                    return new uint[] { 3, 1, 127, 255, 18, 500, 500, 500, 0, 126, 18 }; //Raticate
                 case 64:
-                    return new uint[] { 2, 1, 127, 255, 18, 127, 255, 6 }; //Roselia
+                    return new uint[] { 0, 0 }; //Rhydon
                 case 65:
-                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Sableye
+                    return new uint[] { 2, 1, 127, 255, 18, 127, 255, 6 }; //Roselia
                 case 66:
-                    return new uint[] { 1, 6, 0, 126, 6 }; //Salamence
+                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Sableye
                 case 67:
-                    return new uint[] { 2, 1, 127, 255, 24, 0, 126, 6 }; //Scyther
+                    return new uint[] { 1, 6, 0, 126, 6 }; //Salamence
                 case 68:
-                    return new uint[] { 0, 0 }; //To do seedot 3
+                    return new uint[] { 2, 1, 127, 255, 24, 0, 126, 6 }; //Scyther
                 case 69:
-                    return new uint[] { 5, 1, 127, 255, 12, 127, 255, 0, 0, 126, 12, 0, 126, 24, 127, 255, 6 }; //Seedot 1
+                    return new uint[] { 0, 0 }; //To do seedot 3
                 case 70:
-                    return new uint[] { 0, 0 }; //To do seedot 2
+                    return new uint[] { 5, 1, 127, 255, 12, 127, 255, 0, 0, 126, 12, 0, 126, 24, 127, 255, 6 }; //Seedot 1
                 case 71:
-                    return new uint[] { 3, 1, 0, 126, 18, 127, 255, 12, 127, 255, 6 }; //Seel
+                    return new uint[] { 0, 0 }; //To do seedot 2
                 case 72:
-                    return new uint[] { 0, 0 }; //Shellder
+                    return new uint[] { 3, 1, 0, 126, 18, 127, 255, 12, 127, 255, 6 }; //Seel
                 case 73:
-                    return new uint[] { 2, 1, 0, 126, 0, 0, 126, 24 }; //Shroomish
+                    return new uint[] { 0, 0 }; //Shellder
                 case 74:
-                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Snorlax
+                    return new uint[] { 2, 1, 0, 126, 0, 0, 126, 24 }; //Shroomish
                 case 75:
-                    return new uint[] { 1, 1, 0, 126, 6 }; //Snorunt
+                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Snorlax
                 case 76:
-                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Solrock
+                    return new uint[] { 1, 1, 0, 126, 6 }; //Snorunt
                 case 77:
-                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 18 }; //Spearow
+                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Solrock
                 case 78:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 3
+                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 18 }; //Spearow
                 case 79:
-                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Spheal 1
+                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 3
                 case 80:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 2
+                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Spheal 1
                 case 81:
-                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Spinarak
+                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 2
                 case 82:
-                    return new uint[] { 5, 1, 127, 255, 18, 500, 500, 500, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Starmie
+                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Spinarak
                 case 83:
-                    return new uint[] { 0, 0 }; //Swellow
+                    return new uint[] { 5, 1, 127, 255, 18, 500, 500, 500, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Starmie
                 case 84:
-                    return new uint[] { 2, 1, 127, 255, 0, 0, 126, 18 }; //Swinub
+                    return new uint[] { 0, 0 }; //Swellow
                 case 85:
-                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Tangela
+                    return new uint[] { 2, 1, 127, 255, 0, 0, 126, 18 }; //Swinub
                 case 86:
-                    return new uint[] { 0, 0 }; //Tauros
+                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Tangela
                 case 87:
-                    return new uint[] { 0, 0 }; //Teddiursa
+                    return new uint[] { 0, 0 }; //Tauros
                 case 88:
-                    return new uint[] { 0, 0 }; //Togepi
+                    return new uint[] { 0, 0 }; //Teddiursa
                 case 89:
-                    return new uint[] { 3, 1, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Venomoth
+                    return new uint[] { 0, 0 }; //Togepi
                 case 90:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 12, 127, 255, 0 }; //Voltorb
+                    return new uint[] { 3, 1, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Venomoth
                 case 91:
-                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 127, 255, 0 }; //Vulpix
+                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 12, 127, 255, 0 }; //Voltorb
                 case 92:
-                    return new uint[] { 3, 6, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Weepinbell
+                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 127, 255, 0 }; //Vulpix
                 case 93:
+                    return new uint[] { 3, 6, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Weepinbell
+                case 94:
                     return new uint[] { 0, 0 }; //Zangoose
                 default:
                     return new uint[] { 0, 0 }; //Zapdos 
@@ -401,13 +403,6 @@ namespace RNGReporter
             uint ability = getAbility();
             uint gender = getGender();
             uint hp = getHP();
-
-            if (natureLock[1] == 6)
-            {
-                MessageBox.Show("This shadow isn't currently supported.");
-                status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
-                return;
-            }
 
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
             {
@@ -464,18 +459,23 @@ namespace RNGReporter
                             if (natureLock[0] == 1)
                             {
                                 if (method1SinglenlCheck(coloSeed))
-                                    filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed);
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed, 0);
                             }
                             else
                             {
                                 if (natureLock[1] == 1)
                                 {
                                     if (firstShadowNlCheck(coloSeed))
-                                        filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed);
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed, 0);
                                 }
                                 else
-                                    if (secondShadowNlCheck(coloSeed))
-                                        filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed);
+                                {
+                                    for (int z = 1; z < 3; z++)
+                                    {
+                                        if (secondShadowNlCheck(coloSeed, z))
+                                            filterSeedGales(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed, z);
+                                    }
+                                }
                             }
                         }
                     }
@@ -669,10 +669,184 @@ namespace RNGReporter
             return forwardCounter == backwardCounter;
         }
 
-        private bool secondShadowNlCheck(uint seed)
+        private bool secondShadowNlCheck(uint seed, int num)
         {
             //To do
-            return false;
+            int initialAdvance = 0;
+            if (num == 1)
+                initialAdvance = 5;
+            else if (num == 2)
+                initialAdvance = 7;
+            else
+                initialAdvance = 9;
+
+            slist.Clear();
+            rlist.Clear();
+            backwardCounter = 7 + initialAdvance;
+            forwardCounter = 0;
+            int count = ((natureLock.Length - 2) / 3) - 1;
+
+            //Build temp pid first to not waste time populating if first nl fails
+            galesPopulateBackward(seed, backwardCounter);
+            uint pid = (rlist[backwardCounter - 5] << 16) + rlist[backwardCounter - 6];
+
+            //Backwards nature lock check
+            uint genderval = pid & 255;
+            if (genderval > natureLock[2] && genderval < natureLock[3])
+            {
+                if (pid % 25 == natureLock[4])
+                {
+                    //advances already accounted for
+                }
+            }
+            else
+                return false;
+
+            slist.Clear();
+            rlist.Clear();
+            galesPopulateBackward(seed, 2500);
+
+            for (int x = 1; x <= count; x++)
+            {
+                bool flag = true;
+
+                backwardCounter += 5;
+                pid = (rlist[backwardCounter - 5] << 16) + rlist[backwardCounter - 6];
+                genderval = pid & 255;
+                if ((genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x]) || (natureLock[2 + 3 * x] == 500 && natureLock[3 + 3 * x] == 500))
+                {
+                    if ((pid % 25 == natureLock[4 + 3 * x]) || (natureLock[4 + 3 * x] == 500))
+                    {
+                        //nothing since i already accounted for backwards counter
+                    }
+                    else
+                    {
+                        while (flag)
+                        {
+                            backwardCounter += 2;
+                            pid = (rlist[backwardCounter - 5] << 16) + rlist[backwardCounter - 6];
+                            genderval = pid & 255;
+                            if (genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x])
+                            {
+                                if (pid % 25 == natureLock[4 + 3 * x])
+                                {
+                                    //advances accounted for already
+                                    flag = false;
+                                }
+                                else
+                                {
+                                    //advances accounted for already
+                                }
+                            }
+                            else
+                            {
+                                //advances accounted for already
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    while (flag)
+                    {
+                        backwardCounter += 2;
+                        pid = (rlist[backwardCounter - 5] << 16) + rlist[backwardCounter - 6];
+                        genderval = pid & 255;
+                        if (genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x])
+                        {
+                            if (pid % 25 == natureLock[4 + 3 * x])
+                            {
+                                //advances accounted for already
+                                flag = false;
+                            }
+                            else
+                            {
+                                //advances accounted for already
+                            }
+                        }
+                        else
+                        {
+                            //advances accounted for already
+                        }
+                    }
+                }
+            }
+
+            seed = slist[backwardCounter - 1];
+            slist.Clear();
+            rlist.Clear();
+            galesPopulateForward(seed, 2500);
+            int lastIndex = natureLock.Length - 4;
+
+            //Forwards nature lock check
+            for (int x = 1; x <= count; x++)
+            {
+                bool flag = true;
+                forwardCounter += 5;
+                pid = (rlist[forwardCounter + 3] << 16) + rlist[forwardCounter + 4];
+                genderval = pid & 255;
+                if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                {
+                    if ((pid % 25 == natureLock[lastIndex + 3 - 3 * x]) || (natureLock[lastIndex + 3 - 3 * x] == 500))
+                    {
+                        //nothing since i already accounted for forwards counter
+                    }
+                    else
+                    {
+                        while (flag)
+                        {
+                            forwardCounter += 2;
+                            pid = (rlist[forwardCounter + 3] << 16) + rlist[forwardCounter + 4];
+                            genderval = pid & 255;
+                            if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                            {
+                                if (pid % 25 == natureLock[lastIndex + 3 - 3 * x])
+                                {
+                                    //advances already accounted for
+                                    flag = false;
+                                }
+                                else
+                                {
+                                    //advances already accounted for
+                                }
+                            }
+                            else
+                            {
+                                //advances already accounted for
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    while (flag)
+                    {
+                        forwardCounter += 2;
+                        pid = (rlist[forwardCounter + 3] << 16) + rlist[forwardCounter + 4];
+                        genderval = pid & 255;
+                        if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                        {
+                            if (pid % 25 == natureLock[lastIndex + 3 - 3 * x])
+                            {
+                                //advances already accounted for
+                                flag = false;
+                            }
+                            else
+                            {
+                                //advances already accounted for
+                            }
+                        }
+                        else
+                        {
+                            //advances already accounted for
+                        }
+                    }
+                }
+            }
+
+            forwardCounter = forwardCounter + 7 + initialAdvance;
+
+            return forwardCounter == backwardCounter;
         }
 
         private void galesPopulateBackward(uint seed, int times)
@@ -693,6 +867,114 @@ namespace RNGReporter
                 slist.Add(seed);
                 rlist.Add(seed >> 16);
             }
+        }
+
+        private void filterSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint rng1XD, uint rng3XD, uint rng4XD, uint seed, int num)
+        {
+            uint pid = (rng3XD << 16) | rng4XD;
+            if (nature == 100)
+                nature = pid % 25;
+
+            String shiny = "";
+            if (Shiny_Check.Checked == true)
+            {
+                if (!isShiny(pid))
+                {
+                    return;
+                }
+                shiny = "!!!";
+            }
+
+            if (hP != 0)
+            {
+                uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
+                if (actualHP != (hP - 1))
+                {
+                    return;
+                }
+            }
+
+            if (ability != 0)
+            {
+                uint actualAbility = pid & 1;
+                if (actualAbility != (ability - 1))
+                {
+                    return;
+                }
+            }
+            ability = pid & 1;
+
+            if (gender != 0)
+            {
+                if (gender == 1)
+                {
+                    if ((pid & 255) < 127)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 2)
+                {
+                    if ((pid & 255) > 126)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 3)
+                {
+                    if ((pid & 255) < 191)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 4)
+                {
+                    if ((pid & 255) > 190)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 5)
+                {
+                    if ((pid & 255) < 64)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 6)
+                {
+                    if ((pid & 255) > 63)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 7)
+                {
+                    if ((pid & 255) < 31)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 8)
+                {
+                    if ((pid & 255) > 30)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            String reason = "";
+            if (num == 0)
+                reason = "Pass NL";
+            else if (num == 1)
+                reason = "1st shadow set";
+            else if (num == 2)
+                reason = "1st shadow unset";
+            else
+                reason = "Shiny skip";
+
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, pid, shiny, seed, reason);
         }
         #endregion
 
@@ -921,7 +1203,7 @@ namespace RNGReporter
                 }
             }
 
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, pid, shiny, seed);
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, pid, shiny, seed, "");
         }
         #endregion
 
@@ -1062,7 +1344,7 @@ namespace RNGReporter
                     }
                 }
             }
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hiddenPowerValue, pid, shiny, seed);
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hiddenPowerValue, pid, shiny, seed, "");
         }
 
         private uint populateRNG(uint seed)
@@ -1444,7 +1726,7 @@ namespace RNGReporter
                     }
                 }
             }
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hiddenPowerValue, pid, shiny, seed);
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hiddenPowerValue, pid, shiny, seed, "");
         }
 
         #endregion
@@ -1778,7 +2060,7 @@ namespace RNGReporter
         }
         #endregion
 
-        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed)
+        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, String output)
         {
             String stringNature = Natures[nature];
             String hPString = hiddenPowers[calcHP(hp, atk, def, spa, spd, spe)];
@@ -1835,7 +2117,8 @@ namespace RNGReporter
                 Eighth = gender1,
                 Quarter = gender2,
                 Half = gender3,
-                Three_Fourths = gender4
+                Three_Fourths = gender4,
+                Reason = output
             });
         }
 
@@ -2020,7 +2303,6 @@ namespace RNGReporter
         {
             hiddenpower.SelectedIndex = 0;
         }
-
         #endregion
     }
 }

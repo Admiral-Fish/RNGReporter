@@ -24,10 +24,17 @@ namespace RNGReporter
         private int forwardCounter;
         private int backwardCounter;
 
-
         public GameCube(int TID, int SID)
         {
             InitializeComponent();
+            id.Text = TID.ToString();
+            sid.Text = SID.ToString();
+        }
+
+        private void GameCube_Load(object sender, EventArgs e)
+        {
+            comboBoxNature.Items.AddRange(Nature.NatureDropDownCollectionSearchNatures());
+            comboBoxNature.SelectedIndex = 0;
             natureType.SelectedIndex = 0;
             abilityType.SelectedIndex = 0;
             genderType.SelectedIndex = 0;
@@ -40,8 +47,6 @@ namespace RNGReporter
             spaLogic.SelectedIndex = 0;
             spdLogic.SelectedIndex = 0;
             speLogic.SelectedIndex = 0;
-            id.Text = TID.ToString();
-            sid.Text = SID.ToString();
             k_dataGridView.DataSource = binding;
             k_dataGridView.AutoGenerateColumns = false;
         }
@@ -2286,7 +2291,7 @@ namespace RNGReporter
 
         private void anyNature_Click(object sender, EventArgs e)
         {
-            natureType.SelectedIndex = 0;
+            comboBoxNature.ClearSelection();
         }
 
         private void anyGender_Click(object sender, EventArgs e)

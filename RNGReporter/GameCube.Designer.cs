@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.L_ball = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.L_search_H = new System.Windows.Forms.Label();
             this.abilityType = new System.Windows.Forms.ComboBox();
             this.L_mezapa = new System.Windows.Forms.Label();
-            this.natureType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.id = new System.Windows.Forms.MaskedTextBox();
@@ -68,6 +68,7 @@
             this.spaLogic = new System.Windows.Forms.ComboBox();
             this.spdLogic = new System.Windows.Forms.ComboBox();
             this.speLogic = new System.Windows.Forms.ComboBox();
+            this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
             this.k_dataGridView = new RNGReporter.DoubleBufferedDataGridView();
             this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -274,42 +275,6 @@
             this.L_mezapa.TabIndex = 255;
             this.L_mezapa.Text = "Nature";
             this.L_mezapa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // natureType
-            // 
-            this.natureType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.natureType.FormattingEnabled = true;
-            this.natureType.Items.AddRange(new object[] {
-            "Any",
-            "Adamant",
-            "Brave",
-            "Bold",
-            "Calm",
-            "Careful",
-            "Hasty",
-            "Impish",
-            "Jolly",
-            "Lonely",
-            "Mild",
-            "Modest",
-            "Naive",
-            "Naughty",
-            "Quiet",
-            "Rash",
-            "Relaxed",
-            "Sassy",
-            "Timid",
-            "Gentle",
-            "Lax",
-            "Bashful",
-            "Docile",
-            "Hardy",
-            "Quirky",
-            "Serious"});
-            this.natureType.Location = new System.Drawing.Point(455, 75);
-            this.natureType.Name = "natureType";
-            this.natureType.Size = new System.Drawing.Size(188, 21);
-            this.natureType.TabIndex = 254;
             // 
             // label1
             // 
@@ -663,6 +628,20 @@
             this.speLogic.Name = "speLogic";
             this.speLogic.Size = new System.Drawing.Size(41, 21);
             this.speLogic.TabIndex = 313;
+            // 
+            // comboBoxNature
+            // 
+            this.comboBoxNature.BlankText = "Any";
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties1;
+            this.comboBoxNature.DisplayMemberSingleItem = "";
+            this.comboBoxNature.DropDownHeight = 300;
+            this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNature.FormattingEnabled = true;
+            this.comboBoxNature.Location = new System.Drawing.Point(455, 77);
+            this.comboBoxNature.Name = "comboBoxNature";
+            this.comboBoxNature.Size = new System.Drawing.Size(188, 21);
+            this.comboBoxNature.TabIndex = 318;
             // 
             // k_dataGridView
             // 
@@ -1169,6 +1148,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1076, 622);
+            this.Controls.Add(this.comboBoxNature);
             this.Controls.Add(this.k_dataGridView);
             this.Controls.Add(this.spe30Above);
             this.Controls.Add(this.spe30Quick);
@@ -1219,7 +1199,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.L_mezapa);
-            this.Controls.Add(this.natureType);
             this.Controls.Add(this.Shiny_Check);
             this.Controls.Add(this.L_ball);
             this.Controls.Add(this.hiddenpower);
@@ -1236,6 +1215,7 @@
             this.Name = "GameCube";
             this.Text = "GameCube RNG";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);
+            this.Load += new System.EventHandler(this.GameCube_Load);
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1258,7 +1238,6 @@
         private System.Windows.Forms.Label L_search_H;
         private System.Windows.Forms.ComboBox abilityType;
         private System.Windows.Forms.Label L_mezapa;
-        private System.Windows.Forms.ComboBox natureType;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MaskedTextBox id;
@@ -1326,6 +1305,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn f50;
         private System.Windows.Forms.DataGridViewTextBoxColumn f75;
         private System.Windows.Forms.DataGridViewTextBoxColumn Reason;
+        private Controls.CheckBoxComboBox comboBoxNature;
     }
 }
 

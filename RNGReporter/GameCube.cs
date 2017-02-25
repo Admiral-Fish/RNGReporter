@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using RNGReporter.Objects;
+using RNGReporter.Properties;
+using System.Linq;
 
 namespace RNGReporter
 {
     public partial class GameCube : Form
     {
-        private readonly uint[] natures = { 100, 3, 2, 5, 20, 23, 11, 8, 13, 1, 16, 15, 14, 4, 17, 19, 7, 22, 10, 21, 9, 18, 6, 0, 24, 12 };
         private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
         private readonly String[] hiddenPowers = { "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark" };
         private Thread searchThread;
@@ -23,6 +24,7 @@ namespace RNGReporter
         private uint[] natureLock;
         private int forwardCounter;
         private int backwardCounter;
+        private static List<uint> natureList;
 
         public GameCube(int TID, int SID)
         {
@@ -34,8 +36,8 @@ namespace RNGReporter
         private void GameCube_Load(object sender, EventArgs e)
         {
             comboBoxNature.Items.AddRange(Nature.NatureDropDownCollectionSearchNatures());
+            ChangeLanguage((Language)Settings.Default.Language);
             comboBoxNature.SelectedIndex = 0;
-            natureType.SelectedIndex = 0;
             abilityType.SelectedIndex = 0;
             genderType.SelectedIndex = 0;
             hiddenpower.SelectedIndex = 0;
@@ -88,6 +90,15 @@ namespace RNGReporter
                 {
                     status.Text = "Previous search is still running";
                     return;
+                }
+
+                natureList = null;
+                if (comboBoxNature.Text != "Any" && comboBoxNature.CheckBoxItems.Count > 0)
+                {
+                    natureList =
+                        (from t in comboBoxNature.CheckBoxItems
+                         where t.Checked
+                         select (uint)((Nature)t.ComboBoxItem).Number).ToList();
                 }
 
                 displayList = new List<DisplayList>();
@@ -191,7 +202,7 @@ namespace RNGReporter
                 }
 
                 if (method > 16384)
-                    generateGales2(ivsLower, ivsUpper, getNature());
+                    generateGales2(ivsLower, ivsUpper);
                 else
                     generateGales(ivsLower, ivsUpper);
             }
@@ -400,11 +411,6 @@ namespace RNGReporter
         private void generateGales(uint[] ivsLower, uint[] ivsUpper)
         {
             isSearching = true;
-            uint nature = getNature();
-            if (nature == 0)
-                nature = 100;
-            else
-                nature = natures[nature];
             uint ability = getAbility();
             uint gender = getGender();
             uint hp = getHP();
@@ -421,7 +427,7 @@ namespace RNGReporter
                             {
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                 {
-                                    checkSeedGales(a, b, c, d, e, f, nature, ability, gender, hp);
+                                    checkSeedGales(a, b, c, d, e, f, ability, gender, hp);
                                 }
                             }
                         }
@@ -432,7 +438,7 @@ namespace RNGReporter
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
-        private void checkSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP)
+        private void checkSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint hP)
         {
             uint x8 = hp + (atk << 5) + (def << 10);
             uint x8_2 = x8 ^ 0x8000;
@@ -459,26 +465,26 @@ namespace RNGReporter
                         rng3XD >>= 16;
                         rng4XD >>= 16;
 
-                        if (Check(rng1XD, rng3XD, rng4XD, spe, spa, spd, nature))
+                        if (Check(rng1XD, rng3XD, rng4XD, spe, spa, spd))
                         {
                             if (natureLock[0] == 1)
                             {
                                 if (method1SinglenlCheck(coloSeed))
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed, 0);
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed, 0);
                             }
                             else
                             {
                                 if (natureLock[1] == 1)
                                 {
                                     if (firstShadowNlCheck(coloSeed))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed, 0);
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed, 0);
                                 }
                                 else
                                 {
                                     for (int z = 1; z < 3; z++)
                                     {
                                         if (secondShadowNlCheck(coloSeed, z))
-                                            filterSeedGales(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed, z);
+                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed, z);
                                     }
                                 }
                             }
@@ -874,11 +880,9 @@ namespace RNGReporter
             }
         }
 
-        private void filterSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint rng1XD, uint rng3XD, uint rng4XD, uint seed, int num)
+        private void filterSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint hP, uint rng1XD, uint rng3XD, uint rng4XD, uint seed, int num)
         {
             uint pid = (rng3XD << 16) | rng4XD;
-            if (nature == 100)
-                nature = pid % 25;
 
             String shiny = "";
             if (Shiny_Check.Checked == true)
@@ -979,12 +983,12 @@ namespace RNGReporter
             else
                 reason = "Shiny skip";
 
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, pid, shiny, seed, reason);
+            addSeed(hp, atk, def, spa, spd, spe, pid % 25, ability, gender, hP, pid, shiny, seed, reason);
         }
         #endregion
 
         #region Second search method
-        private void generateGales2(uint[] ivsLower, uint[] ivsUpper, uint nature)
+        private void generateGales2(uint[] ivsLower, uint[] ivsUpper)
         {
             //To do
             MessageBox.Show("Please lower your IV ranges. Bigger IV ranges aren't currently supported.");
@@ -1006,7 +1010,7 @@ namespace RNGReporter
             }
 
             if (method > 16384)
-                generate2(ivsLower, ivsUpper, getNature());
+                generate2(ivsLower, ivsUpper);
             else
                 generate(ivsLower, ivsUpper);
         }
@@ -1015,11 +1019,6 @@ namespace RNGReporter
         private void generate(uint[] ivsLower, uint[] ivsUpper)
         {
             isSearching = true;
-            uint nature = getNature();
-            if (nature == 0)
-                nature = 100;
-            else
-                nature = natures[nature];
             uint ability = getAbility();
             uint gender = getGender();
             uint hp = getHP();
@@ -1036,7 +1035,7 @@ namespace RNGReporter
                             {
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                 {
-                                    checkSeed(a, b, c, d, e, f, nature, ability, gender, hp);
+                                    checkSeed(a, b, c, d, e, f, ability, gender, hp);
                                 }
                             }
                         }
@@ -1048,7 +1047,7 @@ namespace RNGReporter
         }
 
         //Credit to RNG Reporter for this
-        private void checkSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP)
+        private void checkSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint hP)
         {
             uint x8 = hp + (atk << 5) + (def << 10);
             uint x8_2 = x8 ^ 0x8000;
@@ -1075,16 +1074,16 @@ namespace RNGReporter
                         rng3XD >>= 16;
                         rng4XD >>= 16;
 
-                        if (Check(rng1XD, rng3XD, rng4XD, spe, spa, spd, nature))
+                        if (Check(rng1XD, rng3XD, rng4XD, spe, spa, spd))
                         {
-                            filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed);
+                            filterSeed(hp, atk, def, spa, spd, spe, ability, gender, hP, rng1XD, rng3XD, rng4XD, coloSeed);
                         }
                     }
                 }
             }
         }
 
-        private static bool Check(uint iv, uint pid2, uint pid1, uint hp, uint atk, uint def, uint nature)
+        private static bool Check(uint iv, uint pid2, uint pid1, uint hp, uint atk, uint def)
         {
             bool ret = false;
 
@@ -1095,7 +1094,7 @@ namespace RNGReporter
             if (test_hp == hp && test_atk == atk && test_def == def)
             {
 
-                if (nature == 100)
+                if (natureList == null)
                 {
                     ret = true;
                 }
@@ -1103,7 +1102,7 @@ namespace RNGReporter
                 {
                     uint pid = (pid2 << 16) | pid1;
                     uint actualNature = pid % 25;
-                    if (nature == actualNature)
+                    if (natureList.Contains(actualNature))
                     {
                         ret = true;
                     }
@@ -1113,11 +1112,9 @@ namespace RNGReporter
             return ret;
         }
 
-        private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint rng1XD, uint rng3XD, uint rng4XD, uint seed)
+        private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint hP, uint rng1XD, uint rng3XD, uint rng4XD, uint seed)
         {
             uint pid = (rng3XD << 16) | rng4XD;
-            if (nature == 100)
-                nature = pid % 25;
 
             String shiny = "";
             if (Shiny_Check.Checked == true)
@@ -1208,22 +1205,17 @@ namespace RNGReporter
                 }
             }
 
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, pid, shiny, seed, "");
+            addSeed(hp, atk, def, spa, spd, spe, pid % 25, ability, gender, hP, pid, shiny, seed, "");
         }
         #endregion
 
         #region Second search method
         //Credits to Zari for this
-        private void generate2(uint[] ivsLower, uint[] ivsUpper, uint nature)
+        private void generate2(uint[] ivsLower, uint[] ivsUpper)
         {
             uint s = 0;
             uint srange = 1048576;
             isSearching = true;
-
-            if (nature == 0)
-                nature = 100;
-            else
-                nature = natures[nature];
 
             uint ability = getAbility();
             uint gender = getGender();
@@ -1241,12 +1233,12 @@ namespace RNGReporter
                         {
                             uint pid = pidChk(n, 0);
                             uint actualNature = pid % 25;
-                            if (nature == 100 || nature == actualNature)
+                            if (natureList == null || natureList.Contains(actualNature))
                                 filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, slist[(int)n], pid);
 
                             pid = pidChk(n, 1);
                             actualNature = pid % 25;
-                            if (nature == 100 || nature == actualNature)
+                            if (natureList == null || natureList.Contains(actualNature))
                                 filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, (slist[(int)n] ^ 0x80000000), pid);
                         }
                     }
@@ -1449,7 +1441,7 @@ namespace RNGReporter
             }
 
             if (method > 16384)
-                generateChannel2(ivsLower, ivsUpper, getNature());
+                generateChannel2(ivsLower, ivsUpper);
             else
                 generateChannel(ivsLower, ivsUpper);
         }
@@ -1457,11 +1449,6 @@ namespace RNGReporter
         private void generateChannel(uint[] ivsLower, uint[] ivsUpper)
         {
             isSearching = true;
-            uint nature = getNature();
-            if (nature == 0)
-                nature = 100;
-            else
-                nature = natures[nature];
             uint ability = getAbility();
             uint gender = getGender();
             uint hp = getHP();
@@ -1478,7 +1465,7 @@ namespace RNGReporter
                             {
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                 {
-                                    checkSeedChannel(a, b, c, d, e, f, nature, ability, gender, hp);
+                                    checkSeedChannel(a, b, c, d, e, f, ability, gender, hp);
                                 }
                             }
                         }
@@ -1489,7 +1476,7 @@ namespace RNGReporter
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
-        private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP)
+        private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint hP)
         {
             uint x16 = spd << 27;
 
@@ -1531,13 +1518,9 @@ namespace RNGReporter
                                                 {
                                                     pid ^= 0x80000000;
                                                 }
-                                                if (nature != 100)
-                                                {
-                                                    if (pid % 25 == nature)
-                                                        filterSeedChannel(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, seed, pid);
-                                                }
-                                                else
-                                                    filterSeedChannel(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, seed, pid);
+                                                uint nature = pid % 25;
+                                                if (natureList == null || natureList.Contains(nature))
+                                                    filterSeedChannel(hp, atk, def, spa, spd, spe, ability, gender, hP, seed, pid);
                                             }
                                         }
                                     }
@@ -1550,16 +1533,11 @@ namespace RNGReporter
         }
 
         //Credits to Zari and amab for this
-        private void generateChannel2(uint[] ivsLower, uint[] ivsUpper, uint nature)
+        private void generateChannel2(uint[] ivsLower, uint[] ivsUpper)
         {
             uint s = 0;
             uint srange = 1048576;
             isSearching = true;
-
-            if (nature == 0)
-                nature = 100;
-            else
-                nature = natures[nature];
 
             uint ability = getAbility();
             uint gender = getGender();
@@ -1577,16 +1555,16 @@ namespace RNGReporter
                         {
                             uint pid = pidChkChannel(n, 0, rlist[(int)n+1]);
                             uint actualNature = pid % 25;
-                            if (nature == 100 || nature == actualNature)
-                                filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, slist[(int)n], pid);
+                            if (natureList == null || natureList.Contains(actualNature))
+                                filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, hiddenPower, slist[(int)n], pid);
 
                             ivs = calcIVsChannel(ivsLower, ivsUpper, n, 1);
                             if (ivs.Length != 1)
                             {
                                 pid = pidChkChannel(n, 1, rlist[(int)n+1] ^ 0x8000);
                                 actualNature = pid % 25;
-                                if (nature == 100 || nature == actualNature)
-                                    filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, hiddenPower, (slist[(int)n] ^ 0x80000000), pid);
+                                if (natureList == null || natureList.Contains(actualNature))
+                                    filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, hiddenPower, (slist[(int)n] ^ 0x80000000), pid);
                             }
                         }
                     }
@@ -1646,12 +1624,9 @@ namespace RNGReporter
             return pid;
         }
 
-        private void filterSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hiddenPowerValue, uint seed, uint pid)
+        private void filterSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint hiddenPowerValue, uint seed, uint pid)
         {
             String shiny = "";
-
-            if (nature == 100)
-                nature = pid % 25;
 
             if (hiddenPowerValue != 0)
             {
@@ -1731,7 +1706,7 @@ namespace RNGReporter
                     }
                 }
             }
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hiddenPowerValue, pid, shiny, seed, "");
+            addSeed(hp, atk, def, spa, spd, spe, pid % 25, ability, gender, hiddenPowerValue, pid, shiny, seed, "");
         }
 
         #endregion
@@ -1751,7 +1726,7 @@ namespace RNGReporter
             }
 
             if (method > 16384)
-                generateR2(ivsLower, ivsUpper, getNature());
+                generateR2(ivsLower, ivsUpper);
             else
                 generateR(ivsLower, ivsUpper);
         }
@@ -1760,11 +1735,6 @@ namespace RNGReporter
         private void generateR(uint[] ivsLower, uint[] ivsUpper)
         {
             isSearching = true;
-            uint nature = getNature();
-            if (nature == 0)
-                nature = 100;
-            else
-                nature = natures[nature];
             uint ability = getAbility();
             uint gender = getGender();
             uint hp = getHP();
@@ -1781,7 +1751,7 @@ namespace RNGReporter
                             {
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                 {
-                                    checkSeedR(a, b, c, d, e, f, nature, ability, gender, hp);
+                                    checkSeedR(a, b, c, d, e, f, ability, gender, hp);
                                 }
                             }
                         }
@@ -1793,7 +1763,7 @@ namespace RNGReporter
         }
 
         //Credits to RNG reporter for this
-        private void checkSeedR(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP)
+        private void checkSeedR(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint hP)
         {
             uint x4 = hp + (atk << 5) + (def << 10);
             uint x4_2 = x4 ^ 0x8000;
@@ -1821,15 +1791,15 @@ namespace RNGReporter
                         pid2 >>= 16;
                         ivs1 >>= 16;
 
-                        if (Check(ivs1, pid1, pid2, spd, spa, spe, nature))
+                        if (Check(ivs1, pid1, pid2, spd, spa, spe))
                         {
                             if (wishMkr)
                             {
                                 if (seed < 0x10000)
-                                    filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, ivs1, pid1, pid2, seed);
+                                    filterSeed(hp, atk, def, spa, spd, spe, ability, gender, hP, ivs1, pid1, pid2, seed);
                             }
                             else
-                                filterSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, hP, ivs1, pid1, pid2, seed);
+                                filterSeed(hp, atk, def, spa, spd, spe, ability, gender, hP, ivs1, pid1, pid2, seed);
                         }
                     }
                 }
@@ -1838,17 +1808,12 @@ namespace RNGReporter
         #endregion
 
         #region Search 2
-        private void generateR2(uint[] ivsLower, uint[] ivsUpper, uint nature)
+        private void generateR2(uint[] ivsLower, uint[] ivsUpper)
         {
             uint s = 0;
             uint srange = 1048576;
             isSearching = true;
             bool wishMkr = wshMkr.Checked;
-
-            if (nature == 0)
-                nature = 100;
-            else
-                nature = natures[nature];
 
             uint ability = getAbility();
             uint gender = getGender();
@@ -1866,7 +1831,7 @@ namespace RNGReporter
                         {
                             uint pid = pidChkR(n, 0);
                             uint actualNature = pid % 25;
-                            if (nature == 100 || nature == actualNature)
+                            if (natureList == null || natureList.Contains(actualNature))
                                 if (wishMkr)
                                 {
                                     if (slist[(int)n] < 0x10000)
@@ -1877,7 +1842,7 @@ namespace RNGReporter
 
                             pid = pidChkR(n, 1);
                             actualNature = pid % 25;
-                            if (nature == 100 || nature == actualNature)
+                            if (natureList == null || natureList.Contains(actualNature))
                                 if (wishMkr)
                                 {
                                     if ((slist[(int)n] ^ 0x80000000) < 0x10000)
@@ -1981,14 +1946,6 @@ namespace RNGReporter
         #endregion
 
         #region Helper methods
-        private uint getNature()
-        {
-            if (natureType.InvokeRequired)
-                return (uint)natureType.Invoke(new Func<uint>(getNature));
-            else
-                return (uint)natureType.SelectedIndex;
-        }
-
         private int getNatureLock()
         {
             if (shadowPokemon.InvokeRequired)
@@ -2307,6 +2264,28 @@ namespace RNGReporter
         private void anyHiddenPower_Click(object sender, EventArgs e)
         {
             hiddenpower.SelectedIndex = 0;
+        }
+        #endregion
+
+        #region Language
+        //todo: actually look at this return value and parse it correctly
+        private bool ChangeLanguage(Language language)
+        {
+            var CellStyle = new DataGridViewCellStyle();
+            comboBoxNature.Font = CellStyle.Font;
+            k_dataGridView.Refresh();
+
+            for (int checkBoxIndex = 1; checkBoxIndex < comboBoxNature.Items.Count; checkBoxIndex++)
+            {
+                comboBoxNature.CheckBoxItems[checkBoxIndex].Text =
+                    (comboBoxNature.CheckBoxItems[checkBoxIndex].ComboBoxItem).ToString();
+                comboBoxNature.CheckBoxItems[checkBoxIndex].Font = CellStyle.Font;
+            }
+
+            comboBoxNature.CheckBoxItems[0].Checked = true;
+            comboBoxNature.CheckBoxItems[0].Checked = false;
+
+            return true;
         }
         #endregion
     }

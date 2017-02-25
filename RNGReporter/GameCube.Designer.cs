@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.L_ball = new System.Windows.Forms.Label();
-            this.hiddenpower = new System.Windows.Forms.ComboBox();
             this.genderType = new System.Windows.Forms.ComboBox();
             this.L_sex = new System.Windows.Forms.Label();
             this.L_ability = new System.Windows.Forms.Label();
@@ -68,6 +68,7 @@
             this.spaLogic = new System.Windows.Forms.ComboBox();
             this.spdLogic = new System.Windows.Forms.ComboBox();
             this.speLogic = new System.Windows.Forms.ComboBox();
+            this.comboBoxHiddenPower = new RNGReporter.Controls.CheckBoxComboBox();
             this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
             this.k_dataGridView = new RNGReporter.DoubleBufferedDataGridView();
             this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -133,33 +134,6 @@
             this.L_ball.TabIndex = 252;
             this.L_ball.Text = "HP";
             this.L_ball.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // hiddenpower
-            // 
-            this.hiddenpower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.hiddenpower.FormattingEnabled = true;
-            this.hiddenpower.Items.AddRange(new object[] {
-            "Any",
-            "Fighting",
-            "Flying",
-            "Poison",
-            "Ground",
-            "Rock",
-            "Bug",
-            "Ghost",
-            "Steel",
-            "Fire",
-            "Water",
-            "Grass",
-            "Electric",
-            "Psychic",
-            "Ice",
-            "Dragon",
-            "Dark"});
-            this.hiddenpower.Location = new System.Drawing.Point(455, 178);
-            this.hiddenpower.Name = "hiddenpower";
-            this.hiddenpower.Size = new System.Drawing.Size(188, 21);
-            this.hiddenpower.TabIndex = 238;
             // 
             // genderType
             // 
@@ -629,11 +603,25 @@
             this.speLogic.Size = new System.Drawing.Size(41, 21);
             this.speLogic.TabIndex = 313;
             // 
+            // comboBoxHiddenPower
+            // 
+            this.comboBoxHiddenPower.BlankText = "Any";
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties1;
+            this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
+            this.comboBoxHiddenPower.DropDownHeight = 300;
+            this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxHiddenPower.FormattingEnabled = true;
+            this.comboBoxHiddenPower.Location = new System.Drawing.Point(455, 178);
+            this.comboBoxHiddenPower.Name = "comboBoxHiddenPower";
+            this.comboBoxHiddenPower.Size = new System.Drawing.Size(188, 21);
+            this.comboBoxHiddenPower.TabIndex = 319;
+            // 
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1148,6 +1136,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1076, 622);
+            this.Controls.Add(this.comboBoxHiddenPower);
             this.Controls.Add(this.comboBoxNature);
             this.Controls.Add(this.k_dataGridView);
             this.Controls.Add(this.spe30Above);
@@ -1201,7 +1190,6 @@
             this.Controls.Add(this.L_mezapa);
             this.Controls.Add(this.Shiny_Check);
             this.Controls.Add(this.L_ball);
-            this.Controls.Add(this.hiddenpower);
             this.Controls.Add(this.genderType);
             this.Controls.Add(this.L_sex);
             this.Controls.Add(this.L_ability);
@@ -1226,7 +1214,6 @@
 
         private System.Windows.Forms.CheckBox Shiny_Check;
         private System.Windows.Forms.Label L_ball;
-        private System.Windows.Forms.ComboBox hiddenpower;
         private System.Windows.Forms.ComboBox genderType;
         private System.Windows.Forms.Label L_sex;
         private System.Windows.Forms.Label L_ability;
@@ -1306,6 +1293,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn f75;
         private System.Windows.Forms.DataGridViewTextBoxColumn Reason;
         private Controls.CheckBoxComboBox comboBoxNature;
+        private Controls.CheckBoxComboBox comboBoxHiddenPower;
     }
 }
 

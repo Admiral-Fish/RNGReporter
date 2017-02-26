@@ -55,7 +55,6 @@ namespace RNGReporter
             comboBoxNature.Items.AddRange(Nature.NatureDropDownCollectionSearchNatures());
             comboBoxHiddenPower.Items.AddRange(addHP());
             ChangeLanguage((Language)Settings.Default.Language);
-            comboBoxNature.SelectedIndex = 0;
         }
 
         private void GameCube_FormClosing(object sender, FormClosingEventArgs e)

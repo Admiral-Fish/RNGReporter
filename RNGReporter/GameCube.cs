@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using RNGReporter.Objects;
 using RNGReporter.Properties;
 using System.Linq;
+using System.ComponentModel;
+using System.IO;
 
 namespace RNGReporter
 {
@@ -26,6 +28,7 @@ namespace RNGReporter
         private int backwardCounter;
         private static List<uint> natureList;
         private static List<uint> hiddenPowerList;
+        private static bool galesFlag = false;
 
         public GameCube(int TID, int SID)
         {
@@ -33,14 +36,6 @@ namespace RNGReporter
             id.Text = TID.ToString();
             sid.Text = SID.ToString();
             Reason.Visible = false;
-        }
-
-        private void GameCube_Load(object sender, EventArgs e)
-        {
-            comboBoxNature.Items.AddRange(Nature.NatureDropDownCollectionSearchNatures());
-            comboBoxHiddenPower.Items.AddRange(addHP());
-            ChangeLanguage((Language)Settings.Default.Language);
-            comboBoxNature.SelectedIndex = 0;
             abilityType.SelectedIndex = 0;
             genderType.SelectedIndex = 0;
             searchMethod.SelectedIndex = 0;
@@ -53,6 +48,14 @@ namespace RNGReporter
             speLogic.SelectedIndex = 0;
             k_dataGridView.DataSource = binding;
             k_dataGridView.AutoGenerateColumns = false;
+        }
+
+        private void GameCube_Load(object sender, EventArgs e)
+        {
+            comboBoxNature.Items.AddRange(Nature.NatureDropDownCollectionSearchNatures());
+            comboBoxHiddenPower.Items.AddRange(addHP());
+            ChangeLanguage((Language)Settings.Default.Language);
+            comboBoxNature.SelectedIndex = 0;
         }
 
         private void GameCube_FormClosing(object sender, FormClosingEventArgs e)
@@ -71,6 +74,7 @@ namespace RNGReporter
             uint[] ivsLower;
             uint[] ivsUpper;
             getIVs(out ivsLower, out ivsUpper);
+            galesFlag = false;
 
             if (ivsLower[0] > ivsUpper[0])
                 MessageBox.Show("HP: Lower limit > Upper limit");
@@ -209,6 +213,7 @@ namespace RNGReporter
 
             if (natureLock.Length == 2)
             {
+                galesFlag = true;
                 getMethod(ivsLower, ivsUpper);
                 return;
             }
@@ -503,7 +508,7 @@ namespace RNGReporter
                                 }
                                 else
                                 {
-                                    for (int z = 1; z < 3; z++)
+                                    for (int z = 1; z < 4; z++)
                                     {
                                         if (secondShadowNlCheck(coloSeed, z))
                                             filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, z);
@@ -524,7 +529,7 @@ namespace RNGReporter
 
             uint pid = (rlist[2] << 16) | rlist[1];
             uint genderval = pid & 255;
-            if (genderval > natureLock[2] && genderval < natureLock[3])
+            if (genderval >= natureLock[2] && genderval <= natureLock[3])
                 if (pid % 25 == natureLock[4])
                     return true;
 
@@ -547,7 +552,7 @@ namespace RNGReporter
             backwardCounter += 7;
             uint pid = ((pid1 >> 16) << 16) | (pid2 >> 16);
             uint genderval = pid & 255;
-            if (genderval > natureLock[2] && genderval < natureLock[3])
+            if (genderval >= natureLock[2] && genderval <= natureLock[3])
             {
                 if (pid % 25 == natureLock[4])
                 {
@@ -566,7 +571,7 @@ namespace RNGReporter
                 backwardCounter += 5;
                 pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                 genderval = pid & 255;
-                if ((genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x]) || (natureLock[2 + 3 * x] == 500 && natureLock[3 + 3 * x] == 500))
+                if ((genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x]) || (natureLock[2 + 3 * x] == 500 && natureLock[3 + 3 * x] == 500))
                 {
                     if ((pid % 25 == natureLock[4 + 3 * x]) || (natureLock[4 + 3 * x] == 500))
                     {
@@ -579,7 +584,7 @@ namespace RNGReporter
                             backwardCounter += 2;
                             pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                             genderval = pid & 255;
-                            if (genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x])
+                            if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
                             {
                                 if (pid % 25 == natureLock[4 + 3 * x])
                                 {
@@ -605,7 +610,7 @@ namespace RNGReporter
                         backwardCounter += 2;
                         pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                         genderval = pid & 255;
-                        if (genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x])
+                        if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
                         {
                             if (pid % 25 == natureLock[4 + 3 * x])
                             {
@@ -638,7 +643,7 @@ namespace RNGReporter
                 forwardCounter += 5;
                 pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                 genderval = pid & 255;
-                if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
                 {
                     if ((pid % 25 == natureLock[lastIndex + 3 - 3 * x]) || (natureLock[lastIndex + 3 - 3 * x] == 500))
                     {
@@ -651,7 +656,7 @@ namespace RNGReporter
                             forwardCounter += 2;
                             pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                             genderval = pid & 255;
-                            if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                            if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
                             {
                                 if (pid % 25 == natureLock[lastIndex + 3 - 3 * x])
                                 {
@@ -677,7 +682,7 @@ namespace RNGReporter
                         forwardCounter += 2;
                         pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                         genderval = pid & 255;
-                        if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                        if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
                         {
                             if (pid % 25 == natureLock[lastIndex + 3 - 3 * x])
                             {
@@ -725,7 +730,7 @@ namespace RNGReporter
 
             //Backwards nature lock check
             uint genderval = pid & 255;
-            if (genderval > natureLock[2] && genderval < natureLock[3])
+            if (genderval >= natureLock[2] && genderval <= natureLock[3])
             {
                 if (pid % 25 == natureLock[4])
                 {
@@ -746,7 +751,7 @@ namespace RNGReporter
                 backwardCounter += 5;
                 pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                 genderval = pid & 255;
-                if ((genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x]) || (natureLock[2 + 3 * x] == 500 && natureLock[3 + 3 * x] == 500))
+                if ((genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x]) || (natureLock[2 + 3 * x] == 500 && natureLock[3 + 3 * x] == 500))
                 {
                     if ((pid % 25 == natureLock[4 + 3 * x]) || (natureLock[4 + 3 * x] == 500))
                     {
@@ -759,7 +764,7 @@ namespace RNGReporter
                             backwardCounter += 2;
                             pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                             genderval = pid & 255;
-                            if (genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x])
+                            if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
                             {
                                 if (pid % 25 == natureLock[4 + 3 * x])
                                 {
@@ -785,7 +790,7 @@ namespace RNGReporter
                         backwardCounter += 2;
                         pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                         genderval = pid & 255;
-                        if (genderval > natureLock[2 + 3 * x] && genderval < natureLock[3 + 3 * x])
+                        if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
                         {
                             if (pid % 25 == natureLock[4 + 3 * x])
                             {
@@ -818,7 +823,7 @@ namespace RNGReporter
                 forwardCounter += 5;
                 pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                 genderval = pid & 255;
-                if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
                 {
                     if ((pid % 25 == natureLock[lastIndex + 3 - 3 * x]) || (natureLock[lastIndex + 3 - 3 * x] == 500))
                     {
@@ -831,7 +836,7 @@ namespace RNGReporter
                             forwardCounter += 2;
                             pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                             genderval = pid & 255;
-                            if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                            if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
                             {
                                 if (pid % 25 == natureLock[lastIndex + 3 - 3 * x])
                                 {
@@ -857,7 +862,7 @@ namespace RNGReporter
                         forwardCounter += 2;
                         pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                         genderval = pid & 255;
-                        if ((genderval > natureLock[lastIndex + 1 - 3 * x] && genderval < natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                        if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
                         {
                             if (pid % 25 == natureLock[lastIndex + 3 - 3 * x])
                             {
@@ -905,14 +910,6 @@ namespace RNGReporter
         private void filterSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint pid, uint nature, uint seed, int num)
         {
             String shiny = "";
-            if (Shiny_Check.Checked == true)
-            {
-                if (!isShiny(pid))
-                {
-                    return;
-                }
-                shiny = "!!!";
-            }
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
             if (hiddenPowerList != null)
@@ -1001,7 +998,13 @@ namespace RNGReporter
             else if (num == 2)
                 reason = "1st shadow unset";
             else
+            {
                 reason = "Shiny skip";
+                uint pid2 = forwardXD(forwardXD(seed));
+                uint pid1 = forwardXD(pid2);
+                int tsv = (int)((pid2 >> 16) ^ (pid1 >> 16)) >> 3;
+                reason = reason + " (TSV: " + tsv + ")";
+            }
 
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, reason);
         }
@@ -1134,13 +1137,16 @@ namespace RNGReporter
         private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint pid, uint nature, uint seed)
         {
             String shiny = "";
-            if (Shiny_Check.Checked == true)
+            if (!galesFlag)
             {
-                if (!isShiny(pid))
+                if (Shiny_Check.Checked == true)
                 {
-                    return;
+                    if (!isShiny(pid))
+                    {
+                        return;
+                    }
+                    shiny = "!!!";
                 }
-                shiny = "!!!";
             }
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
@@ -2030,13 +2036,19 @@ namespace RNGReporter
             char gender3;
             char gender4;
 
-            if (shiny == "")
+            if (!galesFlag)
             {
-                if (isShiny(pid))
+                if (shiny == "")
                 {
-                    shiny = "!!!";
+                    if (isShiny(pid))
+                    {
+                        shiny = "!!!";
+                    }
                 }
             }
+
+            if (galesFlag && output.Equals(""))
+                output = "Pass NL";
 
             if (gender < 31)
                 gender1 = 'F';
@@ -2318,6 +2330,49 @@ namespace RNGReporter
             comboBoxHiddenPower.CheckBoxItems[0].Checked = false;
 
             return true;
+        }
+        #endregion
+
+        #region Grid commands
+        private void contextMenuStripGrid_Opening(object sender, CancelEventArgs e)
+        {
+            if (k_dataGridView.SelectedRows.Count == 0)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void copySeedToClipboard_Click(object sender, EventArgs e)
+        {
+            if (k_dataGridView.SelectedRows[0] != null)
+            {
+                var frame = (DisplayList)k_dataGridView.SelectedRows[0].DataBoundItem;
+
+                Clipboard.SetText(frame.Seed.ToString());
+            }
+        }
+
+        private void outputResultsToTXTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StreamWriter file = new System.IO.StreamWriter("rngreporter.txt");
+            String result = "Seed\t\t" + "PID\t\t" + "Shiny\t" + "Nature\t" + "Ability\t" + "HP\t" + "Atk\t" + "Def\t" + "SpA\t" + "SpD\t" + "Spe\t" + "Hidden\t\t" + "Power\t" + "12.5%F\t" + "25%F\t" + "50%\t" + "75%\t" + "Reason\t\n";
+            file.WriteLine(result);
+            for (int x = 0; x < displayList.Count; x++)
+            {
+                String seed = displayList[x].Seed;
+                while (seed.Length < 8)
+                    seed = "0" + seed;
+                String pid = displayList[x].PID;
+                while (pid.Length < 8)
+                    pid = "0" + pid;
+                String temp = "" + seed + "\t" + pid + "\t" + displayList[x].Shiny + "\t" + displayList[x].Nature + "\t" + displayList[x].Ability + "\t" + displayList[x].Hp + "\t" + displayList[x].Atk + "\t" + displayList[x].Def + "\t" + displayList[x].SpA + "\t" + displayList[x].SpD + "\t" + displayList[x].Spe + "\t" + displayList[x].Hidden;
+                if (displayList[x].Hidden.Length < 8)
+                    temp += "\t";
+                temp = temp + "\t" + displayList[x].Power + "\t" + displayList[x].Eighth + "\t" + displayList[x].Quarter + "\t" + displayList[x].Half + "\t" + displayList[x].Three_Fourths + "\t" + displayList[x].Reason + "\n";
+                file.WriteLine(temp);
+            }
+            file.Close();
+            MessageBox.Show("Results exported to folder with RNGReporter.exe");
         }
         #endregion
     }

@@ -3559,7 +3559,7 @@ namespace RNGReporter.Objects
                             uint pid1 = huntRng.GetNext16BitNumber();
                             uint pid2 = huntRng.GetNext16BitNumber();
 
-                            uint pid = (pid2 << 16) + pid1;
+                            uint pid = (pid2 << 16) | pid1;
 
                             if (pid%25 == nature)
                             {
@@ -3762,7 +3762,7 @@ namespace RNGReporter.Objects
                             uint pid1 = huntRng.GetNext16BitNumber();
                             uint pid2 = huntRng.GetNext16BitNumber();
 
-                            uint pid = (pid2 << 16) + pid1;
+                            uint pid = (pid2 << 16) | pid1;
 
                             if (pid%25 == nature)
                             {

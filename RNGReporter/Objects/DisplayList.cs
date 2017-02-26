@@ -2,7 +2,7 @@
 
 namespace RNGReporter
 {
-    internal class DisplayList
+    public class DisplayList
     {
         public String Seed { get; set; }
 

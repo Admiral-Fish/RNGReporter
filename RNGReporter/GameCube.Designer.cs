@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -36,6 +37,7 @@
             this.genderType = new System.Windows.Forms.ComboBox();
             this.L_sex = new System.Windows.Forms.Label();
             this.L_ability = new System.Windows.Forms.Label();
+            this.contextMenuStripGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.L_search_S = new System.Windows.Forms.Label();
             this.L_search_D = new System.Windows.Forms.Label();
             this.L_search_C = new System.Windows.Forms.Label();
@@ -56,6 +58,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.wshMkr = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.outputResultsToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copySeed = new System.Windows.Forms.ToolStripMenuItem();
             this.hpValue = new System.Windows.Forms.MaskedTextBox();
             this.atkValue = new System.Windows.Forms.MaskedTextBox();
             this.defValue = new System.Windows.Forms.MaskedTextBox();
@@ -113,6 +117,7 @@
             this.anyGender = new RNGReporter.GlassButton();
             this.anyAbility = new RNGReporter.GlassButton();
             this.anyHiddenPower = new RNGReporter.GlassButton();
+            this.contextMenuStripGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,7 +139,30 @@
             this.L_ball.TabIndex = 252;
             this.L_ball.Text = "HP";
             this.L_ball.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
+            //
+            // contextMenuStripGrid
+            //
+            this.contextMenuStripGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.copySeed,
+                this.outputResultsToTXTToolStripMenuItem });
+            this.contextMenuStripGrid.Name = "contextMenuStripGrid";
+            this.contextMenuStripGrid.Size = new System.Drawing.Size(335, 380);
+            this.contextMenuStripGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripGrid_Opening);
+            //
+            // copySeed
+            //
+            this.copySeed.Name = "copySeedToClipboardToolStripMenuItem";
+            this.copySeed.Size = new System.Drawing.Size(223, 22);
+            this.copySeed.Text = "Copy Seed to Clipboard";
+            this.copySeed.Click += new System.EventHandler(this.copySeedToClipboard_Click);
+            //
+            // outputResultsToTXTToolStripMenuItem
+            //
+            this.outputResultsToTXTToolStripMenuItem.Name = "outputResultsToTXTToolStripMenuItem";
+            this.outputResultsToTXTToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.outputResultsToTXTToolStripMenuItem.Text = "Output Results to TXT ...";
+            this.outputResultsToTXTToolStripMenuItem.Click += new System.EventHandler(this.outputResultsToTXTToolStripMenuItem_Click);
+            //
             // genderType
             // 
             this.genderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -458,7 +486,7 @@
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.Location = new System.Drawing.Point(935, 593);
+            this.label5.Location = new System.Drawing.Point(1003, 593);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(129, 20);
             this.label5.TabIndex = 279;
@@ -660,6 +688,7 @@
             this.f50,
             this.f75,
             this.Reason});
+            this.k_dataGridView.ContextMenuStrip = this.contextMenuStripGrid;
             this.k_dataGridView.Location = new System.Drawing.Point(15, 397);
             this.k_dataGridView.MultiSelect = false;
             this.k_dataGridView.Name = "k_dataGridView";
@@ -672,7 +701,7 @@
             this.k_dataGridView.ShowCellToolTips = false;
             this.k_dataGridView.ShowEditingIcon = false;
             this.k_dataGridView.ShowRowErrors = false;
-            this.k_dataGridView.Size = new System.Drawing.Size(1049, 193);
+            this.k_dataGridView.Size = new System.Drawing.Size(1117, 193);
             this.k_dataGridView.TabIndex = 317;
             // 
             // dataGridViewTextBoxColumn0
@@ -1057,7 +1086,7 @@
             // 
             this.cancel.BackColor = System.Drawing.Color.AntiqueWhite;
             this.cancel.ForeColor = System.Drawing.Color.Black;
-            this.cancel.Location = new System.Drawing.Point(989, 368);
+            this.cancel.Location = new System.Drawing.Point(1057, 368);
             this.cancel.Name = "cancel";
             this.cancel.OuterBorderColor = System.Drawing.Color.Transparent;
             this.cancel.ShineColor = System.Drawing.SystemColors.Window;
@@ -1070,7 +1099,7 @@
             // 
             this.search.BackColor = System.Drawing.Color.AntiqueWhite;
             this.search.ForeColor = System.Drawing.Color.Black;
-            this.search.Location = new System.Drawing.Point(908, 368);
+            this.search.Location = new System.Drawing.Point(976, 368);
             this.search.Name = "search";
             this.search.OuterBorderColor = System.Drawing.Color.Transparent;
             this.search.ShineColor = System.Drawing.SystemColors.Window;
@@ -1135,7 +1164,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1076, 622);
+            this.ClientSize = new System.Drawing.Size(1144, 622);
             this.Controls.Add(this.comboBoxHiddenPower);
             this.Controls.Add(this.comboBoxNature);
             this.Controls.Add(this.k_dataGridView);
@@ -1202,6 +1231,7 @@
             this.Controls.Add(this.abilityType);
             this.Name = "GameCube";
             this.Text = "GameCube RNG";
+            this.contextMenuStripGrid.ResumeLayout(false);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);
             this.Load += new System.EventHandler(this.GameCube_Load);
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).EndInit();
@@ -1214,6 +1244,9 @@
 
         private System.Windows.Forms.CheckBox Shiny_Check;
         private System.Windows.Forms.Label L_ball;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripGrid;
+        private System.Windows.Forms.ToolStripMenuItem outputResultsToTXTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copySeed;
         private System.Windows.Forms.ComboBox genderType;
         private System.Windows.Forms.Label L_sex;
         private System.Windows.Forms.Label L_ability;

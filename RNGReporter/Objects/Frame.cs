@@ -564,14 +564,14 @@ namespace RNGReporter.Objects
                     Offset = offset,
                     id = id,
                     sid = sid,
-                    Pid = (pid2 << 16) + pid1,
+                    Pid = (pid2 << 16) | pid1,
                     inh1 = inh1,
                     inh2 = inh2,
                     inh3 = inh3,
                     par1 = par1,
                     par2 = par2,
                     par3 = par3,
-                    Dv = (dv2 << 16) + dv1
+                    Dv = (dv2 << 16) | dv1
                 };
 
 
@@ -616,7 +616,7 @@ namespace RNGReporter.Objects
                     par1 = par1,
                     par2 = par2,
                     par3 = par3,
-                    Dv = (dv2 << 16) + dv1
+                    Dv = (dv2 << 16) | dv1
                 };
 
             //punch in the inheritence values
@@ -830,8 +830,8 @@ namespace RNGReporter.Objects
                     RngResult = rngResult,
                     id = id,
                     sid = sid,
-                    Pid = (pid2 << 16) + pid1,
-                    Dv = (dv2 << 16) + dv1
+                    Pid = (pid2 << 16) | pid1,
+                    Dv = (dv2 << 16) | dv1
                 };
 
 
@@ -866,7 +866,7 @@ namespace RNGReporter.Objects
                 RngResult = rngResult,
             };
 
-            uint monPID = ((pid1 ^ 0x8000) << 16) + pid2;
+            uint monPID = ((pid1 ^ 0x8000) << 16) | pid2;
             if (Functions.Shiny(monPID, 40122, (ushort)sid))
                 monPID ^= 0x80000000;
 
@@ -909,8 +909,8 @@ namespace RNGReporter.Objects
                     Offset = offset,
                     id = id,
                     sid = sid,
-                    Pid = (pid2 << 16) + pid1,
-                    Dv = (dv2 << 16) + dv1,
+                    Pid = (pid2 << 16) | pid1,
+                    Dv = (dv2 << 16) | dv1,
                     EncounterType = encounterType,
                     EncounterSlot = encounterSlot
                 };
@@ -1004,7 +1004,7 @@ namespace RNGReporter.Objects
                     par2 = par2,
                     par3 = par3,
                     Pid = (upperPID << 16) | lowerPID,
-                    Dv = (dv2 << 16) + dv1
+                    Dv = (dv2 << 16) | dv1
                 };
 
 

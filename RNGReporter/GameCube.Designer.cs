@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.L_ball = new System.Windows.Forms.Label();
@@ -38,6 +39,8 @@
             this.L_sex = new System.Windows.Forms.Label();
             this.L_ability = new System.Windows.Forms.Label();
             this.contextMenuStripGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copySeed = new System.Windows.Forms.ToolStripMenuItem();
+            this.outputResultsToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.L_search_S = new System.Windows.Forms.Label();
             this.L_search_D = new System.Windows.Forms.Label();
             this.L_search_C = new System.Windows.Forms.Label();
@@ -55,11 +58,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.shadowPokemon = new System.Windows.Forms.ComboBox();
             this.galesCheck = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.wshMkr = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.outputResultsToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copySeed = new System.Windows.Forms.ToolStripMenuItem();
             this.hpValue = new System.Windows.Forms.MaskedTextBox();
             this.atkValue = new System.Windows.Forms.MaskedTextBox();
             this.defValue = new System.Windows.Forms.MaskedTextBox();
@@ -72,6 +72,9 @@
             this.spaLogic = new System.Windows.Forms.ComboBox();
             this.spdLogic = new System.Windows.Forms.ComboBox();
             this.speLogic = new System.Windows.Forms.ComboBox();
+            this.shadowMethodLabel = new System.Windows.Forms.Label();
+            this.anyShadowMethod = new RNGReporter.GlassButton();
+            this.comboBoxShadowMethod = new RNGReporter.Controls.CheckBoxComboBox();
             this.comboBoxHiddenPower = new RNGReporter.Controls.CheckBoxComboBox();
             this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
             this.k_dataGridView = new RNGReporter.DoubleBufferedDataGridView();
@@ -139,30 +142,7 @@
             this.L_ball.TabIndex = 252;
             this.L_ball.Text = "HP";
             this.L_ball.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
-            // contextMenuStripGrid
-            //
-            this.contextMenuStripGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.copySeed,
-                this.outputResultsToTXTToolStripMenuItem });
-            this.contextMenuStripGrid.Name = "contextMenuStripGrid";
-            this.contextMenuStripGrid.Size = new System.Drawing.Size(335, 380);
-            this.contextMenuStripGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripGrid_Opening);
-            //
-            // copySeed
-            //
-            this.copySeed.Name = "copySeedToClipboardToolStripMenuItem";
-            this.copySeed.Size = new System.Drawing.Size(223, 22);
-            this.copySeed.Text = "Copy Seed to Clipboard";
-            this.copySeed.Click += new System.EventHandler(this.copySeedToClipboard_Click);
-            //
-            // outputResultsToTXTToolStripMenuItem
-            //
-            this.outputResultsToTXTToolStripMenuItem.Name = "outputResultsToTXTToolStripMenuItem";
-            this.outputResultsToTXTToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
-            this.outputResultsToTXTToolStripMenuItem.Text = "Output Results to TXT ...";
-            this.outputResultsToTXTToolStripMenuItem.Click += new System.EventHandler(this.outputResultsToTXTToolStripMenuItem_Click);
-            //
+            // 
             // genderType
             // 
             this.genderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -201,6 +181,29 @@
             this.L_ability.TabIndex = 249;
             this.L_ability.Text = "Ability";
             this.L_ability.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // contextMenuStripGrid
+            // 
+            this.contextMenuStripGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copySeed,
+            this.outputResultsToTXTToolStripMenuItem});
+            this.contextMenuStripGrid.Name = "contextMenuStripGrid";
+            this.contextMenuStripGrid.Size = new System.Drawing.Size(203, 48);
+            this.contextMenuStripGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripGrid_Opening);
+            // 
+            // copySeed
+            // 
+            this.copySeed.Name = "copySeed";
+            this.copySeed.Size = new System.Drawing.Size(202, 22);
+            this.copySeed.Text = "Copy Seed to Clipboard";
+            this.copySeed.Click += new System.EventHandler(this.copySeedToClipboard_Click);
+            // 
+            // outputResultsToTXTToolStripMenuItem
+            // 
+            this.outputResultsToTXTToolStripMenuItem.Name = "outputResultsToTXTToolStripMenuItem";
+            this.outputResultsToTXTToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.outputResultsToTXTToolStripMenuItem.Text = "Output Results to TXT ...";
+            this.outputResultsToTXTToolStripMenuItem.Click += new System.EventHandler(this.outputResultsToTXTToolStripMenuItem_Click);
             // 
             // L_search_S
             // 
@@ -453,25 +456,18 @@
             this.shadowPokemon.Name = "shadowPokemon";
             this.shadowPokemon.Size = new System.Drawing.Size(174, 21);
             this.shadowPokemon.TabIndex = 271;
+            this.shadowPokemon.SelectionChangeCommitted += new System.EventHandler(this.shadowPokemon_SelectionChangeCommitted);
             // 
             // galesCheck
             // 
             this.galesCheck.AutoSize = true;
-            this.galesCheck.Location = new System.Drawing.Point(750, 77);
+            this.galesCheck.Location = new System.Drawing.Point(736, 77);
             this.galesCheck.Name = "galesCheck";
-            this.galesCheck.Size = new System.Drawing.Size(53, 17);
+            this.galesCheck.Size = new System.Drawing.Size(70, 17);
             this.galesCheck.TabIndex = 272;
-            this.galesCheck.Text = "Gales";
+            this.galesCheck.Text = "Shadows";
             this.galesCheck.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(747, 112);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(220, 20);
-            this.label4.TabIndex = 273;
-            this.label4.Text = "Gales of Darkness is partially supported.";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.galesCheck.CheckedChanged += new System.EventHandler(this.galesCheck_CheckedChanged);
             // 
             // wshMkr
             // 
@@ -631,11 +627,47 @@
             this.speLogic.Size = new System.Drawing.Size(41, 21);
             this.speLogic.TabIndex = 313;
             // 
+            // shadowMethodLabel
+            // 
+            this.shadowMethodLabel.Location = new System.Drawing.Point(719, 147);
+            this.shadowMethodLabel.Name = "shadowMethodLabel";
+            this.shadowMethodLabel.Size = new System.Drawing.Size(87, 20);
+            this.shadowMethodLabel.TabIndex = 321;
+            this.shadowMethodLabel.Text = "Method";
+            this.shadowMethodLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // anyShadowMethod
+            // 
+            this.anyShadowMethod.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyShadowMethod.ForeColor = System.Drawing.Color.Black;
+            this.anyShadowMethod.Location = new System.Drawing.Point(989, 146);
+            this.anyShadowMethod.Name = "anyShadowMethod";
+            this.anyShadowMethod.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyShadowMethod.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyShadowMethod.Size = new System.Drawing.Size(33, 23);
+            this.anyShadowMethod.TabIndex = 323;
+            this.anyShadowMethod.Text = "Any";
+            this.anyShadowMethod.Click += new System.EventHandler(this.anyShadowMethod_Click);
+            // 
+            // comboBoxShadowMethod
+            // 
+            this.comboBoxShadowMethod.BlankText = "Any";
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties1;
+            this.comboBoxShadowMethod.DisplayMemberSingleItem = "";
+            this.comboBoxShadowMethod.DropDownHeight = 90;
+            this.comboBoxShadowMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxShadowMethod.FormattingEnabled = true;
+            this.comboBoxShadowMethod.Location = new System.Drawing.Point(812, 147);
+            this.comboBoxShadowMethod.Name = "comboBoxShadowMethod";
+            this.comboBoxShadowMethod.Size = new System.Drawing.Size(171, 21);
+            this.comboBoxShadowMethod.TabIndex = 322;
+            // 
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties2;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -648,8 +680,8 @@
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties3;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1165,6 +1197,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1144, 622);
+            this.Controls.Add(this.anyShadowMethod);
+            this.Controls.Add(this.comboBoxShadowMethod);
+            this.Controls.Add(this.shadowMethodLabel);
             this.Controls.Add(this.comboBoxHiddenPower);
             this.Controls.Add(this.comboBoxNature);
             this.Controls.Add(this.k_dataGridView);
@@ -1206,7 +1241,6 @@
             this.Controls.Add(this.hpValue);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.wshMkr);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.galesCheck);
             this.Controls.Add(this.shadowPokemon);
             this.Controls.Add(this.label3);
@@ -1231,9 +1265,9 @@
             this.Controls.Add(this.abilityType);
             this.Name = "GameCube";
             this.Text = "GameCube RNG";
-            this.contextMenuStripGrid.ResumeLayout(false);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);
             this.Load += new System.EventHandler(this.GameCube_Load);
+            this.contextMenuStripGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1267,7 +1301,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox shadowPokemon;
         private System.Windows.Forms.CheckBox galesCheck;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox wshMkr;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.MaskedTextBox hpValue;
@@ -1327,6 +1360,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Reason;
         private Controls.CheckBoxComboBox comboBoxNature;
         private Controls.CheckBoxComboBox comboBoxHiddenPower;
+        private System.Windows.Forms.Label shadowMethodLabel;
+        private Controls.CheckBoxComboBox comboBoxShadowMethod;
+        private GlassButton anyShadowMethod;
     }
 }
 

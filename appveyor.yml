@@ -1,4 +1,4 @@
-version: 10.1.5
+version: 10.1.6
 os: Visual Studio 2015
 environment:
   solution_path: RNGReporter.sln

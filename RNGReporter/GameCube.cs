@@ -194,9 +194,7 @@ namespace RNGReporter
                 if (method > 16384)
                     generateGales2(ivsLower, ivsUpper);
                 else
-                {
                     generateGales(ivsLower, ivsUpper);
-                }
             }
         }
 
@@ -683,8 +681,6 @@ namespace RNGReporter
             else
                 initialAdvance = 7;
 
-            int shinyskipAdvance = 0;
-
             slist.Clear();
             rlist.Clear();
             backwardCounter = 7 + initialAdvance;
@@ -701,7 +697,6 @@ namespace RNGReporter
                 while (shinyFlag)
                 {
                     backwardCounter += 2;
-                    shinyskipAdvance += 2;
                     pidtemp = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                     uint psvtemp = ((pidtemp >> 16) & (pidtemp & 0xFFFF)) >> 3;
                     if (psvtemp != psv)
@@ -868,7 +863,23 @@ namespace RNGReporter
                 }
             }
 
-            forwardCounter = forwardCounter + 7 + initialAdvance + shinyskipAdvance;
+            forwardCounter = forwardCounter + 7 + initialAdvance;
+
+            if (num == 3)
+            {
+                uint psv = ((pid >> 16) ^ (pid & 0xFFFF));
+                bool shinyFlag = true;
+                while (shinyFlag)
+                {
+                    forwardCounter += 2;
+                    pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
+                    uint temppsv = ((pid >> 16) ^ (pid & 0xFFFF));
+                    if (temppsv != psv)
+                        shinyFlag = false;
+                    else
+                        psv = temppsv;
+                }
+            }
 
             return forwardCounter == backwardCounter;
         }

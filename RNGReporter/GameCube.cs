@@ -467,14 +467,14 @@ namespace RNGReporter
                             {
                                 if (natureLock[1] == 1)
                                 {
-                                    if (firstShadowNlCheck(coloSeed))
+                                    if (method1FirstShadow(coloSeed))
                                         filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
                                 }
                                 else
                                 {
                                     foreach (int z in secondShadow)
                                     {
-                                        if (secondShadowNlCheck(coloSeed, z))
+                                        if (method1SecondShadow(coloSeed, z))
                                             filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, z);
                                     }
                                 }
@@ -500,7 +500,7 @@ namespace RNGReporter
             return false;
         }
 
-        private bool firstShadowNlCheck(uint seed)
+        private bool method1FirstShadow(uint seed)
         {
             slist.Clear();
             rlist.Clear();
@@ -526,7 +526,7 @@ namespace RNGReporter
             else
                 return false;
 
-            galesPopulateBackward(seed, 2500);
+            galesPopulateBackward(seed, 1500);
 
             for (int x = 1; x <= count; x++)
             {
@@ -597,7 +597,7 @@ namespace RNGReporter
             seed = slist[backwardCounter - 1];
             slist.Clear();
             rlist.Clear();
-            galesPopulateForward(seed, 2500);
+            galesPopulateForward(seed, 1500);
             int lastIndex = natureLock.Length - 4;
 
             //Forwards nature lock check
@@ -671,7 +671,7 @@ namespace RNGReporter
             return forwardCounter == backwardCounter;
         }
 
-        private bool secondShadowNlCheck(uint seed, int num)
+        private bool method1SecondShadow(uint seed, int num)
         {
             int initialAdvance = 0;
             if (num == 1)
@@ -723,7 +723,7 @@ namespace RNGReporter
 
             slist.Clear();
             rlist.Clear();
-            galesPopulateBackward(seed, 2500);
+            galesPopulateBackward(seed, 1500);
 
             for (int x = 1; x <= count; x++)
             {
@@ -794,7 +794,7 @@ namespace RNGReporter
             seed = slist[backwardCounter - 1];
             slist.Clear();
             rlist.Clear();
-            galesPopulateForward(seed, 2500);
+            galesPopulateForward(seed, 1500);
             int lastIndex = natureLock.Length - 4;
 
             //Forwards nature lock check
@@ -1010,10 +1010,298 @@ namespace RNGReporter
         #region Second search method
         private void generateGales2(uint[] ivsLower, uint[] ivsUpper)
         {
-            //To do
-            MessageBox.Show("Please lower your IV ranges. Bigger IV ranges aren't currently supported.");
+            isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+            MessageBox.Show("Large IV ranges are not currently supported.");
             return;
+
+            uint s = 0;
+            uint srange = 1048576;
+            isSearching = true;
+
+            uint ability = getAbility();
+            uint gender = getGender();
+
+            for (uint z = 0; z < 32; z++)
+            {
+                for (uint h = 0; h < 64; h++)
+                {
+                    populate(s, srange + 1500);
+                    for (uint n = 0; n < srange; n++)
+                    {  
+                        for (uint sisterSeed = 0; sisterSeed < 2; sisterSeed++)
+                        {
+                            uint seed = sisterSeed == 0 ? slist[(int)n] : slist[(int)n] ^ 0x80000000;
+                            if (natureLock[0] == 1)
+                            {
+                                int forwardCounter = method2SingleNL(seed, n, sisterSeed);
+                                if (forwardCounter != 0)
+                                {
+                                    uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forwardCounter));
+                                    if (ivs.Length != 1)
+                                    {
+                                        uint pid = pidChk((uint)(n + forwardCounter), sisterSeed);
+                                        uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                                        if (natureList == null || natureList.Contains(actualNature))
+                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, sisterSeed == 0 ? slist[(int)(n + forwardCounter)] : slist[(int)(n + forwardCounter)] ^ 0x80000000, pid, 0);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (natureLock[1] == 1)
+                                {
+                                    int forwardCounter = method2FirstShadow(seed, n, sisterSeed);
+                                    if (forwardCounter != 0)
+                                    {
+                                        uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forwardCounter));
+                                        if (ivs.Length != 1)
+                                        {
+                                            uint pid = pidChk((uint)(n + forwardCounter), sisterSeed);
+                                            uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                                            if (natureList == null || natureList.Contains(actualNature))
+                                                filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, sisterSeed == 0 ? slist[(int)(n + forwardCounter)] : slist[(int)(n + forwardCounter)] ^ 0x80000000, pid, 0);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    int forwardCounter = method2SecondShadow(seed, n, sisterSeed);
+                                    if (forwardCounter != 0)
+                                    {
+                                        uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forwardCounter));
+                                        if (ivs.Length != 1)
+                                        {
+                                            uint pid = pidChk((uint)(n + forwardCounter), sisterSeed);
+                                            uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                                            if (natureList == null || natureList.Contains(actualNature))
+                                                filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, sisterSeed == 0 ? slist[(int)(n + forwardCounter)] : slist[(int)(n + forwardCounter)] ^ 0x80000000, pid, 2);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    s = slist[(int)srange];
+                    slist.Clear();
+                    rlist.Clear();
+                }
+            }
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        private int method2SingleNL(uint seed, uint n, uint sisterSeed)
+        {
+            //To do
+            uint pid = sisterSeed == 0 ? (rlist[(int)n + 8] << 16) | rlist[(int)n + 9] : ((rlist[(int)n + 8] << 16) | rlist[(int)n + 9]) ^ 0x80008000;
+            uint genderval = pid & 255;
+            if (genderval >= natureLock[2] && genderval <= natureLock[3])
+                if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[4])
+                    return 12;
+
+            return 0;
+        }
+
+        private int method2FirstShadow(uint seed, uint n, uint sisterSeed)
+        {
+            int forwardCount = 0;
+            int count = ((natureLock.Length - 2) / 3) - 1;
+            int lastIndex = natureLock.Length - 4;
+
+            forwardCount += 5;
+            uint pid = sisterSeed == 0 ? (rlist[(int)n + 3 + forwardCount] << 16) | rlist[(int)n + 4 + forwardCount] : ((rlist[(int)n + 3 + forwardCount] << 16) | rlist[(int)n + 4 + forwardCount]) ^ 0x80008000;
+            uint genderval = pid & 255;
+            if (genderval >= natureLock[2] && genderval <= natureLock[3])
+            {
+                if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[4])
+                {
+                    //nothing
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+                return 0;
+
+            for (int x = 1; x <= count; x++)
+            {
+                bool flag = true;
+                forwardCounter += 5;
+                pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
+                genderval = pid & 255;
+                if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                {
+                    if (((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x]) || (natureLock[lastIndex + 3 - 3 * x] == 500))
+                    {
+                        //nothing since i already accounted for forwards counter
+                    }
+                    else
+                    {
+                        while (flag)
+                        {
+                            forwardCounter += 2;
+                            pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
+                            genderval = pid & 255;
+                            if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                            {
+                                if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
+                                {
+                                    //advances already accounted for
+                                    flag = false;
+                                }
+                                else
+                                {
+                                    //advances already accounted for
+                                }
+                            }
+                            else
+                            {
+                                //advances already accounted for
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    while (flag)
+                    {
+                        forwardCounter += 2;
+                        pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
+                        genderval = pid & 255;
+                        if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
+                        {
+                            if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
+                            {
+                                //advances already accounted for
+                                flag = false;
+                            }
+                            else
+                            {
+                                //advances already accounted for
+                            }
+                        }
+                        else
+                        {
+                            //advances already accounted for
+                        }
+                    }
+                }
+            }
+
+            forwardCount +=7;
+
+            return forwardCount;
+        }
+
+        private int method2SecondShadow(uint seed, uint n, uint sisterSeed)
+        {
+            //To do
+            return 0;
+        }
+
+        private void filterSeedGales2(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint seed, uint pid, int num)
+        {
+            String shiny = "";
+
+            uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
+            if (hiddenPowerList != null)
+            {
+                if (!hiddenPowerList.Contains(actualHP))
+                {
+                    return;
+                }
+            }
+
+            if (ability != 0)
+            {
+                uint actualAbility = pid & 1;
+                if (actualAbility != (ability - 1))
+                {
+                    return;
+                }
+            }
+            ability = pid & 1;
+
+            if (gender != 0)
+            {
+                if (gender == 1)
+                {
+                    if ((pid & 255) < 127)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 2)
+                {
+                    if ((pid & 255) > 126)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 3)
+                {
+                    if ((pid & 255) < 191)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 4)
+                {
+                    if ((pid & 255) > 190)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 5)
+                {
+                    if ((pid & 255) < 64)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 6)
+                {
+                    if ((pid & 255) > 63)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 7)
+                {
+                    if ((pid & 255) < 31)
+                    {
+                        return;
+                    }
+                }
+                else if (gender == 8)
+                {
+                    if ((pid & 255) > 30)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            String reason = "";
+            if (num == 0)
+                reason = "Pass NL";
+            else if (num == 1)
+                reason = "1st shadow set";
+            else if (num == 2)
+                reason = "1st shadow unset";
+            else
+            {
+                reason = "Shiny skip";
+                uint pid2 = forwardXD(forwardXD(seed));
+                uint pid1 = forwardXD(pid2);
+                int tsv = (int)((pid2 >> 16) ^ (pid1 >> 16)) >> 3;
+                reason = reason + " (TSV: " + tsv + ")";
+            }
+
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, reason);
         }
         #endregion
         #endregion

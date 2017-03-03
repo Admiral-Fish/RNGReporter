@@ -57,9 +57,12 @@ namespace RNGReporter
             comboBoxHiddenPower.Items.AddRange(addHP());
             comboBoxShadowMethod.Items.AddRange(addShadowMethod());
             setComboBox();
+            wshMkr.Visible = true;
             shadowMethodLabel.Visible = false;
             comboBoxShadowMethod.Visible = false;
             anyShadowMethod.Visible = false;
+            shadowPokemon.Visible = false;
+            galesCheck.Visible = false;
         }
 
         private void GameCube_FormClosing(object sender, FormClosingEventArgs e)
@@ -73,6 +76,7 @@ namespace RNGReporter
             Hide();
         }
 
+        #region Start search
         private void search_Click(object sender, EventArgs e)
         {
             uint[] ivsLower;
@@ -157,7 +161,12 @@ namespace RNGReporter
         {
             uint test = getSearchMethod();
             if (test == 0)
-                getRMethod(ivsLower, ivsUpper);
+            {
+                if (wshMkr.Checked)
+                    generateWishmkr(ivsLower, ivsUpper);
+                else
+                    getRMethod(ivsLower, ivsUpper);
+            }
             else if (test == 1)
             {
                 if (galesCheck.Checked == true)
@@ -168,6 +177,7 @@ namespace RNGReporter
             else
                 getChannelMethod(ivsLower, ivsUpper);
         }
+        #endregion
 
         #region Gales Search
         private void getGalesMethod(uint[] ivsLower, uint[] ivsUpper)
@@ -1340,7 +1350,7 @@ namespace RNGReporter
                 method *= temp;
             }
 
-            if (method > 16384)
+            if (method > 84095)
                 generate2(ivsLower, ivsUpper);
             else
                 generate(ivsLower, ivsUpper);
@@ -1768,7 +1778,7 @@ namespace RNGReporter
                 method *= temp;
             }
 
-            if (method > 16384)
+            if (method > 120)
                 generateChannel2(ivsLower, ivsUpper);
             else
                 generateChannel(ivsLower, ivsUpper);
@@ -2036,16 +2046,13 @@ namespace RNGReporter
         {
             uint method = 1;
 
-            if (wshMkr.Checked == true)
-                shinyval = (20043 ^ 0) >> 3;
-
             for (int x = 0; x < 6; x++)
             {
                 uint temp = ivsUpper[x] - ivsLower[x] + 1;
                 method *= temp;
             }
 
-            if (method > 16384)
+            if (method > 76871)
                 generateR2(ivsLower, ivsUpper);
             else
                 generateR(ivsLower, ivsUpper);
@@ -2090,7 +2097,6 @@ namespace RNGReporter
             uint ex4_2 = ex4 ^ 0x8000;
             uint ivs_1a = x4_2 << 16;
             uint ivs_1b = x4 << 16;
-            bool wishMkr = wshMkr.Checked;
 
             for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
             {
@@ -2113,15 +2119,7 @@ namespace RNGReporter
                         uint nature = pid < 26 ? 0 : pid - 25 * (pid / 25);
 
                         if (Check(ivs1, nature, spd, spa, spe))
-                        {
-                            if (wishMkr)
-                            {
-                                if (seed < 0x10000)
-                                    filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
-                            }
-                            else
-                                filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
-                        }
+                            filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
                     }
                 }
             }
@@ -2134,7 +2132,6 @@ namespace RNGReporter
             uint s = 0;
             uint srange = 1048576;
             isSearching = true;
-            bool wishMkr = wshMkr.Checked;
 
             uint ability = getAbility();
             uint gender = getGender();
@@ -2152,24 +2149,12 @@ namespace RNGReporter
                             uint pid = pidChkR(n, 0);
                             uint actualNature = pid < 26 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
-                                if (wishMkr)
-                                {
-                                    if (slist[(int)n] < 0x10000)
-                                        filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, slist[(int)(n)], pid);
-                                }
-                                else
-                                    filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, slist[(int)(n)], pid);
+                                filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, slist[(int)(n)], pid);
 
                             pid = pidChkR(n, 1);
                             actualNature = pid < 26 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
-                                if (wishMkr)
-                                {
-                                    if ((slist[(int)n] ^ 0x80000000) < 0x10000)
-                                        filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
-                                }
-                                else
-                                    filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
+                                filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
                         }
                     }
                     s = slist[(int)srange];
@@ -2263,6 +2248,42 @@ namespace RNGReporter
             return pid;
         }
         #endregion
+        #endregion
+
+        #region Wishmkr
+        private void generateWishmkr(uint[] IVsLower, uint[] IVsUpper)
+        {
+            isSearching = true;
+            shinyval = (20043 ^ 0) >> 3;
+            uint ability = getAbility();
+            uint gender = getGender();
+
+            for (uint x = 0; x <= 0xFFFF; x++)
+            {
+                uint pid1 = forward(x);
+                uint pid2 = forward(pid1);
+                uint ivs1 = forward(pid2);
+                uint ivs2 = forward(ivs1);
+
+                pid2 >>= 16;
+                pid1 >>= 16;
+                ivs1 >>= 16;
+                ivs2 >>= 16;
+
+                uint[] ivs = createIVsR(ivs1, ivs2, IVsLower, IVsUpper);
+                if (ivs.Length != 1)
+                {
+                    uint pid = (pid1 << 16) | pid2;
+                    uint nature = pid < 26 ? 0 : pid - 25 * (pid / 25);
+                    if (natureList == null || natureLock.Contains(nature))
+                    {
+                        filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, x);
+                    }
+                }
+            }
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
         #endregion
 
         #region Helper methods
@@ -2668,6 +2689,51 @@ namespace RNGReporter
                     comboBoxShadowMethod.Visible = false;
                     anyShadowMethod.Visible = false;
                 }
+            }
+        }
+
+        private void searchMethod_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            int method = searchMethod.SelectedIndex;
+            if (method == 0)
+            {
+                wshMkr.Visible = true;
+                shadowMethodLabel.Visible = false;
+                comboBoxShadowMethod.Visible = false;
+                anyShadowMethod.Visible = false;
+                shadowPokemon.Visible = false;
+                galesCheck.Visible = false;
+            }
+            else if (method == 1)
+            {
+                wshMkr.Visible = false;
+                if (galesCheck.Checked)
+                {
+                    List<int> secondShadows = new List<int> { 0, 6, 8, 10, 21, 30, 32, 37, 50, 57, 66, 67, 75, 93 };
+                    if (secondShadows.Contains(shadowPokemon.SelectedIndex))
+                    {
+                        shadowMethodLabel.Visible = true;
+                        comboBoxShadowMethod.Visible = true;
+                        anyShadowMethod.Visible = true;
+                    }
+                    else
+                    {
+                        shadowMethodLabel.Visible = false;
+                        comboBoxShadowMethod.Visible = false;
+                        anyShadowMethod.Visible = false;
+                    }
+                }
+                shadowPokemon.Visible = true;
+                galesCheck.Visible = true;
+            }
+            else
+            {
+                wshMkr.Visible = false;
+                shadowMethodLabel.Visible = false;
+                comboBoxShadowMethod.Visible = false;
+                anyShadowMethod.Visible = false;
+                shadowPokemon.Visible = false;
+                galesCheck.Visible = false;
             }
         }
         #endregion

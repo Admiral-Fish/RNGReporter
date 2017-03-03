@@ -341,6 +341,7 @@
             this.searchMethod.Name = "searchMethod";
             this.searchMethod.Size = new System.Drawing.Size(126, 21);
             this.searchMethod.TabIndex = 268;
+            this.searchMethod.SelectionChangeCommitted += new System.EventHandler(this.searchMethod_SelectionChangeCommitted);
             // 
             // label3
             // 

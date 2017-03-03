@@ -108,23 +108,14 @@ namespace RNGReporter
 
                 natureList = null;
                 if (comboBoxNature.Text != "Any" && comboBoxNature.CheckBoxItems.Count > 0)
-                {
-                    natureList =
-                        (from t in comboBoxNature.CheckBoxItems
-                         where t.Checked
-                         select (uint)((Nature)t.ComboBoxItem).Number).ToList();
-                }
+                    natureList = (from t in comboBoxNature.CheckBoxItems where t.Checked select (uint)((Nature)t.ComboBoxItem).Number).ToList();
 
                 hiddenPowerList = null;
                 List<uint> temp = new List<uint>();
                 if (comboBoxHiddenPower.Text != "Any" && comboBoxHiddenPower.CheckBoxItems.Count > 0)
-                {
                     for (int x = 1; x <= 16; x++)
-                    {
                         if (comboBoxHiddenPower.CheckBoxItems[x].Checked)
                             temp.Add((uint)(x - 1));
-                    }
-                }
 
                 if (temp.Count != 0)
                     hiddenPowerList = temp;
@@ -146,10 +137,7 @@ namespace RNGReporter
                 else
                     Reason.Visible = false;
 
-                searchThread =
-                    new Thread(
-                        () =>
-                        getSearch(ivsLower, ivsUpper));
+                searchThread = new Thread(() => getSearch(ivsLower, ivsUpper));
                 searchThread.Start();
 
                 var update = new Thread(updateGUI);
@@ -223,7 +211,7 @@ namespace RNGReporter
                 case 4:
                     return new uint[] { 0, 0 }; //Baltoy 1
                 case 5:
-                    return new uint[] { 2, 1, 127, 255, 0, 127, 255, 24 }; //To do baltoy 2
+                    return new uint[] { 2, 1, 127, 255, 0, 127, 255, 24 }; //Baltoy 2
                 case 6:
                     return new uint[] { 3, 6, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Banette
                 case 7:
@@ -303,7 +291,7 @@ namespace RNGReporter
                 case 44:
                     return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Mareep 1
                 case 45:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //To do mareep 2
+                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Mareep 2
                 case 46:
                     return new uint[] { 4, 1, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Marowak
                 case 47:
@@ -355,7 +343,7 @@ namespace RNGReporter
                 case 70:
                     return new uint[] { 5, 1, 127, 255, 12, 127, 255, 0, 0, 126, 12, 0, 126, 24, 127, 255, 6 }; //Seedot 1
                 case 71:
-                    return new uint[] { 0, 0 }; //To do seedot 2
+                    return new uint[] { 5, 1, 127, 255, 6, 0, 126, 0, 0, 126, 0, 0, 126, 24, 127, 255, 6 }; //Seedot 2
                 case 72:
                     return new uint[] { 3, 1, 0, 126, 18, 127, 255, 12, 127, 255, 6 }; //Seel
                 case 73:
@@ -415,24 +403,12 @@ namespace RNGReporter
             uint gender = getGender();
 
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
-            {
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
-                {
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
-                    {
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
-                        {
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
-                            {
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
-                                {
                                     checkSeedGales(a, b, c, d, e, f, ability, gender);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
@@ -559,21 +535,8 @@ namespace RNGReporter
                             pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                             genderval = pid & 255;
                             if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
-                            {
                                 if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[4 + 3 * x])
-                                {
-                                    //advances accounted for already
                                     flag = false;
-                                }
-                                else
-                                {
-                                    //advances accounted for already
-                                }
-                            }
-                            else
-                            {
-                                //advances accounted for already
-                            }
                         }
                     }
                 }
@@ -585,21 +548,8 @@ namespace RNGReporter
                         pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                         genderval = pid & 255;
                         if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
-                        {
                             if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[4 + 3 * x])
-                            {
-                                //advances accounted for already
                                 flag = false;
-                            }
-                            else
-                            {
-                                //advances accounted for already
-                            }
-                        }
-                        else
-                        {
-                            //advances accounted for already
-                        }
                     }
                 }
             }
@@ -631,21 +581,8 @@ namespace RNGReporter
                             pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                             genderval = pid & 255;
                             if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                            {
                                 if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
-                                {
-                                    //advances already accounted for
                                     flag = false;
-                                }
-                                else
-                                {
-                                    //advances already accounted for
-                                }
-                            }
-                            else
-                            {
-                                //advances already accounted for
-                            }
                         }
                     }
                 }
@@ -657,21 +594,8 @@ namespace RNGReporter
                         pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                         genderval = pid & 255;
                         if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                        {
                             if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
-                            {
-                                //advances already accounted for
                                 flag = false;
-                            }
-                            else
-                            {
-                                //advances already accounted for
-                            }
-                        }
-                        else
-                        {
-                            //advances already accounted for
-                        }
                     }
                 }
             }
@@ -756,21 +680,8 @@ namespace RNGReporter
                             pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                             genderval = pid & 255;
                             if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
-                            {
                                 if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[4 + 3 * x])
-                                {
-                                    //advances accounted for already
                                     flag = false;
-                                }
-                                else
-                                {
-                                    //advances accounted for already
-                                }
-                            }
-                            else
-                            {
-                                //advances accounted for already
-                            }
                         }
                     }
                 }
@@ -782,21 +693,8 @@ namespace RNGReporter
                         pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
                         genderval = pid & 255;
                         if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
-                        {
                             if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[4 + 3 * x])
-                            {
-                                //advances accounted for already
                                 flag = false;
-                            }
-                            else
-                            {
-                                //advances accounted for already
-                            }
-                        }
-                        else
-                        {
-                            //advances accounted for already
-                        }
                     }
                 }
             }
@@ -828,21 +726,8 @@ namespace RNGReporter
                             pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                             genderval = pid & 255;
                             if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                            {
                                 if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
-                                {
-                                    //advances already accounted for
                                     flag = false;
-                                }
-                                else
-                                {
-                                    //advances already accounted for
-                                }
-                            }
-                            else
-                            {
-                                //advances already accounted for
-                            }
                         }
                     }
                 }
@@ -854,21 +739,8 @@ namespace RNGReporter
                         pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                         genderval = pid & 255;
                         if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                        {
                             if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
-                            {
-                                //advances already accounted for
                                 flag = false;
-                            }
-                            else
-                            {
-                                //advances already accounted for
-                            }
-                        }
-                        else
-                        {
-                            //advances already accounted for
-                        }
                     }
                 }
             }
@@ -877,6 +749,7 @@ namespace RNGReporter
 
             if (num == 3)
             {
+                pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
                 uint psv = ((pid >> 16) ^ (pid & 0xFFFF));
                 bool shinyFlag = true;
                 while (shinyFlag)
@@ -917,23 +790,23 @@ namespace RNGReporter
         private void filterSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint pid, uint nature, uint seed, int num)
         {
             String shiny = "";
+            if (getNatureLock() == 41)
+                if (Shiny_Check.Checked)
+                {
+                    if (!isShiny(pid))
+                        return;
+                    shiny = "!!!";
+                }
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
             if (hiddenPowerList != null)
-            {
                 if (!hiddenPowerList.Contains(actualHP))
-                {
                     return;
-                }
-            }
 
             if (ability != 0)
             {
-                uint actualAbility = pid & 1;
-                if (actualAbility != (ability - 1))
-                {
+                if ((pid & 1) != (ability - 1))
                     return;
-                }
             }
             ability = pid & 1;
 
@@ -942,58 +815,42 @@ namespace RNGReporter
                 if (gender == 1)
                 {
                     if ((pid & 255) < 127)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 2)
                 {
                     if ((pid & 255) > 126)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 3)
                 {
                     if ((pid & 255) < 191)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 4)
                 {
                     if ((pid & 255) > 190)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 5)
                 {
                     if ((pid & 255) < 64)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 6)
                 {
                     if ((pid & 255) > 63)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 7)
                 {
                     if ((pid & 255) < 31)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 8)
                 {
                     if ((pid & 255) > 30)
-                    {
                         return;
-                    }
                 }
             }
 
@@ -1156,13 +1013,9 @@ namespace RNGReporter
             if (genderval >= natureLock[lastIndex - 2] && genderval <= natureLock[lastIndex - 1])
             {
                 if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex])
-                {
                     forward += 5;
-                }
                 else
-                {
                     return 0;
-                }
             }
             else
                 return 0;
@@ -1187,21 +1040,8 @@ namespace RNGReporter
                             pid = sisterSeed == 0 ? (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] : (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] ^ 0x80008000;
                             genderval = pid & 255;
                             if ((genderval >= natureLock[lastIndex - 2 - 3 * x] && genderval <= natureLock[lastIndex - 1 - 3 * x]) || (natureLock[lastIndex - 2 - 3 * x] == 500 && natureLock[lastIndex - 1 - 3 * x] == 500))
-                            {
                                 if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex - 3 * x])
-                                {
-                                    //advances already accounted for
                                     flag = false;
-                                }
-                                else
-                                {
-                                    //advances already accounted for
-                                }
-                            }
-                            else
-                            {
-                                //advances already accounted for
-                            }
                         }
                     }
                 }
@@ -1213,21 +1053,8 @@ namespace RNGReporter
                         pid = sisterSeed == 0 ? (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] : (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] ^ 0x80008000;
                         genderval = pid & 255;
                         if ((genderval >= natureLock[lastIndex - 2 - 3 * x] && genderval <= natureLock[lastIndex - 1 - 3 * x]) || (natureLock[lastIndex - 2 - 3 * x] == 500 && natureLock[lastIndex - 1 - 3 * x] == 500))
-                        {
                             if ((pid < 26 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex - 3 * x])
-                            {
-                                //advances already accounted for
                                 flag = false;
-                            }
-                            else
-                            {
-                                //advances already accounted for
-                            }
-                        }
-                        else
-                        {
-                            //advances already accounted for
-                        }
                     }
                 }
             }
@@ -1238,24 +1065,22 @@ namespace RNGReporter
         private void filterSeedGales2(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint seed, uint pid, int num)
         {
             String shiny = "";
+            if (getNatureLock() == 41)
+                if (Shiny_Check.Checked)
+                {
+                    if (!isShiny(pid))
+                        return;
+                    shiny = "!!!";
+                }
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
             if (hiddenPowerList != null)
-            {
                 if (!hiddenPowerList.Contains(actualHP))
-                {
                     return;
-                }
-            }
 
             if (ability != 0)
-            {
-                uint actualAbility = pid & 1;
-                if (actualAbility != (ability - 1))
-                {
+                if ((pid & 1) != (ability - 1))
                     return;
-                }
-            }
             ability = pid & 1;
 
             if (gender != 0)
@@ -1263,58 +1088,42 @@ namespace RNGReporter
                 if (gender == 1)
                 {
                     if ((pid & 255) < 127)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 2)
                 {
                     if ((pid & 255) > 126)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 3)
                 {
                     if ((pid & 255) < 191)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 4)
                 {
                     if ((pid & 255) > 190)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 5)
                 {
                     if ((pid & 255) < 64)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 6)
                 {
                     if ((pid & 255) > 63)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 7)
                 {
                     if ((pid & 255) < 31)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 8)
                 {
                     if ((pid & 255) > 30)
-                    {
                         return;
-                    }
                 }
             }
 
@@ -1364,24 +1173,13 @@ namespace RNGReporter
             uint gender = getGender();
 
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
-            {
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
-                {
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
-                    {
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
-                        {
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
-                            {
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
-                                {
                                     checkSeed(a, b, c, d, e, f, ability, gender);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
@@ -1417,9 +1215,7 @@ namespace RNGReporter
                         uint nature = pid < 26 ? 0 : pid - 25 * (pid / 25);
 
                         if (Check(rng1XD, nature, spe, spa, spd))
-                        {
                             filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed);
-                        }
                     }
                 }
             }
@@ -1435,16 +1231,10 @@ namespace RNGReporter
             {
 
                 if (natureList == null)
-                {
                     return true;
-                }
                 else
-                {
                     if (natureList.Contains(nature))
-                    {
                         return true;
-                    }
-                }
             }
 
             return false;
@@ -1454,33 +1244,22 @@ namespace RNGReporter
         {
             String shiny = "";
             if (!galesFlag)
-            {
                 if (Shiny_Check.Checked == true)
                 {
                     if (!isShiny(pid))
-                    {
                         return;
-                    }
                     shiny = "!!!";
                 }
-            }
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
             if (hiddenPowerList != null)
-            {
                 if (!hiddenPowerList.Contains(actualHP))
-                {
                     return;
-                }
-            }
 
             if (ability != 0)
             {
-                uint actualAbility = pid & 1;
-                if (actualAbility != (ability - 1))
-                {
+                if ((pid & 1) != (ability - 1))
                     return;
-                }
             }
             ability = pid & 1;
 
@@ -1489,58 +1268,42 @@ namespace RNGReporter
                 if (gender == 1)
                 {
                     if ((pid & 255) < 127)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 2)
                 {
                     if ((pid & 255) > 126)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 3)
                 {
                     if ((pid & 255) < 191)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 4)
                 {
                     if ((pid & 255) > 190)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 5)
                 {
                     if ((pid & 255) < 64)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 6)
                 {
                     if ((pid & 255) > 63)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 7)
                 {
                     if ((pid & 255) < 31)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 8)
                 {
                     if ((pid & 255) > 30)
-                    {
                         return;
-                    }
                 }
             }
 
@@ -1595,29 +1358,18 @@ namespace RNGReporter
             if (Shiny_Check.Checked == true)
             {
                 if (!isShiny(pid))
-                {
                     return;
-                }
                 shiny = "!!!";
             }
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
             if (hiddenPowerList != null)
-            {
                 if (!hiddenPowerList.Contains(actualHP))
-                {
                     return;
-                }
-            }
 
             if (ability != 0)
-            {
-                uint actualAbility = pid & 1;
-                if (actualAbility != (ability - 1))
-                {
+                if ((pid & 1) != (ability - 1))
                     return;
-                }
-            }
             ability = pid & 1;
 
             if (gender != 0)
@@ -1625,58 +1377,42 @@ namespace RNGReporter
                 if (gender == 1)
                 {
                     if ((pid & 255) < 127)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 2)
                 {
                     if ((pid & 255) > 126)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 3)
                 {
                     if ((pid & 255) < 191)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 4)
                 {
                     if ((pid & 255) > 190)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 5)
                 {
                     if ((pid & 255) < 64)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 6)
                 {
                     if ((pid & 255) > 63)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 7)
                 {
                     if ((pid & 255) < 31)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 8)
                 {
                     if ((pid & 255) > 30)
-                    {
                         return;
-                    }
                 }
             }
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "");
@@ -1694,9 +1430,7 @@ namespace RNGReporter
         {
             uint s = seed;
             for (uint x = 0; x < (srange + 12); x++)
-            {
                 s = populateRNG(s);
-            }
         }
 
         private uint[] calcIVs(uint[] ivsLower, uint[] ivsUpper, uint frame)
@@ -1792,24 +1526,13 @@ namespace RNGReporter
             uint gender = getGender();
 
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
-            {
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
-                {
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
-                    {
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
-                        {
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
-                            {
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
-                                {
                                     checkSeedChannel(a, b, c, d, e, f, ability, gender);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
@@ -1817,8 +1540,9 @@ namespace RNGReporter
         private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
         {
             uint x16 = spd << 27;
+            uint upper = 0x7ffffff + (32 - spd);
 
-            for (uint a = 0; a < 0x7FFFFFF; a++)
+            while (x16 < upper)
             {
                 x16++;
                 uint prevseed = reverseXD(x16);
@@ -1847,9 +1571,7 @@ namespace RNGReporter
                                     uint seed = reverseXD(sid);
                                     uint pid = (((pid1 >> 16) << 16) | (pid2 >> 16)) ^ 0x80000000;
                                     if (Functions.Shiny(pid, 40122, (ushort)(sid >> 16)))
-                                    {
                                         pid ^= 0x80000000;
-                                    }
                                     uint nature = pid < 26 ? 0 : pid - 25 * (pid / 25);
                                     if (natureList == null || natureList.Contains(nature))
                                         filterSeedChannel(hp, atk, def, spa, spd, spe, ability, gender, seed, pid, nature);
@@ -1960,21 +1682,12 @@ namespace RNGReporter
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
             if (hiddenPowerList != null)
-            {
                 if (!hiddenPowerList.Contains(actualHP))
-                {
                     return;
-                }
-            }
 
             if (ability != 0)
-            {
-                uint actualAbility = pid & 1;
-                if (actualAbility != (ability - 1))
-                {
+                if ((pid & 1) != (ability - 1))
                     return;
-                }
-            }
             ability = pid & 1;
 
             if (gender != 0)
@@ -1982,58 +1695,42 @@ namespace RNGReporter
                 if (gender == 1)
                 {
                     if ((pid & 255) < 127)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 2)
                 {
                     if ((pid & 255) > 126)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 3)
                 {
                     if ((pid & 255) < 191)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 4)
                 {
                     if ((pid & 255) > 190)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 5)
                 {
                     if ((pid & 255) < 64)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 6)
                 {
                     if ((pid & 255) > 63)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 7)
                 {
                     if ((pid & 255) < 31)
-                    {
                         return;
-                    }
                 }
                 else if (gender == 8)
                 {
                     if ((pid & 255) > 30)
-                    {
                         return;
-                    }
                 }
             }
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "");
@@ -2066,24 +1763,13 @@ namespace RNGReporter
             uint gender = getGender();
 
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
-            {
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
-                {
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
-                    {
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
-                        {
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
-                            {
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
-                                {
                                     checkSeedR(a, b, c, d, e, f, ability, gender);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
@@ -2117,7 +1803,6 @@ namespace RNGReporter
                         ivs1 >>= 16;
                         uint pid = (pid1 << 16) | pid2;
                         uint nature = pid < 26 ? 0 : pid - 25 * (pid / 25);
-
                         if (Check(ivs1, nature, spd, spa, spe))
                             filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
                     }
@@ -2178,9 +1863,7 @@ namespace RNGReporter
         {
             uint s = seed;
             for (uint x = 0; x < (srange + 10); x++)
-            {
                 s = populateRNGR(s);
-            }
         }
 
         private uint[] calcIVsR(uint[] ivsLower, uint[] ivsUpper, uint frame)
@@ -2254,7 +1937,7 @@ namespace RNGReporter
         private void generateWishmkr(uint[] IVsLower, uint[] IVsUpper)
         {
             isSearching = true;
-            shinyval = (20043 ^ 0) >> 3;
+            shinyval = 2505;
             uint ability = getAbility();
             uint gender = getGender();
 
@@ -2276,9 +1959,7 @@ namespace RNGReporter
                     uint pid = (pid1 << 16) | pid2;
                     uint nature = pid < 26 ? 0 : pid - 25 * (pid / 25);
                     if (natureList == null || natureLock.Contains(nature))
-                    {
                         filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, x);
-                    }
                 }
             }
             isSearching = false;
@@ -2663,12 +2344,27 @@ namespace RNGReporter
                     comboBoxShadowMethod.Visible = true;
                     anyShadowMethod.Visible = true;
                 }
+                else if (shadowPokemon.SelectedIndex == 41)
+                {
+                    shadowMethodLabel.Visible = false;
+                    comboBoxShadowMethod.Visible = false;
+                    anyShadowMethod.Visible = false;
+                    Shiny_Check.Visible = true;
+                }
+                else
+                {
+                    shadowMethodLabel.Visible = false;
+                    comboBoxShadowMethod.Visible = false;
+                    anyShadowMethod.Visible = false;
+                    Shiny_Check.Visible = false;
+                }
             }
             else
             {
                 shadowMethodLabel.Visible = false;
                 comboBoxShadowMethod.Visible = false;
                 anyShadowMethod.Visible = false;
+                Shiny_Check.Visible = true;
             }
         }
 
@@ -2683,11 +2379,19 @@ namespace RNGReporter
                     comboBoxShadowMethod.Visible = true;
                     anyShadowMethod.Visible = true;
                 }
+                else if (shadowPokemon.SelectedIndex == 41)
+                {
+                    shadowMethodLabel.Visible = false;
+                    comboBoxShadowMethod.Visible = false;
+                    anyShadowMethod.Visible = false;
+                    Shiny_Check.Visible = true;
+                }
                 else
                 {
                     shadowMethodLabel.Visible = false;
                     comboBoxShadowMethod.Visible = false;
                     anyShadowMethod.Visible = false;
+                    Shiny_Check.Visible = false;
                 }
             }
         }
@@ -2698,6 +2402,7 @@ namespace RNGReporter
             if (method == 0)
             {
                 wshMkr.Visible = true;
+                Shiny_Check.Visible = true;
                 shadowMethodLabel.Visible = false;
                 comboBoxShadowMethod.Visible = false;
                 anyShadowMethod.Visible = false;
@@ -2707,20 +2412,30 @@ namespace RNGReporter
             else if (method == 1)
             {
                 wshMkr.Visible = false;
+                Shiny_Check.Visible = true;
                 if (galesCheck.Checked)
                 {
                     List<int> secondShadows = new List<int> { 0, 6, 8, 10, 21, 30, 32, 37, 50, 57, 66, 67, 75, 93 };
+                    Shiny_Check.Visible = false;
                     if (secondShadows.Contains(shadowPokemon.SelectedIndex))
                     {
                         shadowMethodLabel.Visible = true;
                         comboBoxShadowMethod.Visible = true;
                         anyShadowMethod.Visible = true;
                     }
+                    else if (shadowPokemon.SelectedIndex == 41)
+                    {
+                        shadowMethodLabel.Visible = false;
+                        comboBoxShadowMethod.Visible = false;
+                        anyShadowMethod.Visible = false;
+                        Shiny_Check.Visible = true;
+                    }
                     else
                     {
                         shadowMethodLabel.Visible = false;
                         comboBoxShadowMethod.Visible = false;
                         anyShadowMethod.Visible = false;
+                        Shiny_Check.Visible = false;
                     }
                 }
                 shadowPokemon.Visible = true;
@@ -2729,6 +2444,7 @@ namespace RNGReporter
             else
             {
                 wshMkr.Visible = false;
+                Shiny_Check.Visible = false;
                 shadowMethodLabel.Visible = false;
                 comboBoxShadowMethod.Visible = false;
                 anyShadowMethod.Visible = false;
@@ -2742,9 +2458,7 @@ namespace RNGReporter
         private void contextMenuStripGrid_Opening(object sender, CancelEventArgs e)
         {
             if (k_dataGridView.SelectedRows.Count == 0)
-            {
                 e.Cancel = true;
-            }
         }
 
         private void copySeedToClipboard_Click(object sender, EventArgs e)
@@ -2752,7 +2466,6 @@ namespace RNGReporter
             if (k_dataGridView.SelectedRows[0] != null)
             {
                 var frame = (DisplayList)k_dataGridView.SelectedRows[0].DataBoundItem;
-
                 Clipboard.SetText(frame.Seed.ToString());
             }
         }
@@ -2793,15 +2506,9 @@ namespace RNGReporter
             char gender4;
 
             if (!galesFlag)
-            {
                 if (shiny == "")
-                {
                     if (isShiny(pid))
-                    {
                         shiny = "!!!";
-                    }
-                }
-            }
 
             if (galesFlag && output.Equals(""))
                 output = "Pass NL";

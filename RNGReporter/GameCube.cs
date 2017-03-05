@@ -408,7 +408,10 @@ namespace RNGReporter
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
+                                {
+                                    refresh = true;
                                     checkSeedGales(a, b, c, d, e, f, ability, gender);
+                                }
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
@@ -2136,7 +2139,7 @@ namespace RNGReporter
 
         private void dataGridUpdate()
         {
-            binding.ResetBindings(false);
+            binding.ResetBindings(true);
         }
 
         private String[] addHP()

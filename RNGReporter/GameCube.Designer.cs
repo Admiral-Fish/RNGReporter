@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties4 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.L_ball = new System.Windows.Forms.Label();
             this.genderType = new System.Windows.Forms.ComboBox();
@@ -60,12 +60,6 @@
             this.galesCheck = new System.Windows.Forms.CheckBox();
             this.wshMkr = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.hpValue = new System.Windows.Forms.MaskedTextBox();
-            this.atkValue = new System.Windows.Forms.MaskedTextBox();
-            this.defValue = new System.Windows.Forms.MaskedTextBox();
-            this.spaValue = new System.Windows.Forms.MaskedTextBox();
-            this.spdValue = new System.Windows.Forms.MaskedTextBox();
-            this.speValue = new System.Windows.Forms.MaskedTextBox();
             this.hpLogic = new System.Windows.Forms.ComboBox();
             this.atkLogic = new System.Windows.Forms.ComboBox();
             this.defLogic = new System.Windows.Forms.ComboBox();
@@ -120,6 +114,12 @@
             this.anyGender = new RNGReporter.GlassButton();
             this.anyAbility = new RNGReporter.GlassButton();
             this.anyHiddenPower = new RNGReporter.GlassButton();
+            this.hpValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.atkValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.defValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.spaValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.spdValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.speValue = new RNGReporter.Controls.MaskedTextBox2();
             this.contextMenuStripGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -490,66 +490,6 @@
             this.label5.Text = "Credits to amab and Zari";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // hpValue
-            // 
-            this.hpValue.Location = new System.Drawing.Point(78, 72);
-            this.hpValue.Mask = "00";
-            this.hpValue.Name = "hpValue";
-            this.hpValue.Size = new System.Drawing.Size(25, 20);
-            this.hpValue.TabIndex = 280;
-            this.hpValue.Text = "31";
-            this.hpValue.ValidatingType = typeof(int);
-            // 
-            // atkValue
-            // 
-            this.atkValue.Location = new System.Drawing.Point(78, 105);
-            this.atkValue.Mask = "00";
-            this.atkValue.Name = "atkValue";
-            this.atkValue.Size = new System.Drawing.Size(25, 20);
-            this.atkValue.TabIndex = 281;
-            this.atkValue.Text = "31";
-            this.atkValue.ValidatingType = typeof(int);
-            // 
-            // defValue
-            // 
-            this.defValue.Location = new System.Drawing.Point(78, 141);
-            this.defValue.Mask = "00";
-            this.defValue.Name = "defValue";
-            this.defValue.Size = new System.Drawing.Size(25, 20);
-            this.defValue.TabIndex = 282;
-            this.defValue.Text = "31";
-            this.defValue.ValidatingType = typeof(int);
-            // 
-            // spaValue
-            // 
-            this.spaValue.Location = new System.Drawing.Point(78, 175);
-            this.spaValue.Mask = "00";
-            this.spaValue.Name = "spaValue";
-            this.spaValue.Size = new System.Drawing.Size(25, 20);
-            this.spaValue.TabIndex = 283;
-            this.spaValue.Text = "0";
-            this.spaValue.ValidatingType = typeof(int);
-            // 
-            // spdValue
-            // 
-            this.spdValue.Location = new System.Drawing.Point(78, 210);
-            this.spdValue.Mask = "00";
-            this.spdValue.Name = "spdValue";
-            this.spdValue.Size = new System.Drawing.Size(25, 20);
-            this.spdValue.TabIndex = 284;
-            this.spdValue.Text = "31";
-            this.spdValue.ValidatingType = typeof(int);
-            // 
-            // speValue
-            // 
-            this.speValue.Location = new System.Drawing.Point(78, 244);
-            this.speValue.Mask = "00";
-            this.speValue.Name = "speValue";
-            this.speValue.Size = new System.Drawing.Size(25, 20);
-            this.speValue.TabIndex = 285;
-            this.speValue.Text = "31";
-            this.speValue.ValidatingType = typeof(int);
-            // 
             // hpLogic
             // 
             this.hpLogic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -653,8 +593,8 @@
             // comboBoxShadowMethod
             // 
             this.comboBoxShadowMethod.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties4;
             this.comboBoxShadowMethod.DisplayMemberSingleItem = "";
             this.comboBoxShadowMethod.DropDownHeight = 90;
             this.comboBoxShadowMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -667,8 +607,8 @@
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties1;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -681,8 +621,8 @@
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties3;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -747,8 +687,8 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "PID";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn1.HeaderText = "PID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -1193,11 +1133,83 @@
             this.anyHiddenPower.Text = "Any";
             this.anyHiddenPower.Click += new System.EventHandler(this.anyHiddenPower_Click);
             // 
+            // hpValue
+            // 
+            this.hpValue.Hex = false;
+            this.hpValue.Location = new System.Drawing.Point(79, 71);
+            this.hpValue.Mask = "00";
+            this.hpValue.Name = "hpValue";
+            this.hpValue.Size = new System.Drawing.Size(24, 20);
+            this.hpValue.TabIndex = 324;
+            this.hpValue.Text = "31";
+            this.hpValue.ValidatingType = typeof(int);
+            // 
+            // atkValue
+            // 
+            this.atkValue.Hex = false;
+            this.atkValue.Location = new System.Drawing.Point(79, 104);
+            this.atkValue.Mask = "00";
+            this.atkValue.Name = "atkValue";
+            this.atkValue.Size = new System.Drawing.Size(24, 20);
+            this.atkValue.TabIndex = 325;
+            this.atkValue.Text = "31";
+            this.atkValue.ValidatingType = typeof(int);
+            // 
+            // defValue
+            // 
+            this.defValue.Hex = false;
+            this.defValue.Location = new System.Drawing.Point(79, 140);
+            this.defValue.Mask = "00";
+            this.defValue.Name = "defValue";
+            this.defValue.Size = new System.Drawing.Size(24, 20);
+            this.defValue.TabIndex = 326;
+            this.defValue.Text = "31";
+            this.defValue.ValidatingType = typeof(int);
+            // 
+            // spaValue
+            // 
+            this.spaValue.Hex = false;
+            this.spaValue.Location = new System.Drawing.Point(79, 174);
+            this.spaValue.Mask = "00";
+            this.spaValue.Name = "spaValue";
+            this.spaValue.Size = new System.Drawing.Size(24, 20);
+            this.spaValue.TabIndex = 327;
+            this.spaValue.Text = "0";
+            this.spaValue.ValidatingType = typeof(int);
+            // 
+            // spdValue
+            // 
+            this.spdValue.Hex = false;
+            this.spdValue.Location = new System.Drawing.Point(79, 208);
+            this.spdValue.Mask = "00";
+            this.spdValue.Name = "spdValue";
+            this.spdValue.Size = new System.Drawing.Size(24, 20);
+            this.spdValue.TabIndex = 328;
+            this.spdValue.Text = "31";
+            this.spdValue.ValidatingType = typeof(int);
+            // 
+            // speValue
+            // 
+            this.speValue.Hex = false;
+            this.speValue.Location = new System.Drawing.Point(79, 243);
+            this.speValue.Mask = "00";
+            this.speValue.Name = "speValue";
+            this.speValue.Size = new System.Drawing.Size(24, 20);
+            this.speValue.TabIndex = 329;
+            this.speValue.Text = "31";
+            this.speValue.ValidatingType = typeof(int);
+            // 
             // GameCube
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1144, 622);
+            this.Controls.Add(this.speValue);
+            this.Controls.Add(this.spdValue);
+            this.Controls.Add(this.spaValue);
+            this.Controls.Add(this.defValue);
+            this.Controls.Add(this.atkValue);
+            this.Controls.Add(this.hpValue);
             this.Controls.Add(this.anyShadowMethod);
             this.Controls.Add(this.comboBoxShadowMethod);
             this.Controls.Add(this.shadowMethodLabel);
@@ -1234,12 +1246,6 @@
             this.Controls.Add(this.anyAbility);
             this.Controls.Add(this.anyHiddenPower);
             this.Controls.Add(this.hpLogic);
-            this.Controls.Add(this.speValue);
-            this.Controls.Add(this.spdValue);
-            this.Controls.Add(this.spaValue);
-            this.Controls.Add(this.defValue);
-            this.Controls.Add(this.atkValue);
-            this.Controls.Add(this.hpValue);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.wshMkr);
             this.Controls.Add(this.galesCheck);
@@ -1304,12 +1310,6 @@
         private System.Windows.Forms.CheckBox galesCheck;
         private System.Windows.Forms.CheckBox wshMkr;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.MaskedTextBox hpValue;
-        private System.Windows.Forms.MaskedTextBox atkValue;
-        private System.Windows.Forms.MaskedTextBox defValue;
-        private System.Windows.Forms.MaskedTextBox spaValue;
-        private System.Windows.Forms.MaskedTextBox spdValue;
-        private System.Windows.Forms.MaskedTextBox speValue;
         private System.Windows.Forms.ComboBox hpLogic;
         private GlassButton anyHiddenPower;
         private GlassButton anyAbility;
@@ -1364,6 +1364,12 @@
         private System.Windows.Forms.Label shadowMethodLabel;
         private Controls.CheckBoxComboBox comboBoxShadowMethod;
         private GlassButton anyShadowMethod;
+        private Controls.MaskedTextBox2 hpValue;
+        private Controls.MaskedTextBox2 atkValue;
+        private Controls.MaskedTextBox2 defValue;
+        private Controls.MaskedTextBox2 spaValue;
+        private Controls.MaskedTextBox2 spdValue;
+        private Controls.MaskedTextBox2 speValue;
     }
 }
 

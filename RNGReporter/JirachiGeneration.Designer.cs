@@ -114,6 +114,8 @@
             this.Controls.Add(this.dataGridViewValues);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.textBoxSeed);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "JirachiGeneration";
             this.Text = "JirachiGeneration";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).EndInit();

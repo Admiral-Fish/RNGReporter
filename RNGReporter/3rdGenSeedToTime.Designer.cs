@@ -38,9 +38,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonGenerate = new RNGReporter.GlassButton();
             this.dataGridViewValues = new RNGReporter.DoubleBufferedDataGridView();
+            this.seedToTimeSeed = new RNGReporter.Controls.MaskedTextBox2();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seconds = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.seedToTimeSeed = new RNGReporter.Controls.MaskedTextBox2();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,23 +142,6 @@
             this.dataGridViewValues.Size = new System.Drawing.Size(199, 258);
             this.dataGridViewValues.TabIndex = 45;
             // 
-            // Time
-            // 
-            this.Time.DataPropertyName = "Time";
-            dataGridViewCellStyle2.Format = "X";
-            this.Time.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Time.HeaderText = "Time";
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            this.Time.Width = 123;
-            // 
-            // Seconds
-            // 
-            this.Seconds.DataPropertyName = "Seconds";
-            this.Seconds.HeaderText = "Seconds";
-            this.Seconds.Name = "Seconds";
-            this.Seconds.ReadOnly = true;
-            // 
             // seedToTimeSeed
             // 
             this.seedToTimeSeed.Hex = true;
@@ -167,6 +150,23 @@
             this.seedToTimeSeed.Name = "seedToTimeSeed";
             this.seedToTimeSeed.Size = new System.Drawing.Size(59, 20);
             this.seedToTimeSeed.TabIndex = 44;
+            // 
+            // Time
+            // 
+            this.Time.DataPropertyName = "Time";
+            dataGridViewCellStyle2.Format = "X";
+            this.Time.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Time.HeaderText = "Time";
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            // 
+            // Seconds
+            // 
+            this.Seconds.DataPropertyName = "Seconds";
+            this.Seconds.HeaderText = "Seconds";
+            this.Seconds.Name = "Seconds";
+            this.Seconds.ReadOnly = true;
+            this.Seconds.Width = 95;
             // 
             // thirdGenSeedToTime
             // 
@@ -180,9 +180,8 @@
             this.Controls.Add(this.dataGridViewValues);
             this.Controls.Add(this.seedToTimeSeed);
             this.Controls.Add(this.label20);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "thirdGenSeedToTime";
             this.Text = "16-Bit Seed to Time";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).EndInit();

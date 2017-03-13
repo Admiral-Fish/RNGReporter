@@ -33,7 +33,7 @@ namespace RNGReporter
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
             uint seed;
-            bool testPRNG = uint.TryParse(seedToTimeSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out seed);
+            uint.TryParse(seedToTimeSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out seed);
 
             if (seed > 0x10000)
             {

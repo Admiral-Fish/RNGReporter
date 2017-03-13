@@ -278,6 +278,8 @@
             this.Controls.Add(this.minFrame);
             this.Controls.Add(this.targetSeed);
             this.Controls.Add(this.initialSeed);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "TogamiCalc";
             this.Text = "TogamiCalc";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TogamiCalc_FormClosing);

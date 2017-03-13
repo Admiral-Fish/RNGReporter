@@ -97,7 +97,7 @@ namespace RNGReporter
             dgvResults.DataSource = binding;
             dgvResults.AutoGenerateColumns = false;
 
-            tabGenSelect.SelectedIndex = generation - 3;
+            tabGenSelect.SelectedIndex = generation - 1;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -111,7 +111,7 @@ namespace RNGReporter
             dt.Columns.Add("Trainer ID");
             dt.Columns.Add("Secret ID");
             dt.Columns.Add("Seconds");
-            if (tabGenSelect.SelectedIndex == 2)
+            if (tabGenSelect.SelectedIndex == 4)
             {
                 if (Profiles.List == null || Profiles.List.Count == 0)
                 {

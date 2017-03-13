@@ -51,8 +51,6 @@
             this.L_mezapa = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.id = new System.Windows.Forms.MaskedTextBox();
-            this.sid = new System.Windows.Forms.MaskedTextBox();
             this.status = new System.Windows.Forms.Label();
             this.searchMethod = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -71,7 +69,7 @@
             this.comboBoxShadowMethod = new RNGReporter.Controls.CheckBoxComboBox();
             this.comboBoxHiddenPower = new RNGReporter.Controls.CheckBoxComboBox();
             this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
-            this.k_dataGridView = new RNGReporter.DoubleBufferedDataGridView();
+            this.dataGridViewResult = new RNGReporter.DoubleBufferedDataGridView();
             this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -120,8 +118,10 @@
             this.spaValue = new RNGReporter.Controls.MaskedTextBox2();
             this.spdValue = new RNGReporter.Controls.MaskedTextBox2();
             this.speValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.sid = new RNGReporter.Controls.MaskedTextBox2();
+            this.id = new RNGReporter.Controls.MaskedTextBox2();
             this.contextMenuStripGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).BeginInit();
             this.SuspendLayout();
             // 
             // Shiny_Check
@@ -298,26 +298,6 @@
             this.label2.TabIndex = 259;
             this.label2.Text = "SID";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // id
-            // 
-            this.id.Location = new System.Drawing.Point(492, 294);
-            this.id.Mask = "00000";
-            this.id.Name = "id";
-            this.id.Size = new System.Drawing.Size(39, 20);
-            this.id.TabIndex = 260;
-            this.id.Text = "0";
-            this.id.ValidatingType = typeof(int);
-            // 
-            // sid
-            // 
-            this.sid.Location = new System.Drawing.Point(582, 294);
-            this.sid.Mask = "00000";
-            this.sid.Name = "sid";
-            this.sid.Size = new System.Drawing.Size(39, 20);
-            this.sid.TabIndex = 261;
-            this.sid.Text = "0";
-            this.sid.ValidatingType = typeof(int);
             // 
             // status
             // 
@@ -632,17 +612,17 @@
             this.comboBoxNature.Size = new System.Drawing.Size(188, 21);
             this.comboBoxNature.TabIndex = 318;
             // 
-            // k_dataGridView
+            // dataGridViewResult
             // 
-            this.k_dataGridView.AllowUserToAddRows = false;
-            this.k_dataGridView.AllowUserToDeleteRows = false;
-            this.k_dataGridView.AllowUserToResizeRows = false;
-            this.k_dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridViewResult.AllowUserToAddRows = false;
+            this.dataGridViewResult.AllowUserToDeleteRows = false;
+            this.dataGridViewResult.AllowUserToResizeRows = false;
+            this.dataGridViewResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.k_dataGridView.ColumnHeadersHeight = 20;
-            this.k_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.k_dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewResult.ColumnHeadersHeight = 20;
+            this.dataGridViewResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn0,
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
@@ -661,21 +641,21 @@
             this.f50,
             this.f75,
             this.Reason});
-            this.k_dataGridView.ContextMenuStrip = this.contextMenuStripGrid;
-            this.k_dataGridView.Location = new System.Drawing.Point(15, 397);
-            this.k_dataGridView.MultiSelect = false;
-            this.k_dataGridView.Name = "k_dataGridView";
-            this.k_dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.k_dataGridView.RowHeadersVisible = false;
-            this.k_dataGridView.RowHeadersWidth = 21;
-            this.k_dataGridView.RowTemplate.Height = 20;
-            this.k_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.k_dataGridView.ShowCellErrors = false;
-            this.k_dataGridView.ShowCellToolTips = false;
-            this.k_dataGridView.ShowEditingIcon = false;
-            this.k_dataGridView.ShowRowErrors = false;
-            this.k_dataGridView.Size = new System.Drawing.Size(1117, 193);
-            this.k_dataGridView.TabIndex = 317;
+            this.dataGridViewResult.ContextMenuStrip = this.contextMenuStripGrid;
+            this.dataGridViewResult.Location = new System.Drawing.Point(15, 397);
+            this.dataGridViewResult.MultiSelect = false;
+            this.dataGridViewResult.Name = "dataGridViewResult";
+            this.dataGridViewResult.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dataGridViewResult.RowHeadersVisible = false;
+            this.dataGridViewResult.RowHeadersWidth = 21;
+            this.dataGridViewResult.RowTemplate.Height = 20;
+            this.dataGridViewResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewResult.ShowCellErrors = false;
+            this.dataGridViewResult.ShowCellToolTips = false;
+            this.dataGridViewResult.ShowEditingIcon = false;
+            this.dataGridViewResult.ShowRowErrors = false;
+            this.dataGridViewResult.Size = new System.Drawing.Size(1117, 193);
+            this.dataGridViewResult.TabIndex = 317;
             // 
             // dataGridViewTextBoxColumn0
             // 
@@ -1199,11 +1179,35 @@
             this.speValue.Text = "31";
             this.speValue.ValidatingType = typeof(int);
             // 
+            // sid
+            // 
+            this.sid.Hex = false;
+            this.sid.Location = new System.Drawing.Point(582, 294);
+            this.sid.Mask = "00000";
+            this.sid.Name = "sid";
+            this.sid.Size = new System.Drawing.Size(39, 20);
+            this.sid.TabIndex = 330;
+            this.sid.Text = "0";
+            this.sid.ValidatingType = typeof(int);
+            // 
+            // id
+            // 
+            this.id.Hex = false;
+            this.id.Location = new System.Drawing.Point(492, 294);
+            this.id.Mask = "00000";
+            this.id.Name = "id";
+            this.id.Size = new System.Drawing.Size(39, 20);
+            this.id.TabIndex = 331;
+            this.id.Text = "0";
+            this.id.ValidatingType = typeof(int);
+            // 
             // GameCube
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1144, 622);
+            this.Controls.Add(this.id);
+            this.Controls.Add(this.sid);
             this.Controls.Add(this.speValue);
             this.Controls.Add(this.spdValue);
             this.Controls.Add(this.spaValue);
@@ -1215,7 +1219,7 @@
             this.Controls.Add(this.shadowMethodLabel);
             this.Controls.Add(this.comboBoxHiddenPower);
             this.Controls.Add(this.comboBoxNature);
-            this.Controls.Add(this.k_dataGridView);
+            this.Controls.Add(this.dataGridViewResult);
             this.Controls.Add(this.spe30Above);
             this.Controls.Add(this.spe30Quick);
             this.Controls.Add(this.spe31Quick);
@@ -1253,8 +1257,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.searchMethod);
             this.Controls.Add(this.status);
-            this.Controls.Add(this.sid);
-            this.Controls.Add(this.id);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.L_mezapa);
@@ -1270,12 +1272,13 @@
             this.Controls.Add(this.L_search_A);
             this.Controls.Add(this.L_search_H);
             this.Controls.Add(this.abilityType);
+            this.MinimumSize = new System.Drawing.Size(1160, 661);
             this.Name = "GameCube";
             this.Text = "GameCube RNG";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);
             this.Load += new System.EventHandler(this.GameCube_Load);
             this.contextMenuStripGrid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.k_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1301,8 +1304,6 @@
         private System.Windows.Forms.Label L_mezapa;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MaskedTextBox id;
-        private System.Windows.Forms.MaskedTextBox sid;
         private System.Windows.Forms.Label status;
         private System.Windows.Forms.ComboBox searchMethod;
         private System.Windows.Forms.Label label3;
@@ -1340,7 +1341,7 @@
         private GlassButton spe30Quick;
         private GlassButton spe31Quick;
         private System.Windows.Forms.ComboBox speLogic;
-        private DoubleBufferedDataGridView k_dataGridView;
+        private DoubleBufferedDataGridView dataGridViewResult;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn0;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -1370,6 +1371,8 @@
         private Controls.MaskedTextBox2 spaValue;
         private Controls.MaskedTextBox2 spdValue;
         private Controls.MaskedTextBox2 speValue;
+        private Controls.MaskedTextBox2 sid;
+        private Controls.MaskedTextBox2 id;
     }
 }
 

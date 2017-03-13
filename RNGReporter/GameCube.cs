@@ -47,8 +47,8 @@ namespace RNGReporter
             spaLogic.SelectedIndex = 0;
             spdLogic.SelectedIndex = 0;
             speLogic.SelectedIndex = 0;
-            k_dataGridView.DataSource = binding;
-            k_dataGridView.AutoGenerateColumns = false;
+            dataGridViewResult.DataSource = binding;
+            dataGridViewResult.AutoGenerateColumns = false;
         }
 
         private void GameCube_Load(object sender, EventArgs e)
@@ -79,9 +79,7 @@ namespace RNGReporter
         #region Start search
         private void search_Click(object sender, EventArgs e)
         {
-            uint[] ivsLower;
-            uint[] ivsUpper;
-            getIVs(out ivsLower, out ivsUpper);
+            getIVs(out uint[] ivsLower, out uint[] ivsUpper);
             galesFlag = false;
 
             if (ivsLower[0] > ivsUpper[0])
@@ -98,7 +96,7 @@ namespace RNGReporter
                 MessageBox.Show("Spe: Lower limit > Upper limit");
             else
             {
-                k_dataGridView.Rows.Clear();
+                dataGridViewResult.Rows.Clear();
 
                 if (isSearching)
                 {
@@ -124,7 +122,7 @@ namespace RNGReporter
 
                 displayList = new List<DisplayList>();
                 binding = new BindingSource { DataSource = displayList };
-                k_dataGridView.DataSource = binding;
+                dataGridViewResult.DataSource = binding;
                 status.Text = "Searching";
                 slist.Clear();
                 rlist.Clear();
@@ -407,11 +405,11 @@ namespace RNGReporter
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
+                            {
+                                refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
-                                {
-                                    refresh = true;
                                     checkSeedGales(a, b, c, d, e, f, ability, gender);
-                                }
+                            }
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
@@ -1180,8 +1178,11 @@ namespace RNGReporter
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
+                            {
+                                refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeed(a, b, c, d, e, f, ability, gender);
+                            }
 
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
@@ -1346,6 +1347,7 @@ namespace RNGReporter
                                 filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)n] ^ 0x80000000), pid);
                         }
                     }
+                    refresh = true;
                     s = slist[(int)srange];
                     slist.Clear();
                     rlist.Clear();
@@ -1533,8 +1535,11 @@ namespace RNGReporter
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
+                            {
+                                refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeedChannel(a, b, c, d, e, f, ability, gender);
+                            }
 
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
@@ -1623,6 +1628,7 @@ namespace RNGReporter
                             }
                         }
                     }
+                    refresh = true;
                     s = slist[(int)srange];
                     slist.Clear();
                     rlist.Clear();
@@ -1770,8 +1776,11 @@ namespace RNGReporter
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
+                            {
+                                refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeedR(a, b, c, d, e, f, ability, gender);
+                            }
 
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
@@ -1845,6 +1854,7 @@ namespace RNGReporter
                                 filterSeed2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
                         }
                     }
+                    refresh = true;
                     s = slist[(int)srange];
                     slist.Clear();
                     rlist.Clear();
@@ -2104,7 +2114,7 @@ namespace RNGReporter
         private void updateGUI()
         {
             gridUpdate = dataGridUpdate;
-            ThreadDelegate resizeGrid = k_dataGridView.AutoResizeColumns;
+            ThreadDelegate resizeGrid = dataGridViewResult.AutoResizeColumns;
             try
             {
                 bool alive = true;
@@ -2460,15 +2470,15 @@ namespace RNGReporter
         #region Grid commands
         private void contextMenuStripGrid_Opening(object sender, CancelEventArgs e)
         {
-            if (k_dataGridView.SelectedRows.Count == 0)
+            if (dataGridViewResult.SelectedRows.Count == 0)
                 e.Cancel = true;
         }
 
         private void copySeedToClipboard_Click(object sender, EventArgs e)
         {
-            if (k_dataGridView.SelectedRows[0] != null)
+            if (dataGridViewResult.SelectedRows[0] != null)
             {
-                var frame = (DisplayList)k_dataGridView.SelectedRows[0].DataBoundItem;
+                var frame = (DisplayList)dataGridViewResult.SelectedRows[0].DataBoundItem;
                 Clipboard.SetText(frame.Seed.ToString());
             }
         }

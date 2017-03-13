@@ -141,6 +141,8 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.textBoxSeed);
             this.Controls.Add(this.dataGridViewValues);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "PIDToIVs";
             this.Text = "PID To IVs";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).EndInit();

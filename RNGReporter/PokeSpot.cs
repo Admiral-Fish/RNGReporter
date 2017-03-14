@@ -15,7 +15,6 @@ namespace RNGReporter.Objects
 {
     public partial class PokeSpot : Form
     {
-        private readonly uint[] natures = { 100, 3, 2, 5, 20, 23, 11, 8, 13, 1, 16, 15, 14, 4, 17, 19, 7, 22, 10, 21, 9, 18, 6, 0, 24, 12 };
         private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
         private Thread searchThread;
         private bool refresh;
@@ -25,7 +24,8 @@ namespace RNGReporter.Objects
         private bool isSearching = false;
         private uint shinyval;
         private bool abort = false;
-        private bool natureAny = false;
+        private List<uint> natureList;
+        private List<uint> spotList;
 
         public PokeSpot()
         {
@@ -35,15 +35,27 @@ namespace RNGReporter.Objects
         public PokeSpot(int TID, int SID)
         {
             InitializeComponent();
-            natureType.SelectedIndex = 0;
             abilityType.SelectedIndex = 0;
             genderType.SelectedIndex = 0;
-            pokeSpotType.SelectedIndex = 0;
             id.Text = TID.ToString();
             sid.Text = SID.ToString();
-            k_dataGridView.DataSource = binding;
-            k_dataGridView.AutoGenerateColumns = false;
+            dataGridViewResult.AutoGenerateColumns = false;
             abort = false;
+        }
+
+        private void PokeSpot_Load(object sender, EventArgs e)
+        {
+            comboBoxNature.Items.AddRange(Nature.NatureDropDownCollectionSearchNatures());
+            comboBoxSpotType.Items.AddRange(addSpotTypes());
+            setComboBox();
+        }
+
+        private void setComboBox()
+        {
+            comboBoxNature.CheckBoxItems[0].Checked = true;
+            comboBoxNature.CheckBoxItems[0].Checked = false;
+            comboBoxSpotType.CheckBoxItems[0].Checked = true;
+            comboBoxSpotType.CheckBoxItems[0].Checked = false;
         }
 
         private void PokeSpot_FormClosing(object sender, FormClosingEventArgs e)
@@ -55,17 +67,18 @@ namespace RNGReporter.Objects
 
         private void search_Click(object sender, EventArgs e)
         {
-            k_dataGridView.Rows.Clear();
-
             if (isSearching)
             {
                 status.Text = "Previous search is still running";
                 return;
             }
 
+            dataGridViewResult.Rows.Clear();
+
+            isSearching = true;
             displayList = new List<PokeSpotDisplay>();
             binding = new BindingSource { DataSource = displayList };
-            k_dataGridView.DataSource = binding;
+            dataGridViewResult.DataSource = binding;
             status.Text = "Searching";
             shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
 
@@ -73,50 +86,57 @@ namespace RNGReporter.Objects
             uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out seed);
             uint frame = 3000000;
             uint.TryParse(maxFrame.Text, out frame);
-            uint nature = (uint)natureType.SelectedIndex;
-            if (nature == 0)
-                natureAny = true;
-            if (nature != 0)
-                nature = natures[nature];
+
+            natureList = null;
+            if (comboBoxNature.Text != "Any" && comboBoxNature.CheckBoxItems.Count > 0)
+                natureList = (from t in comboBoxNature.CheckBoxItems where t.Checked select (uint)((Nature)t.ComboBoxItem).Number).ToList();
+
+            spotList = null;
+            List<uint> temp = new List<uint>();
+            if (comboBoxSpotType.Text != "Any" && comboBoxSpotType.CheckBoxItems.Count > 0)
+                for (int x = 1; x < 5; x++)
+                    if (comboBoxSpotType.CheckBoxItems[x].Checked)
+                        temp.Add((uint)(x - 1));
+
+            if (temp.Count != 0)
+                spotList = temp;
+
             uint gender = (uint)genderType.SelectedIndex;
             uint ability = (uint)abilityType.SelectedIndex;
-            uint type = (uint)pokeSpotType.SelectedIndex;
             bool shinyCheck = Shiny_Check.Checked;
 
-            searchThread =
-                new Thread(
-                    () =>
-                    searchPokeSpot(seed, frame, nature, gender, ability, type, shinyCheck));
+            searchThread = new Thread(() => searchPokeSpot(seed, frame, gender, ability, shinyCheck));
             searchThread.Start();
 
             var update = new Thread(updateGUI);
             update.Start();
         }
 
-        private void searchPokeSpot(uint seed, uint frame, uint nature, uint gender, uint ability, uint type, bool shinyCheck)
+        private void searchPokeSpot(uint seed, uint frame, uint gender, uint ability, bool shinyCheck)
         {
             for (uint x = 1; x < frame + 1; x++)
             {
-                filterPokeSpot(seed, x, nature, gender, ability, type, shinyCheck);
+                filterPokeSpot(seed, x, gender, ability, shinyCheck);
                 seed = forward(seed);
+                if ((x & 0xF) == 0)
+                    refresh = true;
             }
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
-            natureAny = false;
         }
 
-        private void filterPokeSpot(uint seed, uint frame, uint nature, uint gender, uint ability, uint type, bool shinyCheck)
+        private void filterPokeSpot(uint seed, uint frame, uint gender, uint ability, bool shinyCheck)
         {
             uint rng3 = forward(forward(forward(forward(seed))));
             uint rng4 = forward(rng3);
             uint pid = ((rng3 >> 16) << 16) + (rng4 >> 16);
 
-            if (!natureAny)
+            uint nature = pid < 26 ? 0 : pid - 25 * (pid / 25);
+            if (natureList != null)
             {
-                if ((pid % 25) != nature)
+                if (!natureList.Contains(nature))
                     return;
             }
-            nature = pid % 25;
 
             String shiny = "";
             if (shinyCheck)
@@ -194,16 +214,17 @@ namespace RNGReporter.Objects
                 }
             }
 
-            calcPokeSpot(seed, pid, frame, nature, gender, ability, type, shiny);
+            calcPokeSpot(seed, pid, frame, nature, gender, ability, shiny);
 
         }
 
-        private void calcPokeSpot(uint seed, uint pid, uint frame, uint nature, uint gender, uint ability, uint type, String shiny)
+        private void calcPokeSpot(uint seed, uint pid, uint frame, uint nature, uint gender, uint ability, String shiny)
         {
             uint call1 = forward(seed);
             call1 >>= 16;
+            uint currentCall = call1 < 4 ? 0 : call1 - 3 * (call1 / 3);
 
-            if (call1 % 3 == 0)
+            if (currentCall == 0)
             {
                 String spotType = "";
                 uint call2 = forward(forward(seed));
@@ -218,40 +239,46 @@ namespace RNGReporter.Objects
                         shiny = "!!!";
                 }
 
-                if (type != 0)
+                currentCall = call3 < 101 ? 0 : call3 - 100 * (call3 / 100);
+
+                if (spotList != null)
                 {
-                    if (type == 1)
+                    foreach (uint x in spotList)
                     {
-                        if (call3 % 100 > 49)
-                            return;
-                        spotType = "Common";
+                        if (x == 0)
+                        {
+                            if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) > 9)
+                                if (currentCall < 50)
+                                    spotType = "Common";
+                        }
+                        else if (x == 1)
+                        {
+                            if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) > 9)
+                                if (currentCall > 49 && currentCall < 85)
+                                    spotType = "Uncommon";
+                        }
+                        else if (x == 2)
+                        {
+                            if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) > 9)
+                                if (currentCall > 84)
+                                    spotType = "Rare";
+                        }
+                        else
+                        { 
+                        if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) < 10)
+                            spotType = "Munchlax";
+                        }
                     }
-                    else if (type == 2)
-                    {
-                        if (call3 % 100 < 50 && call3 % 100 > 84)
-                            return;
-                        spotType = "Uncommon";
-                    }
-                    else if (type == 3)
-                    {
-                        if (call3 % 100 < 85)
-                            return;
-                        spotType = "Rare";
-                    }
-                    else if (type == 4)
-                    {
-                        if (call2 % 100 > 9)
-                            return;
-                        spotType = "Munchlax";
-                    }
+                    if (spotType.Equals(""))
+                        return;
                 }
                 else
                 {
-                    if (call2 % 100 < 10)
+                    if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) < 10)
                         spotType = "Munchlax";
-                    else if (call3 % 100 < 50)
+                    else if (currentCall < 50)
                         spotType = "Common";
-                    else if (call3 % 100 > 49 && call3 % 100 < 85)
+                    else if (currentCall > 49 && currentCall < 85)
                         spotType = "Uncommon";
                     else
                         spotType = "Rare";
@@ -265,25 +292,10 @@ namespace RNGReporter.Objects
                 char gender4;
                 ability = pid & 1;
 
-                if (gender < 31)
-                    gender1 = 'F';
-                else
-                    gender1 = 'M';
-
-                if (gender < 64)
-                    gender2 = 'F';
-                else
-                    gender2 = 'M';
-
-                if (gender < 126)
-                    gender3 = 'F';
-                else
-                    gender3 = 'M';
-
-                if (gender < 191)
-                    gender4 = 'F';
-                else
-                    gender4 = 'M';
+                gender1 = gender < 31 ? 'F' : 'M';
+                gender2 = gender < 64 ? 'F' : 'M';
+                gender3 = gender < 126 ? 'F' : 'M';
+                gender4 = gender < 191 ? 'F' : 'M';
 
                 displayList.Add(new PokeSpotDisplay
                 {
@@ -326,7 +338,7 @@ namespace RNGReporter.Objects
         private void updateGUI()
         {
             gridUpdate = dataGridUpdate;
-            ThreadDelegate resizeGrid = k_dataGridView.AutoResizeColumns;
+            ThreadDelegate resizeGrid = dataGridViewResult.AutoResizeColumns;
             try
             {
                 bool alive = true;
@@ -364,17 +376,17 @@ namespace RNGReporter.Objects
 
         private void dataGridUpdate()
         {
-            binding.ResetBindings(false);
+            binding.ResetBindings(true);
         }
 
         private void anyPokeSpot_Click(object sender, EventArgs e)
         {
-            pokeSpotType.SelectedIndex = 0;
+            comboBoxSpotType.ClearSelection();
         }
 
         private void anyNature_Click(object sender, EventArgs e)
         {
-            natureType.SelectedIndex = 0;
+            comboBoxNature.ClearSelection();
         }
 
         private void anyGender_Click(object sender, EventArgs e)
@@ -385,6 +397,19 @@ namespace RNGReporter.Objects
         private void anyAbility_Click(object sender, EventArgs e)
         {
             abilityType.SelectedIndex = 0;
+        }
+
+        private String[] addSpotTypes()
+        {
+            String[] temp = new String[]
+                {
+                    "Common",
+                    "Uncommon",
+                    "Rare",
+                    "Munchlax"
+                };
+
+            return temp;
         }
     }
 }

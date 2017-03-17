@@ -27,6 +27,7 @@ using RNGReporter.Objects;
 using RNGReporter.Objects.Searchers;
 using RNGReporter.Properties;
 using Microsoft.Win32;
+using System.Linq;
 
 namespace RNGReporter
 {
@@ -55,6 +56,22 @@ namespace RNGReporter
         private FrameCompare subFrameCompare;
         private int tabPage;
         private EventWaitHandle waitHandle;
+
+        private List<WildSlots> wildSlots;
+        private bool isSearching;
+        private List<uint> natureList;
+        private List<int> slotsList;
+        private Thread searchThread;
+        private bool refresh;
+        private ThreadDelegate gridUpdate;
+        private BindingSource binding = new BindingSource();
+        private List<uint> slist = new List<uint>();
+        private List<uint> rlist = new List<uint>();
+        private uint shinyval;
+        private static List<uint> hiddenPowerList;
+        private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
+        private readonly String[] hiddenPowers = { "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark" };
+
 
         public TimeFinder3rd(ushort id, ushort sid)
         {
@@ -104,6 +121,26 @@ namespace RNGReporter
                     new ComboBoxItem("Method H-4", FrameType.MethodH4),
                 });
 
+            comboBoxMethod.Items.AddRange(new object[]
+                {
+                    new ComboBoxItem("Method H-1", FrameType.MethodH1),
+                    new ComboBoxItem("Method H-2", FrameType.MethodH2),
+                    new ComboBoxItem("Method H-4", FrameType.MethodH4),
+                });
+
+            comboBoxEncounterType.Items.AddRange(new object[]
+                {
+                    new ComboBoxItem("Wild Pokémon", EncounterType.Wild),
+                    new ComboBoxItem("Wild Pokémon (Surfing)",
+                                     EncounterType.WildSurfing),
+                    new ComboBoxItem("Wild Pokémon (Old Rod)",
+                                     EncounterType.WildOldRod),
+                    new ComboBoxItem("Wild Pokémon (Good Rod)",
+                                     EncounterType.WildGoodRod),
+                    new ComboBoxItem("Wild Pokémon (Super Rod)",
+                                     EncounterType.WildSuperRod)
+                });
+
             cbEncounterType.Items.AddRange(new object[]
                 {
                     new ComboBoxItem("Wild Pokémon", EncounterType.Wild),
@@ -130,6 +167,10 @@ namespace RNGReporter
             cbNature.Items.AddRange(Objects.Nature.NatureDropDownCollectionSearchNatures());
             cbAbility.DataSource = ability;
             comboBoxGenderXD.DataSource = GenderFilter.GenderFilterCollection();
+
+            comboBoxNature.Items.AddRange(Objects.Nature.NatureDropDownCollectionSearchNatures());
+            comboBoxHiddenPower.Items.AddRange(addHP());
+            setComboBox();
             
             var everstoneList = new BindingSource {DataSource = Objects.Nature.NatureDropDownCollectionSynch()};
             comboEPIDEverstone.DataSource = everstoneList;
@@ -185,6 +226,8 @@ namespace RNGReporter
             textEPIDID.Text = Settings.Default.ID;
             txtSID.Text = Settings.Default.SID;
             txtID.Text = Settings.Default.ID;
+            wildTID.Text = Settings.Default.ID;
+            wildSID.Text = Settings.Default.SID;
         }
 
         public void ChangeLanguage(object sender, PropertyChangedEventArgs e)
@@ -1491,6 +1534,983 @@ namespace RNGReporter
 
         private delegate void UpdateGridDelegate(BindingSource bindingSource);
 
+        #endregion
+
+        #region Wild Encounter Slots Time Finder
+        #region Search Settings
+        private void searchWild_Click(object sender, EventArgs e)
+        {
+            uint[] ivsLower, ivsUpper;
+            getIVs(out ivsLower, out ivsUpper);
+
+            if (ivsLower[0] > ivsUpper[0])
+                MessageBox.Show("HP: Lower limit > Upper limit");
+            else if (ivsLower[1] > ivsUpper[1])
+                MessageBox.Show("Atk: Lower limit > Upper limit");
+            else if (ivsLower[2] > ivsUpper[2])
+                MessageBox.Show("Def: Lower limit > Upper limit");
+            else if (ivsLower[3] > ivsUpper[3])
+                MessageBox.Show("SpA: Lower limit > Upper limit");
+            else if (ivsLower[4] > ivsUpper[4])
+                MessageBox.Show("SpD: Lower limit > Upper limit");
+            else if (ivsLower[5] > ivsUpper[5])
+                MessageBox.Show("Spe: Lower limit > Upper limit");
+            else
+            {
+                if (isSearching)
+                    return;
+
+                isSearching = true;
+                status.Text = "Searching";
+                int methodNum = comboBoxMethod.SelectedIndex;
+                EncounterType type = calcType(comboBoxEncounterType.SelectedIndex);
+                FrameType method = calcMethod(methodNum);
+                wildSlots = new List<WildSlots>();
+                rlist.Clear();
+                slist.Clear();
+                binding = new BindingSource { DataSource = slotsList };
+                dataGridViewResult.DataSource = binding;
+                shinyval = ((uint.Parse(wildTID.Text)) ^ (uint.Parse(wildSID.Text))) >> 3;
+
+                slotsList = null;
+                List<int> temp = new List<int>();
+                if (comboBoxEncounterSlot.Text != "Any" && comboBoxEncounterSlot.CheckBoxItems.Count > 0)
+                    for (int i = 0; i < comboBoxEncounterSlot.CheckBoxItems.Count; i++)
+                        if (comboBoxEncounterSlot.CheckBoxItems[i].Checked)
+                            temp.Add(i - 1);
+
+                if (temp.Count != 0)
+                    slotsList = temp;
+
+                natureList = null;
+                if (comboBoxNature.Text != "Any" && comboBoxNature.CheckBoxItems.Count > 0)
+                    natureList = (from t in comboBoxNature.CheckBoxItems where t.Checked select (uint)((Nature)t.ComboBoxItem).Number).ToList();
+
+                hiddenPowerList = null;
+                List<uint> temp2 = new List<uint>();
+                if (comboBoxHiddenPower.Text != "Any" && comboBoxHiddenPower.CheckBoxItems.Count > 0)
+                    for (int x = 1; x <= 16; x++)
+                        if (comboBoxHiddenPower.CheckBoxItems[x].Checked)
+                            temp2.Add((uint)(x - 1));
+
+                if (temp.Count != 0)
+                    hiddenPowerList = temp2;
+
+                searchThread = new Thread(() => getSearch(ivsLower, ivsUpper, methodNum));
+                searchThread.Start();
+
+                var update = new Thread(updateGUI);
+                update.Start();
+            }
+        }
+
+        private void getSearch(uint[] ivsLower, uint[] ivsUpper, int num)
+        {
+            uint method = 1;
+
+            for (int x = 0; x < 6; x++)
+            {
+                uint temp = ivsUpper[x] - ivsLower[x] + 1;
+                method *= temp;
+            }
+
+            if (method > 76871)
+            {
+                if (num == 0)
+                    methodH1Frame(ivsLower, ivsUpper);
+                else if (num == 1)
+                    methodH2Frame(ivsLower, ivsUpper);
+                else
+                    methodH4Frame(ivsLower, ivsUpper);
+            }
+            else
+            {
+                if (num == 0)
+                    methodH1IV(ivsLower, ivsUpper);
+                else if (num == 1)
+                    methodH2IV(ivsLower, ivsUpper);
+                else
+                    methodH4IV(ivsLower, ivsUpper);
+            }
+        }
+        #endregion
+
+        #region Method 1 IV
+        private void methodH1IV(uint[] ivsLower, uint[] ivsUpper)
+        {
+            isSearching = true;
+            uint ability = getAbility();
+            uint gender = getGender();
+
+            for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
+                for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
+                    for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
+                        for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
+                            for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
+                            {
+                                refresh = true;
+                                for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
+                                    checkSeed1(a, b, c, d, e, f, ability, gender);
+                            }
+
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        private void checkSeed1(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
+        {
+            uint x4 = hp + (atk << 5) + (def << 10);
+            uint x4_2 = x4 ^ 0x8000;
+            uint ex4 = spe + (spa << 5) + (spd << 10);
+            uint ex4_2 = ex4 ^ 0x8000;
+            uint ivs_1a = x4_2 << 16;
+            uint ivs_1b = x4 << 16;
+
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
+            {
+                uint seeda = ivs_1a + cnt;
+                uint seedb = ivs_1b + cnt;
+                uint[] seedList = { seeda, seedb, seeda + 1, seedb + 1 };
+                for (int x = 0; x < 4; x++)
+                {
+                    uint ivs_2 = forward(seedList[x]) >> 16;
+                    if (ivs_2 == ex4 || ivs_2 == ex4_2)
+                    {
+                        uint pid2 = reverse(seedList[x]);
+                        uint pid1 = reverse(pid2);
+                        uint seed = reverse(pid1);
+                        pid1 >>= 16;
+                        pid2 >>= 16;
+                        uint pid = (pid2 << 16) | pid1;
+                        uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                        if (Check1(ivs_2, nature, spd, spa, spe))
+                            filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
+                    }
+                }
+            }
+        }
+
+        private bool Check1(uint iv, uint nature, uint hp, uint atk, uint def)
+        {
+            uint test_hp = iv & 0x1f;
+            uint test_atk = (iv & 0x3E0) >> 5;
+            uint test_def = (iv & 0x7C00) >> 10;
+
+            if (test_hp == hp && test_atk == atk && test_def == def)
+            {
+
+                if (natureList == null)
+                    return true;
+                else
+                    if (natureList.Contains(nature))
+                    return true;
+            }
+
+            return false;
+        }
+        #endregion
+
+        #region Method 1 Frame
+        private void methodH1Frame(uint[] ivsLower, uint[] ivsUpper)
+        {
+            uint s = 0;
+            uint srange = 1048576;
+            isSearching = true;
+
+            uint ability = getAbility();
+            uint gender = getGender();
+
+            for (uint z = 0; z < 32; z++)
+            {
+                for (uint h = 0; h < 64; h++)
+                {
+                    populate(s, srange);
+                    for (uint n = 0; n < srange; n++)
+                    {
+                        uint[] ivs = calcIVs(ivsLower, ivsUpper, n);
+                        if (ivs.Length != 1)
+                        {
+                            uint pid = pidChk(n, 0);
+                            uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                            if (natureList == null || natureList.Contains(actualNature))
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, slist[(int)(n)], pid);
+
+                            pid = pidChk(n, 1);
+                            actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                            if (natureList == null || natureList.Contains(actualNature))
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
+                        }
+                    }
+                    refresh = true;
+                    s = slist[(int)srange];
+                    slist.Clear();
+                    rlist.Clear();
+                }
+            }
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        private uint[] calcIVs(uint[] ivsLower, uint[] ivsUpper, uint frame)
+        {
+            uint[] ivs;
+            uint iv1 = rlist[(int)(frame + 3)];
+            uint iv2 = rlist[(int)(frame + 4)];
+            ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+            return ivs;
+        }
+        #endregion
+
+        #region Method 2 IV
+        private void methodH2IV(uint[] ivsLower, uint[] ivsUpper)
+        {
+            isSearching = true;
+            uint ability = getAbility();
+            uint gender = getGender();
+
+            for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
+                for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
+                    for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
+                        for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
+                            for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
+                            {
+                                refresh = true;
+                                for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
+                                    checkSeed2(a, b, c, d, e, f, ability, gender);
+                            }
+
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        private void checkSeed2(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
+        {
+            uint x4 = hp + (atk << 5) + (def << 10);
+            uint x4_2 = x4 ^ 0x8000;
+            uint ex4 = spe + (spa << 5) + (spd << 10);
+            uint ex4_2 = ex4 ^ 0x8000;
+            uint ivs_1a = x4_2 << 16;
+            uint ivs_1b = x4 << 16;
+
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
+            {
+                uint seeda = ivs_1a + cnt;
+                uint seedb = ivs_1b + cnt;
+                uint[] seedList = { seeda, seedb, seeda + 1, seedb + 1 };
+                for (int x = 0; x < 4; x++)
+                {
+                    uint ivs_2 = forward(seedList[x]) >> 16;
+                    if (ivs_2 == ex4 || ivs_2 == ex4_2)
+                    {
+                        uint pid2 = reverse(reverse(seedList[x]));
+                        uint pid1 = reverse(pid2);
+                        uint seed = reverse(pid1);
+                        pid1 >>= 16;
+                        pid2 >>= 16;
+                        uint pid = (pid2 << 16) | pid1;
+                        uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                        if (Check2(ivs_2, nature, spd, spa, spe))
+                            filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
+                    }
+                }
+            }
+        }
+
+        private bool Check2(uint iv, uint nature, uint hp, uint atk, uint def)
+        {
+            uint test_hp = iv & 0x1f;
+            uint test_atk = (iv & 0x3E0) >> 5;
+            uint test_def = (iv & 0x7C00) >> 10;
+
+            if (test_hp == hp && test_atk == atk && test_def == def)
+            {
+
+                if (natureList == null)
+                    return true;
+                else
+                    if (natureList.Contains(nature))
+                    return true;
+            }
+
+            return false;
+        }
+        #endregion
+
+        #region Method 2 Frame
+        private void methodH2Frame(uint[] ivsLower, uint[] ivsUpper)
+        {
+            uint s = 0;
+            uint srange = 1048576;
+            isSearching = true;
+
+            uint ability = getAbility();
+            uint gender = getGender();
+
+            for (uint z = 0; z < 32; z++)
+            {
+                for (uint h = 0; h < 64; h++)
+                {
+                    populate(s, srange);
+                    for (uint n = 0; n < srange; n++)
+                    {
+                        uint[] ivs = calcIVs2(ivsLower, ivsUpper, n);
+                        if (ivs.Length != 1)
+                        {
+                            uint pid = pidChk(n, 0);
+                            uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                            if (natureList == null || natureList.Contains(actualNature))
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, slist[(int)(n)], pid);
+
+                            pid = pidChk(n, 1);
+                            actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                            if (natureList == null || natureList.Contains(actualNature))
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
+                        }
+                    }
+                    refresh = true;
+                    s = slist[(int)srange];
+                    slist.Clear();
+                    rlist.Clear();
+                }
+            }
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        private uint[] calcIVs2(uint[] ivsLower, uint[] ivsUpper, uint frame)
+        {
+            uint[] ivs;
+            uint iv1 = rlist[(int)(frame + 4)];
+            uint iv2 = rlist[(int)(frame + 5)];
+            ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+            return ivs;
+        }
+
+        private uint[] createIVs(uint iv1, uint ivs2, uint[] ivsLower, uint[] ivsUpper)
+        {
+            uint[] ivs = new uint[6];
+
+            for (int x = 0; x < 3; x++)
+            {
+                int q = x * 5;
+                uint iv = (iv1 >> q) & 31;
+                if (iv >= ivsLower[x] && iv <= ivsUpper[x])
+                    ivs[x] = iv;
+                else
+                {
+                    ivs = new uint[1];
+                    return ivs;
+                }
+            }
+
+            uint iV = (ivs2 >> 5) & 31;
+            if (iV >= ivsLower[3] && iV <= ivsUpper[3])
+                ivs[3] = iV;
+            else
+            {
+                ivs = new uint[1];
+                return ivs;
+            }
+
+            iV = (ivs2 >> 10) & 31;
+            if (iV >= ivsLower[4] && iV <= ivsUpper[4])
+                ivs[4] = iV;
+            else
+            {
+                ivs = new uint[1];
+                return ivs;
+            }
+
+            iV = ivs2 & 31;
+            if (iV >= ivsLower[5] && iV <= ivsUpper[5])
+                ivs[5] = iV;
+            else
+            {
+                ivs = new uint[1];
+                return ivs;
+            }
+
+            return ivs;
+        }
+
+        private uint pidChk(uint frame, uint xor_val)
+        {
+            uint pid = (rlist[(int)(frame + 1)] << 16) | rlist[(int)(frame + 2)];
+            if (xor_val == 1)
+                pid = pid ^ 0x80008000;
+
+            return pid;
+        }
+        #endregion
+
+        #region Method 4 IV
+        private void methodH4IV(uint[] ivsLower, uint[] ivsUpper)
+        {
+            isSearching = true;
+            uint ability = getAbility();
+            uint gender = getGender();
+
+            for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
+                for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
+                    for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
+                        for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
+                            for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
+                            {
+                                refresh = true;
+                                for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
+                                    checkSeed4(a, b, c, d, e, f, ability, gender);
+                            }
+
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        private void checkSeed4(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
+        {
+            uint x4 = hp + (atk << 5) + (def << 10);
+            uint x4_2 = x4 ^ 0x8000;
+            uint ex4 = spe + (spa << 5) + (spd << 10);
+            uint ex4_2 = ex4 ^ 0x8000;
+            uint ivs_1a = x4_2 << 16;
+            uint ivs_1b = x4 << 16;
+
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
+            {
+                uint seeda = ivs_1a + cnt;
+                uint seedb = ivs_1b + cnt;
+                uint[] seedList = { seeda, seedb, seeda + 1, seedb + 1 };
+                for (int x = 0; x < 4; x++)
+                {
+                    uint ivs_2 = forward(forward(seedList[x])) >> 16;
+                    if (ivs_2 == ex4 || ivs_2 == ex4_2)
+                    {
+                        uint pid2 = reverse(seedList[x]);
+                        uint pid1 = reverse(pid2);
+                        uint seed = reverse(pid1);
+                        pid1 >>= 16;
+                        pid2 >>= 16;
+                        uint pid = (pid2 << 16) | pid1;
+                        uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                        if (Check4(ivs_2, nature, spd, spa, spe))
+                            filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
+                    }
+                }
+            }
+        }
+
+        private bool Check4(uint iv, uint nature, uint hp, uint atk, uint def)
+        {
+            uint test_hp = iv & 0x1f;
+            uint test_atk = (iv & 0x3E0) >> 5;
+            uint test_def = (iv & 0x7C00) >> 10;
+
+            if (test_hp == hp && test_atk == atk && test_def == def)
+            {
+
+                if (natureList == null)
+                    return true;
+                else
+                    if (natureList.Contains(nature))
+                    return true;
+            }
+
+            return false;
+        }
+        #endregion
+
+        #region Method 4 Frame
+        private void methodH4Frame(uint[] ivsLower, uint[] ivsUpper)
+        {
+            uint s = 0;
+            uint srange = 1048576;
+            isSearching = true;
+
+            uint ability = getAbility();
+            uint gender = getGender();
+
+            for (uint z = 0; z < 32; z++)
+            {
+                for (uint h = 0; h < 64; h++)
+                {
+                    populate(s, srange);
+                    for (uint n = 0; n < srange; n++)
+                    {
+                        uint[] ivs = calcIVs4(ivsLower, ivsUpper, n);
+                        if (ivs.Length != 1)
+                        {
+                            uint pid = pidChk(n, 0);
+                            uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                            if (natureList == null || natureList.Contains(actualNature))
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, slist[(int)(n)], pid);
+
+                            pid = pidChk(n, 1);
+                            actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                            if (natureList == null || natureList.Contains(actualNature))
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
+                        }
+                    }
+                    refresh = true;
+                    s = slist[(int)srange];
+                    slist.Clear();
+                    rlist.Clear();
+                }
+            }
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        private uint[] calcIVs4(uint[] ivsLower, uint[] ivsUpper, uint frame)
+        {
+            uint[] ivs;
+            uint iv1 = rlist[(int)(frame + 3)];
+            uint iv2 = rlist[(int)(frame + 5)];
+            ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+            return ivs;
+        }
+        #endregion
+
+        private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint pid, uint nature, uint seed)
+        {
+            String shiny = "";
+            if (checkBoxShiny.Checked == true)
+            {
+                if (!isShiny(pid))
+                    return;
+                shiny = "!!!";
+            }
+
+            uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
+            if (hiddenPowerList != null)
+                if (!hiddenPowerList.Contains(actualHP))
+                    return;
+
+            if (ability != 0)
+                if ((pid & 1) != (ability - 1))
+                    return;
+            ability = pid & 1;
+
+            if (gender != 0)
+            {
+                if (gender == 1)
+                {
+                    if ((pid & 255) < 127)
+                        return;
+                }
+                else if (gender == 2)
+                {
+                    if ((pid & 255) > 126)
+                        return;
+                }
+                else if (gender == 3)
+                {
+                    if ((pid & 255) < 191)
+                        return;
+                }
+                else if (gender == 4)
+                {
+                    if ((pid & 255) > 190)
+                        return;
+                }
+                else if (gender == 5)
+                {
+                    if ((pid & 255) < 64)
+                        return;
+                }
+                else if (gender == 6)
+                {
+                    if ((pid & 255) > 63)
+                        return;
+                }
+                else if (gender == 7)
+                {
+                    if ((pid & 255) < 31)
+                        return;
+                }
+                else if (gender == 8)
+                {
+                    if ((pid & 255) > 30)
+                        return;
+                }
+            }
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, 0);
+        }
+
+        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, int slot)
+        {
+            String stringNature = Natures[nature];
+            String hPString = hiddenPowers[calcHP(hp, atk, def, spa, spd, spe)];
+            int hpPower = calcHPPower(hp, atk, def, spa, spd, spe);
+            gender = pid & 255;
+            char gender1;
+            char gender2;
+            char gender3;
+            char gender4;
+
+            if (shiny == "")
+                    if (isShiny(pid))
+                        shiny = "!!!";
+
+            gender1 = gender < 31 ? 'F' : 'M';
+            gender2 = gender < 64 ? 'F' : 'M';
+            gender3 = gender < 126 ? 'F' : 'M';
+            gender4 = gender < 191 ? 'F' : 'M';
+
+            wildSlots.Add(new WildSlots
+            {
+                Seed = seed.ToString("x").ToUpper(),
+                PID = pid.ToString("x").ToUpper(),
+                Shiny = shiny,
+                Encounter = slot,
+                Nature = stringNature,
+                Ability = (int)ability,
+                Hp = (int)hp,
+                Atk = (int)atk,
+                Def = (int)def,
+                SpA = (int)spa,
+                SpD = (int)spd,
+                Spe = (int)spe,
+                Hidden = hPString,
+                Power = hpPower,
+                Eighth = gender1,
+                Quarter = gender2,
+                Half = gender3,
+                Three_Fourths = gender4
+            });
+        }
+
+        private void anyHiddenPower_Click(object sender, EventArgs e)
+        {
+            comboBoxHiddenPower.ClearSelection();
+        }
+
+        private void encounterSlotAny_Click(object sender, EventArgs e)
+        {
+            comboBoxEncounterSlot.ClearSelection();
+        }
+
+        private void hp31Quick_Click(object sender, EventArgs e)
+        {
+            hpValue.Text = "31";
+            hpLogic.SelectedIndex = 0;
+        }
+
+        private void hp30Quick_Click(object sender, EventArgs e)
+        {
+            hpValue.Text = "30";
+            hpLogic.SelectedIndex = 0;
+        }
+
+        private void hp30Above_Click(object sender, EventArgs e)
+        {
+            hpValue.Text = "30";
+            hpLogic.SelectedIndex = 1;
+        }
+
+        private void atk31Quick_Click(object sender, EventArgs e)
+        {
+            atkValue.Text = "31";
+            atkLogic.SelectedIndex = 0;
+        }
+
+        private void atk30Quick_Click(object sender, EventArgs e)
+        {
+            atkValue.Text = "30";
+            atkLogic.SelectedIndex = 0;
+        }
+
+        private void atk30Above_Click(object sender, EventArgs e)
+        {
+            atkValue.Text = "30";
+            atkLogic.SelectedIndex = 1;
+        }
+
+        private void def31Quick_Click(object sender, EventArgs e)
+        {
+            defValue.Text = "31";
+            defLogic.SelectedIndex = 0;
+        }
+
+        private void def30Quick_Click(object sender, EventArgs e)
+        {
+            defValue.Text = "30";
+            defLogic.SelectedIndex = 0;
+        }
+
+        private void def30Above_Click(object sender, EventArgs e)
+        {
+            defValue.Text = "30";
+            defLogic.SelectedIndex = 1;
+        }
+
+        private void spa31Quick_Click(object sender, EventArgs e)
+        {
+            spaValue.Text = "31";
+            spaLogic.SelectedIndex = 0;
+        }
+
+        private void spa30Quick_Click(object sender, EventArgs e)
+        {
+            spaValue.Text = "30";
+            spaLogic.SelectedIndex = 0;
+        }
+
+        private void spa30Above_Click(object sender, EventArgs e)
+        {
+            spaValue.Text = "30";
+            spaLogic.SelectedIndex = 1;
+        }
+
+        private void spd31Quick_Click(object sender, EventArgs e)
+        {
+            spdValue.Text = "31";
+            spdLogic.SelectedIndex = 0;
+        }
+
+        private void spd30Quick_Click(object sender, EventArgs e)
+        {
+            spdValue.Text = "30";
+            spdLogic.SelectedIndex = 0;
+        }
+
+        private void spd30Above_Click(object sender, EventArgs e)
+        {
+            spdValue.Text = "30";
+            spdLogic.SelectedIndex = 1;
+        }
+
+        private void spe31Quick_Click(object sender, EventArgs e)
+        {
+            speValue.Text = "31";
+            speLogic.SelectedIndex = 0;
+        }
+
+        private void spe30Quick_Click(object sender, EventArgs e)
+        {
+            speValue.Text = "30";
+            speLogic.SelectedIndex = 0;
+        }
+
+        private void spe30Above_Click(object sender, EventArgs e)
+        {
+            speValue.Text = "30";
+            speLogic.SelectedIndex = 1;
+        }
+
+        private String[] addHP()
+        {
+            String[] temp = new String[]
+                {
+                    "Fighting",
+                    "Flying",
+                    "Poison",
+                    "Ground",
+                    "Rock",
+                    "Bug",
+                    "Ghost",
+                    "Steel",
+                    "Fire",
+                    "Water",
+                    "Grass",
+                    "Electric",
+                    "Psychic",
+                    "Ice",
+                    "Dragon",
+                    "Dark"
+                };
+            return temp;
+        }
+
+        private void setComboBox()
+        {
+            comboBoxNature.CheckBoxItems[0].Checked = true;
+            comboBoxNature.CheckBoxItems[0].Checked = false;
+            comboBoxHiddenPower.CheckBoxItems[0].Checked = true;
+            comboBoxHiddenPower.CheckBoxItems[0].Checked = false;
+            comboBoxEncounterSlot.CheckBoxItems[0].Checked = true;
+            comboBoxEncounterSlot.CheckBoxItems[0].Checked = false;
+            comboBoxEncounterType.SelectedIndex = 0;
+            comboBoxMethod.SelectedIndex = 0;
+            comboBoxGender.SelectedIndex = 0;
+            comboBoxAbility.SelectedIndex = 0;
+            hpLogic.SelectedIndex = 0;
+            atkLogic.SelectedIndex = 0;
+            defLogic.SelectedIndex = 0;
+            spaLogic.SelectedIndex = 0;
+            spdLogic.SelectedIndex = 0;
+            speLogic.SelectedIndex = 0;
+        }
+
+        private void glassButton3_Click(object sender, EventArgs e)
+        {
+            comboBoxNature.ClearSelection();
+        }
+
+        private void anyHiddenPower_Click_1(object sender, EventArgs e)
+        {
+            comboBoxHiddenPower.ClearSelection();
+        }
+
+        private EncounterType calcType(int num)
+        {
+            switch(num)
+            {
+                case 0:
+                    return EncounterType.Wild;
+                case 1:
+                    return EncounterType.WildSurfing;
+                case 2:
+                    return EncounterType.WildOldRod;
+                case 3:
+                    return EncounterType.WildGoodRod;
+                default:
+                    return EncounterType.WildSuperRod;
+            }
+        }
+
+        private FrameType calcMethod(int num)
+        {
+            switch(num)
+            {
+                case 0:
+                    return FrameType.MethodH1;
+                case 1:
+                    return FrameType.MethodH2;
+                default:
+                    return FrameType.MethodH4;
+            }
+        }
+
+        private void getIVs(out uint[] IVsLower, out uint[] IVsUpper)
+        {
+            IVsLower = new uint[6];
+            IVsUpper = new uint[6];
+
+            uint hp = 0;
+            uint atk = 0;
+            uint def = 0;
+            uint spa = 0;
+            uint spd = 0;
+            uint spe = 0;
+
+            uint.TryParse(hpValue.Text, out hp);
+            uint.TryParse(atkValue.Text, out atk);
+            uint.TryParse(defValue.Text, out def);
+            uint.TryParse(spaValue.Text, out spa);
+            uint.TryParse(spdValue.Text, out spd);
+            uint.TryParse(speValue.Text, out spe);
+
+            uint[] ivs = { hp, atk, def, spa, spd, spe };
+            int[] ivsLogic = { hpLogic.SelectedIndex, atkLogic.SelectedIndex, defLogic.SelectedIndex, spaLogic.SelectedIndex, spdLogic.SelectedIndex, speLogic.SelectedIndex };
+
+            for (int x = 0; x < 6; x++)
+            {
+                if (ivsLogic[x] == 0)
+                {
+                    IVsLower[x] = ivs[x];
+                    IVsUpper[x] = ivs[x];
+                }
+                else if (ivsLogic[x] == 1)
+                {
+                    IVsLower[x] = ivs[x];
+                    IVsUpper[x] = 31;
+                }
+                else
+                {
+                    IVsLower[x] = 0;
+                    IVsUpper[x] = ivs[x];
+                }
+            }
+        }
+
+        private uint getAbility()
+        {
+            if (comboBoxAbility.InvokeRequired)
+                return (uint)comboBoxAbility.Invoke(new Func<uint>(getAbility));
+            else
+                return (uint)comboBoxAbility.SelectedIndex;
+        }
+
+        private uint getGender()
+        {
+            if (comboBoxGender.InvokeRequired)
+                return (uint)comboBoxGender.Invoke(new Func<uint>(getGender));
+            else
+                return (uint)comboBoxGender.SelectedIndex;
+        }
+
+        private uint forward(uint seed)
+        {
+            return ((seed * 0x41c64e6d + 0x6073) & 0xFFFFFFFF);
+        }
+
+        private uint reverse(uint seed)
+        {
+            return ((seed * 0xeeb9eb65 + 0xa3561a1) & 0xFFFFFFFF);
+        }
+
+        private uint populateRNGR(uint seed)
+        {
+            seed = forward(seed);
+            slist.Add(seed);
+            rlist.Add((seed >> 16));
+            return seed;
+        }
+
+        private void populate(uint seed, uint srange)
+        {
+            uint s = seed;
+            for (uint x = 0; x < (srange + 10); x++)
+                s = populateRNGR(s);
+        }
+
+        private void updateGUI()
+        {
+            gridUpdate = dataGridUpdate;
+            ThreadDelegate resizeGrid = dataGridViewResult.AutoResizeColumns;
+            try
+            {
+                bool alive = true;
+                while (alive)
+                {
+                    if (refresh)
+                    {
+                        Invoke(gridUpdate);
+                        refresh = false;
+                    }
+                    if (searchThread == null || !searchThread.IsAlive)
+                    {
+                        alive = false;
+                    }
+
+                    Thread.Sleep(500);
+                }
+            }
+            finally
+            {
+                Invoke(gridUpdate);
+                Invoke(resizeGrid);
+            }
+        }
+
+        private void dataGridUpdate()
+        {
+            binding.ResetBindings(false);
+        }
+
+        private bool isShiny(uint PID)
+        {
+            return (((PID >> 16) ^ (PID & 0xffff)) >> 3) == shinyval;
+        }
+
+        private int calcHPPower(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
+        {
+            return (int)(30 + ((((hp >> 1) & 1) + 2 * ((atk >> 1) & 1) + 4 * ((def >> 1) & 1) + 8 * ((spe >> 1) & 1) + 16 * ((spa >> 1) & 1) + 32 * ((spd >> 1) & 1)) * 40 / 63));
+        }
+
+        private uint calcHP(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
+        {
+            return ((((hp & 1) + 2 * (atk & 1) + 4 * (def & 1) + 8 * (spe & 1) + 16 * (spa & 1) + 32 * (spd & 1)) * 15) / 63);
+        }
         #endregion
     }
 }

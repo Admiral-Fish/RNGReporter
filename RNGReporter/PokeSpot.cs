@@ -131,7 +131,7 @@ namespace RNGReporter.Objects
             uint rng4 = forward(rng3);
             uint pid = ((rng3 >> 16) << 16) + (rng4 >> 16);
 
-            uint nature = pid < 26 ? 0 : pid - 25 * (pid / 25);
+            uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
             if (natureList != null)
             {
                 if (!natureList.Contains(nature))
@@ -222,7 +222,7 @@ namespace RNGReporter.Objects
         {
             uint call1 = forward(seed);
             call1 >>= 16;
-            uint currentCall = call1 < 4 ? 0 : call1 - 3 * (call1 / 3);
+            uint currentCall = call1 == 0 ? 0 : call1 - 3 * (call1 / 3);
 
             if (currentCall == 0)
             {
@@ -239,7 +239,7 @@ namespace RNGReporter.Objects
                         shiny = "!!!";
                 }
 
-                currentCall = call3 < 101 ? 0 : call3 - 100 * (call3 / 100);
+                currentCall = call3 == 0 ? 0 : call3 - 100 * (call3 / 100);
 
                 if (spotList != null)
                 {
@@ -247,25 +247,25 @@ namespace RNGReporter.Objects
                     {
                         if (x == 0)
                         {
-                            if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) > 9)
+                            if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) > 9)
                                 if (currentCall < 50)
                                     spotType = "Common";
                         }
                         else if (x == 1)
                         {
-                            if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) > 9)
+                            if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) > 9)
                                 if (currentCall > 49 && currentCall < 85)
                                     spotType = "Uncommon";
                         }
                         else if (x == 2)
                         {
-                            if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) > 9)
+                            if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) > 9)
                                 if (currentCall > 84)
                                     spotType = "Rare";
                         }
                         else
                         { 
-                        if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) < 10)
+                        if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) < 10)
                             spotType = "Munchlax";
                         }
                     }
@@ -274,7 +274,7 @@ namespace RNGReporter.Objects
                 }
                 else
                 {
-                    if ((call2 < 101 ? 0 : call2 - 100 * (call2 / 100)) < 10)
+                    if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) < 10)
                         spotType = "Munchlax";
                     else if (currentCall < 50)
                         spotType = "Common";

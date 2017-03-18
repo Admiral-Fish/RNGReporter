@@ -49,8 +49,6 @@ namespace RNGReporter
 
         public String Shiny { get; set; }
 
-        public int Encounter { get; set; }
-
         public String Nature { get; set; }
 
         public int Ability { get; set; }

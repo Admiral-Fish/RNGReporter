@@ -60,7 +60,6 @@ namespace RNGReporter
         private List<WildSlots> wildSlots;
         private bool isSearching;
         private List<uint> natureList;
-        private List<int> slotsList;
         private Thread searchThread;
         private bool refresh;
         private ThreadDelegate gridUpdate;
@@ -126,19 +125,6 @@ namespace RNGReporter
                     new ComboBoxItem("Method H-1", FrameType.MethodH1),
                     new ComboBoxItem("Method H-2", FrameType.MethodH2),
                     new ComboBoxItem("Method H-4", FrameType.MethodH4),
-                });
-
-            comboBoxEncounterType.Items.AddRange(new object[]
-                {
-                    new ComboBoxItem("Wild Pokémon", EncounterType.Wild),
-                    new ComboBoxItem("Wild Pokémon (Surfing)",
-                                     EncounterType.WildSurfing),
-                    new ComboBoxItem("Wild Pokémon (Old Rod)",
-                                     EncounterType.WildOldRod),
-                    new ComboBoxItem("Wild Pokémon (Good Rod)",
-                                     EncounterType.WildGoodRod),
-                    new ComboBoxItem("Wild Pokémon (Super Rod)",
-                                     EncounterType.WildSuperRod)
                 });
 
             cbEncounterType.Items.AddRange(new object[]
@@ -1563,38 +1549,26 @@ namespace RNGReporter
                 isSearching = true;
                 status.Text = "Searching";
                 int methodNum = comboBoxMethod.SelectedIndex;
-                EncounterType type = calcType(comboBoxEncounterType.SelectedIndex);
-                FrameType method = calcMethod(methodNum);
                 wildSlots = new List<WildSlots>();
                 rlist.Clear();
                 slist.Clear();
-                binding = new BindingSource { DataSource = slotsList };
+                binding = new BindingSource { DataSource = wildSlots };
                 dataGridViewResult.DataSource = binding;
                 shinyval = ((uint.Parse(wildTID.Text)) ^ (uint.Parse(wildSID.Text))) >> 3;
-
-                slotsList = null;
-                List<int> temp = new List<int>();
-                if (comboBoxEncounterSlot.Text != "Any" && comboBoxEncounterSlot.CheckBoxItems.Count > 0)
-                    for (int i = 0; i < comboBoxEncounterSlot.CheckBoxItems.Count; i++)
-                        if (comboBoxEncounterSlot.CheckBoxItems[i].Checked)
-                            temp.Add(i - 1);
-
-                if (temp.Count != 0)
-                    slotsList = temp;
 
                 natureList = null;
                 if (comboBoxNature.Text != "Any" && comboBoxNature.CheckBoxItems.Count > 0)
                     natureList = (from t in comboBoxNature.CheckBoxItems where t.Checked select (uint)((Nature)t.ComboBoxItem).Number).ToList();
 
                 hiddenPowerList = null;
-                List<uint> temp2 = new List<uint>();
+                List<uint> temp = new List<uint>();
                 if (comboBoxHiddenPower.Text != "Any" && comboBoxHiddenPower.CheckBoxItems.Count > 0)
                     for (int x = 1; x <= 16; x++)
                         if (comboBoxHiddenPower.CheckBoxItems[x].Checked)
-                            temp2.Add((uint)(x - 1));
+                            temp.Add((uint)(x - 1));
 
                 if (temp.Count != 0)
-                    hiddenPowerList = temp2;
+                    hiddenPowerList = temp;
 
                 searchThread = new Thread(() => getSearch(ivsLower, ivsUpper, methodNum));
                 searchThread.Start();
@@ -2132,10 +2106,10 @@ namespace RNGReporter
                         return;
                 }
             }
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, 0);
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed);
         }
 
-        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, int slot)
+        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed)
         {
             String stringNature = Natures[nature];
             String hPString = hiddenPowers[calcHP(hp, atk, def, spa, spd, spe)];
@@ -2160,7 +2134,6 @@ namespace RNGReporter
                 Seed = seed.ToString("x").ToUpper(),
                 PID = pid.ToString("x").ToUpper(),
                 Shiny = shiny,
-                Encounter = slot,
                 Nature = stringNature,
                 Ability = (int)ability,
                 Hp = (int)hp,
@@ -2181,11 +2154,6 @@ namespace RNGReporter
         private void anyHiddenPower_Click(object sender, EventArgs e)
         {
             comboBoxHiddenPower.ClearSelection();
-        }
-
-        private void encounterSlotAny_Click(object sender, EventArgs e)
-        {
-            comboBoxEncounterSlot.ClearSelection();
         }
 
         private void hp31Quick_Click(object sender, EventArgs e)
@@ -2326,9 +2294,6 @@ namespace RNGReporter
             comboBoxNature.CheckBoxItems[0].Checked = false;
             comboBoxHiddenPower.CheckBoxItems[0].Checked = true;
             comboBoxHiddenPower.CheckBoxItems[0].Checked = false;
-            comboBoxEncounterSlot.CheckBoxItems[0].Checked = true;
-            comboBoxEncounterSlot.CheckBoxItems[0].Checked = false;
-            comboBoxEncounterType.SelectedIndex = 0;
             comboBoxMethod.SelectedIndex = 0;
             comboBoxGender.SelectedIndex = 0;
             comboBoxAbility.SelectedIndex = 0;
@@ -2348,36 +2313,6 @@ namespace RNGReporter
         private void anyHiddenPower_Click_1(object sender, EventArgs e)
         {
             comboBoxHiddenPower.ClearSelection();
-        }
-
-        private EncounterType calcType(int num)
-        {
-            switch(num)
-            {
-                case 0:
-                    return EncounterType.Wild;
-                case 1:
-                    return EncounterType.WildSurfing;
-                case 2:
-                    return EncounterType.WildOldRod;
-                case 3:
-                    return EncounterType.WildGoodRod;
-                default:
-                    return EncounterType.WildSuperRod;
-            }
-        }
-
-        private FrameType calcMethod(int num)
-        {
-            switch(num)
-            {
-                case 0:
-                    return FrameType.MethodH1;
-                case 1:
-                    return FrameType.MethodH2;
-                default:
-                    return FrameType.MethodH4;
-            }
         }
 
         private void getIVs(out uint[] IVsLower, out uint[] IVsUpper)

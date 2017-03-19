@@ -1707,12 +1707,12 @@ namespace RNGReporter
                             uint pid = pidChk(n, 0);
                             uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, slist[(int)(n)], pid);
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, actualNature, slist[(int)(n)]);
 
                             pid = pidChk(n, 1);
                             actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, actualNature, slist[(int)(n)] ^ 0x80000000);
                         }
                     }
                     refresh = true;
@@ -1833,12 +1833,12 @@ namespace RNGReporter
                             uint pid = pidChk(n, 0);
                             uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, slist[(int)(n)], pid);
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, actualNature, slist[(int)(n)]);
 
                             pid = pidChk(n, 1);
                             actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, actualNature, slist[(int)(n)] ^ 0x80000000);
                         }
                     }
                     refresh = true;
@@ -2015,12 +2015,12 @@ namespace RNGReporter
                             uint pid = pidChk(n, 0);
                             uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, slist[(int)(n)], pid);
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, actualNature, slist[(int)(n)]);
 
                             pid = pidChk(n, 1);
                             actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, (slist[(int)(n)] ^ 0x80000000), pid);
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, actualNature, slist[(int)(n)] ^ 0x80000000);
                         }
                     }
                     refresh = true;

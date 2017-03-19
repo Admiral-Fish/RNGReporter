@@ -30,6 +30,7 @@ namespace RNGReporter
         private static List<uint> hiddenPowerList;
         private static bool galesFlag = false;
         private static List<int> secondShadow = new List<int>();
+        private static List<uint> seedList;
 
         public GameCube(int TID, int SID)
         {
@@ -879,11 +880,7 @@ namespace RNGReporter
         #region Second search method
         private void generateGales2(uint[] ivsLower, uint[] ivsUpper)
         {
-            isSearching = false;
-            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
-            MessageBox.Show("Large IV ranges are not currently supported.");
-            return;
-
+            seedList = new List<uint>(); 
             uint s = 0;
             uint srange = 1048576;
             isSearching = true;
@@ -904,7 +901,8 @@ namespace RNGReporter
                             if (natureLock[0] == 1)
                             {
                                 int forward = method2SingleNL(seed, n, sisterSeed);
-                                if (forward != 0)
+                                uint tempSeed = sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000;
+                                if (!seedList.Contains(tempSeed))
                                 {
                                     uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forward));
                                     if (ivs.Length != 1)
@@ -912,7 +910,7 @@ namespace RNGReporter
                                         uint pid = pidChk((uint)(n + forward), sisterSeed);
                                         uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                                         if (natureList == null || natureList.Contains(actualNature))
-                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000, pid, 0);
+                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, tempSeed, pid, 0);
                                     }
                                 }
                             }
@@ -921,16 +919,17 @@ namespace RNGReporter
                                 if (natureLock[1] == 1)
                                 {
                                     int forward = method2MultiNL(seed, n, sisterSeed);
-                                    if (forward != 0)
+                                    forward += 7;
+                                    uint tempSeed = sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000;
+                                    if (!seedList.Contains(tempSeed))
                                     {
-                                        forward += 7;
                                         uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forward));
                                         if (ivs.Length != 1)
                                         {
                                             uint pid = pidChk((uint)(n + forward), sisterSeed);
                                             uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                                             if (natureList == null || natureList.Contains(actualNature))
-                                                filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000, pid, 0);
+                                                filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, tempSeed, pid, 0);
                                         }
                                     }
                                 }
@@ -970,13 +969,16 @@ namespace RNGReporter
                                                         tsv = temptsv;
                                                 }
                                             }
-
-                                            uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forward + shinySkipCount));
-                                            if (ivs.Length != 1)
+                                            uint tempSeed = sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000;
+                                            if (!seedList.Contains(tempSeed))
                                             {
-                                                uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
-                                                if (natureList == null || natureList.Contains(actualNature))
-                                                    filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, sisterSeed == 0 ? slist[(int)(n + forward + shinySkipCount)] : slist[(int)(n + forward + shinySkipCount)] ^ 0x80000000, pid, secondShadowNum);
+                                                uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forward + shinySkipCount));
+                                                if (ivs.Length != 1)
+                                                {
+                                                    uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                                                    if (natureList == null || natureList.Contains(actualNature))
+                                                        filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], actualNature, ability, gender, tempSeed, pid, secondShadowNum);
+                                                }
                                             }
                                         }
                                     }
@@ -984,6 +986,7 @@ namespace RNGReporter
                             }
                         }
                     }
+                    refresh = true;
                     s = slist[(int)srange];
                     slist.Clear();
                     rlist.Clear();
@@ -997,11 +1000,39 @@ namespace RNGReporter
         {
             uint pid = sisterSeed == 0 ? (rlist[(int)n + 9] << 16) | rlist[(int)n + 10] : ((rlist[(int)n + 9] << 16) | rlist[(int)n + 10]) ^ 0x80008000;
             uint genderval = pid & 255;
+            int forward = 5;
+            bool flag = true;
             if (genderval >= natureLock[2] && genderval <= natureLock[3])
+            {
                 if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[4])
                     return 12;
+                else
+                {
+                    while (flag)
+                    {
+                        forward += 2;
+                        pid = sisterSeed == 0 ? (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] : (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] ^ 0x80008000;
+                        genderval = pid & 255;
+                        if (genderval >= natureLock[2] && genderval <= natureLock[3])
+                            if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[4])
+                                flag = false;
 
-            return 0;
+                    }
+                }
+            }
+            else
+            {
+                while (flag)
+                {
+                    forward += 2;
+                    pid = sisterSeed == 0 ? (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] : (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] ^ 0x80008000;
+                    genderval = pid & 255;
+                    if (genderval >= natureLock[2] && genderval <= natureLock[3])
+                        if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[4])
+                            flag = false;
+                }
+            }
+            return forward + 7;
         }
 
         private int method2MultiNL(uint seed, uint n, uint sisterSeed)
@@ -1010,19 +1041,10 @@ namespace RNGReporter
             int count = ((natureLock.Length - 2) / 3) - 1;
             int lastIndex = natureLock.Length - 1;
 
-            uint pid = sisterSeed == 0 ? (rlist[(int)n + 9] << 16) | rlist[(int)n + 10] : ((rlist[(int)n + 9] << 16) | rlist[(int)n + 10]) ^ 0x80008000;
-            uint genderval = pid & 255;
-            if (genderval >= natureLock[lastIndex - 2] && genderval <= natureLock[lastIndex - 1])
-            {
-                if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[lastIndex])
-                    forward += 5;
-                else
-                    return 0;
-            }
-            else
-                return 0;
+            uint pid;
+            uint genderval;
 
-            for (int x = 1; x <= count; x++)
+            for (int x = 0; x <= count; x++)
             {
                 bool flag = true;
                 forward += 5;
@@ -1144,7 +1166,7 @@ namespace RNGReporter
                 int tsv = (int)((pid2 >> 16) ^ (pid1 >> 16)) >> 3;
                 reason = reason + " (TSV: " + tsv + ")";
             }
-
+            seedList.Add(seed);
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, reason);
         }
         #endregion
@@ -1481,11 +1503,11 @@ namespace RNGReporter
         private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
         {
             uint x16 = spd << 27;
-            uint upper = 0x7ffffff + (32 - spd);
+            uint upper = x16 + 0x7ffffff + (31 - spd);
 
             while (x16 < upper)
             {
-                x16++;
+                ++x16;
                 uint prevseed = reverseXD(x16);
                 uint temp = prevseed >> 27;
                 if (temp == spa)

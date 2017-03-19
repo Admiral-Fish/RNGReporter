@@ -1666,9 +1666,9 @@ namespace RNGReporter
 
         private bool Check1(uint iv, uint nature, uint hp, uint atk, uint def)
         {
-            uint test_hp = iv & 0x1f;
+            uint test_hp = (iv & 0x7C00) >> 10;
             uint test_atk = (iv & 0x3E0) >> 5;
-            uint test_def = (iv & 0x7C00) >> 10;
+            uint test_def = iv & 0x1f;
 
             if (test_hp == hp && test_atk == atk && test_def == def)
             {

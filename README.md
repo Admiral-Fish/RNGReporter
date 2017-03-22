@@ -10,7 +10,7 @@ Credits to amab for all the Channel Jirachi logic and Pokespot RNG.
 
 Credits to Zari for the 16-bit seed to time logic, GameCube RNG searching logic, Pokespot RNG, and generally other advice. 
 
-Credits to Kaphotics for PID to IVs(aka Find Frame) logic and Pokespot RNG. 
+Credits to Kaphotics for PID to IVs (aka Find Frame) logic and Pokespot RNG. 
 
 Credits to CollectorTogami for TogamiCalc.
 
@@ -23,7 +23,7 @@ Poke Walker Time Finder
  
 Will update list with other things
 
-#Finished Features
+# Finished Features
 TogamiCalc
 
 16-Bit Seed to Time

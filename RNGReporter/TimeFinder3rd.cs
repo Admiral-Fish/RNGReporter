@@ -2137,6 +2137,8 @@ namespace RNGReporter
             if (method == 3 || method == 4 || method == 5)
             {
                 getEncounterSlot(seed, pid, out slot, out seed);
+                if (validatePID(seed) != pid)
+                    return;
                 if (slotsList != null)
                     if (!slotsList.Contains((uint)slot))
                         return;
@@ -2197,18 +2199,41 @@ namespace RNGReporter
 
             uint searchNature;
             uint nature = pid < 25 ? pid : pid - 25 * (pid / 25);
+            var rng = new PokeRngR(initialSeed);
 
             while (flag)
             {
-                initialSeed = reverse(reverse(initialSeed));
-                searchNature = initialSeed >> 16;
+                rng.GetNext32BitNumber();
+                searchNature = rng.GetNext16BitNumber();
                 searchNature = searchNature < 25 ? searchNature : searchNature - 25 * (searchNature / 25);
                 if (searchNature == nature)
                     flag = false;
             }
-            initialSeed = reverse(reverse(initialSeed));
-            slot = EncounterSlotCalc.encounterSlot(initialSeed, FrameType.MethodH1, encounterType);
-            seed = reverse(initialSeed);
+            rng.GetNext32BitNumber();
+            rng.GetNext32BitNumber();
+            slot = EncounterSlotCalc.encounterSlot(rng.Seed, FrameType.MethodH1, encounterType);
+            seed = rng.GetNext32BitNumber();
+        }
+
+        private uint validatePID(uint seed)
+        {
+            uint pid = 0;
+            uint pid1, pid2;
+            var rng = new PokeRng(seed);
+            rng.GetNext32BitNumber();
+            rng.GetNext32BitNumber();
+            uint nature = rng.GetNext16BitNumber();
+            nature = nature < 25 ? nature : nature - 25 * (nature / 25);
+            bool flag = true;
+            while(flag)
+            {
+                pid1 = rng.GetNext16BitNumber();
+                pid2 = rng.GetNext16BitNumber();
+                pid = (pid2 << 16) | pid1;
+                if ((pid < 25 ? pid : pid - 25 * (pid / 25)) == nature)
+                    flag = false;
+            }
+            return pid;
         }
 
         private EncounterType getEncounterType(int num)

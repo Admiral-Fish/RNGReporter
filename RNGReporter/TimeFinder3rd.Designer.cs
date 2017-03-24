@@ -456,7 +456,7 @@ namespace RNGReporter
             this.comboBoxSlots = new RNGReporter.Controls.CheckBoxComboBox();
             this.anySlots = new RNGReporter.GlassButton();
             this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Slot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WildEncounterSlot = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -4580,7 +4580,7 @@ namespace RNGReporter
             this.dataGridViewResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn0,
-            this.Slot,
+            this.WildEncounterSlot,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn19,
             this.dataGridViewTextBoxColumn20,
@@ -5287,13 +5287,13 @@ namespace RNGReporter
             this.dataGridViewTextBoxColumn0.Name = "dataGridViewTextBoxColumn0";
             this.dataGridViewTextBoxColumn0.ReadOnly = true;
             // 
-            // Slot
+            // WildEncounterSlot
             // 
-            this.Slot.DataPropertyName = "Slot";
-            this.Slot.HeaderText = "Slot";
-            this.Slot.Name = "Slot";
-            this.Slot.ReadOnly = true;
-            this.Slot.Width = 50;
+            this.WildEncounterSlot.DataPropertyName = "Slot";
+            this.WildEncounterSlot.HeaderText = "Slot";
+            this.WildEncounterSlot.Name = "WildEncounterSlot";
+            this.WildEncounterSlot.ReadOnly = true;
+            this.WildEncounterSlot.Width = 50;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -5863,7 +5863,7 @@ namespace RNGReporter
         private GlassButton anySlots;
         private CheckBoxComboBox comboBoxSlots;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn0;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Slot;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WildEncounterSlot;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;

@@ -1557,12 +1557,6 @@ namespace RNGReporter
                 isSearching = true;
                 status.Text = "Searching";
                 int methodNum = comboBoxMethod.SelectedIndex;
-
-                if (methodNum == 0 || methodNum == 1 || methodNum == 2)
-                    Slot.Visible = false;
-                else
-                    Slot.Visible = true;
-
                 encounterType = getEncounterType(comboBoxType.SelectedIndex);
                 wildSlots = new List<WildSlots>();
                 rlist.Clear();
@@ -1596,6 +1590,11 @@ namespace RNGReporter
 
                 if (temp.Count != 0)
                     hiddenPowerList = temp;
+
+                if (methodNum == 0 || methodNum == 1 || methodNum == 2)
+                    dataGridViewResult.Columns[1].Visible = false;
+                else
+                    dataGridViewResult.Columns[1].Visible = true;
 
                 searchThread = new Thread(() => getSearch(ivsLower, ivsUpper, methodNum));
                 searchThread.Start();

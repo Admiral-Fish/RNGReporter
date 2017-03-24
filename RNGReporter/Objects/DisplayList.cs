@@ -45,6 +45,8 @@ namespace RNGReporter
     {
         public String Seed { get; set; }
 
+        public int Slot { get; set; }
+
         public String PID { get; set; }
 
         public String Shiny { get; set; }

@@ -58,8 +58,9 @@ namespace RNGReporter
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties6 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties7 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
             this.saveFileDialogTxt = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStripEggPid3rd = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -393,6 +394,9 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdID = new RNGReporter.Controls.MaskedTextBox2();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageWild = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBoxType = new RNGReporter.GlassComboBox();
             this.status = new System.Windows.Forms.Label();
             this.comboBoxHiddenPower = new RNGReporter.Controls.CheckBoxComboBox();
             this.anyHiddenPower = new RNGReporter.GlassButton();
@@ -449,7 +453,10 @@ namespace RNGReporter
             this.wildTID = new RNGReporter.Controls.MaskedTextBox2();
             this.wildSID = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
+            this.comboBoxSlots = new RNGReporter.Controls.CheckBoxComboBox();
+            this.anySlots = new RNGReporter.GlassButton();
             this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Slot = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -4416,6 +4423,11 @@ namespace RNGReporter
             // 
             // tabPageWild
             // 
+            this.tabPageWild.Controls.Add(this.anySlots);
+            this.tabPageWild.Controls.Add(this.comboBoxSlots);
+            this.tabPageWild.Controls.Add(this.label15);
+            this.tabPageWild.Controls.Add(this.label5);
+            this.tabPageWild.Controls.Add(this.comboBoxType);
             this.tabPageWild.Controls.Add(this.status);
             this.tabPageWild.Controls.Add(this.comboBoxHiddenPower);
             this.tabPageWild.Controls.Add(this.anyHiddenPower);
@@ -4479,6 +4491,37 @@ namespace RNGReporter
             this.tabPageWild.Text = "Wild";
             this.tabPageWild.UseVisualStyleBackColor = true;
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(87, 91);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(31, 13);
+            this.label15.TabIndex = 446;
+            this.label15.Text = "Type";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(88, 118);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 13);
+            this.label5.TabIndex = 445;
+            this.label5.Text = "Slots";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // comboBoxType
+            // 
+            this.comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxType.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxType.FormattingEnabled = true;
+            this.comboBoxType.Location = new System.Drawing.Point(128, 87);
+            this.comboBoxType.Name = "comboBoxType";
+            this.comboBoxType.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxType.Size = new System.Drawing.Size(156, 21);
+            this.comboBoxType.TabIndex = 443;
+            // 
             // status
             // 
             this.status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -4492,8 +4535,8 @@ namespace RNGReporter
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties5;
+            checkBoxProperties6.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties6;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4537,6 +4580,7 @@ namespace RNGReporter
             this.dataGridViewResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn0,
+            this.Slot,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn19,
             this.dataGridViewTextBoxColumn20,
@@ -5012,7 +5056,7 @@ namespace RNGReporter
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(82, 89);
+            this.label17.Location = new System.Drawing.Point(82, 64);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(43, 13);
             this.label17.TabIndex = 392;
@@ -5097,7 +5141,14 @@ namespace RNGReporter
             this.comboBoxMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMethod.ForeColor = System.Drawing.Color.Black;
             this.comboBoxMethod.FormattingEnabled = true;
-            this.comboBoxMethod.Location = new System.Drawing.Point(128, 85);
+            this.comboBoxMethod.Items.AddRange(new object[] {
+            "Method 1",
+            "Method 2",
+            "Method 4",
+            "Method H1",
+            "Method H2",
+            "Method H4"});
+            this.comboBoxMethod.Location = new System.Drawing.Point(128, 60);
             this.comboBoxMethod.Name = "comboBoxMethod";
             this.comboBoxMethod.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxMethod.Size = new System.Drawing.Size(156, 21);
@@ -5173,8 +5224,8 @@ namespace RNGReporter
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties6;
+            checkBoxProperties7.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties7;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -5184,12 +5235,65 @@ namespace RNGReporter
             this.comboBoxNature.Size = new System.Drawing.Size(176, 21);
             this.comboBoxNature.TabIndex = 382;
             // 
+            // comboBoxSlots
+            // 
+            this.comboBoxSlots.BlankText = "Any";
+            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxSlots.CheckBoxProperties = checkBoxProperties5;
+            this.comboBoxSlots.DisplayMemberSingleItem = "";
+            this.comboBoxSlots.DropDownHeight = 310;
+            this.comboBoxSlots.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSlots.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxSlots.FormattingEnabled = true;
+            this.comboBoxSlots.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11"});
+            this.comboBoxSlots.Location = new System.Drawing.Point(128, 114);
+            this.comboBoxSlots.Name = "comboBoxSlots";
+            this.comboBoxSlots.Size = new System.Drawing.Size(156, 21);
+            this.comboBoxSlots.TabIndex = 447;
+            // 
+            // anySlots
+            // 
+            this.anySlots.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anySlots.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.anySlots.ForeColor = System.Drawing.Color.Black;
+            this.anySlots.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.anySlots.Location = new System.Drawing.Point(287, 114);
+            this.anySlots.Margin = new System.Windows.Forms.Padding(0);
+            this.anySlots.Name = "anySlots";
+            this.anySlots.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anySlots.ShineColor = System.Drawing.SystemColors.Window;
+            this.anySlots.Size = new System.Drawing.Size(41, 22);
+            this.anySlots.TabIndex = 448;
+            this.anySlots.Text = "Any";
+            this.anySlots.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.anySlots.Click += new System.EventHandler(this.anySlots_Click);
+            // 
             // dataGridViewTextBoxColumn0
             // 
             this.dataGridViewTextBoxColumn0.DataPropertyName = "Seed";
             this.dataGridViewTextBoxColumn0.HeaderText = "Seed";
             this.dataGridViewTextBoxColumn0.Name = "dataGridViewTextBoxColumn0";
             this.dataGridViewTextBoxColumn0.ReadOnly = true;
+            // 
+            // Slot
+            // 
+            this.Slot.DataPropertyName = "Slot";
+            this.Slot.HeaderText = "Slot";
+            this.Slot.Name = "Slot";
+            this.Slot.ReadOnly = true;
+            this.Slot.Width = 50;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -5753,7 +5857,13 @@ namespace RNGReporter
         private GlassButton anyHiddenPower;
         private System.Windows.Forms.Label L_ball;
         private System.Windows.Forms.Label status;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label5;
+        private GlassComboBox comboBoxType;
+        private GlassButton anySlots;
+        private CheckBoxComboBox comboBoxSlots;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn0;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Slot;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;

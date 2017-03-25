@@ -58,10 +58,10 @@ namespace RNGReporter
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties6 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties7 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties6 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties7 = new RNGReporter.Controls.CheckBoxProperties();
             this.saveFileDialogTxt = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStripEggPid3rd = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.outputShiny3rdResultsToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -394,6 +394,9 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdID = new RNGReporter.Controls.MaskedTextBox2();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageWild = new System.Windows.Forms.TabPage();
+            this.cancel = new RNGReporter.GlassButton();
+            this.anySlots = new RNGReporter.GlassButton();
+            this.comboBoxSlots = new RNGReporter.Controls.CheckBoxComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxType = new RNGReporter.GlassComboBox();
@@ -402,6 +405,24 @@ namespace RNGReporter
             this.anyHiddenPower = new RNGReporter.GlassButton();
             this.L_ball = new System.Windows.Forms.Label();
             this.dataGridViewResult = new RNGReporter.DoubleBufferedDataGridView();
+            this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WildEncounterSlot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn36 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn37 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn40 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn41 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.speValue = new RNGReporter.Controls.MaskedTextBox2();
             this.spdValue = new RNGReporter.Controls.MaskedTextBox2();
             this.spaValue = new RNGReporter.Controls.MaskedTextBox2();
@@ -453,26 +474,6 @@ namespace RNGReporter
             this.wildTID = new RNGReporter.Controls.MaskedTextBox2();
             this.wildSID = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
-            this.comboBoxSlots = new RNGReporter.Controls.CheckBoxComboBox();
-            this.anySlots = new RNGReporter.GlassButton();
-            this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WildEncounterSlot = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn36 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn37 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn40 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn41 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripEggPid3rd.SuspendLayout();
             this.tabPageXD.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -4423,6 +4424,7 @@ namespace RNGReporter
             // 
             // tabPageWild
             // 
+            this.tabPageWild.Controls.Add(this.cancel);
             this.tabPageWild.Controls.Add(this.anySlots);
             this.tabPageWild.Controls.Add(this.comboBoxSlots);
             this.tabPageWild.Controls.Add(this.label15);
@@ -4491,6 +4493,66 @@ namespace RNGReporter
             this.tabPageWild.Text = "Wild";
             this.tabPageWild.UseVisualStyleBackColor = true;
             // 
+            // cancel
+            // 
+            this.cancel.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.cancel.ForeColor = System.Drawing.Color.Black;
+            this.cancel.Location = new System.Drawing.Point(102, 157);
+            this.cancel.Name = "cancel";
+            this.cancel.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.cancel.ShineColor = System.Drawing.SystemColors.Window;
+            this.cancel.Size = new System.Drawing.Size(73, 23);
+            this.cancel.TabIndex = 449;
+            this.cancel.Text = "Cancel";
+            this.cancel.Click += new System.EventHandler(this.cancel_Click);
+            // 
+            // anySlots
+            // 
+            this.anySlots.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anySlots.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.anySlots.ForeColor = System.Drawing.Color.Black;
+            this.anySlots.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.anySlots.Location = new System.Drawing.Point(287, 114);
+            this.anySlots.Margin = new System.Windows.Forms.Padding(0);
+            this.anySlots.Name = "anySlots";
+            this.anySlots.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anySlots.ShineColor = System.Drawing.SystemColors.Window;
+            this.anySlots.Size = new System.Drawing.Size(41, 22);
+            this.anySlots.TabIndex = 448;
+            this.anySlots.Text = "Any";
+            this.anySlots.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.anySlots.Visible = false;
+            this.anySlots.Click += new System.EventHandler(this.anySlots_Click);
+            // 
+            // comboBoxSlots
+            // 
+            this.comboBoxSlots.BlankText = "Any";
+            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxSlots.CheckBoxProperties = checkBoxProperties5;
+            this.comboBoxSlots.DisplayMemberSingleItem = "";
+            this.comboBoxSlots.DropDownHeight = 310;
+            this.comboBoxSlots.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSlots.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxSlots.FormattingEnabled = true;
+            this.comboBoxSlots.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11"});
+            this.comboBoxSlots.Location = new System.Drawing.Point(128, 114);
+            this.comboBoxSlots.Name = "comboBoxSlots";
+            this.comboBoxSlots.Size = new System.Drawing.Size(156, 21);
+            this.comboBoxSlots.TabIndex = 447;
+            this.comboBoxSlots.Visible = false;
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -4500,6 +4562,7 @@ namespace RNGReporter
             this.label15.TabIndex = 446;
             this.label15.Text = "Type";
             this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label15.Visible = false;
             // 
             // label5
             // 
@@ -4510,6 +4573,7 @@ namespace RNGReporter
             this.label5.TabIndex = 445;
             this.label5.Text = "Slots";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label5.Visible = false;
             // 
             // comboBoxType
             // 
@@ -4521,6 +4585,7 @@ namespace RNGReporter
             this.comboBoxType.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxType.Size = new System.Drawing.Size(156, 21);
             this.comboBoxType.TabIndex = 443;
+            this.comboBoxType.Visible = false;
             // 
             // status
             // 
@@ -4611,6 +4676,151 @@ namespace RNGReporter
             this.dataGridViewResult.ShowRowErrors = false;
             this.dataGridViewResult.Size = new System.Drawing.Size(942, 289);
             this.dataGridViewResult.TabIndex = 438;
+            // 
+            // dataGridViewTextBoxColumn0
+            // 
+            this.dataGridViewTextBoxColumn0.DataPropertyName = "Seed";
+            this.dataGridViewTextBoxColumn0.HeaderText = "Seed";
+            this.dataGridViewTextBoxColumn0.Name = "dataGridViewTextBoxColumn0";
+            this.dataGridViewTextBoxColumn0.ReadOnly = true;
+            // 
+            // WildEncounterSlot
+            // 
+            this.WildEncounterSlot.DataPropertyName = "Slot";
+            this.WildEncounterSlot.HeaderText = "Slot";
+            this.WildEncounterSlot.Name = "WildEncounterSlot";
+            this.WildEncounterSlot.ReadOnly = true;
+            this.WildEncounterSlot.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "PID";
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle23;
+            this.dataGridViewTextBoxColumn4.HeaderText = "PID";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn19
+            // 
+            this.dataGridViewTextBoxColumn19.DataPropertyName = "Shiny";
+            this.dataGridViewTextBoxColumn19.HeaderText = "!!!";
+            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            this.dataGridViewTextBoxColumn19.ReadOnly = true;
+            this.dataGridViewTextBoxColumn19.Width = 25;
+            // 
+            // dataGridViewTextBoxColumn20
+            // 
+            this.dataGridViewTextBoxColumn20.DataPropertyName = "Nature";
+            this.dataGridViewTextBoxColumn20.HeaderText = "Nature";
+            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
+            this.dataGridViewTextBoxColumn20.ReadOnly = true;
+            this.dataGridViewTextBoxColumn20.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn21
+            // 
+            this.dataGridViewTextBoxColumn21.DataPropertyName = "Ability";
+            this.dataGridViewTextBoxColumn21.HeaderText = "Ability";
+            this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
+            this.dataGridViewTextBoxColumn21.ReadOnly = true;
+            this.dataGridViewTextBoxColumn21.Width = 45;
+            // 
+            // dataGridViewTextBoxColumn23
+            // 
+            this.dataGridViewTextBoxColumn23.DataPropertyName = "HP";
+            this.dataGridViewTextBoxColumn23.HeaderText = "HP";
+            this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
+            this.dataGridViewTextBoxColumn23.ReadOnly = true;
+            this.dataGridViewTextBoxColumn23.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn25
+            // 
+            this.dataGridViewTextBoxColumn25.DataPropertyName = "Atk";
+            this.dataGridViewTextBoxColumn25.HeaderText = "Atk";
+            this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
+            this.dataGridViewTextBoxColumn25.ReadOnly = true;
+            this.dataGridViewTextBoxColumn25.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn26
+            // 
+            this.dataGridViewTextBoxColumn26.DataPropertyName = "Def";
+            this.dataGridViewTextBoxColumn26.HeaderText = "Def";
+            this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
+            this.dataGridViewTextBoxColumn26.ReadOnly = true;
+            this.dataGridViewTextBoxColumn26.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn27
+            // 
+            this.dataGridViewTextBoxColumn27.DataPropertyName = "SpA";
+            this.dataGridViewTextBoxColumn27.HeaderText = "SpA";
+            this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
+            this.dataGridViewTextBoxColumn27.ReadOnly = true;
+            this.dataGridViewTextBoxColumn27.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn28
+            // 
+            this.dataGridViewTextBoxColumn28.DataPropertyName = "SpD";
+            this.dataGridViewTextBoxColumn28.HeaderText = "SpD";
+            this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
+            this.dataGridViewTextBoxColumn28.ReadOnly = true;
+            this.dataGridViewTextBoxColumn28.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn29
+            // 
+            this.dataGridViewTextBoxColumn29.DataPropertyName = "Spe";
+            this.dataGridViewTextBoxColumn29.HeaderText = "Spe";
+            this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
+            this.dataGridViewTextBoxColumn29.ReadOnly = true;
+            this.dataGridViewTextBoxColumn29.Width = 35;
+            // 
+            // dataGridViewTextBoxColumn30
+            // 
+            this.dataGridViewTextBoxColumn30.DataPropertyName = "Hidden";
+            this.dataGridViewTextBoxColumn30.HeaderText = "Hidden";
+            this.dataGridViewTextBoxColumn30.Name = "dataGridViewTextBoxColumn30";
+            this.dataGridViewTextBoxColumn30.ReadOnly = true;
+            this.dataGridViewTextBoxColumn30.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn35
+            // 
+            this.dataGridViewTextBoxColumn35.DataPropertyName = "Power";
+            this.dataGridViewTextBoxColumn35.HeaderText = "Power";
+            this.dataGridViewTextBoxColumn35.Name = "dataGridViewTextBoxColumn35";
+            this.dataGridViewTextBoxColumn35.ReadOnly = true;
+            this.dataGridViewTextBoxColumn35.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn36
+            // 
+            this.dataGridViewTextBoxColumn36.DataPropertyName = "Eighth";
+            this.dataGridViewTextBoxColumn36.HeaderText = "12.5%F";
+            this.dataGridViewTextBoxColumn36.Name = "dataGridViewTextBoxColumn36";
+            this.dataGridViewTextBoxColumn36.ReadOnly = true;
+            this.dataGridViewTextBoxColumn36.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn37
+            // 
+            this.dataGridViewTextBoxColumn37.DataPropertyName = "Quarter";
+            this.dataGridViewTextBoxColumn37.HeaderText = "25% F";
+            this.dataGridViewTextBoxColumn37.Name = "dataGridViewTextBoxColumn37";
+            this.dataGridViewTextBoxColumn37.ReadOnly = true;
+            this.dataGridViewTextBoxColumn37.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn40
+            // 
+            this.dataGridViewTextBoxColumn40.DataPropertyName = "Half";
+            this.dataGridViewTextBoxColumn40.HeaderText = "50% F";
+            this.dataGridViewTextBoxColumn40.Name = "dataGridViewTextBoxColumn40";
+            this.dataGridViewTextBoxColumn40.ReadOnly = true;
+            this.dataGridViewTextBoxColumn40.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn41
+            // 
+            this.dataGridViewTextBoxColumn41.DataPropertyName = "Three_Fourths";
+            this.dataGridViewTextBoxColumn41.HeaderText = "75% F";
+            this.dataGridViewTextBoxColumn41.Name = "dataGridViewTextBoxColumn41";
+            this.dataGridViewTextBoxColumn41.ReadOnly = true;
+            this.dataGridViewTextBoxColumn41.Width = 50;
             // 
             // speValue
             // 
@@ -5153,6 +5363,7 @@ namespace RNGReporter
             this.comboBoxMethod.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxMethod.Size = new System.Drawing.Size(156, 21);
             this.comboBoxMethod.TabIndex = 376;
+            this.comboBoxMethod.SelectionChangeCommitted += new System.EventHandler(this.comboBoxMethod_SelectionChangeCommitted);
             // 
             // searchWild
             // 
@@ -5234,196 +5445,6 @@ namespace RNGReporter
             this.comboBoxNature.Name = "comboBoxNature";
             this.comboBoxNature.Size = new System.Drawing.Size(176, 21);
             this.comboBoxNature.TabIndex = 382;
-            // 
-            // comboBoxSlots
-            // 
-            this.comboBoxSlots.BlankText = "Any";
-            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxSlots.CheckBoxProperties = checkBoxProperties5;
-            this.comboBoxSlots.DisplayMemberSingleItem = "";
-            this.comboBoxSlots.DropDownHeight = 310;
-            this.comboBoxSlots.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSlots.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBoxSlots.FormattingEnabled = true;
-            this.comboBoxSlots.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11"});
-            this.comboBoxSlots.Location = new System.Drawing.Point(128, 114);
-            this.comboBoxSlots.Name = "comboBoxSlots";
-            this.comboBoxSlots.Size = new System.Drawing.Size(156, 21);
-            this.comboBoxSlots.TabIndex = 447;
-            // 
-            // anySlots
-            // 
-            this.anySlots.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.anySlots.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.anySlots.ForeColor = System.Drawing.Color.Black;
-            this.anySlots.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.anySlots.Location = new System.Drawing.Point(287, 114);
-            this.anySlots.Margin = new System.Windows.Forms.Padding(0);
-            this.anySlots.Name = "anySlots";
-            this.anySlots.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.anySlots.ShineColor = System.Drawing.SystemColors.Window;
-            this.anySlots.Size = new System.Drawing.Size(41, 22);
-            this.anySlots.TabIndex = 448;
-            this.anySlots.Text = "Any";
-            this.anySlots.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.anySlots.Click += new System.EventHandler(this.anySlots_Click);
-            // 
-            // dataGridViewTextBoxColumn0
-            // 
-            this.dataGridViewTextBoxColumn0.DataPropertyName = "Seed";
-            this.dataGridViewTextBoxColumn0.HeaderText = "Seed";
-            this.dataGridViewTextBoxColumn0.Name = "dataGridViewTextBoxColumn0";
-            this.dataGridViewTextBoxColumn0.ReadOnly = true;
-            // 
-            // WildEncounterSlot
-            // 
-            this.WildEncounterSlot.DataPropertyName = "Slot";
-            this.WildEncounterSlot.HeaderText = "Slot";
-            this.WildEncounterSlot.Name = "WildEncounterSlot";
-            this.WildEncounterSlot.ReadOnly = true;
-            this.WildEncounterSlot.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "PID";
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle23;
-            this.dataGridViewTextBoxColumn4.HeaderText = "PID";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn19
-            // 
-            this.dataGridViewTextBoxColumn19.DataPropertyName = "Shiny";
-            this.dataGridViewTextBoxColumn19.HeaderText = "!!!";
-            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
-            this.dataGridViewTextBoxColumn19.ReadOnly = true;
-            this.dataGridViewTextBoxColumn19.Width = 25;
-            // 
-            // dataGridViewTextBoxColumn20
-            // 
-            this.dataGridViewTextBoxColumn20.DataPropertyName = "Nature";
-            this.dataGridViewTextBoxColumn20.HeaderText = "Nature";
-            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
-            this.dataGridViewTextBoxColumn20.ReadOnly = true;
-            this.dataGridViewTextBoxColumn20.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn21
-            // 
-            this.dataGridViewTextBoxColumn21.DataPropertyName = "Ability";
-            this.dataGridViewTextBoxColumn21.HeaderText = "Ability";
-            this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
-            this.dataGridViewTextBoxColumn21.ReadOnly = true;
-            this.dataGridViewTextBoxColumn21.Width = 45;
-            // 
-            // dataGridViewTextBoxColumn23
-            // 
-            this.dataGridViewTextBoxColumn23.DataPropertyName = "HP";
-            this.dataGridViewTextBoxColumn23.HeaderText = "HP";
-            this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
-            this.dataGridViewTextBoxColumn23.ReadOnly = true;
-            this.dataGridViewTextBoxColumn23.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn25
-            // 
-            this.dataGridViewTextBoxColumn25.DataPropertyName = "Atk";
-            this.dataGridViewTextBoxColumn25.HeaderText = "Atk";
-            this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
-            this.dataGridViewTextBoxColumn25.ReadOnly = true;
-            this.dataGridViewTextBoxColumn25.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn26
-            // 
-            this.dataGridViewTextBoxColumn26.DataPropertyName = "Def";
-            this.dataGridViewTextBoxColumn26.HeaderText = "Def";
-            this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
-            this.dataGridViewTextBoxColumn26.ReadOnly = true;
-            this.dataGridViewTextBoxColumn26.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn27
-            // 
-            this.dataGridViewTextBoxColumn27.DataPropertyName = "SpA";
-            this.dataGridViewTextBoxColumn27.HeaderText = "SpA";
-            this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
-            this.dataGridViewTextBoxColumn27.ReadOnly = true;
-            this.dataGridViewTextBoxColumn27.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn28
-            // 
-            this.dataGridViewTextBoxColumn28.DataPropertyName = "SpD";
-            this.dataGridViewTextBoxColumn28.HeaderText = "SpD";
-            this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
-            this.dataGridViewTextBoxColumn28.ReadOnly = true;
-            this.dataGridViewTextBoxColumn28.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn29
-            // 
-            this.dataGridViewTextBoxColumn29.DataPropertyName = "Spe";
-            this.dataGridViewTextBoxColumn29.HeaderText = "Spe";
-            this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
-            this.dataGridViewTextBoxColumn29.ReadOnly = true;
-            this.dataGridViewTextBoxColumn29.Width = 35;
-            // 
-            // dataGridViewTextBoxColumn30
-            // 
-            this.dataGridViewTextBoxColumn30.DataPropertyName = "Hidden";
-            this.dataGridViewTextBoxColumn30.HeaderText = "Hidden";
-            this.dataGridViewTextBoxColumn30.Name = "dataGridViewTextBoxColumn30";
-            this.dataGridViewTextBoxColumn30.ReadOnly = true;
-            this.dataGridViewTextBoxColumn30.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn35
-            // 
-            this.dataGridViewTextBoxColumn35.DataPropertyName = "Power";
-            this.dataGridViewTextBoxColumn35.HeaderText = "Power";
-            this.dataGridViewTextBoxColumn35.Name = "dataGridViewTextBoxColumn35";
-            this.dataGridViewTextBoxColumn35.ReadOnly = true;
-            this.dataGridViewTextBoxColumn35.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn36
-            // 
-            this.dataGridViewTextBoxColumn36.DataPropertyName = "Eighth";
-            this.dataGridViewTextBoxColumn36.HeaderText = "12.5%F";
-            this.dataGridViewTextBoxColumn36.Name = "dataGridViewTextBoxColumn36";
-            this.dataGridViewTextBoxColumn36.ReadOnly = true;
-            this.dataGridViewTextBoxColumn36.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn37
-            // 
-            this.dataGridViewTextBoxColumn37.DataPropertyName = "Quarter";
-            this.dataGridViewTextBoxColumn37.HeaderText = "25% F";
-            this.dataGridViewTextBoxColumn37.Name = "dataGridViewTextBoxColumn37";
-            this.dataGridViewTextBoxColumn37.ReadOnly = true;
-            this.dataGridViewTextBoxColumn37.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn40
-            // 
-            this.dataGridViewTextBoxColumn40.DataPropertyName = "Half";
-            this.dataGridViewTextBoxColumn40.HeaderText = "50% F";
-            this.dataGridViewTextBoxColumn40.Name = "dataGridViewTextBoxColumn40";
-            this.dataGridViewTextBoxColumn40.ReadOnly = true;
-            this.dataGridViewTextBoxColumn40.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn41
-            // 
-            this.dataGridViewTextBoxColumn41.DataPropertyName = "Three_Fourths";
-            this.dataGridViewTextBoxColumn41.HeaderText = "75% F";
-            this.dataGridViewTextBoxColumn41.Name = "dataGridViewTextBoxColumn41";
-            this.dataGridViewTextBoxColumn41.ReadOnly = true;
-            this.dataGridViewTextBoxColumn41.Width = 50;
             // 
             // TimeFinder3rd
             // 
@@ -5880,5 +5901,6 @@ namespace RNGReporter
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn37;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn40;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn41;
+        private GlassButton cancel;
     }
 }

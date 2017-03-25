@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties4 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.L_ball = new System.Windows.Forms.Label();
             this.genderType = new System.Windows.Forms.ComboBox();
@@ -120,6 +120,12 @@
             this.speValue = new RNGReporter.Controls.MaskedTextBox2();
             this.sid = new RNGReporter.Controls.MaskedTextBox2();
             this.id = new RNGReporter.Controls.MaskedTextBox2();
+            this.hpClear = new RNGReporter.GlassButton();
+            this.atkClear = new RNGReporter.GlassButton();
+            this.defClear = new RNGReporter.GlassButton();
+            this.spaClear = new RNGReporter.GlassButton();
+            this.spdClear = new RNGReporter.GlassButton();
+            this.speClear = new RNGReporter.GlassButton();
             this.contextMenuStripGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).BeginInit();
             this.SuspendLayout();
@@ -573,8 +579,8 @@
             // comboBoxShadowMethod
             // 
             this.comboBoxShadowMethod.BlankText = "Any";
-            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties4;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties3;
             this.comboBoxShadowMethod.DisplayMemberSingleItem = "";
             this.comboBoxShadowMethod.DropDownHeight = 90;
             this.comboBoxShadowMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -587,8 +593,8 @@
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties4;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -601,8 +607,8 @@
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties1;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -667,8 +673,8 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "PID";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewTextBoxColumn1.HeaderText = "PID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -1201,11 +1207,95 @@
             this.id.Text = "0";
             this.id.ValidatingType = typeof(int);
             // 
+            // hpClear
+            // 
+            this.hpClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.hpClear.ForeColor = System.Drawing.Color.Black;
+            this.hpClear.Location = new System.Drawing.Point(306, 70);
+            this.hpClear.Name = "hpClear";
+            this.hpClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.hpClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.hpClear.Size = new System.Drawing.Size(44, 23);
+            this.hpClear.TabIndex = 332;
+            this.hpClear.Text = "Clear";
+            this.hpClear.Click += new System.EventHandler(this.hpClear_Click);
+            // 
+            // atkClear
+            // 
+            this.atkClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.atkClear.ForeColor = System.Drawing.Color.Black;
+            this.atkClear.Location = new System.Drawing.Point(306, 103);
+            this.atkClear.Name = "atkClear";
+            this.atkClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.atkClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.atkClear.Size = new System.Drawing.Size(44, 23);
+            this.atkClear.TabIndex = 333;
+            this.atkClear.Text = "Clear";
+            this.atkClear.Click += new System.EventHandler(this.atkClear_Click);
+            // 
+            // defClear
+            // 
+            this.defClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.defClear.ForeColor = System.Drawing.Color.Black;
+            this.defClear.Location = new System.Drawing.Point(306, 139);
+            this.defClear.Name = "defClear";
+            this.defClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.defClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.defClear.Size = new System.Drawing.Size(44, 23);
+            this.defClear.TabIndex = 334;
+            this.defClear.Text = "Clear";
+            this.defClear.Click += new System.EventHandler(this.defClear_Click);
+            // 
+            // spaClear
+            // 
+            this.spaClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spaClear.ForeColor = System.Drawing.Color.Black;
+            this.spaClear.Location = new System.Drawing.Point(306, 173);
+            this.spaClear.Name = "spaClear";
+            this.spaClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spaClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.spaClear.Size = new System.Drawing.Size(44, 23);
+            this.spaClear.TabIndex = 335;
+            this.spaClear.Text = "Clear";
+            this.spaClear.Click += new System.EventHandler(this.spaClear_Click);
+            // 
+            // spdClear
+            // 
+            this.spdClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spdClear.ForeColor = System.Drawing.Color.Black;
+            this.spdClear.Location = new System.Drawing.Point(306, 207);
+            this.spdClear.Name = "spdClear";
+            this.spdClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spdClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.spdClear.Size = new System.Drawing.Size(44, 23);
+            this.spdClear.TabIndex = 336;
+            this.spdClear.Text = "Clear";
+            this.spdClear.Click += new System.EventHandler(this.spdClear_Click);
+            // 
+            // speClear
+            // 
+            this.speClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.speClear.ForeColor = System.Drawing.Color.Black;
+            this.speClear.Location = new System.Drawing.Point(306, 242);
+            this.speClear.Name = "speClear";
+            this.speClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.speClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.speClear.Size = new System.Drawing.Size(44, 23);
+            this.speClear.TabIndex = 337;
+            this.speClear.Text = "Clear";
+            this.speClear.Click += new System.EventHandler(this.speClear_Click);
+            // 
             // GameCube
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1144, 622);
+            this.Controls.Add(this.speClear);
+            this.Controls.Add(this.spdClear);
+            this.Controls.Add(this.spaClear);
+            this.Controls.Add(this.defClear);
+            this.Controls.Add(this.atkClear);
+            this.Controls.Add(this.hpClear);
             this.Controls.Add(this.id);
             this.Controls.Add(this.sid);
             this.Controls.Add(this.speValue);
@@ -1373,6 +1463,12 @@
         private Controls.MaskedTextBox2 speValue;
         private Controls.MaskedTextBox2 sid;
         private Controls.MaskedTextBox2 id;
+        private GlassButton hpClear;
+        private GlassButton atkClear;
+        private GlassButton defClear;
+        private GlassButton spaClear;
+        private GlassButton spdClear;
+        private GlassButton speClear;
     }
 }
 

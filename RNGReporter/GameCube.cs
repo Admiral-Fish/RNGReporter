@@ -2061,6 +2061,43 @@ namespace RNGReporter
         #endregion
 
         #region Quick search settings
+
+        private void hpClear_Click(object sender, EventArgs e)
+        {
+            hpValue.Text = "0";
+            hpLogic.SelectedIndex = 1;
+        }
+
+        private void atkClear_Click(object sender, EventArgs e)
+        {
+            atkValue.Text = "0";
+            atkLogic.SelectedIndex = 1;
+        }
+
+        private void defClear_Click(object sender, EventArgs e)
+        {
+            defValue.Text = "0";
+            defLogic.SelectedIndex = 1;
+        }
+
+        private void spaClear_Click(object sender, EventArgs e)
+        {
+            spaValue.Text = "0";
+            spaLogic.SelectedIndex = 1;
+        }
+
+        private void spdClear_Click(object sender, EventArgs e)
+        {
+            spdValue.Text = "0";
+            spdLogic.SelectedIndex = 1;
+        }
+
+        private void speClear_Click(object sender, EventArgs e)
+        {
+            speValue.Text = "0";
+            speLogic.SelectedIndex = 1;
+        }
+
         private void hp31Quick_Click(object sender, EventArgs e)
         {
             hpValue.Text = "31";

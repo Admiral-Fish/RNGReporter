@@ -277,9 +277,10 @@ namespace RNGReporter
             }
             MinDelay = uint.Parse(textBoxIDMinDelay.Text);
 
+            Year = uint.Parse(textBoxIDYear.Text);
+
             if (!cbxIDInf.Checked)
             {
-                Year = uint.Parse(textBoxIDYear.Text);
                 if (Year < 2000 || Year > 2099)
                 {
                     MessageBox.Show("Year must be between 2000 and 2099, inclusive.");

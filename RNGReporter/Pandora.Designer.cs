@@ -1034,7 +1034,7 @@ namespace RNGReporter
             this.XDColoPID.Name = "XDColoPID";
             this.XDColoPID.Size = new System.Drawing.Size(119, 20);
             this.XDColoPID.TabIndex = 7;
-            this.toolTips.SetToolTip(this.XDColoPID, "Enter the full seed given by RNG Reporter.");
+            this.toolTips.SetToolTip(this.XDColoPID, "Enter the PID you want shiny.");
             // 
             // XDColoPRNG
             // 
@@ -1044,7 +1044,7 @@ namespace RNGReporter
             this.XDColoPRNG.Name = "XDColoPRNG";
             this.XDColoPRNG.Size = new System.Drawing.Size(119, 20);
             this.XDColoPRNG.TabIndex = 3;
-            this.toolTips.SetToolTip(this.XDColoPRNG, "Enter TID to search for here.");
+            this.toolTips.SetToolTip(this.XDColoPRNG, "Enter the current PRNG state.");
             // 
             // tabGen3FRLGE
             // 
@@ -1186,7 +1186,7 @@ namespace RNGReporter
             this.genFRLGEPID.Name = "genFRLGEPID";
             this.genFRLGEPID.Size = new System.Drawing.Size(119, 20);
             this.genFRLGEPID.TabIndex = 7;
-            this.toolTips.SetToolTip(this.genFRLGEPID, "Enter the full seed given by RNG Reporter.");
+            this.toolTips.SetToolTip(this.genFRLGEPID, "Enter the PID you want shiny.");
             // 
             // genFRLGETID
             // 
@@ -1196,7 +1196,7 @@ namespace RNGReporter
             this.genFRLGETID.Name = "genFRLGETID";
             this.genFRLGETID.Size = new System.Drawing.Size(119, 20);
             this.genFRLGETID.TabIndex = 3;
-            this.toolTips.SetToolTip(this.genFRLGETID, "Enter TID to search for here.");
+            this.toolTips.SetToolTip(this.genFRLGETID, "Enter the TID you obtained,");
             // 
             // tabGen3RS
             // 

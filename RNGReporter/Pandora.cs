@@ -1715,7 +1715,7 @@ namespace RNGReporter
 
         private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
-            if (dgvResults.SelectedRows.Count == 0)
+            if (dgvResults.SelectedRows.Count == 0 || tabGenSelect.SelectedIndex != 0 || tabGenSelect.SelectedIndex != 1 || tabGenSelect.SelectedIndex != 2)
             {
                 e.Cancel = true;
             }
@@ -1725,7 +1725,7 @@ namespace RNGReporter
         {
             if (dgvResults.SelectedRows[0] != null)
             {
-                var frame = (IDList) dgvResults.SelectedRows[0].DataBoundItem;
+                var frame = (IDList)dgvResults.SelectedRows[0].DataBoundItem;
 
                 Clipboard.SetText(frame.Seed.ToString("X8"));
             }
@@ -1735,7 +1735,7 @@ namespace RNGReporter
         {
             if (dgvResults.SelectedRows[0] != null)
             {
-                var frame = (IDList) dgvResults.SelectedRows[0].DataBoundItem;
+                var frame = (IDList)dgvResults.SelectedRows[0].DataBoundItem;
 
                 // This is a bit of a strange hack, because this window
                 //  needs to be hidden before we load the seed to time
@@ -1751,7 +1751,7 @@ namespace RNGReporter
                 seedToTime.Seed = frame.Seed;
 
                 //  Grab this from what the user had searched on
-                seedToTime.Year = (uint) DateTime.Now.Year;
+                seedToTime.Year = (uint)DateTime.Now.Year;
 
                 seedToTime.Show();
             }
@@ -1985,7 +1985,7 @@ namespace RNGReporter
 
         private void tabGenSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabGenSelect.SelectedIndex == 2)
+            if (tabGenSelect.SelectedIndex == 4)
             {
                 if (Profiles.List == null || Profiles.List.Count == 0)
                 {
@@ -2018,9 +2018,10 @@ namespace RNGReporter
 
             formatGridIII();
 
-            ushort id = ushort.Parse(genFRLGETID.Text);
+            ushort id;
+            ushort.TryParse(genFRLGETID.Text, out id);
             uint pid;
-            bool test = uint.TryParse(genFRLGEPID.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out pid);            
+            uint.TryParse(genFRLGEPID.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out pid);            
 
             if (isSearching)
             {

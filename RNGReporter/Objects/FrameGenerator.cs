@@ -3803,7 +3803,7 @@ namespace RNGReporter.Objects
 
                 rngArray = new uint[maxResults + 5];
 
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults + 4; cnt++)
                     rngArray[cnt] = rng.GetNext16BitNumber();
 
                 for (uint cnt = 0; cnt < maxResults; cnt++)

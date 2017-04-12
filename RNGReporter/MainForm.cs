@@ -56,6 +56,7 @@ namespace RNGReporter
         private TimeFinder4th timeFinder4th;
         private TimeFinder5th timeFinder5th;
         private GameCube timeFinderGameCube;
+        private PIDToIVs pidToIVs;
 
         public MainForm()
         {
@@ -3149,7 +3150,8 @@ namespace RNGReporter
 
         private void pIDToIVsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var pidToIVs = new PIDToIVs();
+            if (pidToIVs == null)
+                pidToIVs = new PIDToIVs(this);
             pidToIVs.Show();
         }
 
@@ -3163,6 +3165,21 @@ namespace RNGReporter
 
             var pokespot = new PokeSpot(id, sid);
             pokespot.Show();
+        }
+
+        public void changeSeed(String seed)
+        {
+            textBoxSeed.Text = seed;
+        }
+
+        public void changeIVs(String[] ivs)
+        {
+            ivFilters.changeIVs(ivs);
+        }
+
+        public void changeType(int type)
+        {
+            comboBoxMethod.SelectedIndex = type;
         }
     }
 }

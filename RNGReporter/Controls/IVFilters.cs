@@ -208,6 +208,22 @@ namespace RNGReporter.Controls
             txtSpe.Text = "";
         }
 
+        public void changeIVs(String[] ivs)
+        {
+            txtHP.Text = ivs[0];
+            cbHP.SelectedIndex = 1;
+            txtAtk.Text = ivs[1];
+            cbAtk.SelectedIndex = 1;
+            txtDef.Text = ivs[2];
+            cbDef.SelectedIndex = 1;
+            txtSpA.Text = ivs[3];
+            cbSpA.SelectedIndex = 1;
+            txtSpD.Text = ivs[4];
+            cbSpD.SelectedIndex = 1;
+            txtSpe.Text = ivs[5];
+            cbSpe.SelectedIndex = 1;
+        }
+
         #endregion
 
         #region Value Changed

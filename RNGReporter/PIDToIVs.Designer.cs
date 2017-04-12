@@ -28,15 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewValues = new RNGReporter.DoubleBufferedDataGridView();
+            this.contextMenuStripGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copySeed = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveResultToMainForm = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveIVsToMainForm = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxSeed = new RNGReporter.Controls.MaskedTextBox2();
             this.label12 = new System.Windows.Forms.Label();
             this.buttonGenerate = new RNGReporter.GlassButton();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).BeginInit();
+            this.contextMenuStripGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewValues
@@ -58,6 +64,7 @@
             this.dataGridViewValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewValues.ColumnHeadersHeight = 20;
             this.dataGridViewValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewValues.ContextMenuStrip = this.contextMenuStripGrid;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -88,6 +95,37 @@
             this.dataGridViewValues.Size = new System.Drawing.Size(439, 213);
             this.dataGridViewValues.TabIndex = 11;
             // 
+            // contextMenuStripGrid
+            // 
+            this.contextMenuStripGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copySeed,
+            this.moveResultToMainForm,
+            this.moveIVsToMainForm});
+            this.contextMenuStripGrid.Name = "contextMenuStripGrid";
+            this.contextMenuStripGrid.Size = new System.Drawing.Size(180, 48);
+            this.contextMenuStripGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripGrid_Opening);
+            // 
+            // copySeed
+            // 
+            this.copySeed.Name = "copySeed";
+            this.copySeed.Size = new System.Drawing.Size(180, 22);
+            this.copySeed.Text = "Copy Seed to Clipboard";
+            this.copySeed.Click += new System.EventHandler(this.copySeedToClipboard_Click);
+            // 
+            // moveResultToMainForm
+            // 
+            this.moveResultToMainForm.Name = "moveResultToMainForm";
+            this.moveResultToMainForm.Size = new System.Drawing.Size(180, 22);
+            this.moveResultToMainForm.Text = "Move result to main window";
+            this.moveResultToMainForm.Click += new System.EventHandler(this.moveResultToMainForm_Click);
+            // 
+            // moveIVsToMainForm
+            //
+            this.moveIVsToMainForm.Name = "moveIVsToMainForm";
+            this.moveIVsToMainForm.Size = new System.Drawing.Size(180, 22);
+            this.moveIVsToMainForm.Text = "Move IVs to main window";
+            this.moveIVsToMainForm.Click += new System.EventHandler(this.moveIVsToMainForm_Click);
+            //
             // textBoxSeed
             // 
             this.textBoxSeed.Hex = true;
@@ -145,7 +183,9 @@
             this.MaximizeBox = false;
             this.Name = "PIDToIVs";
             this.Text = "PID To IVs";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PIDToIVs_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).EndInit();
+            this.contextMenuStripGrid.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,6 +194,10 @@
         #endregion
 
         private DoubleBufferedDataGridView dataGridViewValues;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripGrid;
+        private System.Windows.Forms.ToolStripMenuItem moveResultToMainForm;
+        private System.Windows.Forms.ToolStripMenuItem moveIVsToMainForm;
+        private System.Windows.Forms.ToolStripMenuItem copySeed;
         private Controls.MaskedTextBox2 textBoxSeed;
         private System.Windows.Forms.Label label12;
         private GlassButton buttonGenerate;

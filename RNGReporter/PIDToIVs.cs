@@ -20,13 +20,23 @@ namespace RNGReporter
         private ThreadDelegate gridUpdate;
         private BindingSource binding = new BindingSource();
         private List<PIDIVS> results;
+        private MainForm mainForm;
         private readonly String[] Method = { "Method 1", "Method 2", "Method 4", "XD/Colo", "Channel" };
 
-        public PIDToIVs()
+        public PIDToIVs(MainForm mainForm)
         {
             InitializeComponent();
             dataGridViewValues.DataSource = binding;
             dataGridViewValues.AutoGenerateColumns = true;
+            this.mainForm = mainForm;
+        }
+
+        private void PIDToIVs_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            if (searchThread != null)
+                searchThread.Abort();
+            Hide();
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)
@@ -359,6 +369,62 @@ namespace RNGReporter
         private void dataGridUpdate()
         {
             binding.ResetBindings(false);
+        }
+
+        private void contextMenuStripGrid_Opening(object sender, CancelEventArgs e)
+        {
+            if (dataGridViewValues.SelectedRows.Count == 0)
+                e.Cancel = true;
+        }
+
+        private void moveResultToMainForm_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewValues.SelectedRows[0] != null)
+            {
+                var frame = (PIDIVS)dataGridViewValues.SelectedRows[0].DataBoundItem;
+                String seed = frame.Seed;
+                String type = frame.Method;
+                String[] ivs = frame.IVs.Split('.');
+                mainForm.changeSeed(seed);
+                mainForm.changeIVs(ivs);
+                mainForm.changeType(getType(type));
+            }
+        }
+
+        private void moveIVsToMainForm_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewValues.SelectedRows[0] != null)
+            {
+                var frame = (PIDIVS)dataGridViewValues.SelectedRows[0].DataBoundItem;
+                String[] ivs = frame.IVs.Split('.');
+                mainForm.changeIVs(ivs);
+            }
+        }
+
+        private void copySeedToClipboard_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewValues.SelectedRows[0] != null)
+            {
+                var frame = (PIDIVS)dataGridViewValues.SelectedRows[0].DataBoundItem;
+                Clipboard.SetText(frame.Seed.ToString());
+            }
+        }
+
+        private int getType(String type)
+        {
+            switch(type)
+            {
+                case "Method 1":
+                    return 0;
+                case "Method 2":
+                    return 2;
+                case "Method 4":
+                    return 3;
+                case "XD/Colo":
+                    return 27;
+                default:
+                    return 28;
+            }
         }
     }
 }

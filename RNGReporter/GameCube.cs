@@ -80,8 +80,7 @@ namespace RNGReporter
         #region Start search
         private void search_Click(object sender, EventArgs e)
         {
-            uint[] ivsLower, ivsUpper;
-            getIVs(out ivsLower, out ivsUpper);
+            getIVs(out uint[] ivsLower, out uint[] ivsUpper);
             galesFlag = false;
 
             if (ivsLower[0] > ivsUpper[0])

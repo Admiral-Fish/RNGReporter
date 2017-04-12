@@ -94,6 +94,7 @@
             this.dataGridViewValues.ShowRowErrors = false;
             this.dataGridViewValues.Size = new System.Drawing.Size(439, 213);
             this.dataGridViewValues.TabIndex = 11;
+            this.dataGridViewValues.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewValues_MouseDown);
             // 
             // contextMenuStripGrid
             // 
@@ -102,30 +103,30 @@
             this.moveResultToMainForm,
             this.moveIVsToMainForm});
             this.contextMenuStripGrid.Name = "contextMenuStripGrid";
-            this.contextMenuStripGrid.Size = new System.Drawing.Size(180, 48);
+            this.contextMenuStripGrid.Size = new System.Drawing.Size(226, 70);
             this.contextMenuStripGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripGrid_Opening);
             // 
             // copySeed
             // 
             this.copySeed.Name = "copySeed";
-            this.copySeed.Size = new System.Drawing.Size(180, 22);
+            this.copySeed.Size = new System.Drawing.Size(225, 22);
             this.copySeed.Text = "Copy Seed to Clipboard";
             this.copySeed.Click += new System.EventHandler(this.copySeedToClipboard_Click);
             // 
             // moveResultToMainForm
             // 
             this.moveResultToMainForm.Name = "moveResultToMainForm";
-            this.moveResultToMainForm.Size = new System.Drawing.Size(180, 22);
+            this.moveResultToMainForm.Size = new System.Drawing.Size(225, 22);
             this.moveResultToMainForm.Text = "Move result to main window";
             this.moveResultToMainForm.Click += new System.EventHandler(this.moveResultToMainForm_Click);
             // 
             // moveIVsToMainForm
-            //
+            // 
             this.moveIVsToMainForm.Name = "moveIVsToMainForm";
-            this.moveIVsToMainForm.Size = new System.Drawing.Size(180, 22);
+            this.moveIVsToMainForm.Size = new System.Drawing.Size(225, 22);
             this.moveIVsToMainForm.Text = "Move IVs to main window";
             this.moveIVsToMainForm.Click += new System.EventHandler(this.moveIVsToMainForm_Click);
-            //
+            // 
             // textBoxSeed
             // 
             this.textBoxSeed.Hex = true;

@@ -1854,22 +1854,15 @@ namespace RNGReporter
         {
             IVsLower = new uint[6];
             IVsUpper = new uint[6];
+            uint[] ivs = new uint[6];
 
-            uint hp = 0;
-            uint atk = 0;
-            uint def = 0;
-            uint spa = 0;
-            uint spd = 0;
-            uint spe = 0;
+            uint.TryParse(hpValue.Text, out ivs[0]);
+            uint.TryParse(atkValue.Text, out ivs[1]);
+            uint.TryParse(defValue.Text, out ivs[2]);
+            uint.TryParse(spaValue.Text, out ivs[3]);
+            uint.TryParse(spdValue.Text, out ivs[4]);
+            uint.TryParse(speValue.Text, out ivs[5]);
 
-            uint.TryParse(hpValue.Text, out hp);
-            uint.TryParse(atkValue.Text, out atk);
-            uint.TryParse(defValue.Text, out def);
-            uint.TryParse(spaValue.Text, out spa);
-            uint.TryParse(spdValue.Text, out spd);
-            uint.TryParse(speValue.Text, out spe);
-
-            uint[] ivs = { hp, atk, def, spa, spd, spe };
             int[] ivsLogic = { hpLogic.SelectedIndex, atkLogic.SelectedIndex, defLogic.SelectedIndex, spaLogic.SelectedIndex, spdLogic.SelectedIndex, speLogic.SelectedIndex };
 
             for (int x = 0; x < 6; x++)
@@ -2386,6 +2379,24 @@ namespace RNGReporter
             {
                 var frame = (DisplayList)dataGridViewResult.SelectedRows[0].DataBoundItem;
                 Clipboard.SetText(frame.Seed.ToString());
+            }
+        }
+
+        private void dataGridViewValues_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo hti = dataGridViewResult.HitTest(e.X, e.Y);
+
+                if (hti.Type == DataGridViewHitTestType.Cell)
+                {
+                    if (!((dataGridViewResult.Rows[hti.RowIndex])).Selected)
+                    {
+                        dataGridViewResult.ClearSelection();
+
+                        (dataGridViewResult.Rows[hti.RowIndex]).Selected = true;
+                    }
+                }
             }
         }
 

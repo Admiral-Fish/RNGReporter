@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties4 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.L_ball = new System.Windows.Forms.Label();
             this.genderType = new System.Windows.Forms.ComboBox();
@@ -579,8 +579,8 @@
             // comboBoxShadowMethod
             // 
             this.comboBoxShadowMethod.BlankText = "Any";
-            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties3;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties1;
             this.comboBoxShadowMethod.DisplayMemberSingleItem = "";
             this.comboBoxShadowMethod.DropDownHeight = 90;
             this.comboBoxShadowMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -593,8 +593,8 @@
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties4;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties2;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -607,8 +607,8 @@
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties3;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -662,6 +662,7 @@
             this.dataGridViewResult.ShowRowErrors = false;
             this.dataGridViewResult.Size = new System.Drawing.Size(1117, 193);
             this.dataGridViewResult.TabIndex = 317;
+            this.dataGridViewResult.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewValues_MouseDown);
             // 
             // dataGridViewTextBoxColumn0
             // 
@@ -673,8 +674,8 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "PID";
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn1.HeaderText = "PID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;

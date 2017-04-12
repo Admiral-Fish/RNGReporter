@@ -426,5 +426,23 @@ namespace RNGReporter
                     return 28;
             }
         }
+
+        private void dataGridViewValues_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo hti = dataGridViewValues.HitTest(e.X, e.Y);
+
+                if (hti.Type == DataGridViewHitTestType.Cell)
+                {
+                    if (!((dataGridViewValues.Rows[hti.RowIndex])).Selected)
+                    {
+                        dataGridViewValues.ClearSelection();
+
+                        (dataGridViewValues.Rows[hti.RowIndex]).Selected = true;
+                    }
+                }
+            }
+        }
     }
 }

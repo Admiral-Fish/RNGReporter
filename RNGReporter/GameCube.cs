@@ -2422,6 +2422,25 @@ namespace RNGReporter
             file.Close();
             MessageBox.Show("Results exported to folder with RNGReporter.exe");
         }
+
+        private void dataGridViewResult_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridViewResult.DataSource != null && displayList != null && binding != null)
+            {
+                DataGridViewColumn selectedColumn = dataGridViewResult.Columns[e.ColumnIndex];
+
+                var idisplayListComparer = new IDisplayListComparator
+                { CompareType = selectedColumn.DataPropertyName };
+
+                if (selectedColumn.HeaderCell.SortGlyphDirection == SortOrder.Ascending)
+                    idisplayListComparer.sortOrder = SortOrder.Descending;
+
+                displayList.Sort(idisplayListComparer);
+
+                binding.ResetBindings(false);
+                selectedColumn.HeaderCell.SortGlyphDirection = idisplayListComparer.sortOrder;
+            }
+        }
         #endregion
 
         private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, String output)

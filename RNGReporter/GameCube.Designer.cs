@@ -662,6 +662,7 @@
             this.dataGridViewResult.ShowRowErrors = false;
             this.dataGridViewResult.Size = new System.Drawing.Size(1117, 193);
             this.dataGridViewResult.TabIndex = 317;
+            this.dataGridViewResult.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewResult_ColumnHeaderMouseClick);
             this.dataGridViewResult.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewValues_MouseDown);
             // 
             // dataGridViewTextBoxColumn0

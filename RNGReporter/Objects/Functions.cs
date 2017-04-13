@@ -111,6 +111,63 @@ namespace RNGReporter.Objects
             }
         }
 
+        public static int NatureNumber(String nature)
+        {
+            switch(nature)
+            {
+                case "Hardy":
+                    return 0;
+                case "Lonely":
+                    return 1;
+                case "Brave":
+                    return 2;
+                case "Adamant":
+                    return 3;
+                case "Naughty":
+                    return 4;
+                case "Bold":
+                    return 5;
+                case "Docile":
+                    return 6;
+                case "Relaxed":
+                    return 7;
+                case "Impish":
+                    return 8;
+                case "Lax":
+                    return 9;
+                case "Timid":
+                    return 10;
+                case "Hasty":
+                    return 11;
+                case "Serious":
+                    return 12;
+                case "Jolly":
+                    return 13;
+                case "Naive":
+                    return 14;
+                case "Modest":
+                    return 15;
+                case "Mild":
+                    return 16;
+                case "Quiet":
+                    return 17;
+                case "Bashful":
+                    return 18;
+                case "Rash":
+                    return 19;
+                case "Calm":
+                    return 20;
+                case "Gentle":
+                    return 21;
+                case "Sassy":
+                    return 22;
+                case "Careful":
+                    return 23;
+                default:
+                    return 24;
+            }
+        }
+
         public static string encounterItems(int slot)
         {
             if (slot < 12 || slot > 41)

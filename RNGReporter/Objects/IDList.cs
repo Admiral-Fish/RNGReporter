@@ -19,10 +19,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace RNGReporter.Objects
 {
-    internal class IDListBW
+    public class IDListBW
     {
         public ulong Seed { get; set; }
 
@@ -43,7 +44,7 @@ namespace RNGReporter.Objects
         public string Button { get; set; }
     }
 
-    internal class IDList
+    public class IDList
     {
         public IDList(uint seed, uint delay, uint tid, uint sid, uint seconds)
         {
@@ -98,5 +99,77 @@ namespace RNGReporter.Objects
         public String Seed { get; set; }
         public String Method { get; set; }
         public String IVs { get; set; }
+    }
+
+    public class IDListComparator : IComparer<IDList>
+    {
+        public string CompareType = "Seed";
+        public SortOrder sortOrder = SortOrder.Ascending;
+
+        public int Compare(IDList x, IDList y)
+        {
+            int result;
+            int direction = 1;
+
+            if (sortOrder == SortOrder.Descending)
+                direction = -1;
+
+            switch (CompareType)
+            {
+                case "Seed":
+                    return direction * x.Seed.CompareTo(y.Seed);
+                case "Delay":
+                    return direction * x.Delay.CompareTo(y.Delay);
+                case "ID":
+                    return direction * x.ID.CompareTo(y.ID);
+                case "SID":
+                    return direction * x.SID.CompareTo(y.SID);
+                case "Seconds":
+                    return direction * x.Seconds.CompareTo(y.Seconds);
+                default:
+                    //use ordinal due to better efficiency and because it uses the current culture
+                    result = direction *
+                             String.CompareOrdinal(x.GetType().GetProperty(CompareType).GetValue(x, null).ToString(),
+                                                   y.GetType().GetProperty(CompareType).GetValue(y, null).ToString());
+
+                    return result;
+            }
+        }
+    }
+
+    public class IDListBWComparator : IComparer<IDListBW>
+    {
+        public string CompareType = "Seed";
+        public SortOrder sortOrder = SortOrder.Ascending;
+
+        public int Compare(IDListBW x, IDListBW y)
+        {
+            int result;
+            int direction = 1;
+
+            if (sortOrder == SortOrder.Descending)
+                direction = -1;
+
+            switch (CompareType)
+            {
+                case "Seed":
+                    return direction * x.Seed.CompareTo(y.Seed);
+                case "Initial Frame":
+                    return direction * x.InitialFrame.CompareTo(y.InitialFrame);
+                case "Frame":
+                    return direction * x.Frame.CompareTo(y.Frame);
+                case "ID":
+                    return direction * x.ID.CompareTo(y.ID);
+                case "SID":
+                    return direction * x.SID.CompareTo(y.SID);
+                default:
+                    //use ordinal due to better efficiency and because it uses the current culture
+                    result = direction *
+                             String.CompareOrdinal(x.GetType().GetProperty(CompareType).GetValue(x, null).ToString(),
+                                                   y.GetType().GetProperty(CompareType).GetValue(y, null).ToString());
+
+                    return result;
+            }
+        }
     }
 }

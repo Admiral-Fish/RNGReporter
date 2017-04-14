@@ -2029,6 +2029,7 @@ namespace RNGReporter
             this.dgvResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvResults.Size = new System.Drawing.Size(596, 175);
             this.dgvResults.TabIndex = 25;
+            this.dgvResults.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewCapValues_ColumnHeaderMouseClick);
             this.dgvResults.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvResults_MouseDown);
             // 
             // clmSeed

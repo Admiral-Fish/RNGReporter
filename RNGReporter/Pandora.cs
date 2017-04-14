@@ -2117,5 +2117,45 @@ namespace RNGReporter
                 searchThread.Abort();
             }
         }
+
+        private void dataGridViewCapValues_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (tabGenSelect.SelectedIndex == 3)
+            {
+                if (dgvResults.DataSource != null && resultsList != null && binding != null)
+                {
+                    DataGridViewColumn selectedColumn = dgvResults.Columns[e.ColumnIndex];
+
+                    var idListComparator = new IDListComparator
+                    { CompareType = selectedColumn.DataPropertyName };
+
+                    if (selectedColumn.HeaderCell.SortGlyphDirection == SortOrder.Ascending)
+                        idListComparator.sortOrder = SortOrder.Descending;
+
+                    resultsList.Sort(idListComparator);
+
+                    binding.ResetBindings(false);
+                    selectedColumn.HeaderCell.SortGlyphDirection = idListComparator.sortOrder;
+                }
+            }
+            else if (tabGenSelect.SelectedIndex == 4)
+            {
+                if (dgvResults.DataSource != null && resultsListBW != null && binding != null)
+                {
+                    DataGridViewColumn selectedColumn = dgvResults.Columns[e.ColumnIndex];
+
+                    var idListBWComparator = new IDListBWComparator
+                    { CompareType = selectedColumn.DataPropertyName };
+
+                    if (selectedColumn.HeaderCell.SortGlyphDirection == SortOrder.Ascending)
+                        idListBWComparator.sortOrder = SortOrder.Descending;
+
+                    resultsListBW.Sort(idListBWComparator);
+
+                    binding.ResetBindings(false);
+                    selectedColumn.HeaderCell.SortGlyphDirection = idListBWComparator.sortOrder;
+                }
+            }
+        }
     }
 }

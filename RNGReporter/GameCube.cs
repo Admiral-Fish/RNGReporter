@@ -26,6 +26,7 @@ namespace RNGReporter
         private uint[] natureLock;
         private int forwardCounter;
         private int backwardCounter;
+        private uint searchNumber;
         private static List<uint> natureList;
         private static List<uint> hiddenPowerList;
         private static bool galesFlag = false;
@@ -130,6 +131,7 @@ namespace RNGReporter
                 forwardCounter = 0;
                 backwardCounter = 0;
                 shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
+                searchNumber = getSearchMethod();
 
                 if (galesCheck.Checked)
                     Reason.Visible = true;
@@ -146,15 +148,14 @@ namespace RNGReporter
 
         private void getSearch(uint[] ivsLower, uint[] ivsUpper)
         {
-            uint test = getSearchMethod();
-            if (test == 0)
+            if (searchNumber == 0)
             {
                 if (wshMkr.Checked)
                     generateWishmkr(ivsLower, ivsUpper);
                 else
                     getRMethod(ivsLower, ivsUpper);
             }
-            else if (test == 1)
+            else if (searchNumber == 1)
             {
                 if (galesCheck.Checked == true)
                     getGalesMethod(ivsLower, ivsUpper);
@@ -1419,7 +1420,7 @@ namespace RNGReporter
         private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
         {
             uint x16 = spd << 27;
-            uint upper = x16 + 0x7ffffff + (31 - spd);
+            uint upper = x16 + 0x7ffffff;
 
             while (x16 < upper)
             {
@@ -1448,12 +1449,13 @@ namespace RNGReporter
                                     uint pid1 = reverseXD(pid2);
                                     uint sid = reverseXD(pid1);
                                     uint seed = reverseXD(sid);
-                                    uint pid = (((pid1 >> 16) << 16) | (pid2 >> 16)) ^ 0x80000000;
-                                    if (Functions.Shiny(pid, 40122, (ushort)(sid >> 16)))
-                                        pid ^= 0x80000000;
+                                    uint pid = ((((pid1 >> 16) ^ 0x8000) << 16) | (pid2 >> 16));
                                     uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                                     if (natureList == null || natureList.Contains(nature))
+                                    {
+                                        shinyval = (40122 ^ (sid >> 16)) >> 3;
                                         filterSeedChannel(hp, atk, def, spa, spd, spe, ability, gender, seed, pid, nature);
+                                    }
                                 }
                             }
                         }
@@ -1484,18 +1486,24 @@ namespace RNGReporter
                         uint[] ivs = calcIVsChannel(ivsLower, ivsUpper, n, 0);
                         if (ivs.Length != 1)
                         {
-                            uint pid = pidChkChannel(n, 0, rlist[(int)n+1]);
+                            uint pid = pidChkChannel(n, 0);
                             uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
+                            {
+                                shinyval = (40122 ^ rlist[(int)n + 1]) >> 3;
                                 filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, slist[(int)n], pid, actualNature);
+                            }
 
                             ivs = calcIVsChannel(ivsLower, ivsUpper, n, 1);
                             if (ivs.Length != 1)
                             {
-                                pid = pidChkChannel(n, 1, rlist[(int)n+1] ^ 0x8000);
+                                pid = pidChkChannel(n, 1);
                                 actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                                 if (natureList == null || natureList.Contains(actualNature))
+                                {
+                                    shinyval = (40122 ^ (rlist[(int)n + 1] ^ 0x8000)) >> 3;
                                     filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, (slist[(int)n] ^ 0x80000000), pid, actualNature);
+                                }
                             }
                         }
                     }
@@ -1545,20 +1553,23 @@ namespace RNGReporter
             return ivs;
         }
 
-        private uint pidChkChannel(uint frame, uint xor_val, uint sid)
+        private uint pidChkChannel(uint frame, uint xor_val)
         {
             uint pid = ((rlist[(int)(frame + 2)] ^ 0x8000) << 16) | rlist[(int)(frame + 3)];
-            if (Functions.Shiny(pid, 40122, (ushort)sid))
-                pid ^= 0x80000000;
             if (xor_val == 1)
                 pid = pid ^ 0x80008000;
-
             return pid;
         }
 
         private void filterSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint seed, uint pid, uint nature)
         {
             String shiny = "";
+            if (Shiny_Check.Checked == true)
+            {
+                if (!isShiny(pid))
+                    return;
+                shiny = "!!!";
+            }
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
             if (hiddenPowerList != null)
@@ -2356,7 +2367,7 @@ namespace RNGReporter
             else
             {
                 wshMkr.Visible = false;
-                Shiny_Check.Visible = false;
+                Shiny_Check.Visible = true;
                 shadowMethodLabel.Visible = false;
                 comboBoxShadowMethod.Visible = false;
                 anyShadowMethod.Visible = false;

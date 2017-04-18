@@ -747,6 +747,11 @@ namespace RNGReporter
             //  This is where we actually go ahead and call our 
             //  generator for a list of IVs based on parameters
             //  that have been passed in.
+
+            //Channel
+            if(generator.FrameType == FrameType.Channel)
+                id = 40122;
+
             frames = generator.Generate(frameCompare, id, sid);
 
             foreach (Frame frame in frames)

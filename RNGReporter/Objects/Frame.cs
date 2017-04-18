@@ -864,23 +864,19 @@ namespace RNGReporter.Objects
                 seed = seed,
                 number = number,
                 RngResult = rngResult,
-            };
-
-            uint monPID = ((pid1 ^ 0x8000) << 16) | pid2;
-            if (Functions.Shiny(monPID, 40122, (ushort)sid))
-                monPID ^= 0x80000000;
+                id = id,
+                sid = sid,
+                Pid = ((pid1 ^ 0x8000) << 16) | pid2
+        };
 
             frame.id = id;
             frame.sid = sid;
-            frame.pid = monPID;
             frame.Hp = dv1;
             frame.Atk = dv2;
             frame.Def = dv3;
             frame.Spa = dv4;
             frame.Spd = dv5;
             frame.Spe = dv6;
-            frame.Nature = (monPID % 25);
-            frame.ability = monPID & 1;
 
             return frame;
         }

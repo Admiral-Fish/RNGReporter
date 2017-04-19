@@ -859,6 +859,9 @@ namespace RNGReporter.Objects
             uint id,
             uint sid)
         {
+            if ((pid2 > 7 ? 0 : 1) != (pid1 ^ 40122 ^ sid))
+                pid1 ^= 0x8000;
+
             var frame = new Frame(frameType)
             {
                 seed = seed,
@@ -866,11 +869,9 @@ namespace RNGReporter.Objects
                 RngResult = rngResult,
                 id = id,
                 sid = sid,
-                Pid = ((pid1 ^ 0x8000) << 16) | pid2
-        };
-
-            frame.id = id;
-            frame.sid = sid;
+                Pid = (pid1 << 16) | pid2
+            };
+            
             frame.Hp = dv1;
             frame.Atk = dv2;
             frame.Def = dv3;

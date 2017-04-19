@@ -1449,7 +1449,11 @@ namespace RNGReporter
                                     uint pid1 = reverseXD(pid2);
                                     uint sid = reverseXD(pid1);
                                     uint seed = reverseXD(sid);
-                                    uint pid = ((((pid1 >> 16) ^ 0x8000) << 16) | (pid2 >> 16));
+                                    pid2 >>= 16;
+                                    pid1 >>= 16;
+                                    uint pid = (pid1 << 16) | pid2;
+                                    if ((pid2 > 7 ? 0 : 1) != (pid1 ^ (sid >> 16) ^ 40122))
+                                        pid ^= 0x80000000;
                                     uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                                     if (natureList == null || natureList.Contains(nature))
                                     {
@@ -1486,7 +1490,7 @@ namespace RNGReporter
                         uint[] ivs = calcIVsChannel(ivsLower, ivsUpper, n, 0);
                         if (ivs.Length != 1)
                         {
-                            uint pid = pidChkChannel(n, 0);
+                            uint pid = pidChkChannel(rlist[(int)(n + 2)], rlist[(int)(n + 3)], rlist[(int)n + 1]);
                             uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(actualNature))
                             {
@@ -1497,7 +1501,7 @@ namespace RNGReporter
                             ivs = calcIVsChannel(ivsLower, ivsUpper, n, 1);
                             if (ivs.Length != 1)
                             {
-                                pid = pidChkChannel(n, 1);
+                                pid = pidChkChannel(rlist[(int)(n + 2)] ^ 0x8000, rlist[(int)(n + 3)] ^ 0x8000, rlist[(int)n + 1] ^ 0x8000);
                                 actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                                 if (natureList == null || natureList.Contains(actualNature))
                                 {
@@ -1553,11 +1557,11 @@ namespace RNGReporter
             return ivs;
         }
 
-        private uint pidChkChannel(uint frame, uint xor_val)
+        private uint pidChkChannel(uint pid1, uint pid2, uint sid)
         {
-            uint pid = ((rlist[(int)(frame + 2)] ^ 0x8000) << 16) | rlist[(int)(frame + 3)];
-            if (xor_val == 1)
-                pid = pid ^ 0x80008000;
+            uint pid = pid1 << 16 | pid2;
+            if ((pid2 > 7 ? 0 : 1) != (pid1 ^ sid ^ 40122))
+                pid ^= 0x80000000;
             return pid;
         }
 

@@ -1196,7 +1196,7 @@ namespace RNGReporter
             this.genFRLGETID.Name = "genFRLGETID";
             this.genFRLGETID.Size = new System.Drawing.Size(119, 20);
             this.genFRLGETID.TabIndex = 3;
-            this.toolTips.SetToolTip(this.genFRLGETID, "Enter the TID you obtained,");
+            this.toolTips.SetToolTip(this.genFRLGETID, "Enter the TID you obtained.");
             // 
             // tabGen3RS
             // 

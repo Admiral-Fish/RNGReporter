@@ -937,49 +937,46 @@ namespace RNGReporter
                                 else
                                 {
                                     int forward = method2MultiNL(seed, n, sisterSeed);
-                                    if (forward != 0)
+                                    foreach (int secondShadowNum in secondShadow)
                                     {
-                                        foreach (int secondShadowNum in secondShadow)
+                                        uint pid;
+                                        int shinySkipCount = 0;
+                                        if (secondShadowNum == 1)
                                         {
-                                            uint pid;
-                                            int shinySkipCount = 0;
-                                            if (secondShadowNum == 1)
+                                            forward += 5;
+                                            pid = pidChk((uint)(n + forward), sisterSeed);
+                                        }
+                                        else if (secondShadowNum == 2)
+                                        {
+                                            forward += 7;
+                                            pid = pidChk((uint)(n + forward), sisterSeed);
+                                        }
+                                        else
+                                        {
+                                            forward += 7;
+                                            pid = pidChk((uint)(n + forward), sisterSeed);
+                                            uint tsv = ((pid >> 16) ^ (pid & 0xFFFF)) >> 3;
+                                            bool shinySkipFlag = true;
+                                            while(shinySkipFlag)
                                             {
-                                                forward += 5;
-                                                pid = pidChk((uint)(n + forward), sisterSeed);
+                                                shinySkipCount += 2;
+                                                pid = pidChk((uint)(n + forward + shinySkipCount), sisterSeed);
+                                                uint temptsv = ((pid >> 16) ^ (pid & 0xFFFF)) >> 3;
+                                                if (temptsv != tsv)
+                                                    shinySkipFlag = false;
+                                                else
+                                                    tsv = temptsv;
                                             }
-                                            else if (secondShadowNum == 2)
+                                        }
+                                        uint tempSeed = sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000;
+                                        if (!seedList.Contains(tempSeed))
+                                        {
+                                            uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forward + shinySkipCount));
+                                            if (ivs.Length != 1)
                                             {
-                                                forward += 7;
-                                                pid = pidChk((uint)(n + forward), sisterSeed);
-                                            }
-                                            else
-                                            {
-                                                forward += 7;
-                                                pid = pidChk((uint)(n + forward), sisterSeed);
-                                                uint tsv = ((pid >> 16) ^ (pid & 0xFFFF)) >> 3;
-                                                bool shinySkipFlag = true;
-                                                while(shinySkipFlag)
-                                                {
-                                                    shinySkipCount += 2;
-                                                    pid = pidChk((uint)(n + forward + shinySkipCount), sisterSeed);
-                                                    uint temptsv = ((pid >> 16) ^ (pid & 0xFFFF)) >> 3;
-                                                    if (temptsv != tsv)
-                                                        shinySkipFlag = false;
-                                                    else
-                                                        tsv = temptsv;
-                                                }
-                                            }
-                                            uint tempSeed = sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000;
-                                            if (!seedList.Contains(tempSeed))
-                                            {
-                                                uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forward + shinySkipCount));
-                                                if (ivs.Length != 1)
-                                                {
-                                                    uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
-                                                    if (natureList == null || natureList.Contains(actualNature))
-                                                        filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, actualNature, tempSeed, secondShadowNum);
-                                                }
+                                                uint actualNature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                                                if (natureList == null || natureList.Contains(actualNature))
+                                                    filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, actualNature, tempSeed, secondShadowNum);
                                             }
                                         }
                                     }
@@ -2482,7 +2479,7 @@ namespace RNGReporter
             gender3 = gender < 126 ? 'F' : 'M';
             gender4 = gender < 191 ? 'F' : 'M';
 
-            displayList.Add(new DisplayList
+            displayList.Insert(0, new DisplayList
             {
                 Seed = seed.ToString("x").ToUpper(),
                 PID = pid.ToString("x").ToUpper(),

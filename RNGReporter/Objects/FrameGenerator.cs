@@ -31,8 +31,7 @@ namespace RNGReporter.Objects
         protected uint maxResults;
         protected IRNG mt;
         protected BWRng rng64 = new BWRng(0);
-        protected uint[] rngArray;
-        protected Queue<uint> rngQueue;
+        protected List<uint> rngArray;
 
         public FrameGenerator()
         {
@@ -122,7 +121,7 @@ namespace RNGReporter.Objects
                     else
                         mt = new MersenneTwister(0);
 
-                    rngArray = new uint[maxResults + 9];
+                    rngArray = new List<uint>();
                     break;
                 case FrameType.Method5CGear:
                     if ((maxResults + InitialFrame) < 219)
@@ -132,10 +131,10 @@ namespace RNGReporter.Objects
                     else
                         mt = new MersenneTwister(0);
 
-                    rngArray = new uint[maxResults + 8];
+                    rngArray = new List<uint>();
                     break;
                 case FrameType.Method5Natures:
-                    rngArray = new uint[maxResults + 9];
+                    rngArray = new List<uint>();
                     break;
             }
         }
@@ -1303,30 +1302,26 @@ namespace RNGReporter.Objects
                 mt.Reseed((uint) InitialSeed);
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
-                {
                     mt.Nextuint();
-                }
 
-                for (int i = 0; i < (maxResults + 6); i++)
-                {
-                    rngArray[i] = mt.Nextuint() >> 27;
-                }
+                for (int i = 0; i < 6; i++)
+                    rngArray.Add(mt.Nextuint() >> 27);
 
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(mt.Nextuint() >> 27))
                 {
                     if (EncounterType == EncounterType.Roamer)
                     {
-                        if (!frameCompare.CompareIV(0, rngArray[cnt + 1]))
+                        if (!frameCompare.CompareIV(0, rngArray[1]))
                             continue;
-                        if (!frameCompare.CompareIV(1, rngArray[cnt + 2]))
+                        if (!frameCompare.CompareIV(1, rngArray[2]))
                             continue;
-                        if (!frameCompare.CompareIV(2, rngArray[cnt + 3]))
+                        if (!frameCompare.CompareIV(2, rngArray[3]))
                             continue;
-                        if (!frameCompare.CompareIV(3, rngArray[cnt + 6]))
+                        if (!frameCompare.CompareIV(3, rngArray[6]))
                             continue;
-                        if (!frameCompare.CompareIV(4, rngArray[cnt + 4]))
+                        if (!frameCompare.CompareIV(4, rngArray[4]))
                             continue;
-                        if (!frameCompare.CompareIV(5, rngArray[cnt + 5]))
+                        if (!frameCompare.CompareIV(5, rngArray[5]))
                             continue;
 
                         frame =
@@ -1334,26 +1329,26 @@ namespace RNGReporter.Objects
                                 FrameType.Method5Standard,
                                 cnt + InitialFrame,
                                 (uint) InitialSeed,
-                                rngArray[cnt + 1],
-                                rngArray[cnt + 2],
-                                rngArray[cnt + 3],
-                                rngArray[cnt + 6],
-                                rngArray[cnt + 4],
-                                rngArray[cnt + 5]);
+                                rngArray[1],
+                                rngArray[2],
+                                rngArray[3],
+                                rngArray[6],
+                                rngArray[4],
+                                rngArray[5]);
                     }
                     else
                     {
-                        if (!frameCompare.CompareIV(0, rngArray[cnt]))
+                        if (!frameCompare.CompareIV(0, rngArray[0]))
                             continue;
-                        if (!frameCompare.CompareIV(1, rngArray[cnt + 1]))
+                        if (!frameCompare.CompareIV(1, rngArray[1]))
                             continue;
-                        if (!frameCompare.CompareIV(2, rngArray[cnt + 2]))
+                        if (!frameCompare.CompareIV(2, rngArray[2]))
                             continue;
-                        if (!frameCompare.CompareIV(3, rngArray[cnt + 3]))
+                        if (!frameCompare.CompareIV(3, rngArray[3]))
                             continue;
-                        if (!frameCompare.CompareIV(4, rngArray[cnt + 4]))
+                        if (!frameCompare.CompareIV(4, rngArray[4]))
                             continue;
-                        if (!frameCompare.CompareIV(5, rngArray[cnt + 5]))
+                        if (!frameCompare.CompareIV(5, rngArray[5]))
                             continue;
 
                         frame =
@@ -1361,12 +1356,12 @@ namespace RNGReporter.Objects
                                 FrameType.Method5Standard,
                                 cnt + InitialFrame,
                                 (uint) InitialSeed,
-                                rngArray[cnt],
-                                rngArray[cnt + 1],
-                                rngArray[cnt + 2],
-                                rngArray[cnt + 3],
-                                rngArray[cnt + 4],
-                                rngArray[cnt + 5]);
+                                rngArray[0],
+                                rngArray[1],
+                                rngArray[2],
+                                rngArray[3],
+                                rngArray[4],
+                                rngArray[5]);
                     }
 
                     frames.Add(frame);
@@ -1381,32 +1376,28 @@ namespace RNGReporter.Objects
                 mt.Nextuint();
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
-                {
                     mt.Nextuint();
-                }
 
-                for (int i = 0; i < (maxResults + 8); i++)
-                {
-                    rngArray[i] = mt.Nextuint() >> 27;
-                }
+                for (int i = 0; i < 6; i++)
+                    rngArray.Add(mt.Nextuint() >> 27);
 
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(mt.Nextuint() >> 27))
                 {
                     frame = null;
 
                     if (EncounterType == EncounterType.Roamer)
                     {
-                        if (!frameCompare.CompareIV(0, rngArray[cnt + 1]))
+                        if (!frameCompare.CompareIV(0, rngArray[1]))
                             continue;
-                        if (!frameCompare.CompareIV(1, rngArray[cnt + 2]))
+                        if (!frameCompare.CompareIV(1, rngArray[2]))
                             continue;
-                        if (!frameCompare.CompareIV(2, rngArray[cnt + 3]))
+                        if (!frameCompare.CompareIV(2, rngArray[3]))
                             continue;
-                        if (!frameCompare.CompareIV(3, rngArray[cnt + 6]))
+                        if (!frameCompare.CompareIV(3, rngArray[6]))
                             continue;
-                        if (!frameCompare.CompareIV(4, rngArray[cnt + 4]))
+                        if (!frameCompare.CompareIV(4, rngArray[4]))
                             continue;
-                        if (!frameCompare.CompareIV(5, rngArray[cnt + 5]))
+                        if (!frameCompare.CompareIV(5, rngArray[5]))
                             continue;
 
                         frame =
@@ -1414,26 +1405,26 @@ namespace RNGReporter.Objects
                                 FrameType.Method5CGear,
                                 cnt + InitialFrame,
                                 (uint) InitialSeed,
-                                rngArray[cnt + 1],
-                                rngArray[cnt + 2],
-                                rngArray[cnt + 3],
-                                rngArray[cnt + 6],
-                                rngArray[cnt + 4],
-                                rngArray[cnt + 5]);
+                                rngArray[1],
+                                rngArray[2],
+                                rngArray[3],
+                                rngArray[6],
+                                rngArray[4],
+                                rngArray[5]);
                     }
                     else
                     {
-                        if (!frameCompare.CompareIV(0, rngArray[cnt]))
+                        if (!frameCompare.CompareIV(0, rngArray[0]))
                             continue;
-                        if (!frameCompare.CompareIV(1, rngArray[cnt + 1]))
+                        if (!frameCompare.CompareIV(1, rngArray[1]))
                             continue;
-                        if (!frameCompare.CompareIV(2, rngArray[cnt + 2]))
+                        if (!frameCompare.CompareIV(2, rngArray[2]))
                             continue;
-                        if (!frameCompare.CompareIV(3, rngArray[cnt + 3]))
+                        if (!frameCompare.CompareIV(3, rngArray[3]))
                             continue;
-                        if (!frameCompare.CompareIV(4, rngArray[cnt + 4]))
+                        if (!frameCompare.CompareIV(4, rngArray[4]))
                             continue;
-                        if (!frameCompare.CompareIV(5, rngArray[cnt + 5]))
+                        if (!frameCompare.CompareIV(5, rngArray[5]))
                             continue;
 
                         frame =
@@ -1441,12 +1432,12 @@ namespace RNGReporter.Objects
                                 FrameType.Method5CGear,
                                 cnt + InitialFrame,
                                 (uint) InitialSeed,
-                                rngArray[cnt],
-                                rngArray[cnt + 1],
-                                rngArray[cnt + 2],
-                                rngArray[cnt + 3],
-                                rngArray[cnt + 4],
-                                rngArray[cnt + 5]);
+                                rngArray[0],
+                                rngArray[1],
+                                rngArray[2],
+                                rngArray[3],
+                                rngArray[4],
+                                rngArray[5]);
                     }
 
                     frames.Add(frame);
@@ -1462,27 +1453,23 @@ namespace RNGReporter.Objects
                 uint idLower = (id & 1) ^ (sid & 1);
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
-                {
                     rng64.GetNext64BitNumber();
-                }
 
-                for (int cnt = 0; cnt < maxResults + 7; cnt++)
-                {
-                    rngArray[cnt] = rng64.GetNext32BitNumber();
-                }
+                for (int cnt = 0; cnt < 7; cnt++)
+                    rngArray.Add(rng64.GetNext32BitNumber());
 
                 var entreeTimer = new CGearTimer();
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng64.GetNext32BitNumber()))
                 {
                     uint nature;
                     uint pid;
                     bool synchable;
                     if (EncounterType == EncounterType.Gift || EncounterType == EncounterType.Roamer)
                     {
-                        nature = (uint) (((ulong) rngArray[1 + cnt]*25) >> 32);
+                        nature = (uint) (((ulong) rngArray[1]*25) >> 32);
                         synchable = false;
 
-                        pid = rngArray[0 + cnt];
+                        pid = rngArray[0];
                         if (EncounterType != EncounterType.Roamer)
                             pid = pid ^ 0x10000;
                     }
@@ -1492,38 +1479,38 @@ namespace RNGReporter.Objects
                         if (EncounterType == EncounterType.Wild || EncounterType == EncounterType.WildSurfing ||
                             EncounterType == EncounterType.WildWaterSpot)
                         {
-                            encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1 + cnt], frameType, EncounterType,
+                            encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1], frameType, EncounterType,
                                                                             isBW2);
 
                             if (EncounterMod == EncounterMod.Synchronize)
                             {
-                                synchable = (rngArray[0 + cnt] >> 31) == 1;
+                                synchable = (rngArray[0] >> 31) == 1;
                                 if (synchable)
                                     nature = (uint) SynchNature;
                                 else
-                                    nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
-                                pid = rngArray[3 + cnt];
+                                pid = rngArray[3];
                                 pid = pid ^ 0x10000;
                             }
                             else if (EncounterMod == EncounterMod.CuteCharm)
                             {
-                                pid = rngArray[3 + cnt];
+                                pid = rngArray[3];
                                 pid = pid ^ 0x10000;
 
                                 // not a synch, but the CC check -- need to relabel (unfinished)
-                                synchable = ((((ulong) rngArray[0 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                synchable = ((((ulong) rngArray[0]*0xFFFF) >> 32)/656) < 67;
 
                                 // failed CC check
                                 if (!synchable)
                                 {
                                     // leave it as-is
-                                    nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[4]*25) >> 32);
                                 }
                                 else
                                 {
-                                    pid = Functions.GenderModPID(pid, rngArray[4 + cnt], SynchNature);
-                                    nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                    pid = Functions.GenderModPID(pid, rngArray[4], SynchNature);
+                                    nature = (uint) (((ulong) rngArray[5]*25) >> 32);
                                 }
 
                                 synchable = false;
@@ -1532,33 +1519,33 @@ namespace RNGReporter.Objects
                                      EncounterMod == EncounterMod.SuctionCups)
                             {
                                 synchable = false;
-                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[0 + cnt], frameType,
+                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[0], frameType,
                                                                                 EncounterType);
-                                nature = (uint) (((ulong) rngArray[3 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[3]*25) >> 32);
 
-                                pid = rngArray[2 + cnt];
+                                pid = rngArray[2];
                                 pid = pid ^ 0x10000;
                             }
                             else if (EncounterMod == EncounterMod.Search)
                             {
-                                pid = rngArray[3 + cnt];
+                                pid = rngArray[3];
                                 pid = pid ^ 0x10000;
 
                                 // not a synch, but the CC check -- need to relabel (unfinished)
-                                synchable = ((((ulong) rngArray[0 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                synchable = ((((ulong) rngArray[0]*0xFFFF) >> 32)/656) < 67;
 
                                 // passed CC check
                                 if (synchable)
                                 {
                                     // Add all the Cute Charm possibilities
-                                    nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[5]*25) >> 32);
 
                                     for (int i = -4; i < 5; i++)
                                     {
                                         if (i == 0)
                                             continue;
 
-                                        uint tempPid = Functions.GenderModPID(pid, rngArray[4 + cnt], i);
+                                        uint tempPid = Functions.GenderModPID(pid, rngArray[4], i);
 
                                         idTest = (idLower ^ (tempPid & 1) ^ (tempPid >> 31));
                                         if (idTest == 1)
@@ -1568,7 +1555,7 @@ namespace RNGReporter.Objects
                                             FrameType.Method5Natures,
                                             EncounterType,
                                             cnt + InitialFrame,
-                                            rngArray[0 + cnt],
+                                            rngArray[0],
                                             tempPid,
                                             id,
                                             sid,
@@ -1612,8 +1599,8 @@ namespace RNGReporter.Objects
                                     }
                                 }
 
-                                synchable = (rngArray[0 + cnt] >> 31) == 1;
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                synchable = (rngArray[0] >> 31) == 1;
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
                                 if (synchable && !frameCompare.CompareNature(nature))
                                     mod = EncounterMod.Synchronize;
@@ -1622,11 +1609,11 @@ namespace RNGReporter.Objects
                             }
                             else
                             {
-                                pid = rngArray[3 + cnt];
+                                pid = rngArray[3];
                                 pid = pid ^ 0x10000;
 
-                                synchable = (rngArray[0 + cnt] >> 31) == 1;
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                synchable = (rngArray[0] >> 31) == 1;
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
                             }
 
                             idTest = (idLower ^ (pid & 1) ^ (pid >> 31));
@@ -1635,16 +1622,16 @@ namespace RNGReporter.Objects
                         }
                         else if (EncounterType == EncounterType.WildCaveSpot)
                         {
-                            if (((ulong) rngArray[0 + cnt]*1000 >> 32) < 400)
+                            if (((ulong) rngArray[0]*1000 >> 32) < 400)
                             {
-                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[2 + cnt], frameType,
+                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[2], frameType,
                                                                                 EncounterType);
                             }
                             else
                             {
-                                uint calc = ((ulong) rngArray[1 + cnt]*1000 >> 32) < 100 ? 1000u : 1700u;
+                                uint calc = ((ulong) rngArray[1]*1000 >> 32) < 100 ? 1000u : 1700u;
 
-                                uint result = (uint) ((ulong) rngArray[2 + cnt]*calc >> 32)/100;
+                                uint result = (uint) ((ulong) rngArray[2]*calc >> 32)/100;
 
                                 if (calc == 1000)
                                     encounterSlot = (int) result + 13;
@@ -1654,33 +1641,33 @@ namespace RNGReporter.Objects
 
                             if (EncounterMod == EncounterMod.Synchronize)
                             {
-                                synchable = (rngArray[1 + cnt] >> 31) == 1;
+                                synchable = (rngArray[1] >> 31) == 1;
                                 if (synchable)
                                     nature = (uint) SynchNature;
                                 else
-                                    nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[5]*25) >> 32);
 
-                                pid = rngArray[4 + cnt];
+                                pid = rngArray[4];
                                 pid = pid ^ 0x10000;
                             }
                             else if (EncounterMod == EncounterMod.CuteCharm)
                             {
-                                pid = rngArray[4 + cnt];
+                                pid = rngArray[4];
                                 pid = pid ^ 0x10000;
 
                                 // not a synch, but the CC check -- need to relabel (unfinished)
-                                synchable = ((((ulong) rngArray[1 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                synchable = ((((ulong) rngArray[1]*0xFFFF) >> 32)/656) < 67;
 
                                 // failed CC check
                                 if (!synchable)
                                 {
                                     // leave it as-is
-                                    nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[5]*25) >> 32);
                                 }
                                 else
                                 {
-                                    pid = Functions.GenderModPID(pid, rngArray[5 + cnt], SynchNature);
-                                    nature = (uint) (((ulong) rngArray[6 + cnt]*25) >> 32);
+                                    pid = Functions.GenderModPID(pid, rngArray[5], SynchNature);
+                                    nature = (uint) (((ulong) rngArray[6]*25) >> 32);
                                 }
 
                                 synchable = false;
@@ -1689,19 +1676,19 @@ namespace RNGReporter.Objects
                                      EncounterMod == EncounterMod.SuctionCups)
                             {
                                 synchable = false;
-                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1 + cnt], frameType,
+                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1], frameType,
                                                                                 EncounterType);
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
-                                pid = rngArray[3 + cnt];
+                                pid = rngArray[3];
                                 pid = pid ^ 0x10000;
                             }
                             else if (EncounterMod == EncounterMod.Search)
                             {
                                 // Check for item or battle
-                                if (((ulong) rngArray[0 + cnt]*1000 >> 32) < 400)
+                                if (((ulong) rngArray[0]*1000 >> 32) < 400)
                                 {
-                                    encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1 + cnt], frameType,
+                                    encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1], frameType,
                                                                                     EncounterType);
                                 }
                                 else
@@ -1709,16 +1696,16 @@ namespace RNGReporter.Objects
 
                                 // Let's do Suction Cups since it affects the hittable frames
 
-                                pid = rngArray[3 + cnt];
+                                pid = rngArray[3];
                                 pid = pid ^ 0x10000;
 
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
                                 frame = Frame.GenerateFrame(
                                     FrameType.Method5Natures,
                                     EncounterType,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
+                                    rngArray[0],
                                     pid,
                                     id,
                                     sid,
@@ -1735,24 +1722,24 @@ namespace RNGReporter.Objects
 
                                 // Now for regular\Synchronize\Cute Charm encounters
 
-                                pid = rngArray[4 + cnt];
+                                pid = rngArray[4];
                                 pid = pid ^ 0x10000;
 
                                 // not a synch, but the CC check -- need to relabel (unfinished)
-                                synchable = ((((ulong) rngArray[1 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                synchable = ((((ulong) rngArray[1]*0xFFFF) >> 32)/656) < 67;
 
                                 // passed CC check
                                 if (synchable)
                                 {
                                     // Add all the Cute Charm possibilities
-                                    nature = (uint) (((ulong) rngArray[6 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[6]*25) >> 32);
 
                                     for (int i = -4; i < 5; i++)
                                     {
                                         if (i == 0)
                                             continue;
 
-                                        uint tempPid = Functions.GenderModPID(pid, rngArray[5 + cnt], i);
+                                        uint tempPid = Functions.GenderModPID(pid, rngArray[5], i);
 
                                         idTest = (idLower ^ (tempPid & 1) ^ (tempPid >> 31));
                                         if (idTest == 1)
@@ -1762,7 +1749,7 @@ namespace RNGReporter.Objects
                                             FrameType.Method5Natures,
                                             EncounterType,
                                             cnt + InitialFrame,
-                                            rngArray[0 + cnt],
+                                            rngArray[0],
                                             tempPid,
                                             id,
                                             sid,
@@ -1810,8 +1797,8 @@ namespace RNGReporter.Objects
                                 if (idTest == 1)
                                     pid = (pid ^ 0x80000000);
 
-                                synchable = (rngArray[1 + cnt] >> 31) == 1;
-                                nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                synchable = (rngArray[1] >> 31) == 1;
+                                nature = (uint) (((ulong) rngArray[5]*25) >> 32);
 
                                 if (synchable && !frameCompare.CompareNature(nature))
                                     mod = EncounterMod.Synchronize;
@@ -1820,11 +1807,11 @@ namespace RNGReporter.Objects
                             }
                             else
                             {
-                                pid = rngArray[4 + cnt];
+                                pid = rngArray[4];
                                 pid = pid ^ 0x10000;
 
-                                synchable = (rngArray[1 + cnt] >> 31) == 1;
-                                nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                synchable = (rngArray[1] >> 31) == 1;
+                                nature = (uint) (((ulong) rngArray[5]*25) >> 32);
                             }
 
                             idTest = (idLower ^ (pid & 1) ^ (pid >> 31));
@@ -1833,81 +1820,81 @@ namespace RNGReporter.Objects
                         }
                         else if (EncounterType == EncounterType.WildSwarm)
                         {
-                            bool swarm = (((ulong) rngArray[1 + cnt]*0xFFFF/0x290) >> 32) < 40;
+                            bool swarm = (((ulong) rngArray[1]*0xFFFF/0x290) >> 32) < 40;
                             if (swarm)
                                 // we'll use non-existent slot 12 to denote a swarm
                                 encounterSlot = 12;
                             else
-                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[2 + cnt], frameType,
+                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[2], frameType,
                                                                                 EncounterType);
 
                             if (EncounterMod == EncounterMod.Synchronize)
                             {
-                                synchable = (rngArray[0 + cnt] >> 31) == 1;
+                                synchable = (rngArray[0] >> 31) == 1;
                                 if (synchable)
                                     nature = (uint) SynchNature;
                                 else
-                                    nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[5]*25) >> 32);
 
-                                pid = rngArray[4 + cnt];
+                                pid = rngArray[4];
                                 pid = pid ^ 0x10000;
                             }
                             else if (EncounterMod == EncounterMod.CuteCharm)
                             {
                                 // not a synch, but the CC check -- need to relabel (unfinished)
-                                synchable = ((((ulong) rngArray[0 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                synchable = ((((ulong) rngArray[0]*0xFFFF) >> 32)/656) < 67;
 
-                                pid = rngArray[4 + cnt];
+                                pid = rngArray[4];
                                 pid = pid ^ 0x10000;
 
                                 // failed CC check
                                 if (!synchable)
                                 {
                                     // leave it as-is
-                                    nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[5]*25) >> 32);
                                 }
                                 else
                                 {
-                                    pid = Functions.GenderModPID(pid, rngArray[5 + cnt], SynchNature);
-                                    nature = (uint) (((ulong) rngArray[6 + cnt]*25) >> 32);
+                                    pid = Functions.GenderModPID(pid, rngArray[5], SynchNature);
+                                    nature = (uint) (((ulong) rngArray[6]*25) >> 32);
                                 }
 
                                 synchable = false;
                             }
                             else if (EncounterMod == EncounterMod.Compoundeyes)
                             {
-                                swarm = (((ulong) rngArray[0 + cnt]*0xFFFF/0x290) >> 32) < 40;
+                                swarm = (((ulong) rngArray[0]*0xFFFF/0x290) >> 32) < 40;
                                 if (swarm)
                                     // we'll use non-existent slot 12 to denote a swarm
                                     encounterSlot = 12;
                                 else
-                                    encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1 + cnt], frameType,
+                                    encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1], frameType,
                                                                                     EncounterType);
 
                                 synchable = false;
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
-                                pid = rngArray[3 + cnt];
+                                pid = rngArray[3];
                                 pid = pid ^ 0x10000;
                             }
                             else if (EncounterMod == EncounterMod.Search)
                             {
-                                pid = rngArray[4 + cnt];
+                                pid = rngArray[4];
                                 pid = pid ^ 0x10000;
 
                                 // not a synch, but the CC check -- need to relabel (unfinished)
                                 // also never used
-                                synchable = ((((ulong) rngArray[0 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                synchable = ((((ulong) rngArray[0]*0xFFFF) >> 32)/656) < 67;
 
                                 // Add all the Cute Charm possibilities
-                                nature = (uint) (((ulong) rngArray[6 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[6]*25) >> 32);
 
                                 for (int i = -4; i < 5; i++)
                                 {
                                     if (i == 0)
                                         continue;
 
-                                    uint tempPid = Functions.GenderModPID(pid, rngArray[5 + cnt], i);
+                                    uint tempPid = Functions.GenderModPID(pid, rngArray[5], i);
 
                                     idTest = (idLower ^ (tempPid & 1) ^ (tempPid >> 31));
                                     if (idTest == 1)
@@ -1917,7 +1904,7 @@ namespace RNGReporter.Objects
                                         FrameType.Method5Natures,
                                         EncounterType,
                                         cnt + InitialFrame,
-                                        rngArray[0 + cnt],
+                                        rngArray[0],
                                         tempPid,
                                         id,
                                         sid,
@@ -1964,8 +1951,8 @@ namespace RNGReporter.Objects
                                 if (idTest == 1)
                                     pid = (pid ^ 0x80000000);
 
-                                synchable = (rngArray[0 + cnt] >> 31) == 1;
-                                nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                synchable = (rngArray[0] >> 31) == 1;
+                                nature = (uint) (((ulong) rngArray[5]*25) >> 32);
 
                                 if (synchable && !frameCompare.CompareNature(nature))
                                     mod = EncounterMod.Synchronize;
@@ -1974,10 +1961,10 @@ namespace RNGReporter.Objects
                             }
                             else
                             {
-                                synchable = (rngArray[0 + cnt] >> 31) == 1;
-                                nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                synchable = (rngArray[0] >> 31) == 1;
+                                nature = (uint) (((ulong) rngArray[5]*25) >> 32);
 
-                                pid = rngArray[4 + cnt];
+                                pid = rngArray[4];
                                 pid = pid ^ 0x10000;
                             }
 
@@ -1989,33 +1976,33 @@ namespace RNGReporter.Objects
                         {
                             if (EncounterMod == EncounterMod.Synchronize)
                             {
-                                synchable = (rngArray[0 + cnt] >> 31) == 1;
+                                synchable = (rngArray[0] >> 31) == 1;
                                 if (synchable)
                                     nature = (uint) SynchNature;
                                 else
-                                    nature = (uint) (((ulong) rngArray[2 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[2]*25) >> 32);
 
-                                pid = rngArray[1 + cnt];
+                                pid = rngArray[1];
                                 pid = pid ^ 0x10000;
                             }
                             else if (EncounterMod == EncounterMod.CuteCharm)
                             {
                                 // not a synch, but the CC check -- need to relabel (unfinished)
-                                synchable = ((((ulong) rngArray[0 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                synchable = ((((ulong) rngArray[0]*0xFFFF) >> 32)/656) < 67;
 
-                                pid = rngArray[1 + cnt];
+                                pid = rngArray[1];
                                 pid = pid ^ 0x10000;
 
                                 // failed CC check
                                 if (!synchable)
                                 {
                                     // leave it as-is
-                                    nature = (uint) (((ulong) rngArray[2 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[2]*25) >> 32);
                                 }
                                 else
                                 {
-                                    pid = Functions.GenderModPID(pid, rngArray[2 + cnt], SynchNature);
-                                    nature = (uint) (((ulong) rngArray[3 + cnt]*25) >> 32);
+                                    pid = Functions.GenderModPID(pid, rngArray[2], SynchNature);
+                                    nature = (uint) (((ulong) rngArray[3]*25) >> 32);
                                 }
 
                                 synchable = false;
@@ -2023,32 +2010,32 @@ namespace RNGReporter.Objects
                             else if (EncounterMod == EncounterMod.Compoundeyes)
                             {
                                 synchable = false;
-                                nature = (uint) (((ulong) rngArray[1 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[1]*25) >> 32);
 
-                                pid = rngArray[0 + cnt];
+                                pid = rngArray[0];
                                 pid = pid ^ 0x10000;
                             }
                             else if (EncounterMod == EncounterMod.Search)
                             {
-                                pid = rngArray[1 + cnt];
+                                pid = rngArray[1];
                                 pid = pid ^ 0x10000;
 
                                 // not a synch, but the CC check -- need to relabel (unfinished)
-                                synchable = ((((ulong) rngArray[0 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                synchable = ((((ulong) rngArray[0]*0xFFFF) >> 32)/656) < 67;
 
                                 // CC check
                                 if (synchable)
                                 {
                                     // Add only 50% Cute Charm possibilities because the only applicable
                                     // stationaries have a 50\50 male-female ratio.
-                                    nature = (uint) (((ulong) rngArray[3 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[3]*25) >> 32);
 
                                     for (int i = -1; i < 2; i++)
                                     {
                                         if (i == 0)
                                             continue;
 
-                                        uint tempPid = Functions.GenderModPID(pid, rngArray[2 + cnt], i);
+                                        uint tempPid = Functions.GenderModPID(pid, rngArray[2], i);
 
                                         idTest = (idLower ^ (tempPid & 1) ^ (tempPid >> 31));
                                         if (idTest == 1)
@@ -2058,7 +2045,7 @@ namespace RNGReporter.Objects
                                             FrameType.Method5Natures,
                                             EncounterType,
                                             cnt + InitialFrame,
-                                            rngArray[0 + cnt],
+                                            rngArray[0],
                                             tempPid,
                                             id,
                                             sid,
@@ -2084,8 +2071,8 @@ namespace RNGReporter.Objects
                                     }
                                 }
 
-                                synchable = (rngArray[0 + cnt] >> 31) == 1;
-                                nature = (uint) (((ulong) rngArray[2 + cnt]*25) >> 32);
+                                synchable = (rngArray[0] >> 31) == 1;
+                                nature = (uint) (((ulong) rngArray[2]*25) >> 32);
 
                                 if (synchable && !frameCompare.CompareNature(nature))
                                     mod = EncounterMod.Synchronize;
@@ -2094,10 +2081,10 @@ namespace RNGReporter.Objects
                             }
                             else
                             {
-                                synchable = (rngArray[0 + cnt] >> 31) == 1;
-                                nature = (uint) (((ulong) rngArray[2 + cnt]*25) >> 32);
+                                synchable = (rngArray[0] >> 31) == 1;
+                                nature = (uint) (((ulong) rngArray[2]*25) >> 32);
 
-                                pid = rngArray[1 + cnt];
+                                pid = rngArray[1];
                                 pid = pid ^ 0x10000;
                             }
 
@@ -2109,12 +2096,12 @@ namespace RNGReporter.Objects
                         {
                             // used for Time Finder searches only
 
-                            pid = rngArray[3 + cnt];
+                            pid = rngArray[3];
                             pid = pid ^ 0x10000;
 
-                            nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                            nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
-                            synchable = ((rngArray[0 + cnt] >> 31) == 1) && ((rngArray[2 + cnt] >> 31) == 1);
+                            synchable = ((rngArray[0] >> 31) == 1) && ((rngArray[2] >> 31) == 1);
 
                             idTest = (idLower ^ (pid & 1) ^ (pid >> 31));
                             if (idTest == 1)
@@ -2125,13 +2112,13 @@ namespace RNGReporter.Objects
                         }
                         else if (EncounterType == EncounterType.LarvestaEgg)
                         {
-                            pid = rngArray[0 + cnt];
-                            nature = (uint) (((ulong) rngArray[2 + cnt]*25) >> 32);
+                            pid = rngArray[0];
+                            nature = (uint) (((ulong) rngArray[2]*25) >> 32);
                             synchable = false;
                         }
                         else if (EncounterType == EncounterType.Entralink)
                         {
-                            pid = rngArray[0 + cnt];
+                            pid = rngArray[0];
 
                             synchable = false;
 
@@ -2139,21 +2126,21 @@ namespace RNGReporter.Objects
                             if (frameCompare.GenderFilter.GenderValue == 0xFF)
                             {
                                 // leave it as-is
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
                             }
                                 // always female
                             else if (frameCompare.GenderFilter.GenderValue == 0xFE)
                             {
-                                var genderAdjustment = (uint) ((0x8*(ulong) rngArray[1 + cnt]) >> 32);
+                                var genderAdjustment = (uint) ((0x8*(ulong) rngArray[1]) >> 32);
                                 pid = (pid & 0xFFFFFF00) | (genderAdjustment + 1);
-                                nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[5]*25) >> 32);
                             }
                                 // always male
                             else if (frameCompare.GenderFilter.GenderValue == 0x0)
                             {
-                                var genderAdjustment = (uint) ((0xF6*(ulong) rngArray[1 + cnt]) >> 32);
+                                var genderAdjustment = (uint) ((0xF6*(ulong) rngArray[1]) >> 32);
                                 pid = (pid & 0xFFFFFF00) | (genderAdjustment + 8);
-                                nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[5]*25) >> 32);
                             }
                             else
                             {
@@ -2161,7 +2148,7 @@ namespace RNGReporter.Objects
                                 {
                                     var genderAdjustment =
                                         (uint)
-                                        (((0xFE - frameCompare.GenderFilter.GenderValue)*(ulong) rngArray[1 + cnt]) >>
+                                        (((0xFE - frameCompare.GenderFilter.GenderValue)*(ulong) rngArray[1]) >>
                                          32);
                                     pid = (pid & 0xFFFFFF00) |
                                           (genderAdjustment + frameCompare.GenderFilter.GenderValue);
@@ -2170,10 +2157,10 @@ namespace RNGReporter.Objects
                                 {
                                     var genderAdjustment =
                                         (uint)
-                                        (((frameCompare.GenderFilter.GenderValue - 1)*(ulong) rngArray[1 + cnt]) >> 32);
+                                        (((frameCompare.GenderFilter.GenderValue - 1)*(ulong) rngArray[1]) >> 32);
                                     pid = (pid & 0xFFFFFF00) | (genderAdjustment + 1);
                                 }
-                                nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[5]*25) >> 32);
                             }
                             if ((pid & 0x10000) == 0x10000)
                                 pid = pid ^ 0x10000;
@@ -2184,28 +2171,28 @@ namespace RNGReporter.Objects
                         else if (EncounterType == EncounterType.HiddenGrotto)
                         {
                             // unknown call at 0
-                            synchable = (rngArray[1 + cnt] >> 31) == 1;
-                            pid = rngArray[2 + cnt];
+                            synchable = (rngArray[1] >> 31) == 1;
+                            pid = rngArray[2];
 
                             // genderless
                             if (frameCompare.GenderFilter.GenderValue == 0xFF)
                             {
                                 // leave it as-is
-                                nature = (uint) (((ulong) rngArray[3 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[3]*25) >> 32);
                             }
                                 // always female
                             else if (frameCompare.GenderFilter.GenderValue == 0xFE)
                             {
-                                var genderAdjustment = (uint) ((0x8*(ulong) rngArray[3 + cnt]) >> 32);
+                                var genderAdjustment = (uint) ((0x8*(ulong) rngArray[3]) >> 32);
                                 pid = (pid & 0xFFFFFF00) | (genderAdjustment + 1);
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
                             }
                                 // always male
                             else if (frameCompare.GenderFilter.GenderValue == 0x0)
                             {
-                                var genderAdjustment = (uint) ((0xF6*(ulong) rngArray[3 + cnt]) >> 32);
+                                var genderAdjustment = (uint) ((0xF6*(ulong) rngArray[3]) >> 32);
                                 pid = (pid & 0xFFFFFF00) | (genderAdjustment + 8);
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
                             }
                             else
                             {
@@ -2213,7 +2200,7 @@ namespace RNGReporter.Objects
                                 {
                                     var genderAdjustment =
                                         (uint)
-                                        (((0xFE - frameCompare.GenderFilter.GenderValue)*(ulong) rngArray[3 + cnt]) >>
+                                        (((0xFE - frameCompare.GenderFilter.GenderValue)*(ulong) rngArray[3]) >>
                                          32);
                                     pid = (pid & 0xFFFFFF00) |
                                           (genderAdjustment + frameCompare.GenderFilter.GenderValue);
@@ -2222,10 +2209,10 @@ namespace RNGReporter.Objects
                                 {
                                     var genderAdjustment =
                                         (uint)
-                                        (((frameCompare.GenderFilter.GenderValue - 1)*(ulong) rngArray[3 + cnt]) >> 32);
+                                        (((frameCompare.GenderFilter.GenderValue - 1)*(ulong) rngArray[3]) >> 32);
                                     pid = (pid & 0xFFFFFF00) | (genderAdjustment + 1);
                                 }
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
                             }
                             if (synchable && EncounterMod == EncounterMod.Synchronize)
                                 nature = (uint) SynchNature;
@@ -2238,52 +2225,52 @@ namespace RNGReporter.Objects
                             // check for Fishing nibble
                             if (EncounterMod == EncounterMod.SuctionCups && EncounterType == EncounterType.WildSuperRod)
                             {
-                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1 + cnt], frameType,
+                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1], frameType,
                                                                                 EncounterType);
 
                                 synchable = false;
-                                nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
-                                pid = rngArray[3 + cnt];
+                                pid = rngArray[3];
                                 pid = pid ^ 0x10000;
                             }
                             else
                             {
-                                if (EncounterType == EncounterType.WildSuperRod && (rngArray[1 + cnt] >> 16)/656 >= 50)
+                                if (EncounterType == EncounterType.WildSuperRod && (rngArray[1] >> 16)/656 >= 50)
                                     continue;
 
-                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[2 + cnt], frameType,
+                                encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[2], frameType,
                                                                                 EncounterType);
 
                                 if (EncounterMod == EncounterMod.Synchronize)
                                 {
-                                    synchable = (rngArray[0 + cnt] >> 31) == 1;
+                                    synchable = (rngArray[0] >> 31) == 1;
                                     if (synchable)
                                         nature = (uint) SynchNature;
                                     else
-                                        nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                        nature = (uint) (((ulong) rngArray[5]*25) >> 32);
 
-                                    pid = rngArray[4 + cnt];
+                                    pid = rngArray[4];
                                     pid = pid ^ 0x10000;
                                 }
                                 else if (EncounterMod == EncounterMod.CuteCharm)
                                 {
                                     // not a synch, but the CC check -- need to relabel (unfinished)
-                                    synchable = ((((ulong) rngArray[0 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                    synchable = ((((ulong) rngArray[0]*0xFFFF) >> 32)/656) < 67;
 
-                                    pid = rngArray[4 + cnt];
+                                    pid = rngArray[4];
                                     pid = pid ^ 0x10000;
 
                                     // failed CC check
                                     if (!synchable)
                                     {
                                         // leave it as-is
-                                        nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                        nature = (uint) (((ulong) rngArray[5]*25) >> 32);
                                     }
                                     else
                                     {
-                                        pid = Functions.GenderModPID(pid, rngArray[5 + cnt], SynchNature);
-                                        nature = (uint) (((ulong) rngArray[6 + cnt]*25) >> 32);
+                                        pid = Functions.GenderModPID(pid, rngArray[5], SynchNature);
+                                        nature = (uint) (((ulong) rngArray[6]*25) >> 32);
                                     }
 
                                     synchable = false;
@@ -2291,25 +2278,25 @@ namespace RNGReporter.Objects
                                 else if (EncounterMod == EncounterMod.Compoundeyes)
                                 {
                                     if (EncounterType == EncounterType.WildSuperRod &&
-                                        (rngArray[0 + cnt] >> 16)/656 >= 50)
+                                        (rngArray[0] >> 16)/656 >= 50)
                                         continue;
 
                                     synchable = false;
-                                    encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1 + cnt], frameType,
+                                    encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1], frameType,
                                                                                     EncounterType);
-                                    nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
-                                    pid = rngArray[3 + cnt];
+                                    pid = rngArray[3];
                                     pid = pid ^ 0x10000;
                                 }
                                 else if (EncounterMod == EncounterMod.SuctionCups)
                                 {
                                     synchable = false;
-                                    encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1 + cnt], frameType,
+                                    encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1], frameType,
                                                                                     EncounterType);
-                                    nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                    nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
-                                    pid = rngArray[3 + cnt];
+                                    pid = rngArray[3];
                                     pid = pid ^ 0x10000;
                                 }
                                 else if (EncounterMod == EncounterMod.Search)
@@ -2317,11 +2304,11 @@ namespace RNGReporter.Objects
                                     if (EncounterType == EncounterType.WildSuperRod)
                                     {
                                         // Do the Suction Cups check for fishing frames
-                                        encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1 + cnt], frameType,
+                                        encounterSlot = EncounterSlotCalc.encounterSlot(rngArray[1], frameType,
                                                                                         EncounterType);
-                                        nature = (uint) (((ulong) rngArray[4 + cnt]*25) >> 32);
+                                        nature = (uint) (((ulong) rngArray[4]*25) >> 32);
 
-                                        pid = rngArray[3 + cnt];
+                                        pid = rngArray[3];
                                         pid = pid ^ 0x10000;
 
                                         idTest = (idLower ^ (pid & 1) ^ (pid >> 31));
@@ -2332,7 +2319,7 @@ namespace RNGReporter.Objects
                                             FrameType.Method5Natures,
                                             EncounterType,
                                             cnt + InitialFrame,
-                                            rngArray[0 + cnt],
+                                            rngArray[0],
                                             pid,
                                             id,
                                             sid,
@@ -2348,24 +2335,24 @@ namespace RNGReporter.Objects
                                         }
                                     }
 
-                                    pid = rngArray[4 + cnt];
+                                    pid = rngArray[4];
                                     pid = pid ^ 0x10000;
 
                                     // not a synch, but the CC check -- need to relabel (unfinished)
-                                    synchable = ((((ulong) rngArray[0 + cnt]*0xFFFF) >> 32)/656) < 67;
+                                    synchable = ((((ulong) rngArray[0]*0xFFFF) >> 32)/656) < 67;
 
                                     // passed CC check
                                     if (synchable)
                                     {
                                         // Add all the Cute Charm possibilities
-                                        nature = (uint) (((ulong) rngArray[6 + cnt]*25) >> 32);
+                                        nature = (uint) (((ulong) rngArray[6]*25) >> 32);
 
                                         for (int i = -4; i < 5; i++)
                                         {
                                             if (i == 0)
                                                 continue;
 
-                                            uint tempPid = Functions.GenderModPID(pid, rngArray[5 + cnt], i);
+                                            uint tempPid = Functions.GenderModPID(pid, rngArray[5], i);
 
                                             idTest = (idLower ^ (tempPid & 1) ^ (tempPid >> 31));
                                             if (idTest == 1)
@@ -2375,7 +2362,7 @@ namespace RNGReporter.Objects
                                                 FrameType.Method5Natures,
                                                 EncounterType,
                                                 cnt + InitialFrame,
-                                                rngArray[0 + cnt],
+                                                rngArray[0],
                                                 tempPid,
                                                 id,
                                                 sid,
@@ -2419,11 +2406,11 @@ namespace RNGReporter.Objects
                                         }
                                     }
 
-                                    pid = rngArray[4 + cnt];
+                                    pid = rngArray[4];
                                     pid = pid ^ 0x10000;
 
-                                    synchable = (rngArray[0 + cnt] >> 31) == 1;
-                                    nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                    synchable = (rngArray[0] >> 31) == 1;
+                                    nature = (uint) (((ulong) rngArray[5]*25) >> 32);
 
                                     if (synchable && !frameCompare.CompareNature(nature))
                                         mod = EncounterMod.Synchronize;
@@ -2432,10 +2419,10 @@ namespace RNGReporter.Objects
                                 }
                                 else
                                 {
-                                    synchable = (rngArray[0 + cnt] >> 31) == 1;
-                                    nature = (uint) (((ulong) rngArray[5 + cnt]*25) >> 32);
+                                    synchable = (rngArray[0] >> 31) == 1;
+                                    nature = (uint) (((ulong) rngArray[5]*25) >> 32);
 
-                                    pid = rngArray[4 + cnt];
+                                    pid = rngArray[4];
                                     pid = pid ^ 0x10000;
                                 }
                             }
@@ -2458,7 +2445,7 @@ namespace RNGReporter.Objects
                                 FrameType.Method5Natures,
                                 EncounterType,
                                 cnt + InitialFrame,
-                                rngArray[0 + cnt],
+                                rngArray[0],
                                 pid,
                                 id,
                                 sid,
@@ -2475,7 +2462,7 @@ namespace RNGReporter.Objects
                                 FrameType.Method5Natures,
                                 EncounterType,
                                 cnt + InitialFrame,
-                                rngArray[0 + cnt],
+                                rngArray[0],
                                 pid,
                                 id,
                                 sid,
@@ -2486,7 +2473,7 @@ namespace RNGReporter.Objects
                     }
 
                     frame.EncounterMod = mod;
-                    frame.CGearTime = entreeTimer.GetTime(rngArray[0 + cnt]);
+                    frame.CGearTime = entreeTimer.GetTime(rngArray[0]);
 
                     if (frameCompare.Compare(frame))
                     {
@@ -2497,24 +2484,15 @@ namespace RNGReporter.Objects
             else if (frameType == FrameType.BWBred)
             {
                 rng64.Seed = InitialSeed;
-                var rngQueue = new Queue<uint>();
-
-                uint rngResult;
+                rngArray = new List<uint>();
 
                 for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                {
                     rng64.GetNext64BitNumber();
-                }
 
-                for (uint cnt = 0; cnt < maxResults + 50; cnt++)
-                {
-                    rngResult = rng64.GetNext32BitNumber();
-                    rngQueue.Enqueue(rngResult);
-                }
+                for (uint cnt = 0; cnt < InitialFrame + 20; cnt++)
+                    rngArray.Add(rng64.GetNext32BitNumber());
 
-                rngArray = rngQueue.ToArray();
-
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng64.GetNext32BitNumber()))
                 {
                     frame = null;
                     // there's two extra rng calls before the eggs are generated
@@ -2527,15 +2505,15 @@ namespace RNGReporter.Objects
                     // for Nidoran\Volbeat\Illumise determination
                     // if 0, get Nidoran-F\Volbeat
                     // if 1, get Nidoran-M\Illumise
-                    var speciesSpecial = (int) (rngArray[index + cnt] >> 31);
+                    var speciesSpecial = (int) (rngArray[index] >> 31);
                     // Everstone activation calc
                     //int off = MaleOnlySpecies ? 1 : 0;
                     if (MaleOnlySpecies) index++;
                     //index = 1
-                    nature = (uint) ((ulong) (rngArray[index++ + cnt])*25 >> 32);
+                    nature = (uint) ((ulong) (rngArray[index++])*25 >> 32);
                     if (SynchNature > -1)
                     {
-                        if ((rngArray[index++ + cnt] >> 31) == 1)
+                        if ((rngArray[index++] >> 31) == 1)
                         {
                             nature = (uint) SynchNature;
                             everstone = true;
@@ -2560,64 +2538,54 @@ namespace RNGReporter.Objects
                             break;
                     }
                     // again a worthless calculation
-                    if (DittoUsed) ability = Functions.RNGRange(rngArray[index++ + cnt], 2);*/
-                    dream = Functions.RNGRange(rngArray[index++ + cnt], 0x64) >= 0x28 && !DittoUsed;
+                    if (DittoUsed) ability = Functions.RNGRange(rngArray[index++ + cnt], 2); */
+                    dream = Functions.RNGRange(rngArray[index++], 0x64) >= 0x28 && !DittoUsed;
                     if (DittoUsed) ++index;
 
                     // IV Inheritance calc
                     // Uses every two RNG calls, first to determine IV, second to determine which parent
                     // If an IV is repeated it skips two RNG calls and checks the next
-                    uint inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                    uint inh = Functions.RNGRange(rngArray[index], 6);
                     uint inh1 = inh;
-                    uint par1 = rngArray[index + 1 + cnt] >> 31;
+                    uint par1 = rngArray[index + 1] >> 31;
 
                     uint maxSkips = 0;
 
                     index = index + 2;
-                    inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                    inh = Functions.RNGRange(rngArray[index], 6);
                     while (inh == inh1)
                     {
                         maxSkips += 2;
                         index = index + 2;
-                        inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                        inh = Functions.RNGRange(rngArray[index], 6);
 
-                        if (index + cnt >= rngArray.Length - 3)
+                        if (index >= rngArray.Count - 3)
                         {
-                            for (int refill = 0; refill < 50; refill++)
-                            {
-                                rngResult = rng64.GetNext32BitNumber();
-                                rngQueue.Enqueue(rngResult);
-                            }
-
-                            rngArray = rngQueue.ToArray();
+                            for (int refill = 0; refill < 20; refill++)
+                                rngArray.Add(rng64.GetNext32BitNumber());
                         }
                     }
                     uint inh2 = inh;
-                    uint par2 = rngArray[index + 1 + cnt] >> 31;
+                    uint par2 = rngArray[index + 1] >> 31;
 
                     index = index + 2;
-                    inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                    inh = Functions.RNGRange(rngArray[index], 6);
                     while (inh == inh1 || inh == inh2)
                     {
                         maxSkips += 2;
                         index = index + 2;
-                        inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                        inh = Functions.RNGRange(rngArray[index], 6);
 
-                        if (index + cnt >= rngArray.Length - 3)
+                        if (index >= rngArray.Count - 3)
                         {
-                            for (int refill = 0; refill < 50; refill++)
-                            {
-                                rngResult = rng64.GetNext32BitNumber();
-                                rngQueue.Enqueue(rngResult);
-                            }
-
-                            rngArray = rngQueue.ToArray();
+                            for (int refill = 0; refill < 20; refill++)
+                                rngArray.Add(rng64.GetNext32BitNumber());
                         }
                     }
                     uint inh3 = inh;
-                    uint par3 = rngArray[index + 1 + cnt] >> 31;
+                    uint par3 = rngArray[index + 1] >> 31;
 
-                    uint pid = Functions.RNGRange(rngArray[index + 2 + cnt], 0xFFFFFFFF);
+                    uint pid = Functions.RNGRange(rngArray[index + 2], 0xFFFFFFFF);
 
                     if (ParentA != null & ParentB != null && RNGIVs != null)
                     {
@@ -2625,7 +2593,7 @@ namespace RNGReporter.Objects
                             Frame.GenerateFrame(
                                 FrameType.BWBred,
                                 cnt + InitialFrame,
-                                rngArray[cnt],
+                                rngArray[0],
                                 speciesSpecial,
                                 inh1,
                                 inh2,
@@ -2650,7 +2618,7 @@ namespace RNGReporter.Objects
                             Frame.GenerateFrame(
                                 FrameType.BWBred,
                                 cnt + InitialFrame,
-                                rngArray[cnt],
+                                rngArray[0],
                                 speciesSpecial,
                                 inh1,
                                 inh2,
@@ -2677,24 +2645,15 @@ namespace RNGReporter.Objects
             else if (frameType == FrameType.BWBredInternational)
             {
                 rng64.Seed = InitialSeed;
-                var rngQueue = new Queue<uint>();
-
-                uint rngResult;
+                rngArray = new List<uint>();
 
                 for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                {
                     rng64.GetNext64BitNumber();
-                }
 
-                for (uint cnt = 0; cnt < InitialFrame + maxResults + 50; cnt++)
-                {
-                    rngResult = rng64.GetNext32BitNumber();
-                    rngQueue.Enqueue(rngResult);
-                }
+                for (uint cnt = 0; cnt < InitialFrame + 40; cnt++)
+                    rngArray.Add(rng64.GetNext32BitNumber());
 
-                rngArray = rngQueue.ToArray();
-
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng64.GetNext32BitNumber()))
                 {
                     frame = null;
                     int index = 1;
@@ -2706,88 +2665,78 @@ namespace RNGReporter.Objects
                     // for Nidoran\Volbeat\Illumise determination
                     // if 0, get Nidoran-F\Volbeat
                     // if 1, get Nidoran-M\Illumise
-                    var speciesSpecial = (int) (rngArray[index + cnt] >> 31);
+                    var speciesSpecial = (int) (rngArray[index] >> 31);
                     // Everstone activation calc
                     //int off = MaleOnlySpecies ? 1 : 0;
                     if (MaleOnlySpecies) index++;
                     //index = 1
                     if (SynchNature > -1)
                     {
-                        nature = (uint) ((ulong) (rngArray[index++ + cnt])*25 >> 32);
-                        if ((rngArray[index++ + cnt] >> 31) == 1)
+                        nature = (uint) ((ulong) (rngArray[index++])*25 >> 32);
+                        if ((rngArray[index++] >> 31) == 1)
                         {
                             nature = (uint) SynchNature;
                             everstone = true;
                         }
                         // Dream World ability calc
-                        dream = !DittoUsed && (uint) ((ulong) (rngArray[index++ + cnt])*5 >> 32) > 1;
+                        dream = !DittoUsed && (uint) ((ulong) (rngArray[index++])*5 >> 32) > 1;
                     }
                     else
                     {
-                        nature = (uint) ((ulong) (rngArray[index++ + cnt])*25 >> 32);
+                        nature = (uint) ((ulong) (rngArray[index++])*25 >> 32);
                         // Dream World ability calc
-                        dream = !DittoUsed && (uint) ((ulong) (rngArray[index++ + cnt])*5 >> 32) > 1;
+                        dream = !DittoUsed && (uint) ((ulong) (rngArray[index++])*5 >> 32) > 1;
                     }
                     if (DittoUsed) index = index + 2;
 
                     // IV Inheritance calc
                     // Uses every two RNG calls, first to determine IV, second to determine which parent
                     // If an IV is repeated it skips two RNG calls and checks the next
-                    uint inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                    uint inh = Functions.RNGRange(rngArray[index], 6);
                     uint inh1 = inh;
-                    uint par1 = rngArray[index + 1 + cnt] >> 31;
+                    uint par1 = rngArray[index + 1] >> 31;
 
                     uint maxSkips = 0;
 
                     index = index + 2;
-                    inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                    inh = Functions.RNGRange(rngArray[index], 6);
                     while (inh == inh1)
                     {
                         maxSkips += 2;
                         index = index + 2;
-                        inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                        inh = Functions.RNGRange(rngArray[index], 6);
 
-                        if (index + cnt >= rngArray.Length - 3)
+                        if (index >= rngArray.Count - 3)
                         {
-                            for (int refill = 0; refill < 50; refill++)
-                            {
-                                rngResult = rng64.GetNext32BitNumber();
-                                rngQueue.Enqueue(rngResult);
-                            }
-
-                            rngArray = rngQueue.ToArray();
+                            for (int refill = 0; refill < 20; refill++)
+                                rngArray.Add(rng64.GetNext32BitNumber());
                         }
                     }
                     uint inh2 = inh;
-                    uint par2 = rngArray[index + 1 + cnt] >> 31;
+                    uint par2 = rngArray[index + 1] >> 31;
 
                     index = index + 2;
-                    inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                    inh = Functions.RNGRange(rngArray[index], 6);
                     while (inh == inh1 || inh == inh2)
                     {
                         maxSkips += 2;
                         index = index + 2;
-                        inh = Functions.RNGRange(rngArray[index + cnt], 6);
+                        inh = Functions.RNGRange(rngArray[index], 6);
 
-                        if (index + cnt >= rngArray.Length - 3)
+                        if (index >= rngArray.Count - 3)
                         {
-                            for (int refill = 0; refill < 50; refill++)
-                            {
-                                rngResult = rng64.GetNext32BitNumber();
-                                rngQueue.Enqueue(rngResult);
-                            }
-
-                            rngArray = rngQueue.ToArray();
+                            for (int refill = 0; refill < 20; refill++)
+                                rngArray.Add(rng64.GetNext32BitNumber());
                         }
                     }
                     uint inh3 = inh;
-                    uint par3 = rngArray[index + 1 + cnt] >> 31;
+                    uint par3 = rngArray[index + 1] >> 31;
 
-                    uint pid = rngArray[index + 2 + cnt] - 1;
+                    uint pid = rngArray[index + 2] - 1;
                     const int masuda = 6;
                     for (int n = 0; n < masuda; n++)
                     {
-                        pid = rngArray[index + n + 2 + cnt] - 1;
+                        pid = rngArray[index + n + 2] - 1;
                         uint tid = (id & 0xffff) | ((sid & 0xffff) << 16);
 
                         uint a = pid ^ tid;
@@ -2807,7 +2756,7 @@ namespace RNGReporter.Objects
                             Frame.GenerateFrame(
                                 FrameType.BWBred,
                                 cnt + InitialFrame,
-                                rngArray[0 + cnt],
+                                rngArray[0],
                                 speciesSpecial,
                                 inh1,
                                 inh2,
@@ -2832,7 +2781,7 @@ namespace RNGReporter.Objects
                             Frame.GenerateFrame(
                                 FrameType.BWBred,
                                 cnt + InitialFrame,
-                                rngArray[0 + cnt],
+                                rngArray[0],
                                 speciesSpecial,
                                 inh1,
                                 inh2,
@@ -2858,38 +2807,27 @@ namespace RNGReporter.Objects
             else if (frameType == FrameType.BW2BredInternational)
             {
                 rng64.Seed = InitialSeed;
-                var rngQueue = new Queue<uint>();
-                var inhQueue = new Queue<uint>();
-
                 uint rngResult;
+                List<uint> inhArray = new List<uint>();
 
                 int callCount = 13;
                 if (SynchNature > -1)
-                {
                     callCount++; // Everstone consumes extra RNG call
-                }
 
                 if (DittoUsed)
-                {
                     callCount++; // Ditto consumes extra RNG call
-                }
 
                 for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                {
                     rng64.GetNext64BitNumber();
-                }
 
-                for (uint cnt = 0; cnt < InitialFrame + maxResults + 50; cnt++)
+                for (uint cnt = 0; cnt < InitialFrame + 20; cnt++)
                 {
                     rngResult = rng64.GetNext32BitNumber();
-                    rngQueue.Enqueue(rngResult);
-                    inhQueue.Enqueue((uint) ((ulong) (rngResult)*6 >> 32));
+                    rngArray.Add(rngResult);
+                    inhArray.Add((rngResult) * 6 >> 32);
                 }
 
-                rngArray = rngQueue.ToArray();
-                uint[] inhArray = inhQueue.ToArray();
-
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngResult = rng64.GetNext32BitNumber(), rngArray.RemoveAt(0), rngArray.Add(rngResult), inhArray.RemoveAt(0), inhArray.Add((rngResult) * 6 >> 32))
                 {
                     frame = null;
                     int index = 1;
@@ -2901,91 +2839,85 @@ namespace RNGReporter.Objects
                     // for Nidoran\Volbeat\Illumise determination
                     // if 0, get Nidoran-F\Volbeat
                     // if 1, get Nidoran-M\Illumise
-                    var speciesSpecial = (int) (rngArray[index + cnt] >> 31);
+                    var speciesSpecial = (int) (rngArray[index] >> 31);
                     // Everstone activation calc
                     //int off = MaleOnlySpecies ? 1 : 0;
                     if (MaleOnlySpecies) index++;
                     //index = 1
                     if (SynchNature > -1)
                     {
-                        nature = (uint) ((ulong) (rngArray[index++ + cnt])*25 >> 32);
-                        if ((rngArray[index++ + cnt] >> 31) == 1)
+                        nature = (uint) ((ulong) (rngArray[index++])*25 >> 32);
+                        if ((rngArray[index++] >> 31) == 1)
                         {
                             nature = (uint) SynchNature;
                             everstone = true;
                         }
                         // Dream World ability calc
-                        dream = !DittoUsed && (uint) ((ulong) (rngArray[index++ + cnt])*5 >> 32) > 1;
+                        dream = !DittoUsed && (uint) ((ulong) (rngArray[index++])*5 >> 32) > 1;
                     }
                     else
                     {
-                        nature = (uint) ((ulong) (rngArray[index++ + cnt])*25 >> 32);
+                        nature = (uint) ((ulong) (rngArray[index++])*25 >> 32);
                         // Dream World ability calc
-                        dream = !DittoUsed && (uint) ((ulong) (rngArray[index++ + cnt])*5 >> 32) > 1;
+                        dream = !DittoUsed && (uint) ((ulong) (rngArray[index++])*5 >> 32) > 1;
                     }
 
                     // IV Inheritance calc
                     // Uses every two RNG calls, first to determine IV, second to determine which parent
                     // If an IV is repeated it skips two RNG calls and checks the next
-                    uint inh = inhArray[index + cnt];
+                    uint inh = inhArray[index];
                     uint inh1 = inh;
-                    uint par1 = rngArray[index + 1 + cnt] >> 31;
+                    uint par1 = rngArray[index + 1] >> 31;
 
                     uint maxSkips = 0;
 
                     index = index + 2;
-                    inh = inhArray[index + cnt];
+                    inh = inhArray[index];
                     while (inh == inh1)
                     {
                         maxSkips += 2;
                         index = index + 2;
-                        inh = inhArray[index + cnt];
+                        inh = inhArray[index];
 
-                        if (index + cnt >= rngArray.Length - 3)
+                        if (index >= rngArray.Count - 3)
                         {
-                            for (int refill = 0; refill < 50; refill++)
+                            for (int refill = 0; refill < 20; refill++)
                             {
                                 rngResult = rng64.GetNext32BitNumber();
-                                rngQueue.Enqueue(rngResult);
-                                inhQueue.Enqueue((uint) ((ulong) (rngResult)*6 >> 32));
+                                rngArray.Add(rngResult);
+                                inhArray.Add((rngResult)*6 >> 32);
                             }
-
-                            rngArray = rngQueue.ToArray();
-                            inhArray = inhQueue.ToArray();
                         }
                     }
                     uint inh2 = inh;
-                    uint par2 = rngArray[index + 1 + cnt] >> 31;
+                    uint par2 = rngArray[index + 1] >> 31;
 
                     index = index + 2;
-                    inh = inhArray[index + cnt];
+                    inh = inhArray[index];
                     while (inh == inh1 || inh == inh2)
                     {
                         maxSkips += 2;
                         index = index + 2;
-                        inh = inhArray[index + cnt];
+                        inh = inhArray[index];
 
-                        if (index + cnt >= rngArray.Length - 3)
+                        if (index >= rngArray.Count - 3)
                         {
-                            for (int refill = 0; refill < 50; refill++)
+                            for (int refill = 0; refill < 20; refill++)
                             {
                                 rngResult = rng64.GetNext32BitNumber();
-                                rngQueue.Enqueue(rngResult);
-                                inhQueue.Enqueue((uint) ((ulong) (rngResult)*6 >> 32));
+                                rngArray.Add(rngResult);
+                                inhArray.Add((rngResult) * 6 >> 32);
                             }
-
-                            rngArray = rngQueue.ToArray();
-                            inhArray = inhQueue.ToArray();
                         }
                     }
                     uint inh3 = inh;
-                    uint par3 = rngArray[index + 1 + cnt] >> 31;
+                    uint par3 = rngArray[index + 1] >> 31;
 
-                    uint pid = rngArray[index + 2 + cnt] - 1;
+                    uint pid = rngArray[index + 2] - 1;
                     int masuda = ShinyCharm ? 8 : 6;
                     for (int n = 0; n < masuda; n++)
                     {
-                        pid = rngArray[index + n + 2 + cnt] - 1;
+                        pid = rngArray[index + n + 2] - 1;
                         uint tid = (id & 0xffff) | ((sid & 0xffff) << 16);
 
                         uint a = pid ^ tid;
@@ -3005,7 +2937,7 @@ namespace RNGReporter.Objects
                             Frame.GenerateFrame(
                                 FrameType.BWBred,
                                 cnt + InitialFrame,
-                                rngArray[0 + cnt],
+                                rngArray[0],
                                 speciesSpecial,
                                 inh1,
                                 inh2,
@@ -3030,7 +2962,7 @@ namespace RNGReporter.Objects
                             Frame.GenerateFrame(
                                 FrameType.BWBred,
                                 cnt + InitialFrame,
-                                rngArray[0 + cnt],
+                                rngArray[0],
                                 speciesSpecial,
                                 inh1,
                                 inh2,
@@ -3056,168 +2988,75 @@ namespace RNGReporter.Objects
             else if (frameType == FrameType.Wondercard5thGen)
             {
                 rng64.Seed = InitialSeed;
+                rngArray = new List<uint>();
 
-                if (maxResults < 1000)
+                for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
+                    rng64.GetNext64BitNumber();
+
+                for (int cnt = 0; cnt < 33; cnt++)
+                    rngArray.Add(rng64.GetNext32BitNumber());
+
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng64.GetNext32BitNumber()))
                 {
-                    rngArray = new uint[maxResults + 33];
+                    Frame frame = Frame.GenerateFrame(
+                        FrameType.Wondercard5thGen,
+                        id, sid,
+                        cnt + InitialFrame,
+                        rngArray[0],
+                        rngArray[22] >> 27,
+                        rngArray[23] >> 27,
+                        rngArray[24] >> 27,
+                        rngArray[25] >> 27,
+                        rngArray[26] >> 27,
+                        rngArray[27] >> 27,
+                        rngArray[32],
+                        rngArray[30]);
 
-                    for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
+
+                    if (frameCompare.Compare(frame))
                     {
-                        rng64.GetNext64BitNumber();
-                    }
-
-                    for (int cnt = 0; cnt < maxResults + 33; cnt++)
-                    {
-                        rngArray[cnt] = rng64.GetNext32BitNumber();
-                    }
-
-                    for (uint cnt = 0; cnt < maxResults; cnt++)
-                    {
-                        Frame frame = Frame.GenerateFrame(
-                            FrameType.Wondercard5thGen,
-                            id, sid,
-                            cnt + InitialFrame,
-                            rngArray[0 + cnt],
-                            rngArray[22 + cnt] >> 27,
-                            rngArray[23 + cnt] >> 27,
-                            rngArray[24 + cnt] >> 27,
-                            rngArray[25 + cnt] >> 27,
-                            rngArray[26 + cnt] >> 27,
-                            rngArray[27 + cnt] >> 27,
-                            rngArray[32 + cnt],
-                            rngArray[30 + cnt]);
-
-
-                        if (frameCompare.Compare(frame))
-                        {
-                            frames.Add(frame);
-                        }
-                    }
-                }
-                else
-                {
-                    rngQueue = new Queue<uint>();
-
-                    for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                    {
-                        rng64.GetNext64BitNumber();
-                    }
-
-                    for (int cnt = 0; cnt < 33; cnt++)
-                    {
-                        rngQueue.Enqueue(rng64.GetNext32BitNumber());
-                    }
-
-                    for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++)
-                    {
-                        rngArray = rngQueue.ToArray();
-
-                        Frame frame = Frame.GenerateFrame(
-                            FrameType.Wondercard5thGen,
-                            id, sid,
-                            cnt,
-                            rngArray[0],
-                            rngArray[22] >> 27,
-                            rngArray[23] >> 27,
-                            rngArray[24] >> 27,
-                            rngArray[25] >> 27,
-                            rngArray[26] >> 27,
-                            rngArray[27] >> 27,
-                            rngArray[32],
-                            rngArray[30]);
-
-
-                        if (frameCompare.Compare(frame))
-                        {
-                            frames.Add(frame);
-                        }
-
-                        rngQueue.Dequeue();
-                        rngQueue.Enqueue(rng64.GetNext32BitNumber());
+                        frames.Add(frame);
                     }
                 }
             }
             else if (frameType == FrameType.Wondercard5thGenFixed)
             {
                 rng64.Seed = InitialSeed;
+                rngArray = new List<uint>();
 
-                if (maxResults < 1000)
+                for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
                 {
-                    rngArray = new uint[maxResults + 36];
-
-                    for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                    {
-                        rng64.GetNext64BitNumber();
-                    }
-
-                    for (int cnt = 0; cnt < maxResults + 36; cnt++)
-                    {
-                        rngArray[cnt] = rng64.GetNext32BitNumber();
-                    }
-
-                    for (uint cnt = 0; cnt < maxResults; cnt++)
-                    {
-                        //note: pid field is unused look into later
-                        uint pid = Functions.GenderModPID(rngArray[30 + cnt], rngArray[31 + cnt], 0);
-                        Frame frame =
-                            Frame.GenerateFrame(
-                                FrameType.Wondercard5thGenFixed,
-                                id, sid,
-                                cnt + InitialFrame,
-                                rngArray[0 + cnt],
-                                rngArray[24 + cnt] >> 27,
-                                rngArray[25 + cnt] >> 27,
-                                rngArray[26 + cnt] >> 27,
-                                rngArray[27 + cnt] >> 27,
-                                rngArray[28 + cnt] >> 27,
-                                rngArray[29 + cnt] >> 27,
-                                rngArray[35 + cnt],
-                                rngArray[30 + cnt]);
-
-
-                        if (frameCompare.Compare(frame))
-                        {
-                            frames.Add(frame);
-                        }
-                    }
+                    rng64.GetNext64BitNumber();
                 }
-                else
+
+                for (int cnt = 0; cnt < 36; cnt++)
                 {
-                    rngQueue = new Queue<uint>();
-                    for (int i = 0; i < InitialFrame - 1; ++i)
-                    {
-                        rng64.GetNext64BitNumber();
-                    }
+                    rngArray.Add(rng64.GetNext32BitNumber());
+                }
 
-                    for (int cnt = 0; cnt < 36; cnt++)
-                    {
-                        rngQueue.Enqueue(rng64.GetNext32BitNumber());
-                    }
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng64.GetNext32BitNumber()))
+                {
+                    //note: pid field is unused look into later
+                    uint pid = Functions.GenderModPID(rngArray[30], rngArray[31], 0);
+                    Frame frame =
+                        Frame.GenerateFrame(
+                            FrameType.Wondercard5thGenFixed,
+                            id, sid,
+                            cnt + InitialFrame,
+                            rngArray[0],
+                            rngArray[24] >> 27,
+                            rngArray[25] >> 27,
+                            rngArray[26] >> 27,
+                            rngArray[27] >> 27,
+                            rngArray[28] >> 27,
+                            rngArray[29] >> 27,
+                            rngArray[35],
+                            rngArray[30]);
 
-                    for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++)
-                    {
-                        rngArray = rngQueue.ToArray();
 
-                        Frame frame =
-                            Frame.GenerateFrame(
-                                FrameType.Wondercard5thGenFixed,
-                                id, sid,
-                                cnt,
-                                rngArray[0],
-                                rngArray[24] >> 27,
-                                rngArray[25] >> 27,
-                                rngArray[26] >> 27,
-                                rngArray[27] >> 27,
-                                rngArray[28] >> 27,
-                                rngArray[29] >> 27,
-                                rngArray[35],
-                                rngArray[30]);
-                        if (frameCompare.Compare(frame))
-                        {
-                            frames.Add(frame);
-                        }
-                        rngQueue.Dequeue();
-                        rngQueue.Enqueue(rng64.GetNext32BitNumber());
+                    if (frameCompare.Compare(frame))
+                    {
+                        frames.Add(frame);
                     }
                 }
             }
@@ -3232,9 +3071,7 @@ namespace RNGReporter.Objects
                 var rng2 = new PokeRng(0);
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
-                {
                     rng1.Next();
-                }
 
                 for (ulong cnt = InitialFrame; cnt < maxResults + InitialFrame; cnt++)
                 {
@@ -3405,9 +3242,7 @@ namespace RNGReporter.Objects
                 var rng2 = new PokeRng(0);
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
-                {
                     rng1.Next();
-                }
 
                 for (uint cnt = InitialFrame; cnt < maxResults + InitialFrame; cnt++)
                 {
@@ -3797,26 +3632,25 @@ namespace RNGReporter.Objects
             else if (frameType == FrameType.ColoXD)
             {
                 var rng = new XdRng((uint) InitialSeed);
+                rngArray = new List<uint>();
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
                     rng.GetNext32BitNumber();
 
-                rngArray = new uint[maxResults + 5];
+                for (uint cnt = 0; cnt < 5; cnt++)
+                    rngArray.Add(rng.GetNext16BitNumber());
 
-                for (uint cnt = 0; cnt < maxResults + 4; cnt++)
-                    rngArray[cnt] = rng.GetNext16BitNumber();
-
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng.GetNext16BitNumber()))
                 {
                     frame = Frame.GenerateFrame(
                         0,
                         FrameType.ColoXD,
                         cnt + InitialFrame,
-                        rngArray[0 + cnt],
-                        rngArray[4 + cnt],
-                        rngArray[3 + cnt],
-                        rngArray[0 + cnt],
-                        rngArray[1 + cnt],
+                        rngArray[0],
+                        rngArray[4],
+                        rngArray[3],
+                        rngArray[0],
+                        rngArray[1],
                         id, sid);
 
 
@@ -3829,31 +3663,30 @@ namespace RNGReporter.Objects
             else if(frameType == FrameType.Channel)
             {
                 var rng = new XdRng((uint)InitialSeed);
+                rngArray = new List<uint>();
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
                     rng.GetNext32BitNumber();
 
-                rngArray = new uint[maxResults + 12];
+                for (uint cnt = 0; cnt < 12; cnt++)
+                    rngArray.Add(rng.GetNext16BitNumber());
 
-                for (uint cnt = 0; cnt < maxResults + 12; cnt++)
-                    rngArray[cnt] = rng.GetNext16BitNumber();
-
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng.GetNext16BitNumber()))
                 {
                     frame = Frame.GenerateChannel(
                         0,
                         FrameType.Channel,
                         cnt + InitialFrame,
-                        rngArray[cnt],
-                        rngArray[1 + cnt],
-                        rngArray[2 + cnt],
-                        (rngArray[6 + cnt]) >> 11,
-                        (rngArray[7 + cnt]) >> 11,
-                        (rngArray[8 + cnt]) >> 11,
-                        (rngArray[10 + cnt]) >> 11,
-                        (rngArray[11 + cnt]) >> 11,
-                        (rngArray[9 + cnt]) >> 11,
-                        40122, rngArray[cnt]);
+                        rngArray[0],
+                        rngArray[1],
+                        rngArray[2],
+                        (rngArray[6]) >> 11,
+                        (rngArray[7]) >> 11,
+                        (rngArray[8]) >> 11,
+                        (rngArray[10]) >> 11,
+                        (rngArray[11]) >> 11,
+                        (rngArray[9]) >> 11,
+                        40122, rngArray[0]);
 
 
                     if (frameCompare.Compare(frame))
@@ -3868,16 +3701,17 @@ namespace RNGReporter.Objects
                 //  then start our loop so that we can iterate as many 
                 //  times as we have to.
                 var rng = new PokeRng((uint) InitialSeed);
+                rngArray = new List<uint>();
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
                     rng.GetNext32BitNumber();
 
-                rngArray = new uint[maxResults + 20];
-                for (uint cnt = 0; cnt < maxResults + 20; cnt++)
-                    rngArray[cnt] = rng.GetNext16BitNumber();
+                for (uint cnt = 0; cnt < 20; cnt++)
+                    rngArray.Add(rng.GetNext16BitNumber());
+
                 lastseed = rng.Seed;
 
-                for (uint cnt = 0; cnt < maxResults; cnt++)
+                for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng.GetNext16BitNumber()))
                 {
                     Frame frameSplit = null;
 
@@ -3889,11 +3723,11 @@ namespace RNGReporter.Objects
                                     0,
                                     FrameType.Method1,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
-                                    rngArray[2 + cnt],
-                                    rngArray[3 + cnt],
+                                    rngArray[0],
+                                    rngArray[0],
+                                    rngArray[1],
+                                    rngArray[2],
+                                    rngArray[3],
                                     0, 0, 0, 0, 0, 0,
                                     id, sid, cnt);
 
@@ -3905,11 +3739,11 @@ namespace RNGReporter.Objects
                                     0,
                                     FrameType.Method1,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
-                                    rngArray[0 + cnt],
-                                    rngArray[2 + cnt],
-                                    rngArray[3 + cnt],
+                                    rngArray[0],
+                                    rngArray[1],
+                                    rngArray[0],
+                                    rngArray[2],
+                                    rngArray[3],
                                     0, 0, 0, 0, 0, 0,
                                     id, sid, cnt);
 
@@ -3921,11 +3755,11 @@ namespace RNGReporter.Objects
                                     0,
                                     FrameType.Method2,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
-                                    rngArray[3 + cnt],
-                                    rngArray[4 + cnt],
+                                    rngArray[0],
+                                    rngArray[0],
+                                    rngArray[1],
+                                    rngArray[3],
+                                    rngArray[4],
                                     0, 0, 0, 0, 0, 0,
                                     id, sid, cnt);
 
@@ -3937,11 +3771,11 @@ namespace RNGReporter.Objects
                                     0,
                                     FrameType.Method3,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
-                                    rngArray[0 + cnt],
-                                    rngArray[2 + cnt],
-                                    rngArray[3 + cnt],
-                                    rngArray[4 + cnt],
+                                    rngArray[0],
+                                    rngArray[0],
+                                    rngArray[2],
+                                    rngArray[3],
+                                    rngArray[4],
                                     0, 0, 0, 0, 0, 0,
                                     id, sid, cnt);
 
@@ -3953,11 +3787,11 @@ namespace RNGReporter.Objects
                                     0,
                                     FrameType.Method4,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
-                                    rngArray[2 + cnt],
-                                    rngArray[4 + cnt],
+                                    rngArray[0],
+                                    rngArray[0],
+                                    rngArray[1],
+                                    rngArray[2],
+                                    rngArray[4],
                                     0, 0, 0, 0, 0, 0,
                                     id, sid, cnt);
 
@@ -3965,36 +3799,35 @@ namespace RNGReporter.Objects
 
                         case FrameType.ChainedShiny:
                             uint chainedPIDLower = Functions.ChainedPIDLower(
-                                rngArray[1 + cnt],
-                                rngArray[15 + cnt],
-                                rngArray[14 + cnt],
-                                rngArray[13 + cnt],
-                                rngArray[12 + cnt],
-                                rngArray[11 + cnt],
-                                rngArray[10 + cnt],
-                                rngArray[9 + cnt],
-                                rngArray[8 + cnt],
-                                rngArray[7 + cnt],
-                                rngArray[6 + cnt],
-                                rngArray[5 + cnt],
-                                rngArray[4 + cnt],
-                                rngArray[3 + cnt]);
+                                rngArray[1],
+                                rngArray[15],
+                                rngArray[14],
+                                rngArray[13],
+                                rngArray[12],
+                                rngArray[11],
+                                rngArray[10],
+                                rngArray[9],
+                                rngArray[8],
+                                rngArray[7],
+                                rngArray[6],
+                                rngArray[5],
+                                rngArray[4],
+                                rngArray[3]);
 
                             frame = Frame.GenerateFrame(
                                 0,
                                 FrameType.ChainedShiny,
                                 cnt + InitialFrame,
-                                rngArray[0 + cnt],
+                                rngArray[0],
                                 chainedPIDLower,
-                                Functions.ChainedPIDUpper(rngArray[2 + cnt], chainedPIDLower, id, sid),
-                                rngArray[16 + cnt],
-                                rngArray[17 + cnt],
+                                Functions.ChainedPIDUpper(rngArray[2], chainedPIDLower, id, sid),
+                                rngArray[16],
+                                rngArray[17],
                                 0, 0, 0, 0, 0, 0,
                                 id, sid, cnt);
                             break;
                         case FrameType.EBredPID:
-                            uint total;
-                            uint pid = GetEPid(cnt, out total);
+                            uint pid = GetEPid(0, out uint total);
                             if (pid == 0)
                             {
                                 continue;
@@ -4010,8 +3843,8 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.RSBredLower,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
+                                    rngArray[0],
+                                    rngArray[1],
                                     Compatibility
                                     );
                             break;
@@ -4021,18 +3854,18 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.RSBredUpper,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
+                                    rngArray[0],
                                     StaticPID,
-                                    rngArray[1 + cnt],
-                                    rngArray[2 + cnt],
-                                    rngArray[3 + cnt],
+                                    rngArray[1],
+                                    rngArray[2],
+                                    rngArray[3],
                                     // vblank
-                                    rngArray[5 + cnt],
-                                    rngArray[6 + cnt],
-                                    rngArray[7 + cnt],
-                                    rngArray[8 + cnt],
-                                    rngArray[9 + cnt],
-                                    rngArray[10 + cnt],
+                                    rngArray[5],
+                                    rngArray[6],
+                                    rngArray[7],
+                                    rngArray[8],
+                                    rngArray[9],
+                                    rngArray[10],
                                     ParentA,
                                     ParentB,
                                     id, sid);
@@ -4043,19 +3876,19 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.RSBredUpperSplit,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
+                                    rngArray[0],
                                     StaticPID,
                                     // vblank
-                                    rngArray[2 + cnt],
-                                    rngArray[3 + cnt],
-                                    rngArray[4 + cnt],
+                                    rngArray[2],
+                                    rngArray[3],
+                                    rngArray[4],
                                     // another vblank
-                                    rngArray[6 + cnt],
-                                    rngArray[7 + cnt],
-                                    rngArray[8 + cnt],
-                                    rngArray[9 + cnt],
-                                    rngArray[10 + cnt],
-                                    rngArray[11 + cnt],
+                                    rngArray[6],
+                                    rngArray[7],
+                                    rngArray[8],
+                                    rngArray[9],
+                                    rngArray[10],
+                                    rngArray[11],
                                     ParentA,
                                     ParentB,
                                     id, sid);
@@ -4066,20 +3899,20 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.RSBredUpperAlt,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
+                                    rngArray[0],
                                     StaticPID,
                                     // vblank
-                                    rngArray[2 + cnt],
-                                    rngArray[3 + cnt],
+                                    rngArray[2],
+                                    rngArray[3],
                                     // vblank
-                                    rngArray[5 + cnt],
+                                    rngArray[5],
                                     // vblank
-                                    rngArray[5 + cnt],
-                                    rngArray[6 + cnt],
-                                    rngArray[7 + cnt],
-                                    rngArray[8 + cnt],
-                                    rngArray[9 + cnt],
-                                    rngArray[10 + cnt],
+                                    rngArray[5],
+                                    rngArray[6],
+                                    rngArray[7],
+                                    rngArray[8],
+                                    rngArray[9],
+                                    rngArray[10],
                                     ParentA,
                                     ParentB,
                                     id, sid);
@@ -4091,16 +3924,16 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.Bred,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
+                                    rngArray[0],
                                     StaticPID,
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
-                                    rngArray[3 + cnt],
-                                    rngArray[4 + cnt],
-                                    rngArray[5 + cnt],
-                                    rngArray[6 + cnt],
-                                    rngArray[7 + cnt],
-                                    rngArray[8 + cnt],
+                                    rngArray[0],
+                                    rngArray[1],
+                                    rngArray[3],
+                                    rngArray[4],
+                                    rngArray[5],
+                                    rngArray[6],
+                                    rngArray[7],
+                                    rngArray[8],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);
@@ -4116,17 +3949,17 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.Bred,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
+                                    rngArray[0],
                                     StaticPID,
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
+                                    rngArray[0],
+                                    rngArray[1],
                                     //  Garbage
-                                    rngArray[3 + cnt],
-                                    rngArray[4 + cnt],
-                                    rngArray[5 + cnt],
-                                    rngArray[6 + cnt],
-                                    rngArray[7 + cnt],
-                                    rngArray[8 + cnt],
+                                    rngArray[3],
+                                    rngArray[4],
+                                    rngArray[5],
+                                    rngArray[6],
+                                    rngArray[7],
+                                    rngArray[8],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);
@@ -4135,17 +3968,17 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.BredSplit,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
+                                    rngArray[0],
                                     StaticPID,
-                                    rngArray[0 + cnt],
-                                    rngArray[2 + cnt],
+                                    rngArray[0],
+                                    rngArray[2],
                                     //  Garbage
-                                    rngArray[4 + cnt],
-                                    rngArray[5 + cnt],
-                                    rngArray[6 + cnt],
-                                    rngArray[7 + cnt],
-                                    rngArray[8 + cnt],
-                                    rngArray[9 + cnt],
+                                    rngArray[4],
+                                    rngArray[5],
+                                    rngArray[6],
+                                    rngArray[7],
+                                    rngArray[8],
+                                    rngArray[9],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);
@@ -4158,16 +3991,16 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.Bred,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
+                                    rngArray[0],
                                     StaticPID,
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
-                                    rngArray[4 + cnt],
-                                    rngArray[5 + cnt],
-                                    rngArray[6 + cnt],
-                                    rngArray[7 + cnt],
-                                    rngArray[8 + cnt],
-                                    rngArray[9 + cnt],
+                                    rngArray[0],
+                                    rngArray[1],
+                                    rngArray[4],
+                                    rngArray[5],
+                                    rngArray[6],
+                                    rngArray[7],
+                                    rngArray[8],
+                                    rngArray[9],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);
@@ -4180,15 +4013,15 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.DPPtBred,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
-                                    rngArray[2 + cnt],
-                                    rngArray[3 + cnt],
-                                    rngArray[4 + cnt],
-                                    rngArray[5 + cnt],
-                                    rngArray[6 + cnt],
-                                    rngArray[7 + cnt],
+                                    rngArray[0],
+                                    rngArray[0],
+                                    rngArray[1],
+                                    rngArray[2],
+                                    rngArray[3],
+                                    rngArray[4],
+                                    rngArray[5],
+                                    rngArray[6],
+                                    rngArray[7],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);
@@ -4201,15 +4034,15 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.HGSSBred,
                                     cnt + InitialFrame,
-                                    rngArray[0 + cnt],
-                                    rngArray[0 + cnt],
-                                    rngArray[1 + cnt],
-                                    rngArray[2 + cnt],
-                                    rngArray[3 + cnt],
-                                    rngArray[4 + cnt],
-                                    rngArray[5 + cnt],
-                                    rngArray[6 + cnt],
-                                    rngArray[7 + cnt],
+                                    rngArray[0],
+                                    rngArray[0],
+                                    rngArray[1],
+                                    rngArray[2],
+                                    rngArray[3],
+                                    rngArray[4],
+                                    rngArray[5],
+                                    rngArray[6],
+                                    rngArray[7],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);
@@ -4220,8 +4053,8 @@ namespace RNGReporter.Objects
 
                             if (EncounterType == EncounterType.Manaphy)
                             {
-                                uint pid1 = rngArray[0 + cnt];
-                                uint pid2 = rngArray[1 + cnt];
+                                uint pid1 = rngArray[0];
+                                uint pid2 = rngArray[1];
 
                                 while ((pid1 ^ pid2 ^ id ^ sid) < 8)
                                 {
@@ -4239,11 +4072,11 @@ namespace RNGReporter.Objects
                                         0,
                                         FrameType.WondercardIVs,
                                         cnt + InitialFrame,
-                                        rngArray[0 + cnt],
+                                        rngArray[0],
                                         pid1,
                                         pid2,
-                                        rngArray[2 + cnt],
-                                        rngArray[3 + cnt],
+                                        rngArray[2],
+                                        rngArray[3],
                                         0, 0, 0, 0, 0, 0,
                                         id, sid, cnt);
                             }
@@ -4254,17 +4087,17 @@ namespace RNGReporter.Objects
                                         0,
                                         FrameType.WondercardIVs,
                                         cnt + InitialFrame,
-                                        rngArray[0 + cnt],
+                                        rngArray[0],
                                         0,
                                         0,
-                                        rngArray[0 + cnt],
-                                        rngArray[1 + cnt],
-                                        rngArray[2 + cnt],
-                                        rngArray[3 + cnt],
-                                        rngArray[4 + cnt],
-                                        rngArray[5 + cnt],
-                                        rngArray[6 + cnt],
-                                        rngArray[7 + cnt],
+                                        rngArray[0],
+                                        rngArray[1],
+                                        rngArray[2],
+                                        rngArray[3],
+                                        rngArray[4],
+                                        rngArray[5],
+                                        rngArray[6],
+                                        rngArray[7],
                                         id, sid, cnt);
                             }
 
@@ -4294,10 +4127,10 @@ namespace RNGReporter.Objects
             return frames;
         }
 
-        private uint GetEPid(uint cnt, out uint total)
+        private uint GetEPid(int cnt, out uint total)
         {
             total = 0;
-            uint i = cnt;
+            int i = cnt;
             uint pid;
             // check for compatibility
             if ((rngArray[i++]*100)/0xFFFF >= Compatibility) return 0;
@@ -4307,11 +4140,11 @@ namespace RNGReporter.Objects
             if (Everstone) useEverstone = (rngArray[i++] >> 15) == 0;
 
             // set up the TRNG
-            var trng = new PokeRng((cnt + InitialFrame - Calibration)&0xFFFF);
+            var trng = new PokeRng((uint)(cnt + InitialFrame - Calibration) & 0xFFFF);
 
             if (!useEverstone)
             {
-                if (i >= rngArray.Length)
+                if (i >= rngArray.Count)
                 {
                     AddToRngArray();
                 }
@@ -4334,7 +4167,7 @@ namespace RNGReporter.Objects
                     ++i;
                 // check if we need to add to the rngArray
                 // if we do add another 200 elements
-                if (i >= rngArray.Length)
+                if (i >= rngArray.Count)
                 {
                     AddToRngArray();
                 }
@@ -4351,17 +4184,13 @@ namespace RNGReporter.Objects
 
         private void AddToRngArray()
         {
-            // create a longer array and copy the old elements into it
-            int i = rngArray.Length;
-            var temp = new uint[i + 200];
-            rngArray.CopyTo(temp, 0);
-            rngArray = temp;
+            int i = rngArray.Count;
 
             // seed the new RNG with the last seed
             var rng = new PokeRng(lastseed);
             // add in the new elements
-            for (; i < rngArray.Length; ++i)
-                rngArray[i] = rng.GetNext16BitNumber();
+            for (; i < rngArray.Count + 200; ++i)
+                rngArray.Add(rng.GetNext16BitNumber());
 
             lastseed = rng.Seed;
         }
@@ -4380,21 +4209,19 @@ namespace RNGReporter.Objects
 
                 if (maxResults < 1000)
                 {
-                    rngArray = new uint[maxResults + 33];
-
                     for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
                     {
                         rng64.GetNext64BitNumber();
                     }
 
-                    for (int cnt = 0; cnt < maxResults + 33; cnt++)
+                    for (int cnt = 0; cnt < 33; cnt++)
                     {
-                        rngArray[cnt] = rng64.GetNext32BitNumber();
+                        rngArray.Add(rng64.GetNext32BitNumber());
                     }
 
-                    for (uint cnt = 0; cnt < maxResults; cnt++)
+                    for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng64.GetNext32BitNumber()))
                     {
-                        uint pid = rngArray[30 + cnt];
+                        uint pid = rngArray[30];
                         switch (shiny)
                         {
                             case 0:
@@ -4408,14 +4235,14 @@ namespace RNGReporter.Objects
                             FrameType.Wondercard5thGen,
                             id, sid,
                             cnt + InitialFrame,
-                            rngArray[0 + cnt],
-                            rngArray[22 + cnt] >> 27,
-                            rngArray[23 + cnt] >> 27,
-                            rngArray[24 + cnt] >> 27,
-                            rngArray[25 + cnt] >> 27,
-                            rngArray[26 + cnt] >> 27,
-                            rngArray[27 + cnt] >> 27,
-                            rngArray[32 + cnt],
+                            rngArray[0],
+                            rngArray[22] >> 27,
+                            rngArray[23] >> 27,
+                            rngArray[24] >> 27,
+                            rngArray[25] >> 27,
+                            rngArray[26] >> 27,
+                            rngArray[27] >> 27,
+                            rngArray[32],
                             pid);
 
 
@@ -4427,8 +4254,6 @@ namespace RNGReporter.Objects
                 }
                 else
                 {
-                    rngQueue = new Queue<uint>();
-
                     for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
                     {
                         rng64.GetNext64BitNumber();
@@ -4436,13 +4261,11 @@ namespace RNGReporter.Objects
 
                     for (int cnt = 0; cnt < 33; cnt++)
                     {
-                        rngQueue.Enqueue(rng64.GetNext32BitNumber());
+                        rngArray.Add(rng64.GetNext32BitNumber());
                     }
 
-                    for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++)
+                    for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng64.GetNext32BitNumber()))
                     {
-                        rngArray = rngQueue.ToArray();
-
                         uint pid = rngArray[30];
                         switch (shiny)
                         {
@@ -4473,9 +4296,6 @@ namespace RNGReporter.Objects
                         {
                             frames.Add(frame);
                         }
-
-                        rngQueue.Dequeue();
-                        rngQueue.Enqueue(rng64.GetNext32BitNumber());
                     }
                 }
             }
@@ -4485,8 +4305,6 @@ namespace RNGReporter.Objects
 
                 if (maxResults < 1000)
                 {
-                    rngArray = new uint[maxResults + 36];
-
                     for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
                     {
                         rng64.GetNext64BitNumber();
@@ -4494,12 +4312,12 @@ namespace RNGReporter.Objects
 
                     for (int cnt = 0; cnt < maxResults + 36; cnt++)
                     {
-                        rngArray[cnt] = rng64.GetNext32BitNumber();
+                        rngArray.Add(rng64.GetNext32BitNumber());
                     }
 
-                    for (uint cnt = 0; cnt < maxResults; cnt++)
+                    for (uint cnt = 0; cnt < maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng64.GetNext32BitNumber()))
                     {
-                        uint pid = Functions.GenderModPID(rngArray[30 + cnt], rngArray[31 + cnt], 0);
+                        uint pid = Functions.GenderModPID(rngArray[30], rngArray[31], 0);
                         switch (shiny)
                         {
                             case 0:
@@ -4513,14 +4331,14 @@ namespace RNGReporter.Objects
                             FrameType.Wondercard5thGenFixed,
                             cnt + InitialFrame,
                             id, sid,
-                            rngArray[0 + cnt],
-                            rngArray[24 + cnt] >> 27,
-                            rngArray[25 + cnt] >> 27,
-                            rngArray[26 + cnt] >> 27,
-                            rngArray[27 + cnt] >> 27,
-                            rngArray[28 + cnt] >> 27,
-                            rngArray[29 + cnt] >> 27,
-                            rngArray[35 + cnt],
+                            rngArray[0],
+                            rngArray[24] >> 27,
+                            rngArray[25] >> 27,
+                            rngArray[26] >> 27,
+                            rngArray[27] >> 27,
+                            rngArray[28] >> 27,
+                            rngArray[29] >> 27,
+                            rngArray[35],
                             pid);
 
 
@@ -4533,20 +4351,13 @@ namespace RNGReporter.Objects
                 else
                 {
                     for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                    {
                         rng64.GetNext64BitNumber();
-                    }
-
-                    rngQueue = new Queue<uint>();
 
                     for (int cnt = 0; cnt < 36; cnt++)
-                    {
-                        rngQueue.Enqueue(rng64.GetNext32BitNumber());
-                    }
+                        rngArray.Add(rng64.GetNext32BitNumber());
 
-                    for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++)
+                    for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++, rngArray.RemoveAt(0), rngArray.Add(rng64.GetNext32BitNumber()))
                     {
-                        rngArray = rngQueue.ToArray();
                         uint pid = Functions.GenderModPID(rngArray[30], rngArray[31], 0);
                         switch (shiny)
                         {
@@ -4576,9 +4387,6 @@ namespace RNGReporter.Objects
                         {
                             frames.Add(frame);
                         }
-
-                        rngQueue.Dequeue();
-                        rngQueue.Enqueue(rng64.GetNext32BitNumber());
                     }
                 }
             }
@@ -4588,16 +4396,13 @@ namespace RNGReporter.Objects
         private static uint ForceShiny(uint pid, uint tid, uint sid)
         {
             uint lowByte = pid & 0x000000ff;
-
             return ((lowByte ^ tid ^ sid) << 16) | lowByte;
         }
 
         private static uint ForceNonShiny(uint pid, uint tid, uint sid)
         {
             if (((pid >> 16) ^ (pid & 0xffff) ^ sid ^ tid) < 8)
-            {
                 pid = pid ^ 0x10000000;
-            }
 
             return pid;
         }

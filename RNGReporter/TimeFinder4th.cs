@@ -521,7 +521,7 @@ namespace RNGReporter
 
             progressSearched = 0;
             progressFound = 0;
-            progressTotal = (255*24*(highdelay - lowdelay + 1)*generator.MaxResults);
+            progressTotal = (255 * 24 * (highdelay - lowdelay + 1) * generator.MaxResults);
 
             waitHandle = new EventWaitHandle(true, EventResetMode.ManualReset);
 
@@ -531,8 +531,7 @@ namespace RNGReporter
 
             Thread.Sleep(200);
 
-            var progressJob =
-                new Thread(() => ManageProgress(listBindingEgg, dataGridViewEggIVValues, generator.FrameType, 0));
+            var progressJob = new Thread(() => ManageProgress(listBindingEgg, dataGridViewEggIVValues, generator.FrameType, 0));
             progressJob.Start();
             progressJob.Priority = ThreadPriority.Lowest;
 
@@ -796,14 +795,10 @@ namespace RNGReporter
         private void buttonCapGenerate_Click(object sender, EventArgs e)
         {
             if (!uint.TryParse(maskedTextBoxID.Text, out id))
-            {
                 id = 0;
-            }
 
             if (!uint.TryParse(maskedTextBoxSID.Text, out sid))
-            {
                 sid = 0;
-            }
 
             iframes = new List<IFrameCapture>();
             listBindingCap = new BindingSource {DataSource = iframes};
@@ -814,7 +809,7 @@ namespace RNGReporter
             //  that we can have some values for our looping.
             //  Default these to this value, but save to
             //  the registry so we can not have to redo.
-            uint maxDelay = 610;
+            uint maxDelay = 2000;
             if (maskedTextBoxCapMaxDelay.Text != "")
                 maxDelay = uint.Parse(maskedTextBoxCapMaxDelay.Text);
 
@@ -1047,15 +1042,11 @@ namespace RNGReporter
                     natures.Add(i);
             }
 
-            jobs[0] = new Thread(() => Generate4thGenCapJob(hpList, atkList, defList, spaList, spdList, speList,
-                                                            natures, minEfgh, maxEfgh));
+            jobs[0] = new Thread(() => Generate4thGenCapJob(hpList, atkList, defList, spaList, spdList, speList, natures, minEfgh, maxEfgh));
             jobs[0].Start();
 
-            progressTotal =
-                (ulong)
-                (hpList.Count*atkList.Count*defList.Count*spaList.Count*spdList.Count*speList.Count*natures.Count);
-            var progressJob =
-                new Thread(() => ManageProgress(listBindingCap, dataGridViewCapValues, generator.FrameType, 0));
+            progressTotal = (ulong)(hpList.Count * atkList.Count * defList.Count * spaList.Count * spdList.Count * speList.Count * natures.Count);
+            var progressJob = new Thread(() => ManageProgress(listBindingCap, dataGridViewCapValues, generator.FrameType, 0));
             progressJob.Start();
             progressJob.Priority = ThreadPriority.Lowest;
 
@@ -1659,14 +1650,10 @@ namespace RNGReporter
             var maxEfgh = (uint) (maxDelay + year - 2000);
 
             if (!uint.TryParse(maskedTextBoxShinyID.Text, out id))
-            {
                 id = 0;
-            }
 
             if (!uint.TryParse(maskedTextBoxShinySecretID.Text, out sid))
-            {
                 sid = 0;
-            }
 
             List<uint> nature = null;
             if (comboBoxShinyNature.SelectedIndex != 0)
@@ -1739,7 +1726,7 @@ namespace RNGReporter
 
             progressSearched = 0;
             progressFound = 0;
-            progressTotal = (255*24*(maxEfgh - minEfgh + 1)*generator.MaxResults);
+            progressTotal = (255 * 24 * (maxEfgh - minEfgh + 1) * generator.MaxResults);
 
             waitHandle = new EventWaitHandle(true, EventResetMode.ManualReset);
 
@@ -1749,8 +1736,7 @@ namespace RNGReporter
 
             Thread.Sleep(200);
 
-            var progressJob =
-                new Thread(() => ManageProgress(listBindingShiny, dataGridViewShinyResults, generator.FrameType, 0));
+            var progressJob = new Thread(() => ManageProgress(listBindingShiny, dataGridViewShinyResults, generator.FrameType, 0));
             progressJob.Start();
             progressJob.Priority = ThreadPriority.Lowest;
 

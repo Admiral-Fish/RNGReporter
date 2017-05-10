@@ -12,7 +12,7 @@ namespace RNGReporter.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -253,7 +253,7 @@ namespace RNGReporter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("610")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
         public string fMaxDelay {
             get {
                 return ((string)(this["fMaxDelay"]));
@@ -301,7 +301,7 @@ namespace RNGReporter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("610")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
         public string fCapDelayMax {
             get {
                 return ((string)(this["fCapDelayMax"]));
@@ -325,7 +325,7 @@ namespace RNGReporter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("610")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
         public string fShinyDelayMax {
             get {
                 return ((string)(this["fShinyDelayMax"]));

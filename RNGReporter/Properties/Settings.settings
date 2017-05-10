@@ -60,7 +60,7 @@
       <Value Profile="(Default)">600</Value>
     </Setting>
     <Setting Name="fMaxDelay" Type="System.String" Scope="User">
-      <Value Profile="(Default)">610</Value>
+      <Value Profile="(Default)">2000</Value>
     </Setting>
     <Setting Name="fCapYear" Type="System.String" Scope="User">
       <Value Profile="(Default)">2017</Value>
@@ -72,13 +72,13 @@
       <Value Profile="(Default)">600</Value>
     </Setting>
     <Setting Name="fCapDelayMax" Type="System.String" Scope="User">
-      <Value Profile="(Default)">610</Value>
+      <Value Profile="(Default)">2000</Value>
     </Setting>
     <Setting Name="fShinyDelayMin" Type="System.String" Scope="User">
       <Value Profile="(Default)">600</Value>
     </Setting>
     <Setting Name="fShinyDelayMax" Type="System.String" Scope="User">
-      <Value Profile="(Default)">610</Value>
+      <Value Profile="(Default)">2000</Value>
     </Setting>
     <Setting Name="fShinyYear" Type="System.String" Scope="User">
       <Value Profile="(Default)">2017</Value>

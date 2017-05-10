@@ -650,14 +650,10 @@ namespace RNGReporter
             const uint seed = 0x05A0;
 
             if (maskedTextBoxShiny3rdID.Text != "")
-            {
                 id = ushort.Parse(maskedTextBoxShiny3rdID.Text);
-            }
 
             if (maskedTextBoxShiny3rdSID.Text != "")
-            {
                 sid = ushort.Parse(maskedTextBoxShiny3rdSID.Text);
-            }
 
             var parentA = new uint[6];
             var parentB = new uint[6];
@@ -727,17 +723,11 @@ namespace RNGReporter
             ivGenerator = new FrameGenerator();
 
             if (comboBoxParentCompatibility.SelectedIndex == 1)
-            {
                 lowerGenerator.Compatibility = 50;
-            }
             else if (comboBoxParentCompatibility.SelectedIndex == 2)
-            {
                 lowerGenerator.Compatibility = 70;
-            }
             else
-            {
                 lowerGenerator.Compatibility = 20;
-            }
 
             lowerGenerator.FrameType = FrameType.RSBredLower;
             if (radioButtonSplitSpreads.Checked)
@@ -764,10 +754,8 @@ namespace RNGReporter
             {
                 natures = new List<uint>();
                 for (int i = 0; i < comboBoxShiny3rdNature.CheckBoxItems.Count; i++)
-                {
                     if (comboBoxShiny3rdNature.CheckBoxItems[i].Checked)
                         natures.Add((uint) ((Nature) comboBoxShiny3rdNature.CheckBoxItems[i].ComboBoxItem).Number);
-                }
             }
 
             frameCompare = new FrameCompare(
@@ -810,11 +798,8 @@ namespace RNGReporter
             int parentPassCount = 0;
             for (int i = 0; i < 6; i++)
             {
-                if (subFrameCompare.CompareIV(i, parentA[i]) ||
-                    subFrameCompare.CompareIV(i, parentB[i]))
-                {
+                if (subFrameCompare.CompareIV(i, parentA[i]) || subFrameCompare.CompareIV(i, parentB[i]))
                     parentPassCount++;
-                }
             }
 
             if (parentPassCount < 3)
@@ -840,9 +825,7 @@ namespace RNGReporter
 
             Thread.Sleep(200);
 
-            var progressJob =
-                new Thread(
-                    () => ManageProgress(listBindingEggRS, dataGridViewShinyRSResults, lowerGenerator.FrameType, 0));
+            var progressJob = new Thread(() => ManageProgress(listBindingEggRS, dataGridViewShinyRSResults, lowerGenerator.FrameType, 0));
             progressJob.Start();
             progressJob.Priority = ThreadPriority.Lowest;
             buttonShiny3rdGenerate.Enabled = false;
@@ -1197,9 +1180,7 @@ namespace RNGReporter
 
             Thread.Sleep(200);
 
-            var progressJob =
-                new Thread(
-                    () => ManageProgress(listBindingEggEPID, dataGridViewEPIDs, lowerGenerator.FrameType, 0));
+            var progressJob = new Thread(() => ManageProgress(listBindingEggEPID, dataGridViewEPIDs, lowerGenerator.FrameType, 0));
             progressJob.Start();
             progressJob.Priority = ThreadPriority.Lowest;
             buttonShiny3rdGenerate.Enabled = false;
@@ -1312,9 +1293,7 @@ namespace RNGReporter
 
             Thread.Sleep(200);
 
-            var progressJob =
-                new Thread(
-                    () => ManageProgress(listBindingEggEIV, dataGridViewEIVs, ivGenerator.FrameType, 0));
+            var progressJob = new Thread(() => ManageProgress(listBindingEggEIV, dataGridViewEIVs, ivGenerator.FrameType, 0));
             progressJob.Start();
             progressJob.Priority = ThreadPriority.Lowest;
             buttonShiny3rdGenerate.Enabled = false;

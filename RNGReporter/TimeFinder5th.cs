@@ -452,23 +452,15 @@ namespace RNGReporter
 
             uint maxOffset = 1000;
             if (maskedTextBoxCapMaxOffset.Text != "")
-            {
                 maxOffset = uint.Parse(maskedTextBoxCapMaxOffset.Text);
-            }
             else
-            {
                 maskedTextBoxCapMaxOffset.Text = "1000";
-            }
 
             uint minOffset = 1;
             if (maskedTextBoxCapMinOffset.Text != "")
-            {
                 minOffset = uint.Parse(maskedTextBoxCapMinOffset.Text);
-            }
             else
-            {
                 maskedTextBoxCapMinOffset.Text = "1";
-            }
 
             if (minOffset > maxOffset)
             {
@@ -520,18 +512,11 @@ namespace RNGReporter
 
             List<uint> natures = null;
             if (comboBoxNature.Text != "Any" && comboBoxNature.CheckBoxItems.Count > 0)
-            {
-                natures =
-                    (from t in comboBoxNature.CheckBoxItems
-                     where t.Checked
-                     select (uint) ((Nature) t.ComboBoxItem).Number).ToList();
-            }
+                natures = (from t in comboBoxNature.CheckBoxItems where t.Checked select (uint)((Nature)t.ComboBoxItem).Number).ToList();
 
             uint shinyOffset = 0;
             if (checkBoxShinyOnly.Checked)
-            {
                 uint.TryParse(maskedTextBoxMaxShiny.Text, out shinyOffset);
-            }
 
             if (generator.FrameType == FrameType.Method5CGear || generator.FrameType == FrameType.Method5Standard)
             {

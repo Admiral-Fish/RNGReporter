@@ -66,49 +66,40 @@ namespace RNGReporter
         //Credits to Zari for writing this
         private void seedToTime(uint seed)
         {
-            long h = 0;
-            long m = 0;
-            long d = 0;
-
-            while (d < 366)
+            for (int d = 0; d < 366; d++)
             {
-                long x1 = (1440 * d) / 65536;
-                long x2 = x1 + 1;
+                int x1 = (1440 * d) / 65536;
+                int x2 = x1 + 1;
 
-                long y1 = x1 ^ seed;
-                long y2 = x2 ^ seed;
+                int y1 = (int)((uint)x1 ^ seed);
+                int y2 = (int)((uint)x2 ^ seed);
 
-                long v1 = (x1 << 16) | y1;
-                long v2 = (x2 << 16) | y2;
+                int v1 = (x1 << 16) | y1;
+                int v2 = (x2 << 16) | y2;
 
-                while (h < 24)
+                for (int h = 0; h < 24; h++)
                 {
-                    while (m < 60)
+                    for (int m = 0; m < 60; m++)
                     {
-                        long v = 1440 * d + 96 * h + 60 * (h - 10 * (h / 10)) + 16 * (m / 10) + (m - 10 * (m / 10)) + 0x5a0;
+                        int v = 1440 * d + 960 * (h / 10) + 60 * (h % 10) + 16 * (m / 10) + (m % 10) + 0x5a0;
                         if (v1 == v)
                         {
-                            addTime = new TimeSpan((int)d, (int)h, (int)m, 0);
+                            addTime = new TimeSpan(d, h, m, 0);
                             DateTime finalTime = date + addTime;
                             String result = finalTime.ToString();
-                            String seconds = (((int)d * 86400) + ((int)h * 3600) + ((int)m * 60)).ToString();
+                            String seconds = ((d * 86400) + (h * 3600) + (m * 60)).ToString();
                             seedTime.Add(new SeedtoTime { Time = result, Seconds = seconds});
                         }
                         else if (v2 == v)
                         {
-                            addTime = new TimeSpan((int)d, (int)h, (int)m, 0);
+                            addTime = new TimeSpan(d, h, m, 0);
                             DateTime finalTime = date + addTime;
                             String result = finalTime.ToString();
-                            String seconds = (((int)d * 86400)) + ((int)h * 3600) + ((int)m * 60).ToString();
+                            String seconds = ((d * 86400)) + (h * 3600) + (m * 60).ToString();
                             seedTime.Add(new SeedtoTime { Time = result, Seconds = seconds});
                         }
-                        m++;
                     }
-                    m = 0;
-                    h++;
                 }
-                h = 0;
-                d++;
             }
         }
 

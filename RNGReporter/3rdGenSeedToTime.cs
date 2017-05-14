@@ -32,10 +32,9 @@ namespace RNGReporter
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            uint seed;
-            uint.TryParse(seedToTimeSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out seed);
+            uint.TryParse(seedToTimeSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint seed);
 
-            if (seed > 0x10000)
+            if (seed > 0xFFFF)
             {
                 seed = originSeed(seed);
                 seedToTimeSeed.Text = seed.ToString("X");
@@ -45,10 +44,7 @@ namespace RNGReporter
             binding = new BindingSource { DataSource = seedTime };
             dataGridViewValues.DataSource = binding;
 
-            searchThread =
-                new Thread(
-                    () =>
-                    seedToTime(seed));
+            searchThread = new Thread(() => seedToTime(seed));
             searchThread.Start();
 
             var update = new Thread(updateGUI);
@@ -57,19 +53,14 @@ namespace RNGReporter
 
         private uint originSeed(uint seed)
         {
-            while (seed > 0x10000)
-            {
+            while (seed > 0xFFFF)
                 seed = LCRNGR(seed);
-            }
             return seed;
         }
 
         private uint LCRNGR(uint seed)
         {
-            seed *= 0xEEB9EB65;
-            seed += 0x0A3561A1;
-            seed &= 0xFFFFFFFF;
-            return seed;
+            return (seed * 0xEEB9EB65 + 0x0A3561A1) & 0xFFFFFFFF;
         }
 
         //Credits to Zari for writing this
@@ -94,7 +85,7 @@ namespace RNGReporter
                 {
                     while (m < 60)
                     {
-                        long v = 1440 * d + 960 * (h / 10) + 60 * (h % 10) + 16 * (m / 10) + (m % 10) + 0x5a0;
+                        long v = 1440 * d + 96 * h + 60 * (h - 10 * (h / 10)) + 16 * (m / 10) + (m - 10 * (m / 10)) + 0x5a0;
                         if (v1 == v)
                         {
                             addTime = new TimeSpan((int)d, (int)h, (int)m, 0);

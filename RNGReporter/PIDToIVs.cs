@@ -48,10 +48,7 @@ namespace RNGReporter
             binding = new BindingSource { DataSource = results };
             dataGridViewValues.DataSource = binding;
 
-            searchThread =
-                new Thread(
-                    () =>
-                    calcFromPID(pid));
+            searchThread = new Thread(() => calcFromPID(pid));
             searchThread.Start();
 
             var update = new Thread(updateGUI);
@@ -69,15 +66,15 @@ namespace RNGReporter
 
         private void calcMethod1(uint pid)
         {
-            long pidl = (long)pid & 0xFFFF;
-            long pidh = (long)pid >> 16;
+            uint pidl = pid & 0xFFFF;
+            uint pidh = pid >> 16;
 
-            long test = pidh * 0x10000;
-            for (int x = 0; x < 65536; x++)
+            uint test = pidh << 16;
+            for (uint x = 0; x <= 0xFFFF; x++)
             {
-                long testseed = test + x;
-                long prevseed = reverse(testseed);
-                long temp = prevseed >> 16;
+                uint testseed = test + x;
+                uint prevseed = reverse(testseed);
+                uint temp = prevseed >> 16;
                 if (temp == pidl)
                     addSeed(reverse(prevseed),0);
             }
@@ -85,15 +82,15 @@ namespace RNGReporter
 
         private void calcMethod2(uint pid)
         {
-            long pidl = (long)pid & 0xFFFF;
-            long pidh = (long)pid >> 16;
+            uint pidl = pid & 0xFFFF;
+            uint pidh = pid >> 16;
 
-            long test = pidh * 0x10000;
-            for (int x = 0; x < 65536; x++)
+            uint test = pidh << 16;
+            for (uint x = 0; x <= 0xFFFF; x++)
             {
-                long testseed = test + x;
-                long prevseed = reverse(testseed);
-                long temp = prevseed >> 16;
+                uint testseed = test + x;
+                uint prevseed = reverse(testseed);
+                uint temp = prevseed >> 16;
                 if (temp == pidl)
                     addSeed(reverse(prevseed), 1);
             }
@@ -101,15 +98,15 @@ namespace RNGReporter
 
         private void calcMethod4(uint pid)
         {
-            long pidl = (long)pid & 0xFFFF;
-            long pidh = (long)pid >> 16;
+            uint pidl = pid & 0xFFFF;
+            uint pidh = pid >> 16;
 
-            long test = pidh * 0x10000;
-            for (int x = 0; x < 65536; x++)
+            uint test = pidh * 0x10000;
+            for (uint x = 0; x <= 0xFFFF; x++)
             {
-                long testseed = test + x;
-                long prevseed = reverse(testseed);
-                long temp = prevseed >> 16;
+                uint testseed = test + x;
+                uint prevseed = reverse(testseed);
+                uint temp = prevseed >> 16;
                 if (temp == pidl)
                     addSeed(reverse(prevseed), 2);
             }
@@ -117,15 +114,15 @@ namespace RNGReporter
 
         private void calcMethodXD(uint pid)
         {
-            long pidl = (long)pid & 0xFFFF;
-            long pidh = (long)pid >> 16;
+            uint pidl = pid & 0xFFFF;
+            uint pidh = pid >> 16;
 
-            long test = pidl * 0x10000;
-            for (int x = 0; x < 65536; x++)
+            uint test = pidl * 0x10000;
+            for (uint x = 0; x <= 0xFFFF; x++)
             {
-                long testseed = test + x;
-                long prevseed = reverseXD(testseed);
-                long temp = prevseed >> 16;
+                uint testseed = test + x;
+                uint prevseed = reverseXD(testseed);
+                uint temp = prevseed >> 16;
                 if (temp == pidh)
                     addSeed(reverseXD(reverseXD(reverseXD(reverseXD(prevseed)))), 3);
             }
@@ -133,21 +130,21 @@ namespace RNGReporter
 
         private void calcMethodChannel(uint pid)
         {
-            long pidl = (long)pid & 0xFFFF;
-            long pidh = ((long)pid >> 16) ^ 0x8000;
+            uint pidl = pid & 0xFFFF;
+            uint pidh = (pid >> 16) ^ 0x8000;
 
-            long test = pidl * 0x10000;
-            for (int x = 0; x < 65536; x++)
+            uint test = pidl * 0x10000;
+            for (uint x = 0; x <= 0xFFFF; x++)
             {
-                long testseed = test + x;
-                long prevseed = reverseXD(testseed);
-                long temp = prevseed >> 16;
+                uint testseed = test + x;
+                uint prevseed = reverseXD(testseed);
+                uint temp = prevseed >> 16;
                 if (temp == pidh)
                     addSeed(reverseXD(reverseXD(prevseed)), 4);
             }
         }
 
-        private void addSeed(long seed, int method)
+        private void addSeed(uint seed, int method)
         {
             String methodType = Method[method];
             uint actualSeed = Convert.ToUInt32(seed);
@@ -168,11 +165,11 @@ namespace RNGReporter
             results.Add(new PIDIVS { Seed = MonsterSeed, Method = methodType, IVs = IVs});
         }
 
-        private String calcIVs1(long seed)
+        private String calcIVs1(uint seed)
         {
             String ivs = "";
-            long iv1 = forward(forward(forward(seed)));
-            long iv2 = forward(iv1);
+            uint iv1 = forward(forward(forward(seed)));
+            uint iv2 = forward(iv1);
             iv1 >>= 16;
             iv2 >>= 16;
 
@@ -198,11 +195,11 @@ namespace RNGReporter
             return ivs;
         }
 
-        private String calcIVs2(long seed)
+        private String calcIVs2(uint seed)
         {
             String ivs = "";
-            long iv1 = forward(forward(forward(forward(seed))));
-            long iv2 = forward(iv1);
+            uint iv1 = forward(forward(forward(forward(seed))));
+            uint iv2 = forward(iv1);
             iv1 >>= 16;
             iv2 >>= 16;
 
@@ -228,11 +225,11 @@ namespace RNGReporter
             return ivs;
         }
 
-        private String calcIVs4(long seed)
+        private String calcIVs4(uint seed)
         {
             String ivs = "";
-            long iv1 = forward(forward(forward(seed)));
-            long iv2 = forward(forward(iv1));
+            uint iv1 = forward(forward(forward(seed)));
+            uint iv2 = forward(forward(iv1));
             iv1 >>= 16;
             iv2 >>= 16;
 
@@ -258,11 +255,11 @@ namespace RNGReporter
             return ivs;
         }
 
-        private String calcIVsXD(long seed)
+        private String calcIVsXD(uint seed)
         {
             String ivs = "";
-            long iv1 = forwardXD(seed);
-            long iv2 = forwardXD(iv1);
+            uint iv1 = forwardXD(seed);
+            uint iv2 = forwardXD(iv1);
             iv1 >>= 16;
             iv2 >>= 16;
 
@@ -288,17 +285,17 @@ namespace RNGReporter
             return ivs;
         }
 
-        private String calcIVsChannel(long seed)
+        private String calcIVsChannel(uint seed)
         {
             String ivs = "";
 
-            long iv1 = forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(seed)))))));
-            long iv2 = forwardXD(iv1);
-            long iv3 = forwardXD(iv2);
-            long iv4 = forwardXD(iv3);
-            long iv5 = forwardXD(iv4);
-            long iv6 = forwardXD(iv5);
-            long[] ivContiner = new long[] { iv1, iv2, iv3, iv5, iv6, iv4 };
+            uint iv1 = forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(seed)))))));
+            uint iv2 = forwardXD(iv1);
+            uint iv3 = forwardXD(iv2);
+            uint iv4 = forwardXD(iv3);
+            uint iv5 = forwardXD(iv4);
+            uint iv6 = forwardXD(iv5);
+            uint[] ivContiner = { iv1, iv2, iv3, iv5, iv6, iv4 };
             for (int x = 0; x < 6; x ++)
             {
                 long iv = ivContiner[x] >> 27;
@@ -310,22 +307,22 @@ namespace RNGReporter
             return ivs;
         }
 
-        private long forward(long seed)
+        private uint forward(uint seed)
         {
             return (seed * 0x41c64e6d + 0x6073) & 0xFFFFFFFF;
         }
 
-        private long reverse(long seed)
+        private uint reverse(uint seed)
         {
             return (seed * 0xeeb9eb65 + 0xa3561a1) & 0xFFFFFFFF;
         }
 
-        private long forwardXD(long seed)
+        private uint forwardXD(uint seed)
         {
             return (seed * 0x343FD + 0x269EC3) & 0xFFFFFFFF;
         }
 
-        private long reverseXD(long seed)
+        private uint reverseXD(uint seed)
         {
             return (seed * 0xB9B33155 + 0xA170F641) & 0xFFFFFFFF;
         }

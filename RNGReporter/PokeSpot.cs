@@ -127,21 +127,20 @@ namespace RNGReporter.Objects
 
         private void filterPokeSpot(uint seed, uint frame, uint gender, uint ability, bool shinyCheck)
         {
-            uint rng3 = forward(forward(forward(forward(seed))));
-            uint rng4 = forward(rng3);
-            uint pid = ((rng3 >> 16) << 16) + (rng4 >> 16);
+            uint pid1 = forward(forward(forward(forward(seed))));
+            uint pid2 = forward(pid1);
+            pid1 >>= 16;
+            pid2 >>= 16;
+            uint pid = (pid1 << 16) | pid2;
 
-            uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
-            if (natureList != null)
-            {
-                if (!natureList.Contains(nature))
-                    return;
-            }
+            uint nature = pid - 25 * (pid / 25);
+            if (natureList != null && !natureList.Contains(nature))
+                return;
 
             String shiny = "";
             if (shinyCheck)
             {
-                uint shinyNum = ((pid >> 16) ^ (pid & 0xFFFF)) >> 3;
+                uint shinyNum = (pid1 ^ pid2) >> 3;
                 if (shinyNum != shinyval)
                     return;
                 shiny = "!!!";
@@ -215,14 +214,13 @@ namespace RNGReporter.Objects
             }
 
             calcPokeSpot(seed, pid, frame, nature, gender, ability, shiny);
-
         }
 
         private void calcPokeSpot(uint seed, uint pid, uint frame, uint nature, uint gender, uint ability, String shiny)
         {
             uint call1 = forward(seed);
             call1 >>= 16;
-            uint currentCall = call1 == 0 ? 0 : call1 - 3 * (call1 / 3);
+            uint currentCall = call1 - 3 * (call1 / 3);
 
             if (currentCall == 0)
             {
@@ -239,7 +237,7 @@ namespace RNGReporter.Objects
                         shiny = "!!!";
                 }
 
-                currentCall = call3 == 0 ? 0 : call3 - 100 * (call3 / 100);
+                currentCall = call3 - 100 * (call3 / 100);
 
                 if (spotList != null)
                 {
@@ -247,25 +245,25 @@ namespace RNGReporter.Objects
                     {
                         if (x == 0)
                         {
-                            if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) > 9)
+                            if ((call2 - 100 * (call2 / 100)) > 9)
                                 if (currentCall < 50)
                                     spotType = "Common";
                         }
                         else if (x == 1)
                         {
-                            if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) > 9)
+                            if ((call2 - 100 * (call2 / 100)) > 9)
                                 if (currentCall > 49 && currentCall < 85)
                                     spotType = "Uncommon";
                         }
                         else if (x == 2)
                         {
-                            if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) > 9)
+                            if ((call2 - 100 * (call2 / 100)) > 9)
                                 if (currentCall > 84)
                                     spotType = "Rare";
                         }
                         else
                         { 
-                        if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) < 10)
+                        if ((call2 - 100 * (call2 / 100)) < 10)
                             spotType = "Munchlax";
                         }
                     }
@@ -274,7 +272,7 @@ namespace RNGReporter.Objects
                 }
                 else
                 {
-                    if ((call2 == 0 ? 0 : call2 - 100 * (call2 / 100)) < 10)
+                    if ((call2 - 100 * (call2 / 100)) < 10)
                         spotType = "Munchlax";
                     else if (currentCall < 50)
                         spotType = "Common";
@@ -401,15 +399,13 @@ namespace RNGReporter.Objects
 
         private String[] addSpotTypes()
         {
-            String[] temp = new String[]
+            return new String[]
                 {
                     "Common",
                     "Uncommon",
                     "Rare",
                     "Munchlax"
                 };
-
-            return temp;
         }
     }
 }

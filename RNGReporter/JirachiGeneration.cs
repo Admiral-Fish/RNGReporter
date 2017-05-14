@@ -37,10 +37,7 @@ namespace RNGReporter
             binding = new BindingSource { DataSource = generation };
             dataGridViewValues.DataSource = binding;
 
-            searchThread =
-                new Thread(
-                    () =>
-                    genListOut(seed));
+            searchThread = new Thread(() => genListOut(seed));
             searchThread.Start();
 
             var update = new Thread(updateGUI);

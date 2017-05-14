@@ -1311,13 +1311,13 @@ namespace RNGReporter
             else
                 return null;
 
-                iV = (ivs2 >> 10) & 31;
+            iV = (ivs2 >> 10) & 31;
             if (iV >= ivsLower[4] && iV <= ivsUpper[4])
                 ivs[4] = iV;
             else
                 return null;
 
-                iV = ivs2 & 31;
+            iV = ivs2 & 31;
             if (iV >= ivsLower[5] && iV <= ivsUpper[5])
                 ivs[5] = iV;
             else

@@ -176,12 +176,12 @@ namespace RNGReporter
             for (int x = 0; x < 3; x++)
             {
                 int q = x * 5;
-                long iv = (iv1 >> q) & 31;
+                uint iv = (iv1 >> q) & 31;
                 ivs += iv.ToString();
                 ivs += ".";
             }
 
-            long iV = (iv2 >> 5) & 31;
+            uint iV = (iv2 >> 5) & 31;
             ivs += iV.ToString();
             ivs += ".";
 
@@ -206,12 +206,12 @@ namespace RNGReporter
             for (int x = 0; x < 3; x++)
             {
                 int q = x * 5;
-                long iv = (iv1 >> q) & 31;
+                uint iv = (iv1 >> q) & 31;
                 ivs += iv.ToString();
                 ivs += ".";
             }
 
-            long iV = (iv2 >> 5) & 31;
+            uint iV = (iv2 >> 5) & 31;
             ivs += iV.ToString();
             ivs += ".";
 
@@ -236,12 +236,12 @@ namespace RNGReporter
             for (int x = 0; x < 3; x++)
             {
                 int q = x * 5;
-                long iv = (iv1 >> q) & 31;
+                uint iv = (iv1 >> q) & 31;
                 ivs += iv.ToString();
                 ivs += ".";
             }
 
-            long iV = (iv2 >> 5) & 31;
+            uint iV = (iv2 >> 5) & 31;
             ivs += iV.ToString();
             ivs += ".";
 
@@ -266,12 +266,12 @@ namespace RNGReporter
             for (int x = 0; x < 3; x++)
             {
                 int q = x * 5;
-                long iv = (iv1 >> q) & 31;
+                uint iv = (iv1 >> q) & 31;
                 ivs += iv.ToString();
                 ivs += ".";
             }
 
-            long iV = (iv2 >> 5) & 31;
+            uint iV = (iv2 >> 5) & 31;
             ivs += iV.ToString();
             ivs += ".";
 
@@ -298,7 +298,7 @@ namespace RNGReporter
             uint[] ivContiner = { iv1, iv2, iv3, iv5, iv6, iv4 };
             for (int x = 0; x < 6; x ++)
             {
-                long iv = ivContiner[x] >> 27;
+                uint iv = ivContiner[x] >> 27;
                 ivs += iv.ToString();
                 if (x != 5)
                     ivs += ".";

@@ -80,10 +80,16 @@ namespace RNGReporter.Objects
             binding = new BindingSource { DataSource = displayList };
             dataGridViewResult.DataSource = binding;
             status.Text = "Searching";
-            shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
+            try
+            {
+                shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
+            }
+            catch
+            {
+                shinyval = 0;
+            }
 
-            uint seed = 0;
-            uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out seed);
+            uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint seed);
             uint frame = 3000000;
             uint.TryParse(maxFrame.Text, out frame);
 
@@ -118,7 +124,7 @@ namespace RNGReporter.Objects
             {
                 filterPokeSpot(seed, x, gender, ability, shinyCheck);
                 seed = forward(seed);
-                if ((x & 0xF) == 0)
+                if ((x & 0xFF) == 0)
                     refresh = true;
             }
             isSearching = false;

@@ -130,7 +130,14 @@ namespace RNGReporter
                 rlist.Clear();
                 forwardCounter = 0;
                 backwardCounter = 0;
-                shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
+                try
+                {
+                    shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
+                }
+                catch
+                {
+                    shinyval = 0;
+                }
                 searchNumber = getSearchMethod();
 
                 if (galesCheck.Checked)

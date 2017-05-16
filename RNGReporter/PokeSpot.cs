@@ -26,6 +26,7 @@ namespace RNGReporter.Objects
         private bool abort = false;
         private List<uint> natureList;
         private List<uint> spotList;
+        private List<uint> rngList;
 
         public PokeSpot()
         {
@@ -110,6 +111,7 @@ namespace RNGReporter.Objects
             uint gender = (uint)genderType.SelectedIndex;
             uint ability = (uint)abilityType.SelectedIndex;
             bool shinyCheck = Shiny_Check.Checked;
+            rngList = new List<uint>();
 
             searchThread = new Thread(() => searchPokeSpot(seed, frame, gender, ability, shinyCheck));
             searchThread.Start();
@@ -120,10 +122,15 @@ namespace RNGReporter.Objects
 
         private void searchPokeSpot(uint seed, uint frame, uint gender, uint ability, bool shinyCheck)
         {
-            for (uint x = 1; x < frame + 1; x++)
+            var rng = new XdRng(seed);
+            rngList.Add(seed);
+
+            for (int x = 0; x < 5; x++)
+                rngList.Add(rng.GetNext32BitNumber());
+
+            for (uint x = 1; x < frame + 1; x++, rngList.RemoveAt(0), rngList.Add(rng.GetNext32BitNumber()))
             {
-                filterPokeSpot(seed, x, gender, ability, shinyCheck);
-                seed = forward(seed);
+                filterPokeSpot(rngList[0], x, gender, ability, shinyCheck);
                 if ((x & 0xFF) == 0)
                     refresh = true;
             }
@@ -133,10 +140,8 @@ namespace RNGReporter.Objects
 
         private void filterPokeSpot(uint seed, uint frame, uint gender, uint ability, bool shinyCheck)
         {
-            uint pid1 = forward(forward(forward(forward(seed))));
-            uint pid2 = forward(pid1);
-            pid1 >>= 16;
-            pid2 >>= 16;
+            uint pid1 = rngList[4] >> 16;
+            uint pid2 = rngList[5] >> 16;
             uint pid = (pid1 << 16) | pid2;
 
             uint nature = pid - 25 * (pid / 25);
@@ -224,17 +229,14 @@ namespace RNGReporter.Objects
 
         private void calcPokeSpot(uint seed, uint pid, uint frame, uint nature, uint gender, uint ability, String shiny)
         {
-            uint call1 = forward(seed);
-            call1 >>= 16;
+            uint call1 = rngList[1] >> 16;
             uint currentCall = call1 - 3 * (call1 / 3);
 
             if (currentCall == 0)
             {
                 String spotType = "";
-                uint call2 = forward(forward(seed));
-                uint call3 = forward(call2);
-                call2 >>= 16;
-                call3 >>= 16;
+                uint call2 = rngList[3] >> 16;
+                uint call3 = rngList[4] >> 16;
 
                 if (shiny == "")
                 {
@@ -317,16 +319,6 @@ namespace RNGReporter.Objects
                 });
 
             }
-        }
-
-        private uint forward(uint seed)
-        {
-            return (seed * 0x343FD + 0x269EC3) & 0xFFFFFFFF;
-        }
-
-        private uint reverse(uint seed)
-        {
-            return (seed * 0xB9B33155 + 0xA170F641) & 0xFFFFFFFF;
         }
 
         private void cancel_Click(object sender, EventArgs e)

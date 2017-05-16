@@ -309,22 +309,22 @@ namespace RNGReporter
 
         private uint forward(uint seed)
         {
-            return (seed * 0x41c64e6d + 0x6073) & 0xFFFFFFFF;
+            return seed * 0x41c64e6d + 0x6073;
         }
 
         private uint reverse(uint seed)
         {
-            return (seed * 0xeeb9eb65 + 0xa3561a1) & 0xFFFFFFFF;
+            return seed * 0xeeb9eb65 + 0xa3561a1;
         }
 
         private uint forwardXD(uint seed)
         {
-            return (seed * 0x343FD + 0x269EC3) & 0xFFFFFFFF;
+            return seed * 0x343FD + 0x269EC3;
         }
 
         private uint reverseXD(uint seed)
         {
-            return (seed * 0xB9B33155 + 0xA170F641) & 0xFFFFFFFF;
+            return seed * 0xB9B33155 + 0xA170F641;
         }
 
         private void updateGUI()

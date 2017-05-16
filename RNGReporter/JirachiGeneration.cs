@@ -64,12 +64,13 @@ namespace RNGReporter
             uint[] checker = { 0, 0, 0, 0 };
             uint[] compare = { 0, 1, 1, 1 };
             uint backseed = seed;
+            var rng = new XdRngR(backseed);
             uint advance = 8;
             bool xCheck = false;
 
             while (m < 35)
             {
-                backseed = reverse(backseed);
+                backseed = rng.GetNext32BitNumber();
                 genlistout = (backseed >> 30).ToString() + "|" + genlistout;
 
                 if (m == (advance - 1))
@@ -141,11 +142,6 @@ namespace RNGReporter
                 reverse += cArray[i];
             }
             return reverse;
-        }
-
-        private uint reverse(uint seed)
-        {
-            return (seed * 0xB9B33155 + 0xA170F641) & 0xFFFFFFFF;
         }
 
         private void updateGUI()

@@ -250,11 +250,7 @@ namespace RNGReporter.Objects
                 genderval = pid & 255;
                 if ((genderval >= lockInfo[2 + 3 * x] && genderval <= lockInfo[3 + 3 * x]) || (lockInfo[2 + 3 * x] == 500 && lockInfo[3 + 3 * x] == 500))
                 {
-                    if (((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500))
-                    {
-                        //Backward advances already accounted for
-                    }
-                    else
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
                     {
                         while (flag)
                         {
@@ -300,13 +296,8 @@ namespace RNGReporter.Objects
                 genderval = pid & 255;
                 if ((genderval >= lockInfo[lastIndex + 1 - 3 * x] && genderval <= lockInfo[lastIndex + 2 - 3 * x]) || (lockInfo[lastIndex + 1 - 3 * x] == 500 && lockInfo[lastIndex + 1 - 3 * x] == 500))
                 {
-                    if (((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500))
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
                     {
-                        //nothing since i already accounted for forwards counter
-                    }
-                    else
-                    {
-                        while (flag)
                         {
                             forwardCounter += 2;
                             pid = (rng2.GetNext32BitNumber() & 0xFFFF0000) | rng2.GetNext16BitNumber();
@@ -367,11 +358,7 @@ namespace RNGReporter.Objects
                 genderval = pid & 255;
                 if ((genderval >= lockInfo[2 + 3 * x] && genderval <= lockInfo[3 + 3 * x]) || (lockInfo[2 + 3 * x] == 500 && lockInfo[3 + 3 * x] == 500))
                 {
-                    if (((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500))
-                    {
-                        //Backwards counter already accounted for
-                    }
-                    else
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
                     {
                         while (flag)
                         {
@@ -417,11 +404,7 @@ namespace RNGReporter.Objects
                 genderval = pid & 255;
                 if ((genderval >= lockInfo[lastIndex + 1 - 3 * x] && genderval <= lockInfo[lastIndex + 2 - 3 * x]) || (lockInfo[lastIndex + 1 - 3 * x] == 500 && lockInfo[lastIndex + 1 - 3 * x] == 500))
                 {
-                    if (((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500))
-                    {
-                        //Forwards counter already accounted for
-                    }
-                    else
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
                     {
                         while (flag)
                         {
@@ -484,11 +467,7 @@ namespace RNGReporter.Objects
                 genderval = pid & 255;
                 if ((genderval >= lockInfo[2 + 3 * x] && genderval <= lockInfo[3 + 3 * x]) || (lockInfo[2 + 3 * x] == 500 && lockInfo[3 + 3 * x] == 500))
                 {
-                    if (((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500))
-                    {
-                        //Backwards counter already accounted for
-                    }
-                    else
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
                     {
                         while (flag)
                         {
@@ -534,11 +513,7 @@ namespace RNGReporter.Objects
                 genderval = pid & 255;
                 if ((genderval >= lockInfo[lastIndex + 1 - 3 * x] && genderval <= lockInfo[lastIndex + 2 - 3 * x]) || (lockInfo[lastIndex + 1 - 3 * x] == 500 && lockInfo[lastIndex + 1 - 3 * x] == 500))
                 {
-                    if (((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500))
-                    {
-                        //Forwards counter already accounted for
-                    }
-                    else
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
                     {
                         while (flag)
                         {
@@ -615,11 +590,7 @@ namespace RNGReporter.Objects
                 genderval = pid & 255;
                 if ((genderval >= lockInfo[2 + 3 * x] && genderval <= lockInfo[3 + 3 * x]) || (lockInfo[2 + 3 * x] == 500 && lockInfo[3 + 3 * x] == 500))
                 {
-                    if (((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500))
-                    {
-                        //Backwards counter already accounted for
-                    }
-                    else
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
                     {
                         while (flag)
                         {
@@ -665,11 +636,7 @@ namespace RNGReporter.Objects
                 genderval = pid & 255;
                 if ((genderval >= lockInfo[lastIndex + 1 - 3 * x] && genderval <= lockInfo[lastIndex + 2 - 3 * x]) || (lockInfo[lastIndex + 1 - 3 * x] == 500 && lockInfo[lastIndex + 1 - 3 * x] == 500))
                 {
-                    if (((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500))
-                    {
-                        //Forwards counter already accounted for
-                    }
-                    else
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
                     {
                         while (flag)
                         {

@@ -234,6 +234,7 @@
     <Compile Include="Objects\Generators\DreamRadarGenerator.cs" />
     <Compile Include="Objects\Generators\HiddenGrottoGenerator.cs" />
     <Compile Include="Objects\IVFilter.cs" />
+    <Compile Include="Objects\NatureLock.cs" />
     <Compile Include="Objects\Nazos.cs" />
     <Compile Include="PokeSpot.cs">
       <SubType>Form</SubType>

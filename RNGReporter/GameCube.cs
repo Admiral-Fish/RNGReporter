@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using RNGReporter.Objects;
-using RNGReporter.Properties;
 using System.Linq;
 using System.ComponentModel;
 using System.IO;
@@ -14,7 +13,7 @@ namespace RNGReporter
     {
         private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
         private readonly String[] hiddenPowers = { "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark" };
-        private Thread searchThread;
+        private Thread[] searchThread;
         private bool refresh;
         private ThreadDelegate gridUpdate;
         private BindingSource binding = new BindingSource();
@@ -23,14 +22,12 @@ namespace RNGReporter
         private List<uint> slist = new List<uint>();
         private List<uint> rlist = new List<uint>();
         private uint shinyval;
-        private uint[] natureLock;
-        private int forwardCounter;
-        private int backwardCounter;
+        private NatureLock natureLock;
         private uint searchNumber;
+        private uint shadow;
         private static List<uint> natureList;
         private static List<uint> hiddenPowerList;
         private static bool galesFlag = false;
-        private static List<int> secondShadow = new List<int>();
         private static List<uint> seedList;
 
         public GameCube(int TID, int SID)
@@ -72,7 +69,8 @@ namespace RNGReporter
             e.Cancel = true;
             if (searchThread != null)
             {
-                searchThread.Abort();
+                for (int x = 0; x < searchThread.Length; x++)
+                    searchThread[x].Abort();
                 status.Text = "Cancelled. - Awaiting Command";
             }
             Hide();
@@ -120,16 +118,12 @@ namespace RNGReporter
                 if (temp.Count != 0)
                     hiddenPowerList = temp;
 
-                calcSecondShadow();
-
                 displayList = new List<DisplayList>();
                 binding = new BindingSource { DataSource = displayList };
                 dataGridViewResult.DataSource = binding;
                 status.Text = "Searching";
                 slist.Clear();
                 rlist.Clear();
-                forwardCounter = 0;
-                backwardCounter = 0;
                 try
                 {
                     shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
@@ -145,11 +139,7 @@ namespace RNGReporter
                 else
                     Reason.Visible = false;
 
-                searchThread = new Thread(() => getSearch(ivsLower, ivsUpper));
-                searchThread.Start();
-
-                var update = new Thread(updateGUI);
-                update.Start();
+                getSearch(ivsLower, ivsUpper);
             }
         }
 
@@ -158,7 +148,13 @@ namespace RNGReporter
             if (searchNumber == 0)
             {
                 if (wshMkr.Checked)
-                    generateWishmkr(ivsLower, ivsUpper);
+                {
+                    searchThread = new Thread[1];
+                    searchThread[0] = new Thread(() => generateWishmkr(ivsLower, ivsUpper));
+                    searchThread[0].Start();
+                    var update = new Thread(updateGUI);
+                    update.Start();
+                }
                 else
                     getRMethod(ivsLower, ivsUpper);
             }
@@ -178,228 +174,35 @@ namespace RNGReporter
         private void getGalesMethod(uint[] ivsLower, uint[] ivsUpper)
         {
             int natureLockIndex = getNatureLock();
-            natureLock = natureLockList(natureLockIndex);
+            natureLock = new NatureLock(natureLockIndex);
+            calcSecondShadow();
+            shadow = natureLock.getType();
 
-            if (natureLock.Length == 2)
+            uint method = 1;
+
+            for (int x = 0; x < 6; x++)
             {
-                galesFlag = true;
-                getMethod(ivsLower, ivsUpper);
-                return;
+                uint temp = ivsUpper[x] - ivsLower[x] + 1;
+                method *= temp;
+            }
+
+            if (method > 16384)
+            {
+                searchThread = new Thread[1];
+                searchThread[0] = new Thread(() => generateGales(ivsLower, ivsUpper));
+                searchThread[0].Start();
+                var update = new Thread(updateGUI);
+                update.Start();
             }
             else
             {
-                uint method = 1;
-
-                for (int x = 0; x < 6; x++)
-                {
-                    uint temp = ivsUpper[x] - ivsLower[x] + 1;
-                    method *= temp;
-                }
-
-                if (method > 16384)
-                    generateGales2(ivsLower, ivsUpper);
-                else
-                    generateGales(ivsLower, ivsUpper);
+                searchThread = new Thread[1];
+                searchThread[0] = new Thread(() => generateGales(ivsLower, ivsUpper));
+                searchThread[0].Start();
+                var update = new Thread(updateGUI);
+                update.Start();
             }
-        }
-
-        private uint[] natureLockList(int natureLockIndex)
-        {
-            switch(natureLockIndex)
-            {
-                case 0:
-                    return new uint[] { 3, 6, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Altaria
-                case 1:
-                    return new uint[] { 4, 1, 0, 126, 18, 0, 126, 12, 0, 126, 0, 127, 255, 6 }; //Arbok
-                case 2:
-                    return new uint[] { 0, 0 }; //Articuno 
-                case 3:
-                    return new uint[] { 0, 0 }; //Baltoy 3
-                case 4:
-                    return new uint[] { 0, 0 }; //Baltoy 1
-                case 5:
-                    return new uint[] { 2, 1, 127, 255, 0, 127, 255, 24 }; //Baltoy 2
-                case 6:
-                    return new uint[] { 3, 6, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Banette
-                case 7:
-                    return new uint[] { 0, 0 }; //Beedrill
-                case 8:
-                    return new uint[] { 3, 6, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Butterfree
-                case 9:
-                    return new uint[] { 0, 0 }; //Carvanha
-                case 10:
-                    return new uint[] { 2, 6, 127, 255, 24, 0, 126, 6 }; //Chansey
-                case 11:
-                    return new uint[] { 3, 1, 127, 255, 24, 127, 255, 0, 0, 190, 6 }; //Delcatty
-                case 12:
-                    return new uint[] { 1, 1, 0, 126, 18 }; //Dodrio
-                case 13:
-                    return new uint[] { 5, 1, 127, 255, 0, 0, 126, 12, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Dragonite
-                case 14:
-                    return new uint[] { 4, 1, 127, 255, 12, 0, 126, 6, 127, 255, 18, 127, 255, 0 }; //Dugtrio
-                case 15:
-                    return new uint[] { 3, 1, 127, 255, 24, 0, 126, 18, 127, 255, 12 }; //Duskull
-                case 16:
-                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Electabuzz
-                case 17:
-                    return new uint[] { 0, 0 }; //Exeggutor
-                case 18:
-                    return new uint[] { 3, 1, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Farfetch'd  
-                case 19:
-                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Golduck
-                case 20:
-                    return new uint[] { 2, 1, 127, 255, 18, 127, 255, 12 }; //Grimer
-                case 21:
-                    return new uint[] { 2, 6, 0, 126, 6, 127, 255, 24 }; //Growlithe
-                case 22:
-                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 3
-                case 23:
-                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 1
-                case 24:
-                    return new uint[] { 4, 1, 0, 126, 0, 0, 126, 0, 127, 255, 6, 0, 126, 12 }; //Gulpin 2
-                case 25:
-                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Hitmonchan
-                case 26:
-                    return new uint[] { 4, 1, 0, 126, 24, 0, 255, 6, 0, 126, 12, 127, 255, 18 }; //Hitmonlee
-                case 27:
-                    return new uint[] { 0, 0 }; //Houndour 3
-                case 28:
-                    return new uint[] { 0, 0 }; //Houndour 1
-                case 29:
-                    return new uint[] { 0, 0 }; //To do houndour 2
-                case 30:
-                    return new uint[] { 4, 6, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Hypno
-                case 31:
-                    return new uint[] { 3, 1, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Kangaskhan
-                case 32:
-                    return new uint[] { 4, 6, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Lapras
-                case 33:
-                    return new uint[] { 1, 1, 0, 126, 0 }; //Ledyba
-                case 34:
-                    return new uint[] { 2, 1, 0, 255, 6, 127, 255, 24 }; //Lickitung
-                case 35:
-                    return new uint[] { 0, 0 }; //Lugia
-                case 36:
-                    return new uint[] { 2, 1, 127, 255, 18, 0, 126, 0 }; //Lunatone
-                case 37:
-                    return new uint[] { 3, 6, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Marcargo
-                case 38:
-                    return new uint[] { 3, 1, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Magmar 
-                case 39:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 0, 0, 255, 18 }; //Magneton
-                case 40:
-                    return new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Makuhita
-                case 41:
-                    return new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Makuhita Colo
-                case 42:
-                    return new uint[] { 1, 1, 0, 126, 6 }; //Manectric
-                case 43:
-                    return new uint[] { 0, 0 }; //Mareep 3
-                case 44:
-                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Mareep 1
-                case 45:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Mareep 2
-                case 46:
-                    return new uint[] { 4, 1, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Marowak
-                case 47:
-                    return new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Mawile
-                case 48:
-                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 0, 63, 255, 6 }; //Meowth
-                case 49:
-                    return new uint[] { 0, 0 }; //Moltres
-                case 50:
-                    return new uint[] { 4, 6, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Mr. Mime
-                case 51:
-                    return new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Natu
-                case 52:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Nosepass
-                case 53:
-                    return new uint[] { 3, 1, 0, 126, 24, 0, 255, 0, 127, 255, 6 }; //Numel
-                case 54:
-                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 24 }; //Paras
-                case 55:
-                    return new uint[] { 2, 1, 32, 255, 18, 127, 255, 12 }; //Pidgeotto
-                case 56:
-                    return new uint[] { 1, 1, 127, 255, 6 }; //Pineco
-                case 57:
-                    return new uint[] { 3, 6, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Pinsir
-                case 58:
-                    return new uint[] { 4, 1, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Poliwrath
-                case 59:
-                    return new uint[] { 1, 1, 0, 126, 12 }; //Poochyena
-                case 60:
-                    return new uint[] { 4, 1, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Primeape
-                case 61:
-                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 63, 255, 0 }; //Ralts
-                case 62:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Rapidash
-                case 63:
-                    return new uint[] { 3, 1, 127, 255, 18, 500, 500, 500, 0, 126, 18 }; //Raticate
-                case 64:
-                    return new uint[] { 0, 0 }; //Rhydon
-                case 65:
-                    return new uint[] { 2, 1, 127, 255, 18, 127, 255, 6 }; //Roselia
-                case 66:
-                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Sableye
-                case 67:
-                    return new uint[] { 1, 6, 0, 126, 6 }; //Salamence
-                case 68:
-                    return new uint[] { 2, 1, 127, 255, 24, 0, 126, 6 }; //Scyther
-                case 69:
-                    return new uint[] { 0, 0 }; //To do seedot 3
-                case 70:
-                    return new uint[] { 5, 1, 127, 255, 12, 127, 255, 0, 0, 126, 12, 0, 126, 24, 127, 255, 6 }; //Seedot 1
-                case 71:
-                    return new uint[] { 5, 1, 127, 255, 6, 0, 126, 0, 0, 126, 0, 0, 126, 24, 127, 255, 6 }; //Seedot 2
-                case 72:
-                    return new uint[] { 3, 1, 0, 126, 18, 127, 255, 12, 127, 255, 6 }; //Seel
-                case 73:
-                    return new uint[] { 0, 0 }; //Shellder
-                case 74:
-                    return new uint[] { 2, 1, 0, 126, 0, 0, 126, 24 }; //Shroomish
-                case 75:
-                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Snorlax
-                case 76:
-                    return new uint[] { 1, 1, 0, 126, 6 }; //Snorunt
-                case 77:
-                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Solrock
-                case 78:
-                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 18 }; //Spearow
-                case 79:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 3
-                case 80:
-                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Spheal 1
-                case 81:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 2
-                case 82:
-                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Spinarak
-                case 83:
-                    return new uint[] { 5, 1, 127, 255, 18, 500, 500, 500, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Starmie
-                case 84:
-                    return new uint[] { 0, 0 }; //Swellow
-                case 85:
-                    return new uint[] { 2, 1, 127, 255, 0, 0, 126, 18 }; //Swinub
-                case 86:
-                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Tangela
-                case 87:
-                    return new uint[] { 0, 0 }; //Tauros
-                case 88:
-                    return new uint[] { 0, 0 }; //Teddiursa
-                case 89:
-                    return new uint[] { 0, 0 }; //Togepi
-                case 90:
-                    return new uint[] { 3, 1, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Venomoth
-                case 91:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 12, 127, 255, 0 }; //Voltorb
-                case 92:
-                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 127, 255, 0 }; //Vulpix
-                case 93:
-                    return new uint[] { 3, 6, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Weepinbell
-                case 94:
-                    return new uint[] { 0, 0 }; //Zangoose
-                default:
-                    return new uint[] { 0, 0 }; //Zapdos 
-            }
+            
         }
 
         #region First search method
@@ -429,18 +232,16 @@ namespace RNGReporter
             uint x8_2 = x8 ^ 0x8000;
             uint ex8 = spe + (spa << 5) + (spd << 10);
             uint ex8_2 = ex8 ^ 0x8000;
-            uint ivs_1a = x8_2 << 16;
             uint ivs_1b = x8 << 16;
 
             for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
             {
-                uint seeda = ivs_1a + cnt;
                 uint seedb = ivs_1b + cnt;
-                uint[] seedList = { seeda, seedb, seeda + 1, seedb + 1 };
-                for (int x = 0; x < 4; x++)
+                uint[] seedList = { seedb, seedb + 1 };
+                for (int x = 0; x < 2; x++)
                 {
                     uint ivs_2 = forwardXD(seedList[x]) >> 16;
-                    if (ivs_2 == ex8 || ivs_2 == ex8_2)
+                    if (ivs_2 == ex8  || ivs_2 == ex8_2)
                     {
                         uint pid1 = forwardXD(forwardXD(forwardXD(seedList[x])));
                         uint pid2 = forwardXD(pid1);
@@ -450,346 +251,82 @@ namespace RNGReporter
                         if (natureList == null || natureList.Contains(nature))
                         {
                             uint coloSeed = reverseXD(seedList[x]);
-                            if (natureLock[0] == 1)
+                            switch (shadow)
                             {
-                                if (method1SinglenlCheck(coloSeed))
+                                case 0:
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
-                            }
-                            else
-                            {
-                                if (natureLock[1] == 1)
-                                {
-                                    if (method1FirstShadow(coloSeed))
+                                    break;
+                                case 1:
+                                    bool cont = natureLock.method1FirstShadow(coloSeed);
+                                    if (cont)
                                         filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
-                                }
-                                else
-                                {
-                                    foreach (int z in secondShadow)
+                                    else
                                     {
-                                        if (method1SecondShadow(coloSeed, z))
-                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, z);
+                                        coloSeed ^= 0x80000000;
+                                        cont = natureLock.method1FirstShadow(coloSeed);
+                                        if (cont)
+                                        {
+                                            pid ^= 0x80008000;
+                                            nature = pid - 25 * (pid / 25);
+                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
+                                        }
                                     }
-                                }
+                                    break;
+                                case 6:
+                                    cont = natureLock.method1SecondShadowSet(coloSeed);
+                                    if (cont)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 1);
+                                    else
+                                    {
+                                        cont = natureLock.method1SecondShadowSet(coloSeed ^= 0x80000000);
+                                        if (cont)
+                                        {
+                                            pid ^= 0x80008000;
+                                            nature = pid - 25 * (pid / 25);
+                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed ^ 0x80000000, 1);
+                                        }
+                                    }
+
+                                    if (cont)
+                                        continue;
+
+                                    cont = natureLock.method1SecondShadowUnset(coloSeed);
+                                    if (cont)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 2);
+                                    else
+                                    {
+                                        cont = natureLock.method1SecondShadowUnset(coloSeed ^ 0x80000000);
+                                        if (cont)
+                                        {
+                                            pid ^= 0x80008000;
+                                            nature = pid - 25 * (pid / 25);
+                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed ^ 0x80000000, 2);
+                                        }
+                                    }
+
+                                    if (cont)
+                                        continue;
+
+                                    cont = natureLock.method1SecondShadowShinySkip(coloSeed);
+                                    if (cont)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
+                                    else
+                                    {
+                                        coloSeed ^= 0x80000000;
+                                        cont = natureLock.method1SecondShadowShinySkip(coloSeed);
+                                        if (cont)
+                                        {
+                                            pid ^= 0x80008000;
+                                            nature = pid - 25 * (pid / 25);
+                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
+                                        }
+                                    }
+
+                                    break;
                             }
                         }
                     }
                 }
-            }
-        }
-
-        private bool method1SinglenlCheck(uint seed)
-        {
-            slist.Clear();
-            rlist.Clear();
-            galesPopulateBackward(seed, 4);
-
-            uint pid = (rlist[2] << 16) | rlist[1];
-            uint genderval = pid & 255;
-            if (genderval >= natureLock[2] && genderval <= natureLock[3])
-                if ((pid - 25 * (pid / 25)) == natureLock[4])
-                    return true;
-
-            return false;
-        }
-
-        private bool method1FirstShadow(uint seed)
-        {
-            slist.Clear();
-            rlist.Clear();
-            backwardCounter = 0;
-            forwardCounter = 0;
-            int count = ((natureLock.Length - 2) / 3) - 1;
-
-            //Build temp pid first to not waste time populating if first nl fails
-            uint pid2 = reverseXD(reverseXD(seed));
-            uint pid1 = reverseXD(pid2);
-
-            //Backwards nature lock check
-            backwardCounter += 7;
-            uint pid = ((pid1 >> 16) << 16) | (pid2 >> 16);
-            uint genderval = pid & 255;
-            if (genderval >= natureLock[2] && genderval <= natureLock[3])
-            {
-                if ((pid - 25 * (pid / 25)) == natureLock[4])
-                {
-                    //Forward advances already accounted for
-                }
-            }
-            else
-                return false;
-
-            galesPopulateBackward(seed, 1500);
-
-            for (int x = 1; x <= count; x++)
-            {
-                bool flag = true;
-
-                backwardCounter += 5;
-                pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
-                genderval = pid & 255;
-                if ((genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x]) || (natureLock[2 + 3 * x] == 500 && natureLock[3 + 3 * x] == 500))
-                {
-                    if (((pid - 25 * (pid / 25)) == natureLock[4 + 3 * x]) || (natureLock[4 + 3 * x] == 500))
-                    {
-                        //Backward advances already accounted for
-                    }
-                    else
-                    {
-                        while (flag)
-                        {
-                            backwardCounter += 2;
-                            pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
-                            genderval = pid & 255;
-                            if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
-                                if ((pid - 25 * (pid / 25)) == natureLock[4 + 3 * x])
-                                    flag = false;
-                        }
-                    }
-                }
-                else
-                {
-                    while (flag)
-                    {
-                        backwardCounter += 2;
-                        pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
-                        genderval = pid & 255;
-                        if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
-                            if ((pid - 25 * (pid / 25)) == natureLock[4 + 3 * x])
-                                flag = false;
-                    }
-                }
-            }
-
-            seed = slist[backwardCounter - 1];
-            slist.Clear();
-            rlist.Clear();
-            galesPopulateForward(seed, 1500);
-            int lastIndex = natureLock.Length - 4;
-
-            //Forwards nature lock check
-            for (int x = 1; x <= count; x++)
-            {
-                bool flag = true;
-                forwardCounter += 5;
-                pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
-                genderval = pid & 255;
-                if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                {
-                    if (((pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x]) || (natureLock[lastIndex + 3 - 3 * x] == 500))
-                    {
-                        //nothing since i already accounted for forwards counter
-                    }
-                    else
-                    {
-                        while (flag)
-                        {
-                            forwardCounter += 2;
-                            pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
-                            genderval = pid & 255;
-                            if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                                if ((pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
-                                    flag = false;
-                        }
-                    }
-                }
-                else
-                {
-                    while (flag)
-                    {
-                        forwardCounter += 2;
-                        pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
-                        genderval = pid & 255;
-                        if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                            if ((pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
-                                flag = false;
-                    }
-                }
-            }
-
-            forwardCounter += 7;
-
-            return forwardCounter == backwardCounter;
-        }
-
-        private bool method1SecondShadow(uint seed, int num)
-        {
-            int initialAdvance = 0;
-            if (num == 1)
-                initialAdvance = 5;
-            else if (num == 2)
-                initialAdvance = 7;
-            else
-                initialAdvance = 7;
-
-            slist.Clear();
-            rlist.Clear();
-            backwardCounter = 7 + initialAdvance;
-            forwardCounter = 0;
-            int count = ((natureLock.Length - 2) / 3) - 1;
-
-            galesPopulateBackward(seed, backwardCounter);
-
-            if (num == 3)
-            {
-                uint pidtemp = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
-                uint psv = ((pidtemp >> 16) & (pidtemp & 0xFFFF)) >> 3;
-                bool shinyFlag = true;
-                while (shinyFlag)
-                {
-                    backwardCounter += 2;
-                    pidtemp = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
-                    uint psvtemp = ((pidtemp >> 16) & (pidtemp & 0xFFFF)) >> 3;
-                    if (psvtemp != psv)
-                        shinyFlag = false;
-                    else
-                        psv = psvtemp;
-                }
-            }
-
-            //Build temp pid first to not waste time populating if first nl fails
-            uint pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
-
-            //Backwards nature lock check
-            uint genderval = pid & 255;
-            if (genderval >= natureLock[2] && genderval <= natureLock[3])
-            {
-                if ((pid - 25 * (pid / 25)) == natureLock[4])
-                {
-                    //Forward advances already accounted for
-                }
-            }
-            else
-                return false;
-
-            slist.Clear();
-            rlist.Clear();
-            galesPopulateBackward(seed, 1500);
-
-            for (int x = 1; x <= count; x++)
-            {
-                bool flag = true;
-
-                backwardCounter += 5;
-                pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
-                genderval = pid & 255;
-                if ((genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x]) || (natureLock[2 + 3 * x] == 500 && natureLock[3 + 3 * x] == 500))
-                {
-                    if (((pid - 25 * (pid / 25)) == natureLock[4 + 3 * x]) || (natureLock[4 + 3 * x] == 500))
-                    {
-                        //Backwards counter already accounted for
-                    }
-                    else
-                    {
-                        while (flag)
-                        {
-                            backwardCounter += 2;
-                            pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
-                            genderval = pid & 255;
-                            if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
-                                if ((pid - 25 * (pid / 25)) == natureLock[4 + 3 * x])
-                                    flag = false;
-                        }
-                    }
-                }
-                else
-                {
-                    while (flag)
-                    {
-                        backwardCounter += 2;
-                        pid = (rlist[backwardCounter - 5] << 16) | rlist[backwardCounter - 6];
-                        genderval = pid & 255;
-                        if (genderval >= natureLock[2 + 3 * x] && genderval <= natureLock[3 + 3 * x])
-                            if ((pid - 25 * (pid / 25)) == natureLock[4 + 3 * x])
-                                flag = false;
-                    }
-                }
-            }
-
-            seed = slist[backwardCounter - 1];
-            slist.Clear();
-            rlist.Clear();
-            galesPopulateForward(seed, 1500);
-            int lastIndex = natureLock.Length - 4;
-
-            //Forwards nature lock check
-            for (int x = 1; x <= count; x++)
-            {
-                bool flag = true;
-                forwardCounter += 5;
-                pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
-                genderval = pid & 255;
-                if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                {
-                    if (((pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x]) || (natureLock[lastIndex + 3 - 3 * x] == 500))
-                    {
-                        //Forwards counter already accounted for
-                    }
-                    else
-                    {
-                        while (flag)
-                        {
-                            forwardCounter += 2;
-                            pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
-                            genderval = pid & 255;
-                            if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                                if ((pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
-                                    flag = false;
-                        }
-                    }
-                }
-                else
-                {
-                    while (flag)
-                    {
-                        forwardCounter += 2;
-                        pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
-                        genderval = pid & 255;
-                        if ((genderval >= natureLock[lastIndex + 1 - 3 * x] && genderval <= natureLock[lastIndex + 2 - 3 * x]) || (natureLock[lastIndex + 1 - 3 * x] == 500 && natureLock[lastIndex + 1 - 3 * x] == 500))
-                            if ((pid - 25 * (pid / 25)) == natureLock[lastIndex + 3 - 3 * x])
-                                flag = false;
-                    }
-                }
-            }
-
-            forwardCounter = forwardCounter + 7 + initialAdvance;
-
-            if (num == 3)
-            {
-                pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
-                uint psv = ((pid >> 16) ^ (pid & 0xFFFF));
-                bool shinyFlag = true;
-                while (shinyFlag)
-                {
-                    forwardCounter += 2;
-                    pid = (rlist[forwardCounter + 3] << 16) | rlist[forwardCounter + 4];
-                    uint temppsv = ((pid >> 16) ^ (pid & 0xFFFF));
-                    if (temppsv != psv)
-                        shinyFlag = false;
-                    else
-                        psv = temppsv;
-                }
-            }
-
-            return forwardCounter == backwardCounter;
-        }
-
-        private void galesPopulateBackward(uint seed, int times)
-        {
-            for(int x = 0; x <= times; x++)
-            {
-                seed = reverseXD(seed);
-                slist.Add(seed);
-                rlist.Add(seed >> 16);
-            }
-        }
-
-        private void galesPopulateForward(uint seed, int times)
-        {
-            for (int x = 0; x <= times; x++)
-            {
-                seed = forwardXD(seed);
-                slist.Add(seed);
-                rlist.Add(seed >> 16);
             }
         }
 
@@ -902,7 +439,7 @@ namespace RNGReporter
                         for (uint sisterSeed = 0; sisterSeed < 2; sisterSeed++)
                         {
                             uint seed = sisterSeed == 0 ? slist[(int)n] : slist[(int)n] ^ 0x80000000;
-                            if (natureLock[0] == 1)
+                            /*if (natureLock[0] == 1)
                             {
                                 int forward = method2SingleNL(seed, n, sisterSeed);
                                 uint tempSeed = sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000;
@@ -939,7 +476,7 @@ namespace RNGReporter
                                 }
                                 else
                                 {
-                                    int forward = method2MultiNL(seed, n, sisterSeed);
+                                    int forward = 0; //method2MultiNL(seed, n, sisterSeed);
                                     foreach (int secondShadowNum in secondShadow)
                                     {
                                         uint pid;
@@ -984,7 +521,7 @@ namespace RNGReporter
                                         }
                                     }
                                 }
-                            }
+                            }*/
                         }
                     }
                     refresh = true;
@@ -997,95 +534,7 @@ namespace RNGReporter
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
-        private int method2SingleNL(uint seed, uint n, uint sisterSeed)
-        {
-            uint pid = sisterSeed == 0 ? (rlist[(int)n + 9] << 16) | rlist[(int)n + 10] : ((rlist[(int)n + 9] << 16) | rlist[(int)n + 10]) ^ 0x80008000;
-            uint genderval = pid & 255;
-            int forward = 5;
-            bool flag = true;
-            if (genderval >= natureLock[2] && genderval <= natureLock[3])
-            {
-                if ((pid - 25 * (pid / 25)) == natureLock[4])
-                    return 12;
-                else
-                {
-                    while (flag)
-                    {
-                        forward += 2;
-                        pid = sisterSeed == 0 ? (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] : (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] ^ 0x80008000;
-                        genderval = pid & 255;
-                        if (genderval >= natureLock[2] && genderval <= natureLock[3])
-                            if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == natureLock[4])
-                                flag = false;
-
-                    }
-                }
-            }
-            else
-            {
-                while (flag)
-                {
-                    forward += 2;
-                    pid = sisterSeed == 0 ? (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] : (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] ^ 0x80008000;
-                    genderval = pid & 255;
-                    if (genderval >= natureLock[2] && genderval <= natureLock[3])
-                        if ((pid - 25 * (pid / 25)) == natureLock[4])
-                            flag = false;
-                }
-            }
-            return forward + 7;
-        }
-
-        private int method2MultiNL(uint seed, uint n, uint sisterSeed)
-        {
-            int forward = 0;
-            int count = ((natureLock.Length - 2) / 3) - 1;
-            int lastIndex = natureLock.Length - 1;
-
-            uint pid;
-            uint genderval;
-
-            for (int x = 0; x <= count; x++)
-            {
-                bool flag = true;
-                forward += 5;
-                pid = sisterSeed == 0 ? (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] : (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] ^ 0x80008000;
-                genderval = pid & 255;
-                if ((genderval >= natureLock[lastIndex - 2 - 3 * x] && genderval <= natureLock[lastIndex - 1 - 3 * x]) || (natureLock[lastIndex - 2 - 3 * x] == 500 && natureLock[lastIndex - 1 - 3 * x] == 500))
-                {
-                    if (((pid - 25 * (pid / 25)) == natureLock[lastIndex - 3 * x]) || (natureLock[lastIndex - 3 * x] == 500))
-                    {
-                        //Forward advances already accounted for
-                    }
-                    else
-                    {
-                        while (flag)
-                        {
-                            forward += 2;
-                            pid = sisterSeed == 0 ? (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] : (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] ^ 0x80008000;
-                            genderval = pid & 255;
-                            if ((genderval >= natureLock[lastIndex - 2 - 3 * x] && genderval <= natureLock[lastIndex - 1 - 3 * x]) || (natureLock[lastIndex - 2 - 3 * x] == 500 && natureLock[lastIndex - 1 - 3 * x] == 500))
-                                if ((pid - 25 * (pid / 25)) == natureLock[lastIndex - 3 * x])
-                                    flag = false;
-                        }
-                    }
-                }
-                else
-                {
-                    while (flag)
-                    {
-                        forward += 2;
-                        pid = sisterSeed == 0 ? (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] : (rlist[(int)(n + forward + 4)] << 16) | rlist[(int)(n + forward + 5)] ^ 0x80008000;
-                        genderval = pid & 255;
-                        if ((genderval >= natureLock[lastIndex - 2 - 3 * x] && genderval <= natureLock[lastIndex - 1 - 3 * x]) || (natureLock[lastIndex - 2 - 3 * x] == 500 && natureLock[lastIndex - 1 - 3 * x] == 500))
-                            if ((pid - 25 * (pid / 25)) == natureLock[lastIndex - 3 * x])
-                                flag = false;
-                    }
-                }
-            }
-
-            return forward;
-        }
+        
         #endregion
         #endregion
 
@@ -1101,9 +550,21 @@ namespace RNGReporter
             }
 
             if (method > 84095)
-                generate2(ivsLower, ivsUpper);
+            {
+                searchThread = new Thread[1];
+                searchThread[0] = new Thread(() => generate2(ivsLower, ivsUpper));
+                searchThread[0].Start();
+                var update = new Thread(updateGUI);
+                update.Start();
+            }
             else
-                generate(ivsLower, ivsUpper);
+            {
+                searchThread = new Thread[1];
+                searchThread[0] = new Thread(() => generate(ivsLower, ivsUpper));
+                searchThread[0].Start();
+                var update = new Thread(updateGUI);
+                update.Start();
+            }
         }
 
         #region First search method
@@ -1357,9 +818,21 @@ namespace RNGReporter
             }
 
             if (method > 120)
-                generateChannel2(ivsLower, ivsUpper);
+            {
+                searchThread = new Thread[1];
+                searchThread[0] = new Thread(() => generateChannel2(ivsLower, ivsUpper));
+                searchThread[0].Start();
+                var update = new Thread(updateGUI);
+                update.Start();
+            }
             else
-                generateChannel(ivsLower, ivsUpper);
+            {
+                searchThread = new Thread[1];
+                searchThread[0] = new Thread(() => generateChannel(ivsLower, ivsUpper));
+                searchThread[0].Start();
+                var update = new Thread(updateGUI);
+                update.Start();
+            }
         }
 
         #region Search 1
@@ -1391,39 +864,40 @@ namespace RNGReporter
 
             while (x16 < upper)
             {
-                uint prevseed = reverseXD(++x16);
+                var rng = new XdRngR(++x16);
+                uint prevseed = rng.GetNext32BitNumber();
                 uint temp = prevseed >> 27;
                 if (temp == spa)
                 {
-                    prevseed = reverseXD(prevseed);
+                    prevseed = rng.GetNext32BitNumber();
                     temp = prevseed >> 27;
                     if (temp == spe)
                     {
-                        prevseed = reverseXD(prevseed);
+                        prevseed = rng.GetNext32BitNumber();
                         temp = prevseed >> 27;
                         if (temp == def)
                         {
-                            prevseed = reverseXD(prevseed);
+                            prevseed = rng.GetNext32BitNumber();
                             temp = prevseed >> 27;
                             if (temp == atk)
                             {
-                                prevseed = reverseXD(prevseed);
+                                prevseed = rng.GetNext32BitNumber();
                                 temp = prevseed >> 27;
                                 if (temp == hp)
                                 {
-                                    uint pid2 = reverseXD(reverseXD(reverseXD(reverseXD(prevseed))));
-                                    uint pid1 = reverseXD(pid2);
-                                    uint sid = reverseXD(pid1);
-                                    pid2 >>= 16;
-                                    pid1 >>= 16;
+                                    for (int x = 0; x < 3; x++)
+                                        rng.GetNext32BitNumber();
+                                    uint pid2 = rng.GetNext16BitNumber();
+                                    uint pid1 = rng.GetNext16BitNumber();
+                                    uint sid = rng.GetNext16BitNumber();
                                     uint pid = (pid1 << 16) | pid2;
-                                    if ((pid2 > 7 ? 0 : 1) != (pid1 ^ (sid >> 16) ^ 40122))
+                                    if ((pid2 > 7 ? 0 : 1) != (pid1 ^ sid ^ 40122))
                                         pid ^= 0x80000000;
                                     uint nature = pid - 25 * (pid / 25);
                                     if (natureList == null || natureList.Contains(nature))
                                     {
-                                        uint seed = reverseXD(sid);
-                                        shinyval = (40122 ^ (sid >> 16)) >> 3;
+                                        uint seed = rng.GetNext32BitNumber();
+                                        shinyval = (40122 ^ (sid)) >> 3;
                                         filterSeedChannel(hp, atk, def, spa, spd, spe, ability, gender, seed, pid, nature);
                                     }
                                 }
@@ -1608,9 +1082,21 @@ namespace RNGReporter
             }
 
             if (method > 76871)
-                generateR2(ivsLower, ivsUpper);
+            {
+                searchThread = new Thread[1];
+                searchThread[0] = new Thread(() => generateR2(ivsLower, ivsUpper));
+                searchThread[0].Start();
+                var update = new Thread(updateGUI);
+                update.Start();
+            }
             else
-                generateR(ivsLower, ivsUpper);
+            {
+                searchThread = new Thread[1];
+                searchThread[0] = new Thread(() => generateR(ivsLower, ivsUpper));
+                searchThread[0].Start();
+                var update = new Thread(updateGUI);
+                update.Start();
+            }
         }
 
         #region Search 1
@@ -1796,7 +1282,7 @@ namespace RNGReporter
                 uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                 uint nature = pid - 25 * (pid / 25);
 
-                if (natureList == null || natureLock.Contains(nature))
+                if (natureList == null || natureList.Contains(nature))
                 {
                     uint ivs1 = forward(pid2);
                     uint ivs2 = forward(ivs1);
@@ -1917,20 +1403,20 @@ namespace RNGReporter
 
         private void calcSecondShadow()
         {
-            secondShadow.Clear();
+            natureLock.secondShadow.Clear();
             if (comboBoxShadowMethod.Text != "Any" && comboBoxShadowMethod.CheckBoxItems.Count > 0)
             {
                 for (int x = 1; x <= 3; x++)
                 {
                     if (comboBoxShadowMethod.CheckBoxItems[x].Checked)
-                        secondShadow.Add((x));
+                        natureLock.secondShadow.Add((x));
                 }
             }
             else
             {
-                secondShadow.Add(1);
-                secondShadow.Add(2);
-                secondShadow.Add(3);
+                natureLock.secondShadow.Add(1);
+                natureLock.secondShadow.Add(2);
+                natureLock.secondShadow.Add(3);
             }
         }
         #endregion
@@ -1950,7 +1436,7 @@ namespace RNGReporter
                         Invoke(gridUpdate);
                         refresh = false;
                     }
-                    if (searchThread == null || !searchThread.IsAlive)
+                    if (searchThread == null || !isSearching)
                     {
                         alive = false;
                     }
@@ -2167,7 +1653,8 @@ namespace RNGReporter
             {
                 isSearching = false;
                 status.Text = "Cancelled. - Awaiting Command";
-                searchThread.Abort();
+                for (int x = 0; x < searchThread.Length; x++)
+                    searchThread[x].Abort();
             }
         }
 
@@ -2215,9 +1702,9 @@ namespace RNGReporter
                 List<int> secondShadows = new List<int> { 0, 6, 8, 10, 21, 30, 32, 37, 50, 57, 66, 67, 75, 93 };
                 if (secondShadows.Contains(shadowPokemon.SelectedIndex))
                 {
-                    shadowMethodLabel.Visible = true;
-                    comboBoxShadowMethod.Visible = true;
-                    anyShadowMethod.Visible = true;
+                    //shadowMethodLabel.Visible = true;
+                    //comboBoxShadowMethod.Visible = true;
+                    //anyShadowMethod.Visible = true;
                 }
                 else if (shadowPokemon.SelectedIndex == 41)
                 {
@@ -2250,9 +1737,9 @@ namespace RNGReporter
                 List<int> secondShadows = new List<int> { 0, 6, 8, 10, 21, 30, 32, 37, 50, 57, 66, 67, 75, 93 };
                 if (secondShadows.Contains(shadowPokemon.SelectedIndex))
                 {
-                    shadowMethodLabel.Visible = true;
-                    comboBoxShadowMethod.Visible = true;
-                    anyShadowMethod.Visible = true;
+                    //shadowMethodLabel.Visible = true;
+                    //comboBoxShadowMethod.Visible = true;
+                    //anyShadowMethod.Visible = true;
                 }
                 else if (shadowPokemon.SelectedIndex == 41)
                 {
@@ -2294,9 +1781,9 @@ namespace RNGReporter
                     Shiny_Check.Visible = false;
                     if (secondShadows.Contains(shadowPokemon.SelectedIndex))
                     {
-                        shadowMethodLabel.Visible = true;
-                        comboBoxShadowMethod.Visible = true;
-                        anyShadowMethod.Visible = true;
+                        //shadowMethodLabel.Visible = true;
+                        //comboBoxShadowMethod.Visible = true;
+                        //anyShadowMethod.Visible = true;
                     }
                     else if (shadowPokemon.SelectedIndex == 41)
                     {

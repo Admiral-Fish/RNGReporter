@@ -277,13 +277,9 @@ namespace RNGReporter.Objects
                 }
             }
 
-            for (int i = 0; i < 3; i++)
-                rng.GetNext32BitNumber();
-            seed = rng.GetNext32BitNumber();
-            XdRng rng2 = new XdRng(seed);
+            XdRng rng2 = new XdRng(rng.Seed);
+            rng2.GetNext32BitNumber();
             int lastIndex = lockInfo.Length - 4;
-            for (int a = 0; a < 5; a++)
-                rng2.GetNext32BitNumber();
 
             //Forwards nature lock check
             for (int x = 1; x <= count; x++)
@@ -385,13 +381,9 @@ namespace RNGReporter.Objects
                 }
             }
 
-            for (int i = 0; i < 3; i++)
-                rng.GetNext32BitNumber();
-            seed = rng.GetNext32BitNumber();
-            XdRng rng2 = new XdRng(seed);
+            XdRng rng2 = new XdRng(rng.Seed);
+            rng2.GetNext32BitNumber();
             int lastIndex = lockInfo.Length - 4;
-            for (int a = 0; a < 5; a++)
-                rng2.GetNext32BitNumber();
 
             //Forwards nature lock check
             for (int x = 1; x <= count; x++)
@@ -494,13 +486,9 @@ namespace RNGReporter.Objects
                 }
             }
 
-            for (int i = 0; i < 3; i++)
-                rng.GetNext32BitNumber();
-            seed = rng.GetNext32BitNumber();
-            XdRng rng2 = new XdRng(seed);
+            XdRng rng2 = new XdRng(rng.Seed);
+            rng2.GetNext32BitNumber();
             int lastIndex = lockInfo.Length - 4;
-            for (int a = 0; a < 5; a++)
-                rng2.GetNext32BitNumber();
 
             //Forwards nature lock check
             for (int x = 1; x <= count; x++)
@@ -617,13 +605,9 @@ namespace RNGReporter.Objects
                 }
             }
 
-            for (int i = 0; i < 3; i++)
-                rng.GetNext32BitNumber();
-            seed = rng.GetNext32BitNumber();
-            XdRng rng2 = new XdRng(seed);
+            XdRng rng2 = new XdRng(rng.Seed);
+            rng2.GetNext32BitNumber();
             int lastIndex = lockInfo.Length - 4;
-            for (int a = 0; a < 5; a++)
-                rng2.GetNext32BitNumber();
 
             //Forwards nature lock check
             for (int x = 1; x <= count; x++)

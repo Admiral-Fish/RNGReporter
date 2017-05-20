@@ -164,64 +164,40 @@ namespace RNGReporter.Objects
                     return;
             }
 
-            if (gender != 0)
+            switch (gender)
             {
-                if (gender == 1)
-                {
+                case 1:
                     if ((pid & 255) < 127)
-                    {
                         return;
-                    }
-                }
-                else if (gender == 2)
-                {
+                    break;
+                case 2:
                     if ((pid & 255) > 126)
-                    {
                         return;
-                    }
-                }
-                else if (gender == 3)
-                {
+                    break;
+                case 3:
                     if ((pid & 255) < 191)
-                    {
                         return;
-                    }
-                }
-                else if (gender == 4)
-                {
+                    break;
+                case 4:
                     if ((pid & 255) > 190)
-                    {
                         return;
-                    }
-                }
-                else if (gender == 5)
-                {
+                    break;
+                case 5:
                     if ((pid & 255) < 64)
-                    {
                         return;
-                    }
-                }
-                else if (gender == 6)
-                {
+                    break;
+                case 6:
                     if ((pid & 255) > 63)
-                    {
                         return;
-                    }
-                }
-                else if (gender == 7)
-                {
+                    break;
+                case 7:
                     if ((pid & 255) < 31)
-                    {
                         return;
-                    }
-                }
-                else if (gender == 8)
-                {
+                    break;
+                case 8:
                     if ((pid & 255) > 30)
-                    {
                         return;
-                    }
-                }
+                    break;
             }
 
             calcPokeSpot(seed, pid, frame, nature, gender, ability, shiny);

@@ -234,96 +234,93 @@ namespace RNGReporter
             uint ex8_2 = ex8 ^ 0x8000;
             uint ivs_1b = x8 << 16;
 
-            for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
             {
                 uint seedb = ivs_1b + cnt;
-                uint[] seedList = { seedb, seedb + 1 };
-                for (int x = 0; x < 2; x++)
+                uint ivs_2 = forwardXD(seedb) >> 16;
+                if (ivs_2 == ex8  || ivs_2 == ex8_2)
                 {
-                    uint ivs_2 = forwardXD(seedList[x]) >> 16;
-                    if (ivs_2 == ex8  || ivs_2 == ex8_2)
+                    uint pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                    uint pid2 = forwardXD(pid1);
+                    uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                    uint nature = pid - 25 * (pid / 25);
+
+                    if (natureList == null || natureList.Contains(nature))
                     {
-                        uint pid1 = forwardXD(forwardXD(forwardXD(seedList[x])));
-                        uint pid2 = forwardXD(pid1);
-                        uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                        uint nature = pid - 25 * (pid / 25);
-
-                        if (natureList == null || natureList.Contains(nature))
+                        uint coloSeed = reverseXD(seedb);
+                        switch (shadow)
                         {
-                            uint coloSeed = reverseXD(seedList[x]);
-                            switch (shadow)
-                            {
-                                case 0:
+                            case 0:
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
+                                break;
+                            case 1:
+                                bool cont = natureLock.method1FirstShadow(coloSeed);
+                                if (cont)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
-                                    break;
-                                case 1:
-                                    bool cont = natureLock.method1FirstShadow(coloSeed);
+                                else
+                                {
+                                    coloSeed ^= 0x80000000;
+                                    cont = natureLock.method1FirstShadow(coloSeed);
                                     if (cont)
+                                    {
+                                        pid ^= 0x80008000;
+                                        nature = pid - 25 * (pid / 25);
                                         filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
-                                    else
-                                    {
-                                        coloSeed ^= 0x80000000;
-                                        cont = natureLock.method1FirstShadow(coloSeed);
-                                        if (cont)
-                                        {
-                                            pid ^= 0x80008000;
-                                            nature = pid - 25 * (pid / 25);
-                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
-                                        }
                                     }
-                                    break;
-                                case 6:
-                                    cont = natureLock.method1SecondShadowSet(coloSeed);
+                                }
+                                break;
+                            case 6:
+                                cont = natureLock.method1SecondShadowSet(coloSeed);
+                                if (cont)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 1);
+                                else
+                                {
+                                    cont = natureLock.method1SecondShadowSet(coloSeed ^= 0x80000000);
                                     if (cont)
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 1);
-                                    else
                                     {
-                                        cont = natureLock.method1SecondShadowSet(coloSeed ^= 0x80000000);
-                                        if (cont)
-                                        {
-                                            pid ^= 0x80008000;
-                                            nature = pid - 25 * (pid / 25);
-                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed ^ 0x80000000, 1);
-                                        }
+                                        pid ^= 0x80008000;
+                                        nature = pid - 25 * (pid / 25);
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed ^ 0x80000000, 1);
                                     }
+                                }
 
-                                    if (cont)
-                                        continue;
+                                if (cont)
+                                    continue;
 
-                                    cont = natureLock.method1SecondShadowUnset(coloSeed);
+                                cont = natureLock.method1SecondShadowUnset(coloSeed);
+                                if (cont)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 2);
+                                else
+                                {
+                                    cont = natureLock.method1SecondShadowUnset(coloSeed ^ 0x80000000);
                                     if (cont)
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 2);
-                                    else
                                     {
-                                        cont = natureLock.method1SecondShadowUnset(coloSeed ^ 0x80000000);
-                                        if (cont)
-                                        {
-                                            pid ^= 0x80008000;
-                                            nature = pid - 25 * (pid / 25);
-                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed ^ 0x80000000, 2);
-                                        }
+                                        pid ^= 0x80008000;
+                                        nature = pid - 25 * (pid / 25);
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed ^ 0x80000000, 2);
                                     }
+                                }
 
-                                    if (cont)
-                                        continue;
+                                if (cont)
+                                    continue;
 
+                                cont = natureLock.method1SecondShadowShinySkip(coloSeed);
+                                if (cont)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
+                                else
+                                {
+                                    coloSeed ^= 0x80000000;
                                     cont = natureLock.method1SecondShadowShinySkip(coloSeed);
                                     if (cont)
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
-                                    else
                                     {
-                                        coloSeed ^= 0x80000000;
-                                        cont = natureLock.method1SecondShadowShinySkip(coloSeed);
-                                        if (cont)
-                                        {
-                                            pid ^= 0x80008000;
-                                            nature = pid - 25 * (pid / 25);
-                                            filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
-                                        }
+                                        pid ^= 0x80008000;
+                                        nature = pid - 25 * (pid / 25);
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
                                     }
+                                }
 
-                                    break;
-                            }
+                                break;
+                            
                         }
                     }
                 }
@@ -353,48 +350,40 @@ namespace RNGReporter
             }
             ability = pid & 1;
 
-            if (gender != 0)
+            switch(gender)
             {
-                if (gender == 1)
-                {
+                case 1:
                     if ((pid & 255) < 127)
                         return;
-                }
-                else if (gender == 2)
-                {
+                    break;
+                case 2:
                     if ((pid & 255) > 126)
                         return;
-                }
-                else if (gender == 3)
-                {
+                    break;
+                case 3:
                     if ((pid & 255) < 191)
                         return;
-                }
-                else if (gender == 4)
-                {
+                    break;
+                case 4:
                     if ((pid & 255) > 190)
                         return;
-                }
-                else if (gender == 5)
-                {
+                    break;
+                case 5:
                     if ((pid & 255) < 64)
                         return;
-                }
-                else if (gender == 6)
-                {
+                    break;
+                case 6:
                     if ((pid & 255) > 63)
                         return;
-                }
-                else if (gender == 7)
-                {
+                    break;
+                case 7:
                     if ((pid & 255) < 31)
                         return;
-                }
-                else if (gender == 8)
-                {
+                    break;
+                case 8:
                     if ((pid & 255) > 30)
                         return;
-                }
+                    break;
             }
 
             String reason = "";
@@ -533,8 +522,6 @@ namespace RNGReporter
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
-
-        
         #endregion
         #endregion
 
@@ -596,31 +583,33 @@ namespace RNGReporter
             uint x8_2 = x8 ^ 0x8000;
             uint ex8 = spe + (spa << 5) + (spd << 10);
             uint ex8_2 = ex8 ^ 0x8000;
-            uint ivs_1a = x8_2 << 16;
             uint ivs_1b = x8 << 16;
 
-            for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
             {
-                uint seeda = ivs_1a + cnt;
                 uint seedb = ivs_1b + cnt;
-                uint[] seedList = { seeda, seedb, seeda + 1, seedb + 1 };
-                for (int x = 0; x < 4; x++)
+                uint ivs_2 = forwardXD(seedb) >> 16;
+                if (ivs_2 == ex8 || ivs_2 == ex8_2)
                 {
-                    uint ivs_2 = forwardXD(seedList[x]) >> 16;
-                    if (ivs_2 == ex8 || ivs_2 == ex8_2)
+                    uint pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                    uint pid2 = forwardXD(pid1);
+                    uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                    uint nature = pid - 25 * (pid / 25);
+                    if (natureList == null || natureList.Contains(nature))
                     {
-                        uint pid1 = forwardXD(forwardXD(forwardXD(seedList[x])));
-                        uint pid2 = forwardXD(pid1);
-                        uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                        uint nature = pid - 25 * (pid / 25);
+                        uint coloSeed = reverseXD(seedb);
+                        filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed);
+                    }
 
-                        if (natureList == null || natureList.Contains(nature))
-                        {
-                            uint coloSeed = reverseXD(seedList[x]);
-                            filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed);
-                        }
+                    pid ^= 0x80008000;
+                    nature = pid - 25 * (pid / 25);
+                    if (natureList == null || natureList.Contains(nature))
+                    {
+                        uint coloSeed = reverseXD(seedb) ^ 0x80000000;
+                        filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed);
                     }
                 }
+                
             }
         }
 
@@ -645,48 +634,40 @@ namespace RNGReporter
                     return;
             ability = pid & 1;
 
-            if (gender != 0)
+            switch (gender)
             {
-                if (gender == 1)
-                {
+                case 1:
                     if ((pid & 255) < 127)
                         return;
-                }
-                else if (gender == 2)
-                {
+                    break;
+                case 2:
                     if ((pid & 255) > 126)
                         return;
-                }
-                else if (gender == 3)
-                {
+                    break;
+                case 3:
                     if ((pid & 255) < 191)
                         return;
-                }
-                else if (gender == 4)
-                {
+                    break;
+                case 4:
                     if ((pid & 255) > 190)
                         return;
-                }
-                else if (gender == 5)
-                {
+                    break;
+                case 5:
                     if ((pid & 255) < 64)
                         return;
-                }
-                else if (gender == 6)
-                {
+                    break;
+                case 6:
                     if ((pid & 255) > 63)
                         return;
-                }
-                else if (gender == 7)
-                {
+                    break;
+                case 7:
                     if ((pid & 255) < 31)
                         return;
-                }
-                else if (gender == 8)
-                {
+                    break;
+                case 8:
                     if ((pid & 255) > 30)
                         return;
-                }
+                    break;
             }
 
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "");
@@ -1022,48 +1003,40 @@ namespace RNGReporter
                     return;
             ability = pid & 1;
 
-            if (gender != 0)
+            switch (gender)
             {
-                if (gender == 1)
-                {
+                case 1:
                     if ((pid & 255) < 127)
                         return;
-                }
-                else if (gender == 2)
-                {
+                    break;
+                case 2:
                     if ((pid & 255) > 126)
                         return;
-                }
-                else if (gender == 3)
-                {
+                    break;
+                case 3:
                     if ((pid & 255) < 191)
                         return;
-                }
-                else if (gender == 4)
-                {
+                    break;
+                case 4:
                     if ((pid & 255) > 190)
                         return;
-                }
-                else if (gender == 5)
-                {
+                    break;
+                case 5:
                     if ((pid & 255) < 64)
                         return;
-                }
-                else if (gender == 6)
-                {
+                    break;
+                case 6:
                     if ((pid & 255) > 63)
                         return;
-                }
-                else if (gender == 7)
-                {
+                    break;
+                case 7:
                     if ((pid & 255) < 31)
                         return;
-                }
-                else if (gender == 8)
-                {
+                    break;
+                case 8:
                     if ((pid & 255) > 30)
                         return;
-                }
+                    break;
             }
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "");
         }
@@ -1128,28 +1101,30 @@ namespace RNGReporter
             uint x4_2 = x4 ^ 0x8000;
             uint ex4 = spe + (spa << 5) + (spd << 10);
             uint ex4_2 = ex4 ^ 0x8000;
-            uint ivs_1a = x4_2 << 16;
             uint ivs_1b = x4 << 16;
 
-            for (uint cnt = 0; cnt <= 0xFFFF; cnt += 2)
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
             {
-                uint seeda = ivs_1a | cnt;
                 uint seedb = ivs_1b | cnt;
-                uint[] seedList = { seeda, seedb, seeda + 1, seedb + 1 };
-                for (int x = 0; x < 4; x++)
+                uint ivs_2 = forward(seedb) >> 16;
+                if (ivs_2 == ex4 || ivs_2 == ex4_2)
                 {
-                    uint ivs_2 = forward(seedList[x]) >> 16;
-                    if (ivs_2 == ex4 || ivs_2 == ex4_2)
+                    uint pid2 = reverse(seedb);
+                    uint pid1 = reverse(pid2);
+                    uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                    uint nature = pid - 25 * (pid / 25);
+                    uint seed = reverse(pid1);
+                    if (natureList == null || natureList.Contains(nature))
                     {
-                        uint pid2 = reverse(seedList[x]);
-                        uint pid1 = reverse(pid2);
-                        uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                        uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
-                        if (natureList == null || natureList.Contains(nature))
-                        {
-                            uint seed = reverse(pid1);
-                            filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
-                        }
+                        filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
+                    }
+
+                    pid ^= 0x80008000;
+                    nature = pid - 25 * (pid / 25);
+                    if (natureList == null || natureList.Contains(nature))
+                    {
+                        seed ^= 0x80000000;
+                        filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
                     }
                 }
             }

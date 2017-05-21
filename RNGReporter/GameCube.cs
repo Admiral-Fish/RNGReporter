@@ -18,6 +18,7 @@ namespace RNGReporter
         private ThreadDelegate gridUpdate;
         private BindingSource binding = new BindingSource();
         private List<DisplayList> displayList;
+        private List<ShadowDisplay> shadowDisplay;
         private bool isSearching = false;
         private List<uint> slist = new List<uint>();
         private List<uint> rlist = new List<uint>();
@@ -40,12 +41,22 @@ namespace RNGReporter
             genderType.SelectedIndex = 0;
             searchMethod.SelectedIndex = 0;
             shadowPokemon.SelectedIndex = 0;
+            comboBoxShadow.SelectedIndex = 0;
+            comboBoxMethodShadow.SelectedIndex = 0;
+            comboBoxAbilityShadow.SelectedIndex = 0;
+            comboBoxGenderShadow.SelectedIndex = 0;
             hpLogic.SelectedIndex = 0;
             atkLogic.SelectedIndex = 0;
             defLogic.SelectedIndex = 0;
             spaLogic.SelectedIndex = 0;
             spdLogic.SelectedIndex = 0;
             speLogic.SelectedIndex = 0;
+            hpLogicShadow.SelectedIndex = 0;
+            atkLogicShadow.SelectedIndex = 0;
+            defLogicShadow.SelectedIndex = 0;
+            spaLogicShadow.SelectedIndex = 0;
+            spdLogicShadow.SelectedIndex = 0;
+            speLogicShadow.SelectedIndex = 0;
             dataGridViewResult.DataSource = binding;
             dataGridViewResult.AutoGenerateColumns = false;
         }
@@ -54,6 +65,8 @@ namespace RNGReporter
         {
             comboBoxNature.Items.AddRange(Nature.NatureDropDownCollectionSearchNatures());
             comboBoxHiddenPower.Items.AddRange(addHP());
+            checkBoxNatureShadow.Items.AddRange(Nature.NatureDropDownCollectionSearchNatures());
+            checkBoxHPShadow.Items.AddRange(addHP());
             comboBoxShadowMethod.Items.AddRange(addShadowMethod());
             setComboBox();
             wshMkr.Visible = true;
@@ -76,6 +89,7 @@ namespace RNGReporter
             Hide();
         }
 
+        #region Spread Searcher
         #region Start search
         private void search_Click(object sender, EventArgs e)
         {
@@ -228,15 +242,15 @@ namespace RNGReporter
 
         private void checkSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
         {
-            uint x8 = hp + (atk << 5) + (def << 10);
+            uint x8 = hp | (atk << 5) | (def << 10);
             uint x8_2 = x8 ^ 0x8000;
-            uint ex8 = spe + (spa << 5) + (spd << 10);
+            uint ex8 = spe | (spa << 5) | (spd << 10);
             uint ex8_2 = ex8 ^ 0x8000;
             uint ivs_1b = x8 << 16;
 
             for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
             {
-                uint seedb = ivs_1b + cnt;
+                uint seedb = ivs_1b | cnt;
                 uint ivs_2 = forwardXD(seedb) >> 16;
                 if (ivs_2 == ex8  || ivs_2 == ex8_2)
                 {
@@ -250,9 +264,11 @@ namespace RNGReporter
                         uint coloSeed = reverseXD(seedb);
                         switch (shadow)
                         {
+                            //No NL
                             case 0:
                                 filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
                                 break;
+                            //First shadow
                             case 1:
                                 bool cont = natureLock.method1FirstShadow(coloSeed);
                                 if (cont)
@@ -269,6 +285,7 @@ namespace RNGReporter
                                     }
                                 }
                                 break;
+                            //Second shadow
                             case 6:
                                 cont = natureLock.method1SecondShadowSet(coloSeed);
                                 if (cont)
@@ -587,7 +604,7 @@ namespace RNGReporter
 
             for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
             {
-                uint seedb = ivs_1b + cnt;
+                uint seedb = ivs_1b | cnt;
                 uint ivs_2 = forwardXD(seedb) >> 16;
                 if (ivs_2 == ex8 || ivs_2 == ex8_2)
                 {
@@ -841,29 +858,24 @@ namespace RNGReporter
         private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
         {
             uint x16 = spd << 27;
-            uint upper = x16 + 0x7ffffff;
+            uint upper = x16 | 0x7ffffff;
 
             while (x16 < upper)
             {
                 var rng = new XdRngR(++x16);
-                uint prevseed = rng.GetNext32BitNumber();
-                uint temp = prevseed >> 27;
+                uint temp = rng.GetNext32BitNumber() >> 27;
                 if (temp == spa)
                 {
-                    prevseed = rng.GetNext32BitNumber();
-                    temp = prevseed >> 27;
+                    temp = rng.GetNext32BitNumber() >> 27;
                     if (temp == spe)
                     {
-                        prevseed = rng.GetNext32BitNumber();
-                        temp = prevseed >> 27;
+                        temp = rng.GetNext32BitNumber() >> 27;
                         if (temp == def)
                         {
-                            prevseed = rng.GetNext32BitNumber();
-                            temp = prevseed >> 27;
+                            temp = rng.GetNext32BitNumber() >> 27;
                             if (temp == atk)
                             {
-                                prevseed = rng.GetNext32BitNumber();
-                                temp = prevseed >> 27;
+                                temp = rng.GetNext32BitNumber() >> 27;
                                 if (temp == hp)
                                 {
                                     for (int x = 0; x < 3; x++)
@@ -1097,9 +1109,9 @@ namespace RNGReporter
         //Credits to RNG reporter for this
         private void checkSeedR(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
         {
-            uint x4 = hp + (atk << 5) + (def << 10);
+            uint x4 = hp | (atk << 5) | (def << 10);
             uint x4_2 = x4 ^ 0x8000;
-            uint ex4 = spe + (spa << 5) + (spd << 10);
+            uint ex4 = spe | (spa << 5) | (spd << 10);
             uint ex4_2 = ex4 ^ 0x8000;
             uint ivs_1b = x4 << 16;
 
@@ -1273,6 +1285,279 @@ namespace RNGReporter
         }
         #endregion
 
+        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, String output)
+        {
+            String stringNature = Natures[nature];
+            String hPString = hiddenPowers[calcHP(hp, atk, def, spa, spd, spe)];
+            int hpPower = calcHPPower(hp, atk, def, spa, spd, spe);
+            gender = pid & 255;
+            char gender1;
+            char gender2;
+            char gender3;
+            char gender4;
+
+            if (!galesFlag)
+                if (shiny == "")
+                    if (isShiny(pid))
+                        shiny = "!!!";
+
+            if (galesFlag && output.Equals(""))
+                output = "Pass NL";
+
+            gender1 = gender < 31 ? 'F' : 'M';
+            gender2 = gender < 64 ? 'F' : 'M';
+            gender3 = gender < 126 ? 'F' : 'M';
+            gender4 = gender < 191 ? 'F' : 'M';
+
+            displayList.Insert(0, new DisplayList
+            {
+                Seed = seed.ToString("x").ToUpper(),
+                PID = pid.ToString("x").ToUpper(),
+                Shiny = shiny,
+                Nature = stringNature,
+                Ability = (int)ability,
+                Hp = (int)hp,
+                Atk = (int)atk,
+                Def = (int)def,
+                SpA = (int)spa,
+                SpD = (int)spd,
+                Spe = (int)spe,
+                Hidden = hPString,
+                Power = hpPower,
+                Eighth = gender1,
+                Quarter = gender2,
+                Half = gender3,
+                Three_Fourths = gender4,
+                Reason = output
+            });
+        }
+        #endregion
+
+        #region Shadow Checker
+
+        private void generateShadow_Click(object sender, EventArgs e)
+        {
+            getIVsShadow(out uint[] ivsLower, out uint[] ivsUpper);
+            if (ivsLower[0] > ivsUpper[0])
+                MessageBox.Show("HP: Lower limit > Upper limit");
+            else if (ivsLower[1] > ivsUpper[1])
+                MessageBox.Show("Atk: Lower limit > Upper limit");
+            else if (ivsLower[2] > ivsUpper[2])
+                MessageBox.Show("Def: Lower limit > Upper limit");
+            else if (ivsLower[3] > ivsUpper[3])
+                MessageBox.Show("SpA: Lower limit > Upper limit");
+            else if (ivsLower[4] > ivsUpper[4])
+                MessageBox.Show("SpD: Lower limit > Upper limit");
+            else if (ivsLower[5] > ivsUpper[5])
+                MessageBox.Show("Spe: Lower limit > Upper limit");
+            else
+            {
+                dataGridShadow.Rows.Clear();
+                if (isSearching)
+                {
+                    status.Text = "Previous search is still running";
+                    return;
+                }
+
+                natureList = null;
+                if (checkBoxNatureShadow.Text != "Any" && checkBoxNatureShadow.CheckBoxItems.Count > 0)
+                    natureList = (from t in checkBoxNatureShadow.CheckBoxItems where t.Checked select (uint)((Nature)t.ComboBoxItem).Number).ToList();
+
+                hiddenPowerList = null;
+                List<uint> temp = new List<uint>();
+                if (checkBoxHPShadow.Text != "Any" && checkBoxHPShadow.CheckBoxItems.Count > 0)
+                    for (int x = 1; x <= 16; x++)
+                        if (checkBoxHPShadow.CheckBoxItems[x].Checked)
+                            temp.Add((uint)(x - 1));
+
+                if (temp.Count != 0)
+                    hiddenPowerList = temp;
+
+                uint.TryParse(maskedTextBoxStartingFrame.Text, out uint initialFrame);
+                uint.TryParse(maskedTextBoxMaxFrames.Text, out uint maxFrame);
+                uint.TryParse(textBoxSeed.Text, out uint seed);
+                int shadowMethod = comboBoxMethodShadow.SelectedIndex;
+                uint gender = (uint)comboBoxGenderShadow.SelectedIndex;
+                uint ability = (uint)comboBoxAbilityShadow.SelectedIndex;
+                natureLock = new NatureLock(comboBoxShadow.SelectedIndex);
+                shadow = natureLock.getType();
+
+                shadowDisplay = new List<ShadowDisplay>();
+                binding = new BindingSource { DataSource = shadowDisplay };
+                dataGridShadow.DataSource = binding;
+                status.Text = "Searching";
+
+                searchThread = new Thread[1];
+                searchThread[0] = new Thread(() => shadowSearch(ivsLower, ivsUpper, initialFrame, maxFrame, seed, shadowMethod, gender, ability));
+                searchThread[0].Start();
+                var update = new Thread(updateGUI2);
+                update.Start();
+            }
+        }
+
+        private void shadowSearch(uint[] ivsLower, uint[] ivsUpper, uint initialFrame, uint maxFrame, uint inSeed, int secondMethod, uint gender, uint ability)
+        {
+            var rng = new XdRng(inSeed);
+            var hunt = new XdRng(0);
+
+            for (uint cnt = 1; cnt < initialFrame; cnt++)
+                rng.GetNext32BitNumber();
+
+            uint pid, seed, iv1, iv2, nature;
+            uint[] ivs;
+
+            for (uint cnt = 0; cnt < maxFrame; cnt++)
+            {
+                switch(shadow)
+                {
+                    //No NL
+                    case 0:
+                        hunt.Seed = rng.Seed;
+
+                        iv1 = hunt.GetNext16BitNumber();
+                        iv2 = hunt.GetNext16BitNumber();
+                        ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+                        if (ivs != null)
+                        {
+                            hunt.GetNext32BitNumber();
+                            pid = (hunt.GetNext32BitNumber() & 0xFFFF0000) | hunt.GetNext16BitNumber();
+                            nature = pid - 25 * (pid / 25);
+                            if (natureList == null || natureList.Contains(nature))
+                                filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
+                        }
+
+                        break;
+                    //First shadow
+                    case 1:
+                        natureLock.method2FirstShadow(rng.Seed, out seed, out pid);
+
+                        nature = pid - 25 * (pid / 25);
+                        if (natureList == null || natureList.Contains(nature))
+                        {
+                            hunt.Seed = seed;
+                            iv1 = hunt.GetNext16BitNumber();
+                            iv2 = hunt.GetNext16BitNumber();
+                            ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+                            if (ivs != null)
+                                filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
+                        }
+                        break;
+                    //Second shadow
+                    case 6:
+                        switch(secondMethod)
+                        {
+                            //Set
+                            case 0:
+
+                                break;
+                            //Unset
+                            case 1:
+
+                                break;
+                            //Shiny skip
+                            case 2:
+
+                                break;
+                        }
+                        break;
+                }
+
+                //Advance to next seed
+                rng.GetNext32BitNumber();
+            }
+            isSearching = false;
+            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
+        }
+
+        public void filterSeedShadow(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, int frame, uint nature, uint pid, uint gender, uint ability)
+        {
+            uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
+            if (hiddenPowerList != null)
+                if (!hiddenPowerList.Contains(actualHP))
+                    return;
+
+            if (ability != 0)
+                if ((pid & 1) != (ability - 1))
+                    return;
+            ability = pid & 1;
+
+            switch (gender)
+            {
+                case 1:
+                    if ((pid & 255) < 127)
+                        return;
+                    break;
+                case 2:
+                    if ((pid & 255) > 126)
+                        return;
+                    break;
+                case 3:
+                    if ((pid & 255) < 191)
+                        return;
+                    break;
+                case 4:
+                    if ((pid & 255) > 190)
+                        return;
+                    break;
+                case 5:
+                    if ((pid & 255) < 64)
+                        return;
+                    break;
+                case 6:
+                    if ((pid & 255) > 63)
+                        return;
+                    break;
+                case 7:
+                    if ((pid & 255) < 31)
+                        return;
+                    break;
+                case 8:
+                    if ((pid & 255) > 30)
+                        return;
+                    break;
+            }
+            addSeedShadow(hp, atk, def, spa, spd, spe, frame, nature, ability, gender, actualHP, pid);
+        }
+
+        private void addSeedShadow(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, int frame, uint nature, uint ability, uint gender, uint hP, uint pid)
+        {
+            String stringNature = Natures[nature];
+            String hPString = hiddenPowers[calcHP(hp, atk, def, spa, spd, spe)];
+            int hpPower = calcHPPower(hp, atk, def, spa, spd, spe);
+            gender = pid & 255;
+            char gender1;
+            char gender2;
+            char gender3;
+            char gender4;
+
+            gender1 = gender < 31 ? 'F' : 'M';
+            gender2 = gender < 64 ? 'F' : 'M';
+            gender3 = gender < 126 ? 'F' : 'M';
+            gender4 = gender < 191 ? 'F' : 'M';
+
+            shadowDisplay.Add(new ShadowDisplay
+            {
+                Frame = frame,
+                PID = pid.ToString("x").ToUpper(),
+                Nature = stringNature,
+                Ability = (int)ability,
+                Hp = (int)hp,
+                Atk = (int)atk,
+                Def = (int)def,
+                SpA = (int)spa,
+                SpD = (int)spd,
+                Spe = (int)spe,
+                Hidden = hPString,
+                Power = hpPower,
+                Eighth = gender1,
+                Quarter = gender2,
+                Half = gender3,
+                Three_Fourths = gender4
+            });
+        }
+
+        #endregion
+
         #region Helper methods
         private void getIVs(out uint[] IVsLower, out uint[] IVsUpper)
         {
@@ -1297,6 +1582,46 @@ namespace RNGReporter
                     IVsUpper[x] = ivs[x];
                 }
                 else if (ivsLogic[x] == 1)
+                {
+                    IVsLower[x] = ivs[x];
+                    IVsUpper[x] = 31;
+                }
+                else
+                {
+                    IVsLower[x] = 0;
+                    IVsUpper[x] = ivs[x];
+                }
+            }
+        }
+
+        private void getIVsShadow(out uint[] IVsLower, out uint[] IVsUpper)
+        {
+            IVsLower = new uint[6];
+            IVsUpper = new uint[6];
+            uint[] ivs = new uint[6];
+
+            uint.TryParse(hpShadow.Text, out ivs[0]);
+            uint.TryParse(atkShadow.Text, out ivs[1]);
+            uint.TryParse(defShadow.Text, out ivs[2]);
+            uint.TryParse(spaShadow.Text, out ivs[3]);
+            uint.TryParse(spdShadow.Text, out ivs[4]);
+            uint.TryParse(speShadow.Text, out ivs[5]);
+
+            int[] ivsLogic = { hpLogicShadow.SelectedIndex, atkLogicShadow.SelectedIndex, defLogicShadow.SelectedIndex, spaLogicShadow.SelectedIndex, spdLogicShadow.SelectedIndex, speLogicShadow.SelectedIndex };
+
+            for (int x = 0; x < 6; x++)
+            {
+                if (ivsLogic[x] == 0)
+                {
+                    IVsLower[x] = 0;
+                    IVsUpper[x] = 31;
+                }
+                else if (ivsLogic[x] == 1)
+                {
+                    IVsLower[x] = ivs[x];
+                    IVsUpper[x] = ivs[x];
+                }
+                else if (ivsLogic[x] == 2)
                 {
                     IVsLower[x] = ivs[x];
                     IVsUpper[x] = 31;
@@ -1401,6 +1726,35 @@ namespace RNGReporter
         {
             gridUpdate = dataGridUpdate;
             ThreadDelegate resizeGrid = dataGridViewResult.AutoResizeColumns;
+            try
+            {
+                bool alive = true;
+                while (alive)
+                {
+                    if (refresh)
+                    {
+                        Invoke(gridUpdate);
+                        refresh = false;
+                    }
+                    if (searchThread == null || !isSearching)
+                    {
+                        alive = false;
+                    }
+
+                    Thread.Sleep(500);
+                }
+            }
+            finally
+            {
+                Invoke(gridUpdate);
+                Invoke(resizeGrid);
+            }
+        }
+
+        private void updateGUI2()
+        {
+            gridUpdate = dataGridUpdate;
+            ThreadDelegate resizeGrid = dataGridShadow.AutoResizeColumns;
             try
             {
                 bool alive = true;
@@ -1657,6 +2011,170 @@ namespace RNGReporter
         {
             comboBoxShadowMethod.ClearSelection();
         }
+
+        private void hpMaxShadow_Click(object sender, EventArgs e)
+        {
+            hpShadow.Text = "31";
+            hpLogicShadow.SelectedIndex = 1;
+        }
+
+        private void hpNearMaxShadow_Click(object sender, EventArgs e)
+        {
+            hpShadow.Text = "30";
+            hpLogicShadow.SelectedIndex = 1;
+        }
+
+        private void hpAlmostMaxShadow_Click(object sender, EventArgs e)
+        {
+            hpShadow.Text = "30";
+            hpLogicShadow.SelectedIndex = 2;
+        }
+
+        private void hpClearShadow_Click(object sender, EventArgs e)
+        {
+            hpShadow.Text = "";
+            hpLogicShadow.SelectedIndex = 0;
+        }
+
+        private void atkMaxShadow_Click(object sender, EventArgs e)
+        {
+            atkShadow.Text = "31";
+            atkLogicShadow.SelectedIndex = 1;
+        }
+
+        private void atkNearMaxShadow_Click(object sender, EventArgs e)
+        {
+            atkShadow.Text = "30";
+            atkLogicShadow.SelectedIndex = 1;
+        }
+
+        private void atkAlmostMaxShadow_Click(object sender, EventArgs e)
+        {
+            atkShadow.Text = "30";
+            atkLogicShadow.SelectedIndex = 2;
+        }
+
+        private void atkClearShadow_Click(object sender, EventArgs e)
+        {
+            atkShadow.Text = "";
+            atkLogicShadow.SelectedIndex = 0;
+        }
+
+        private void defMaxShadow_Click(object sender, EventArgs e)
+        {
+            defShadow.Text = "31";
+            defLogicShadow.SelectedIndex = 1;
+        }
+
+        private void defNearMaxShadow_Click(object sender, EventArgs e)
+        {
+            defShadow.Text = "30";
+            defLogicShadow.SelectedIndex = 1;
+        }
+
+        private void defAlmostMaxShadow_Click(object sender, EventArgs e)
+        {
+            defShadow.Text = "30";
+            defLogicShadow.SelectedIndex = 2;
+        }
+
+        private void defClearShadow_Click(object sender, EventArgs e)
+        {
+            defShadow.Text = "";
+            defLogicShadow.SelectedIndex = 0;
+        }
+
+        private void spaMaxShadow_Click(object sender, EventArgs e)
+        {
+            spaShadow.Text = "31";
+            spaLogicShadow.SelectedIndex = 1;
+        }
+
+        private void spaNearMaxShadow_Click(object sender, EventArgs e)
+        {
+            spaShadow.Text = "30";
+            spaLogicShadow.SelectedIndex = 1;
+        }
+
+        private void spaAlmostMaxShadow_Click(object sender, EventArgs e)
+        {
+            spaShadow.Text = "30";
+            spaLogicShadow.SelectedIndex = 2;
+        }
+
+        private void spaClearShadow_Click(object sender, EventArgs e)
+        {
+            spaShadow.Text = "";
+            spaLogicShadow.SelectedIndex = 0;
+        }
+
+        private void spdMaxShadow_Click(object sender, EventArgs e)
+        {
+            spdShadow.Text = "31";
+            spdLogicShadow.SelectedIndex = 1;
+        }
+
+        private void spdNearMaxShadow_Click(object sender, EventArgs e)
+        {
+            spdShadow.Text = "30";
+            spdLogicShadow.SelectedIndex = 1;
+        }
+
+        private void spdAlmostMaxShadow_Click(object sender, EventArgs e)
+        {
+            spdShadow.Text = "30";
+            spdLogicShadow.SelectedIndex = 2;
+        }
+
+        private void spdClearShadow_Click(object sender, EventArgs e)
+        {
+            spdShadow.Text = "";
+            spdLogicShadow.SelectedIndex = 0;
+        }
+
+        private void speMaxShadow_Click(object sender, EventArgs e)
+        {
+            speShadow.Text = "31";
+            speLogicShadow.SelectedIndex = 1;
+        }
+
+        private void speNearMaxShadow_Click(object sender, EventArgs e)
+        {
+            speShadow.Text = "30";
+            speLogicShadow.SelectedIndex = 1;
+        }
+
+        private void speAlmostMaxShadow_Click(object sender, EventArgs e)
+        {
+            speShadow.Text = "30";
+            speLogicShadow.SelectedIndex = 2;
+        }
+
+        private void speClearShadow_Click(object sender, EventArgs e)
+        {
+            speShadow.Text = "";
+            speLogicShadow.SelectedIndex = 0;
+        }
+
+        private void anyNatureShadow_Click(object sender, EventArgs e)
+        {
+            checkBoxNatureShadow.ClearSelection();
+        }
+
+        private void anyGenderShadow_Click(object sender, EventArgs e)
+        {
+            comboBoxGenderShadow.SelectedIndex = 0;
+        }
+
+        private void anyAbilityShadow_Click(object sender, EventArgs e)
+        {
+            comboBoxAbilityShadow.SelectedIndex = 0;
+        }
+
+        private void anyHPShadow_Click(object sender, EventArgs e)
+        {
+            checkBoxHPShadow.ClearSelection();
+        }
         #endregion
 
         #region ComboBox
@@ -1668,6 +2186,10 @@ namespace RNGReporter
             comboBoxHiddenPower.CheckBoxItems[0].Checked = false;
             comboBoxShadowMethod.CheckBoxItems[0].Checked = true;
             comboBoxShadowMethod.CheckBoxItems[0].Checked = false;
+            checkBoxNatureShadow.CheckBoxItems[0].Checked = true;
+            checkBoxNatureShadow.CheckBoxItems[0].Checked = false;
+            checkBoxHPShadow.CheckBoxItems[0].Checked = true;
+            checkBoxHPShadow.CheckBoxItems[0].Checked = false;
         }
 
         private void galesCheck_CheckedChanged(object sender, EventArgs e)
@@ -1867,52 +2389,5 @@ namespace RNGReporter
             }
         }
         #endregion
-
-        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, String output)
-        {
-            String stringNature = Natures[nature];
-            String hPString = hiddenPowers[calcHP(hp, atk, def, spa, spd, spe)];
-            int hpPower = calcHPPower(hp, atk, def, spa, spd, spe);
-            gender = pid & 255;
-            char gender1;
-            char gender2;
-            char gender3;
-            char gender4;
-
-            if (!galesFlag)
-                if (shiny == "")
-                    if (isShiny(pid))
-                        shiny = "!!!";
-
-            if (galesFlag && output.Equals(""))
-                output = "Pass NL";
-
-            gender1 = gender < 31 ? 'F' : 'M';
-            gender2 = gender < 64 ? 'F' : 'M';
-            gender3 = gender < 126 ? 'F' : 'M';
-            gender4 = gender < 191 ? 'F' : 'M';
-
-            displayList.Insert(0, new DisplayList
-            {
-                Seed = seed.ToString("x").ToUpper(),
-                PID = pid.ToString("x").ToUpper(),
-                Shiny = shiny,
-                Nature = stringNature,
-                Ability = (int)ability,
-                Hp = (int)hp,
-                Atk = (int)atk,
-                Def = (int)def,
-                SpA = (int)spa,
-                SpD = (int)spd,
-                Spe = (int)spe,
-                Hidden = hPString,
-                Power = hpPower,
-                Eighth = gender1,
-                Quarter = gender2,
-                Half = gender3,
-                Three_Fourths = gender4,
-                Reason = output
-            });
-        }
     }
 }

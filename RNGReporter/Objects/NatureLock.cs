@@ -667,74 +667,32 @@ namespace RNGReporter.Objects
             return forwardCounter == backwardCounter;
         }
 
-        public int method2SingleNL(uint seed, uint sisterSeed)
+        public void method2FirstShadow(uint seed, out uint outSeed, out uint pid)
         {
-            //TODO
-            uint pid = 0;
-            uint genderval = pid & 255;
-            int forward = 12;
-            bool flag = true;
-            if (genderval >= lockInfo[2] && genderval <= lockInfo[3])
-            {
-                if ((pid - 25 * (pid / 25)) == lockInfo[4])
-                    return forward;
-                else
-                {
-                    while (flag)
-                    {
-                        forward += 2;
-                        pid = sisterSeed == 0 ? 0 : 0 ^ 0x80008000;
-                        genderval = pid & 255;
-                        if (genderval >= lockInfo[2] && genderval <= lockInfo[3])
-                            if ((pid == 0 ? 0 : pid - 25 * (pid / 25)) == lockInfo[4])
-                                flag = false;
-
-                    }
-                }
-            }
-            else
-            {
-                while (flag)
-                {
-                    forward += 2;
-                    pid = sisterSeed == 0 ? 0 : 0 ^ 0x80008000;
-                    genderval = pid & 255;
-                    if (genderval >= lockInfo[2] && genderval <= lockInfo[3])
-                        if ((pid - 25 * (pid / 25)) == lockInfo[4])
-                            flag = false;
-                }
-            }
-            return forward;
-        }
-
-        public int method2MultiNL(uint seed, uint sisterSeed)
-        {
-            //TODO
-            int forward = 0;
             int count = ((lockInfo.Length - 2) / 3) - 1;
+            if (count == 0)
+                count++;
             int lastIndex = lockInfo.Length - 1;
-
-            uint pid;
             uint genderval;
+            pid = 0;
+            var rng = new XdRng(seed);
+            for (int a = 0; a < 5; a++)
+                rng.GetNext32BitNumber();
 
-            for (int x = 0; x <= count; x++)
+            for (int x = 0; x < count; x++)
             {
+                for (int i = 0; i < 3; i++)
+                    rng.GetNext32BitNumber();
+                pid = (rng.GetNext32BitNumber() & 0xFFFF0000) | rng.GetNext16BitNumber();
                 bool flag = true;
-                forward += 5;
-                pid = sisterSeed == 0 ? 0 : 0 ^ 0x80008000;
                 genderval = pid & 255;
                 if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
                 {
-                    if (((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x]) || (lockInfo[lastIndex - 3 * x] == 500))
-                    {
-                        //Forward advances already accounted for
-                    }
-                    else
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x]) || (lockInfo[lastIndex - 3 * x] == 500)))
                     {
                         while (flag)
                         {
-                            forward += 2;
-                            pid = sisterSeed == 0 ? 0 : 0 ^ 0x80008000;
+                            pid = (rng.GetNext32BitNumber() & 0xFFFF0000) | rng.GetNext16BitNumber();
                             genderval = pid & 255;
                             if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
                                 if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x])
@@ -746,8 +704,7 @@ namespace RNGReporter.Objects
                 {
                     while (flag)
                     {
-                        forward += 2;
-                        pid = sisterSeed == 0 ? 0 : 0 ^ 0x80008000;
+                        pid = (rng.GetNext32BitNumber() & 0xFFFF0000) | rng.GetNext16BitNumber();
                         genderval = pid & 255;
                         if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
                             if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x])
@@ -756,7 +713,140 @@ namespace RNGReporter.Objects
                 }
             }
 
-            return forward;
+            rng.GetNext32BitNumber();
+            outSeed = rng.GetNext32BitNumber();
+            for (int z = 0; z < 3; z++)
+                rng.GetNext32BitNumber();
+            pid = (rng.GetNext32BitNumber() & 0xFFFF0000) | rng.GetNext16BitNumber();
+        }
+
+        public void method2SecondShadowSet(uint seed, out uint outSeed, out uint pid)
+        {
+            //TODO
+            int count = ((lockInfo.Length - 2) / 3) - 1;
+            int lastIndex = lockInfo.Length - 1;
+            uint genderval;
+            pid = 0;
+
+            for (int x = 0; x <= count; x++)
+            {
+                bool flag = true;
+                pid = 0;
+                genderval = pid & 255;
+                if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
+                {
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x]) || (lockInfo[lastIndex - 3 * x] == 500)))
+                    {
+                        while (flag)
+                        {
+                            pid = 0;
+                            genderval = pid & 255;
+                            if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
+                                if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x])
+                                    flag = false;
+                        }
+                    }
+                }
+                else
+                {
+                    while (flag)
+                    {
+                        pid = 0;
+                        genderval = pid & 255;
+                        if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
+                            if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x])
+                                flag = false;
+                    }
+                }
+            }
+
+            outSeed = 0;
+        }
+
+        public void method2SecondShadowUnset(uint seed, out uint outSeed, out uint pid)
+        {
+            //TODO
+            int count = ((lockInfo.Length - 2) / 3) - 1;
+            int lastIndex = lockInfo.Length - 1;
+            uint genderval;
+            pid = 0;
+
+            for (int x = 0; x <= count; x++)
+            {
+                bool flag = true;
+                pid = 0;
+                genderval = pid & 255;
+                if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
+                {
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x]) || (lockInfo[lastIndex - 3 * x] == 500)))
+                    {
+                        while (flag)
+                        {
+                            pid = 0;
+                            genderval = pid & 255;
+                            if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
+                                if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x])
+                                    flag = false;
+                        }
+                    }
+                }
+                else
+                {
+                    while (flag)
+                    {
+                        pid = 0;
+                        genderval = pid & 255;
+                        if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
+                            if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x])
+                                flag = false;
+                    }
+                }
+            }
+
+            outSeed = 0;
+        }
+
+        public void method2SecondShinySkip(uint seed, out uint outSeed, out uint pid)
+        {
+            //TODO
+            int count = ((lockInfo.Length - 2) / 3) - 1;
+            int lastIndex = lockInfo.Length - 1;
+            uint genderval;
+            pid = 0;
+
+            for (int x = 0; x <= count; x++)
+            {
+                bool flag = true;
+                pid = 0;
+                genderval = pid & 255;
+                if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
+                {
+                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x]) || (lockInfo[lastIndex - 3 * x] == 500)))
+                    {
+                        while (flag)
+                        {
+                            pid = 0;
+                            genderval = pid & 255;
+                            if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
+                                if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x])
+                                    flag = false;
+                        }
+                    }
+                }
+                else
+                {
+                    while (flag)
+                    {
+                        pid = 0;
+                        genderval = pid & 255;
+                        if ((genderval >= lockInfo[lastIndex - 2 - 3 * x] && genderval <= lockInfo[lastIndex - 1 - 3 * x]) || (lockInfo[lastIndex - 2 - 3 * x] == 500 && lockInfo[lastIndex - 1 - 3 * x] == 500))
+                            if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex - 3 * x])
+                                flag = false;
+                    }
+                }
+            }
+
+            outSeed = 0;
         }
 
         public uint getType()

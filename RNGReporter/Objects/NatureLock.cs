@@ -728,7 +728,7 @@ namespace RNGReporter.Objects
 
         private uint getPIDForward()
         {
-            return (rng2.GetNext32BitNumber() & 0xFFFF0000) | rng2.GetNext16BitNumber(); ;
+            return (rng2.GetNext32BitNumber() & 0xFFFF0000) | rng2.GetNext16BitNumber();
         }
 
         private void countBackTwo(uint pid, int x)

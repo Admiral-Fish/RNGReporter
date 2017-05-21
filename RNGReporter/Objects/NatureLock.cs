@@ -298,7 +298,7 @@ namespace RNGReporter.Objects
         {
             backwardCounter = 14;
             forwardCounter = 14;
-            rng = new XdRngR(seed);
+            rng.Seed = seed;
             for (int c = 0; c < 8; c++)
                 rng.GetNext32BitNumber();
 
@@ -330,7 +330,7 @@ namespace RNGReporter.Objects
                 }
             }
 
-            rng2 = new XdRng(rng.Seed);
+            rng2.Seed = rng.Seed;
             rng2.GetNext32BitNumber();
 
             //Forwards nature lock check
@@ -361,7 +361,7 @@ namespace RNGReporter.Objects
         {
             backwardCounter = 12;
             forwardCounter = 12;
-            rng = new XdRngR(seed);
+            rng.Seed = seed;
             for (int c = 0; c < 6; c++)
                 rng.GetNext32BitNumber();
 
@@ -393,7 +393,7 @@ namespace RNGReporter.Objects
                 }
             }
 
-            rng2 = new XdRng(rng.Seed);
+            rng2.Seed = rng.Seed;
             rng2.GetNext32BitNumber();
 
             //Forwards nature lock check

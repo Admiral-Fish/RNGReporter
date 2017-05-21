@@ -189,7 +189,6 @@ namespace RNGReporter
         {
             int natureLockIndex = getNatureLock();
             natureLock = new NatureLock(natureLockIndex);
-            calcSecondShadow();
             shadow = natureLock.getType();
 
             uint method = 1;
@@ -1403,67 +1402,114 @@ namespace RNGReporter
             for (uint cnt = 1; cnt < initialFrame; cnt++)
                 rng.GetNext32BitNumber();
 
-            uint pid, seed, iv1, iv2, nature;
+            uint pid, iv1, iv2, nature;
             uint[] ivs;
 
-            for (uint cnt = 0; cnt < maxFrame; cnt++)
+            switch(shadow)
             {
-                switch(shadow)
-                {
-                    //No NL
-                    case 0:
-                        hunt.Seed = rng.Seed;
+                //No NL
+                case 0:
 
-                        iv1 = hunt.GetNext16BitNumber();
-                        iv2 = hunt.GetNext16BitNumber();
-                        ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
-                        if (ivs != null)
+                    List<uint> rand = new List<uint>();
+
+                    for (int x = 0; x < 5; x++)
+                        rand.Add(rng.GetNext16BitNumber());
+
+                    for (uint cnt = 0; cnt < maxFrame; cnt++, rand.RemoveAt(0), rand.Add(rng.GetNext16BitNumber()))
+                    {
+                        pid = (rand[3] << 16) | rand[4];
+                        nature = pid - 25 * (pid / 25);
+                        if (natureList == null || natureList.Contains(nature))
                         {
-                            hunt.GetNext32BitNumber();
-                            pid = (hunt.GetNext32BitNumber() & 0xFFFF0000) | hunt.GetNext16BitNumber();
-                            nature = pid - 25 * (pid / 25);
-                            if (natureList == null || natureList.Contains(nature))
-                                filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
+                            ivs = createIVs(rand[0], rand[1], ivsLower, ivsUpper);
+                            if (ivs != null)
+                                filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(initialFrame + cnt), nature, pid, gender, ability);
                         }
+                    }
 
-                        break;
-                    //First shadow
-                    case 1:
-                        natureLock.method2FirstShadow(rng.Seed, out seed, out pid);
+                    break;
+                //First shadow
+                case 1:
+                    natureLock.rand.Add(rng.Seed);
+                    for (int x = 0; x < 2000; x++)
+                        natureLock.rand.Add(rng.GetNext32BitNumber());
+
+                    for (uint cnt = 0; cnt < maxFrame; cnt++, natureLock.rand.RemoveAt(0), natureLock.rand.Add(rng.GetNext32BitNumber()))
+                    {
+                        natureLock.method2FirstShadow(out pid, out iv1, out iv2);
 
                         nature = pid - 25 * (pid / 25);
                         if (natureList == null || natureList.Contains(nature))
                         {
-                            hunt.Seed = seed;
-                            iv1 = hunt.GetNext16BitNumber();
-                            iv2 = hunt.GetNext16BitNumber();
                             ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
                             if (ivs != null)
                                 filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
                         }
-                        break;
-                    //Second shadow
-                    case 6:
-                        switch(secondMethod)
-                        {
-                            //Set
-                            case 0:
+                    }
+                    break;
+                //Second shadow
+                case 6:
+                    switch(secondMethod)
+                    {
+                        //Set
+                        case 0:
+                            natureLock.rand.Add(rng.Seed);
+                            for (int x = 0; x < 2000; x++)
+                                natureLock.rand.Add(rng.GetNext32BitNumber());
 
-                                break;
-                            //Unset
-                            case 1:
+                            for (uint cnt = 0; cnt < maxFrame; cnt++, natureLock.rand.RemoveAt(0), natureLock.rand.Add(rng.GetNext32BitNumber()))
+                            {
+                                natureLock.method2SecondShadowSet(out pid, out iv1, out iv2);
 
-                                break;
-                            //Shiny skip
-                            case 2:
+                                nature = pid - 25 * (pid / 25);
+                                if (natureList == null || natureList.Contains(nature))
+                                {
+                                    ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+                                    if (ivs != null)
+                                        filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
+                                }
+                            }
+                            break;
+                        //Unset
+                        case 1:
+                            natureLock.rand.Add(rng.Seed);
+                            for (int x = 0; x < 2000; x++)
+                                natureLock.rand.Add(rng.GetNext32BitNumber());
 
-                                break;
-                        }
-                        break;
-                }
+                            for (uint cnt = 0; cnt < maxFrame; cnt++, natureLock.rand.RemoveAt(0), natureLock.rand.Add(rng.GetNext32BitNumber()))
+                            {
+                                natureLock.method2SecondShadowUnset(out pid, out iv1, out iv2);
 
-                //Advance to next seed
-                rng.GetNext32BitNumber();
+                                nature = pid - 25 * (pid / 25);
+                                if (natureList == null || natureList.Contains(nature))
+                                {
+                                    ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+                                    if (ivs != null)
+                                        filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
+                                }
+                            }
+                            break;
+                        //Shiny skip
+                        case 2:
+                            natureLock.rand.Add(rng.Seed);
+                            for (int x = 0; x < 2000; x++)
+                                natureLock.rand.Add(rng.GetNext32BitNumber());
+
+                            for (uint cnt = 0; cnt < maxFrame; cnt++, natureLock.rand.RemoveAt(0), natureLock.rand.Add(rng.GetNext32BitNumber()))
+                            {
+                                natureLock.method2SecondShinySkip(out pid, out iv1, out iv2);
+
+                                nature = pid - 25 * (pid / 25);
+                                if (natureList == null || natureList.Contains(nature))
+                                {
+                                    ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+                                    if (ivs != null)
+                                        filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
+                                }
+                            }
+                            break;
+                    }
+                    break;
             }
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
@@ -1699,25 +1745,6 @@ namespace RNGReporter
         private uint calcHP(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             return ((((hp & 1) + 2 * (atk & 1) + 4 * (def & 1) + 8 * (spe & 1) + 16 * (spa & 1) + 32 * (spd & 1)) * 15) / 63);
-        }
-
-        private void calcSecondShadow()
-        {
-            natureLock.secondShadow.Clear();
-            if (comboBoxShadowMethod.Text != "Any" && comboBoxShadowMethod.CheckBoxItems.Count > 0)
-            {
-                for (int x = 1; x <= 3; x++)
-                {
-                    if (comboBoxShadowMethod.CheckBoxItems[x].Checked)
-                        natureLock.secondShadow.Add((x));
-                }
-            }
-            else
-            {
-                natureLock.secondShadow.Add(1);
-                natureLock.secondShadow.Add(2);
-                natureLock.secondShadow.Add(3);
-            }
         }
         #endregion
 
@@ -2309,6 +2336,21 @@ namespace RNGReporter
                 anyShadowMethod.Visible = false;
                 shadowPokemon.Visible = false;
                 galesCheck.Visible = false;
+            }
+        }
+
+        private void comboBoxShadow_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            List<int> secondShadows = new List<int> { 0, 6, 8, 10, 21, 30, 32, 37, 50, 57, 66, 67, 75, 93 };
+            if (secondShadows.Contains(comboBoxShadow.SelectedIndex))
+            {
+                comboBoxMethodShadow.Visible = true;
+                label21.Visible = true;
+            }
+            else
+            {
+                comboBoxMethodShadow.Visible = false;
+                label21.Visible = false;
             }
         }
         #endregion

@@ -256,12 +256,12 @@ namespace RNGReporter.Objects
                 {
                     if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
                     {
-                        countBackTwo(pid, x);
+                        countBackTwo(x);
                     }
                 }
                 else
                 {
-                    countBackTwo(pid, x);
+                    countBackTwo(x);
                 }
             }
 
@@ -281,13 +281,13 @@ namespace RNGReporter.Objects
                     if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
                     {
                         {
-                            countForwardTwo(pid, x);
+                            countForwardTwo(x);
                         }
                     }
                 }
                 else
                 {
-                    countForwardTwo(pid, x);
+                    countForwardTwo(x);
                 }
             }
 
@@ -321,12 +321,12 @@ namespace RNGReporter.Objects
                 {
                     if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
                     {
-                        countBackTwo(pid, x);
+                        countBackTwo(x);
                     }
                 }
                 else
                 {
-                    countBackTwo(pid, x);
+                    countBackTwo(x);
                 }
             }
 
@@ -345,12 +345,12 @@ namespace RNGReporter.Objects
                 {
                     if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
                     {
-                        countForwardTwo(pid, x);
+                        countForwardTwo(x);
                     }
                 }
                 else
                 {
-                    countForwardTwo(pid, x);
+                    countForwardTwo(x);
                 }
             }
 
@@ -384,12 +384,12 @@ namespace RNGReporter.Objects
                 {
                     if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
                     {
-                        countBackTwo(pid, x);
+                        countBackTwo(x);
                     }
                 }
                 else
                 {
-                    countBackTwo(pid, x);
+                    countBackTwo(x);
                 }
             }
 
@@ -408,12 +408,12 @@ namespace RNGReporter.Objects
                 {
                     if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
                     {
-                        countForwardTwo(pid, x);
+                        countForwardTwo(x);
                     }
                 }
                 else
                 {
-                    countForwardTwo(pid, x);
+                    countForwardTwo(x);
                 }
             }
 
@@ -461,12 +461,12 @@ namespace RNGReporter.Objects
                 {
                     if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
                     {
-                        countBackTwo(pid, x);
+                        countBackTwo(x);
                     }
                 }
                 else
                 {
-                    countBackTwo(pid, x);
+                    countBackTwo(x);
                 }
             }
 
@@ -485,12 +485,12 @@ namespace RNGReporter.Objects
                 {
                     if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
                     {
-                        countForwardTwo(pid, x);
+                        countForwardTwo(x);
                     }
                 }
                 else
                 {
-                    countForwardTwo(pid, x);
+                    countForwardTwo(x);
                 }
             }
 
@@ -731,10 +731,10 @@ namespace RNGReporter.Objects
             return (rng2.GetNext32BitNumber() & 0xFFFF0000) | rng2.GetNext16BitNumber();
         }
 
-        private void countBackTwo(uint pid, int x)
+        private void countBackTwo(int x)
         {
             backwardCounter += 2;
-            pid = getPIDReverse();
+            uint pid = getPIDReverse();
             uint genderval = pid & 255;
             while (genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x] || !((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]))
             {
@@ -744,10 +744,10 @@ namespace RNGReporter.Objects
             }
         }
 
-        private void countForwardTwo(uint pid, int x)
+        private void countForwardTwo(int x)
         {
             forwardCounter += 2;
-            pid = getPIDForward();
+            uint pid = getPIDForward();
             uint genderval = pid & 255;
             while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || !((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]))
             {

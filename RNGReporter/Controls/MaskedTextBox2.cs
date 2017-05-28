@@ -76,6 +76,12 @@ namespace RNGReporter.Controls
 
         protected override void OnTextChanged(EventArgs e)
         {
+            //To make this work you have to change the tags of all the maskedTextBoxes that accept a maximum number of 31 to "ivs"
+            if (Tag == "ivs" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 31)
+            {
+                Text = "31";
+            }
+
             if (Hex)
             {
                 string replace = "";
@@ -83,8 +89,12 @@ namespace RNGReporter.Controls
                 {
                     if (Mask[charPos].Equals('A'))
                     {
-                        if (((Text[charPos] >= 'a') && (Text[charPos] <= 'f')) ||
-                            ((Text[charPos] >= 'A') && (Text[charPos] <= 'F')) ||
+                        if ((Text[charPos] >= 'a') && (Text[charPos] <= 'f'))
+                        {
+                            char charText = char.ToUpper(Text[charPos]);
+                            replace = replace + charText;
+                        }
+                        else if (((Text[charPos] >= 'A') && (Text[charPos] <= 'F')) ||
                             ((Text[charPos] >= '0') && (Text[charPos] <= '9')))
                         {
                             replace = replace + Text[charPos];
@@ -93,7 +103,6 @@ namespace RNGReporter.Controls
                 }
                 Text = replace;
             }
-
             base.OnTextChanged(e);
         }
     }

@@ -1357,7 +1357,6 @@ namespace RNGReporter
                 MessageBox.Show("Spe: Lower limit > Upper limit");
             else
             {
-                dataGridShadow.Rows.Clear();
                 if (isSearching)
                 {
                     status.Text = "Previous search is still running";
@@ -1388,8 +1387,6 @@ namespace RNGReporter
                 shadow = natureLock.getType();
 
                 shadowDisplay = new List<ShadowDisplay>();
-                binding = new BindingSource { DataSource = shadowDisplay };
-                dataGridShadow.DataSource = binding;
                 status.Text = "Searching";
 
                 searchThread = new Thread[1];
@@ -1516,7 +1513,7 @@ namespace RNGReporter
                     break;
             }
             isSearching = false;
-            dataGridShadow.Invoke((MethodInvoker)(() => dataGridShadow.Refresh()));
+            dataGridShadow.Invoke((MethodInvoker)(() => dataGridShadow.DataSource = shadowDisplay));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 

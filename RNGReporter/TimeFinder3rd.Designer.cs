@@ -32,36 +32,36 @@ namespace RNGReporter
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle67 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle83 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle85 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle86 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle89 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle90 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle87 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle88 = new System.Windows.Forms.DataGridViewCellStyle();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties4 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle91 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle92 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle93 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle77 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle79 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle94 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle78 = new System.Windows.Forms.DataGridViewCellStyle();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties6 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties7 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle63 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle80 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle95 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle65 = new System.Windows.Forms.DataGridViewCellStyle();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties8 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties4 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties6 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties7 = new RNGReporter.Controls.CheckBoxProperties();
             this.saveFileDialogTxt = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStripEggPid3rd = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.outputShiny3rdResultsToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -394,6 +394,12 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdID = new RNGReporter.Controls.MaskedTextBox2();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageWild = new System.Windows.Forms.TabPage();
+            this.speClear = new RNGReporter.GlassButton();
+            this.spdClear = new RNGReporter.GlassButton();
+            this.spaClear = new RNGReporter.GlassButton();
+            this.defClear = new RNGReporter.GlassButton();
+            this.atkClear = new RNGReporter.GlassButton();
+            this.hpClear = new RNGReporter.GlassButton();
             this.cancel = new RNGReporter.GlassButton();
             this.anySlots = new RNGReporter.GlassButton();
             this.comboBoxSlots = new RNGReporter.Controls.CheckBoxComboBox();
@@ -474,12 +480,6 @@ namespace RNGReporter
             this.wildTID = new RNGReporter.Controls.MaskedTextBox2();
             this.wildSID = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
-            this.hpClear = new RNGReporter.GlassButton();
-            this.atkClear = new RNGReporter.GlassButton();
-            this.defClear = new RNGReporter.GlassButton();
-            this.spaClear = new RNGReporter.GlassButton();
-            this.spdClear = new RNGReporter.GlassButton();
-            this.speClear = new RNGReporter.GlassButton();
             this.contextMenuStripEggPid3rd.SuspendLayout();
             this.tabPageXD.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -828,14 +828,14 @@ namespace RNGReporter
             this.dataGridViewXDSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle52.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle52.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle52.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle52.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle52.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle52.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewXDSearch.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle52;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewXDSearch.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewXDSearch.ColumnHeadersHeight = 20;
             this.dataGridViewXDSearch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -853,26 +853,26 @@ namespace RNGReporter
             this.dataGridViewTextBoxColumn15,
             this.dataGridViewTextBoxColumn16,
             this.dataGridViewTextBoxColumn17});
-            dataGridViewCellStyle67.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle67.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle67.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle67.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle67.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle67.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle67.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewXDSearch.DefaultCellStyle = dataGridViewCellStyle67;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewXDSearch.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewXDSearch.Location = new System.Drawing.Point(15, 81);
             this.dataGridViewXDSearch.MultiSelect = false;
             this.dataGridViewXDSearch.Name = "dataGridViewXDSearch";
             this.dataGridViewXDSearch.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle82.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle82.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle82.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle82.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle82.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle82.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle82.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewXDSearch.RowHeadersDefaultCellStyle = dataGridViewCellStyle82;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewXDSearch.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewXDSearch.RowHeadersVisible = false;
             this.dataGridViewXDSearch.RowTemplate.Height = 20;
             this.dataGridViewXDSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1559,14 +1559,14 @@ namespace RNGReporter
             this.dataGridViewXDCalibration.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle83.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle83.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle83.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle83.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle83.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle83.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewXDCalibration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle83;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewXDCalibration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewXDCalibration.ColumnHeadersHeight = 20;
             this.dataGridViewXDCalibration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.XDSeed,
@@ -1584,26 +1584,26 @@ namespace RNGReporter
             this.XDFemale125,
             this.XDFemale25,
             this.XDFemale75});
-            dataGridViewCellStyle84.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle84.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle84.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle84.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle84.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle84.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle84.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewXDCalibration.DefaultCellStyle = dataGridViewCellStyle84;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewXDCalibration.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewXDCalibration.Location = new System.Drawing.Point(15, 81);
             this.dataGridViewXDCalibration.MultiSelect = false;
             this.dataGridViewXDCalibration.Name = "dataGridViewXDCalibration";
             this.dataGridViewXDCalibration.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle85.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle85.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle85.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle85.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle85.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle85.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewXDCalibration.RowHeadersDefaultCellStyle = dataGridViewCellStyle85;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewXDCalibration.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewXDCalibration.RowHeadersVisible = false;
             this.dataGridViewXDCalibration.RowTemplate.Height = 20;
             this.dataGridViewXDCalibration.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1996,14 +1996,14 @@ namespace RNGReporter
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCapValues.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dataGridViewCellStyle86.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle86.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle86.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle86.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle86.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle86.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle86.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCapValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle86;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCapValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvCapValues.ColumnHeadersHeight = 20;
             this.dgvCapValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCapValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -2028,26 +2028,26 @@ namespace RNGReporter
             this.f125,
             this.f25,
             this.f75});
-            dataGridViewCellStyle89.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle89.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle89.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle89.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle89.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle89.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle89.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCapValues.DefaultCellStyle = dataGridViewCellStyle89;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCapValues.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvCapValues.Location = new System.Drawing.Point(0, 189);
             this.dgvCapValues.MultiSelect = false;
             this.dgvCapValues.Name = "dgvCapValues";
             this.dgvCapValues.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle90.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle90.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle90.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle90.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle90.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle90.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle90.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCapValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle90;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCapValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvCapValues.RowHeadersVisible = false;
             this.dgvCapValues.RowTemplate.Height = 20;
             this.dgvCapValues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -2061,8 +2061,8 @@ namespace RNGReporter
             // SeedTime
             // 
             this.SeedTime.DataPropertyName = "SeedTime";
-            dataGridViewCellStyle87.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.SeedTime.DefaultCellStyle = dataGridViewCellStyle87;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.SeedTime.DefaultCellStyle = dataGridViewCellStyle8;
             this.SeedTime.FillWeight = 110F;
             this.SeedTime.HeaderText = "Seed Time";
             this.SeedTime.Name = "SeedTime";
@@ -2105,9 +2105,9 @@ namespace RNGReporter
             // PID
             // 
             this.PID.DataPropertyName = "Pid";
-            dataGridViewCellStyle88.Font = new System.Drawing.Font("Consolas", 8.75F);
-            dataGridViewCellStyle88.Format = "X8";
-            this.PID.DefaultCellStyle = dataGridViewCellStyle88;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Consolas", 8.75F);
+            dataGridViewCellStyle9.Format = "X8";
+            this.PID.DefaultCellStyle = dataGridViewCellStyle9;
             this.PID.HeaderText = "PID";
             this.PID.Name = "PID";
             this.PID.ReadOnly = true;
@@ -2445,8 +2445,8 @@ namespace RNGReporter
             // cbEncounterSlot
             // 
             this.cbEncounterSlot.BlankText = "Any";
-            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cbEncounterSlot.CheckBoxProperties = checkBoxProperties4;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cbEncounterSlot.CheckBoxProperties = checkBoxProperties1;
             this.cbEncounterSlot.DisplayMemberSingleItem = "";
             this.cbEncounterSlot.DropDownHeight = 310;
             this.cbEncounterSlot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2553,8 +2553,8 @@ namespace RNGReporter
             // cbNature
             // 
             this.cbNature.BlankText = "Any";
-            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cbNature.CheckBoxProperties = checkBoxProperties5;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cbNature.CheckBoxProperties = checkBoxProperties2;
             this.cbNature.DisplayMemberSingleItem = "";
             this.cbNature.DropDownHeight = 300;
             this.cbNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2778,14 +2778,14 @@ namespace RNGReporter
             this.dataGridViewEIVs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle91.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle91.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle91.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle91.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle91.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle91.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle91.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEIVs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle91;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEIVs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewEIVs.ColumnHeadersHeight = 20;
             this.dataGridViewEIVs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewEIVs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -2798,27 +2798,27 @@ namespace RNGReporter
             this.EIVSpD,
             this.EIVSpe});
             this.dataGridViewEIVs.ContextMenuStrip = this.contextMenuStripEggPid3rd;
-            dataGridViewCellStyle92.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle92.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle92.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle92.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle92.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle92.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle92.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewEIVs.DefaultCellStyle = dataGridViewCellStyle92;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewEIVs.DefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridViewEIVs.Location = new System.Drawing.Point(0, 189);
             this.dataGridViewEIVs.MultiSelect = false;
             this.dataGridViewEIVs.Name = "dataGridViewEIVs";
             this.dataGridViewEIVs.ReadOnly = true;
             this.dataGridViewEIVs.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle93.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle93.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle93.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle93.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle93.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle93.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle93.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEIVs.RowHeadersDefaultCellStyle = dataGridViewCellStyle93;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEIVs.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridViewEIVs.RowHeadersVisible = false;
             this.dataGridViewEIVs.RowTemplate.Height = 20;
             this.dataGridViewEIVs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -2947,6 +2947,7 @@ namespace RNGReporter
             this.textEIVParentB_Def.Name = "textEIVParentB_Def";
             this.textEIVParentB_Def.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentB_Def.TabIndex = 349;
+            this.textEIVParentB_Def.Tag = "ivs";
             this.textEIVParentB_Def.ValidatingType = typeof(int);
             // 
             // textEIVParentB_Atk
@@ -2957,6 +2958,7 @@ namespace RNGReporter
             this.textEIVParentB_Atk.Name = "textEIVParentB_Atk";
             this.textEIVParentB_Atk.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentB_Atk.TabIndex = 348;
+            this.textEIVParentB_Atk.Tag = "ivs";
             this.textEIVParentB_Atk.ValidatingType = typeof(int);
             // 
             // textEIVParentB_Spe
@@ -2967,6 +2969,7 @@ namespace RNGReporter
             this.textEIVParentB_Spe.Name = "textEIVParentB_Spe";
             this.textEIVParentB_Spe.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentB_Spe.TabIndex = 352;
+            this.textEIVParentB_Spe.Tag = "ivs";
             this.textEIVParentB_Spe.ValidatingType = typeof(int);
             // 
             // textEIVParentB_SpD
@@ -2977,6 +2980,7 @@ namespace RNGReporter
             this.textEIVParentB_SpD.Name = "textEIVParentB_SpD";
             this.textEIVParentB_SpD.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentB_SpD.TabIndex = 351;
+            this.textEIVParentB_SpD.Tag = "ivs";
             this.textEIVParentB_SpD.ValidatingType = typeof(int);
             // 
             // textEIVParentB_SpA
@@ -2987,6 +2991,7 @@ namespace RNGReporter
             this.textEIVParentB_SpA.Name = "textEIVParentB_SpA";
             this.textEIVParentB_SpA.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentB_SpA.TabIndex = 350;
+            this.textEIVParentB_SpA.Tag = "ivs";
             this.textEIVParentB_SpA.ValidatingType = typeof(int);
             // 
             // textEIVParentB_HP
@@ -2997,6 +3002,7 @@ namespace RNGReporter
             this.textEIVParentB_HP.Name = "textEIVParentB_HP";
             this.textEIVParentB_HP.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentB_HP.TabIndex = 347;
+            this.textEIVParentB_HP.Tag = "ivs";
             // 
             // textEIVParentA_Def
             // 
@@ -3006,6 +3012,7 @@ namespace RNGReporter
             this.textEIVParentA_Def.Name = "textEIVParentA_Def";
             this.textEIVParentA_Def.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentA_Def.TabIndex = 343;
+            this.textEIVParentA_Def.Tag = "ivs";
             this.textEIVParentA_Def.ValidatingType = typeof(int);
             // 
             // textEIVParentA_Atk
@@ -3016,6 +3023,7 @@ namespace RNGReporter
             this.textEIVParentA_Atk.Name = "textEIVParentA_Atk";
             this.textEIVParentA_Atk.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentA_Atk.TabIndex = 342;
+            this.textEIVParentA_Atk.Tag = "ivs";
             this.textEIVParentA_Atk.ValidatingType = typeof(int);
             // 
             // textEIVParentA_Spe
@@ -3026,6 +3034,7 @@ namespace RNGReporter
             this.textEIVParentA_Spe.Name = "textEIVParentA_Spe";
             this.textEIVParentA_Spe.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentA_Spe.TabIndex = 346;
+            this.textEIVParentA_Spe.Tag = "ivs";
             this.textEIVParentA_Spe.ValidatingType = typeof(int);
             // 
             // textEIVParentA_SpD
@@ -3036,6 +3045,7 @@ namespace RNGReporter
             this.textEIVParentA_SpD.Name = "textEIVParentA_SpD";
             this.textEIVParentA_SpD.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentA_SpD.TabIndex = 345;
+            this.textEIVParentA_SpD.Tag = "ivs";
             this.textEIVParentA_SpD.ValidatingType = typeof(int);
             // 
             // textEIVParentA_SpA
@@ -3046,6 +3056,7 @@ namespace RNGReporter
             this.textEIVParentA_SpA.Name = "textEIVParentA_SpA";
             this.textEIVParentA_SpA.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentA_SpA.TabIndex = 344;
+            this.textEIVParentA_SpA.Tag = "ivs";
             this.textEIVParentA_SpA.ValidatingType = typeof(int);
             // 
             // textEIVParentA_HP
@@ -3056,6 +3067,7 @@ namespace RNGReporter
             this.textEIVParentA_HP.Name = "textEIVParentA_HP";
             this.textEIVParentA_HP.Size = new System.Drawing.Size(38, 20);
             this.textEIVParentA_HP.TabIndex = 341;
+            this.textEIVParentA_HP.Tag = "ivs";
             // 
             // tabPageShinyEEgg
             // 
@@ -3206,14 +3218,14 @@ namespace RNGReporter
             this.dataGridViewEPIDs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle77.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle77.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle77.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle77.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle77.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle77.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle77.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEPIDs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle77;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEPIDs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridViewEPIDs.ColumnHeadersHeight = 20;
             this.dataGridViewEPIDs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewEPIDs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -3230,27 +3242,27 @@ namespace RNGReporter
             this.dataGridViewTextBoxColumn33,
             this.dataGridViewTextBoxColumn34});
             this.dataGridViewEPIDs.ContextMenuStrip = this.contextMenuStripEggPid3rd;
-            dataGridViewCellStyle79.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle79.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle79.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle79.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle79.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle79.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle79.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewEPIDs.DefaultCellStyle = dataGridViewCellStyle79;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewEPIDs.DefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridViewEPIDs.Location = new System.Drawing.Point(0, 189);
             this.dataGridViewEPIDs.MultiSelect = false;
             this.dataGridViewEPIDs.Name = "dataGridViewEPIDs";
             this.dataGridViewEPIDs.ReadOnly = true;
             this.dataGridViewEPIDs.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle94.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle94.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle94.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle94.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle94.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle94.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle94.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEPIDs.RowHeadersDefaultCellStyle = dataGridViewCellStyle94;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEPIDs.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridViewEPIDs.RowHeadersVisible = false;
             this.dataGridViewEPIDs.RowTemplate.Height = 20;
             this.dataGridViewEPIDs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -3295,9 +3307,9 @@ namespace RNGReporter
             // EPIDPID
             // 
             this.EPIDPID.DataPropertyName = "Pid";
-            dataGridViewCellStyle78.Font = new System.Drawing.Font("Consolas", 8.75F);
-            dataGridViewCellStyle78.Format = "X";
-            this.EPIDPID.DefaultCellStyle = dataGridViewCellStyle78;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Consolas", 8.75F);
+            dataGridViewCellStyle16.Format = "X";
+            this.EPIDPID.DefaultCellStyle = dataGridViewCellStyle16;
             this.EPIDPID.HeaderText = "PID";
             this.EPIDPID.Name = "EPIDPID";
             this.EPIDPID.ReadOnly = true;
@@ -3443,8 +3455,8 @@ namespace RNGReporter
             // comboEPIDNature
             // 
             this.comboEPIDNature.BlankText = "Any";
-            checkBoxProperties6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboEPIDNature.CheckBoxProperties = checkBoxProperties6;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboEPIDNature.CheckBoxProperties = checkBoxProperties3;
             this.comboEPIDNature.DisplayMemberSingleItem = "";
             this.comboEPIDNature.DropDownHeight = 300;
             this.comboEPIDNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -3709,8 +3721,8 @@ namespace RNGReporter
             // comboBoxShiny3rdNature
             // 
             this.comboBoxShiny3rdNature.BlankText = "Any";
-            checkBoxProperties7.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxShiny3rdNature.CheckBoxProperties = checkBoxProperties7;
+            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxShiny3rdNature.CheckBoxProperties = checkBoxProperties4;
             this.comboBoxShiny3rdNature.DisplayMemberSingleItem = "";
             this.comboBoxShiny3rdNature.DropDownHeight = 300;
             this.comboBoxShiny3rdNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4005,14 +4017,14 @@ namespace RNGReporter
             this.dataGridViewShinyRSResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle63.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle63.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle63.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle63.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle63.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle63.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle63.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewShinyRSResults.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle63;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewShinyRSResults.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dataGridViewShinyRSResults.ColumnHeadersHeight = 20;
             this.dataGridViewShinyRSResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewShinyRSResults.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -4035,27 +4047,27 @@ namespace RNGReporter
             this.Shiny3rdFemale75,
             this.Shiny3rdFemale125});
             this.dataGridViewShinyRSResults.ContextMenuStrip = this.contextMenuStripEggPid3rd;
-            dataGridViewCellStyle80.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle80.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle80.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle80.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle80.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle80.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle80.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewShinyRSResults.DefaultCellStyle = dataGridViewCellStyle80;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewShinyRSResults.DefaultCellStyle = dataGridViewCellStyle21;
             this.dataGridViewShinyRSResults.Location = new System.Drawing.Point(0, 189);
             this.dataGridViewShinyRSResults.MultiSelect = false;
             this.dataGridViewShinyRSResults.Name = "dataGridViewShinyRSResults";
             this.dataGridViewShinyRSResults.ReadOnly = true;
             this.dataGridViewShinyRSResults.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle95.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle95.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle95.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle95.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle95.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle95.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle95.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewShinyRSResults.RowHeadersDefaultCellStyle = dataGridViewCellStyle95;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewShinyRSResults.RowHeadersDefaultCellStyle = dataGridViewCellStyle22;
             this.dataGridViewShinyRSResults.RowHeadersVisible = false;
             this.dataGridViewShinyRSResults.RowTemplate.Height = 20;
             this.dataGridViewShinyRSResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4099,8 +4111,8 @@ namespace RNGReporter
             // shiny3rdPID
             // 
             this.shiny3rdPID.DataPropertyName = "Pid";
-            dataGridViewCellStyle65.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.shiny3rdPID.DefaultCellStyle = dataGridViewCellStyle65;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.shiny3rdPID.DefaultCellStyle = dataGridViewCellStyle20;
             this.shiny3rdPID.HeaderText = "PID";
             this.shiny3rdPID.Name = "shiny3rdPID";
             this.shiny3rdPID.ReadOnly = true;
@@ -4281,6 +4293,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentB_Def.Name = "maskedTextBoxShiny3rdParentB_Def";
             this.maskedTextBoxShiny3rdParentB_Def.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentB_Def.TabIndex = 24;
+            this.maskedTextBoxShiny3rdParentB_Def.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentB_Def.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentB_Atk
@@ -4291,6 +4304,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentB_Atk.Name = "maskedTextBoxShiny3rdParentB_Atk";
             this.maskedTextBoxShiny3rdParentB_Atk.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentB_Atk.TabIndex = 23;
+            this.maskedTextBoxShiny3rdParentB_Atk.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentB_Atk.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentB_Spe
@@ -4301,6 +4315,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentB_Spe.Name = "maskedTextBoxShiny3rdParentB_Spe";
             this.maskedTextBoxShiny3rdParentB_Spe.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentB_Spe.TabIndex = 27;
+            this.maskedTextBoxShiny3rdParentB_Spe.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentB_Spe.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentB_SpD
@@ -4311,6 +4326,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentB_SpD.Name = "maskedTextBoxShiny3rdParentB_SpD";
             this.maskedTextBoxShiny3rdParentB_SpD.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentB_SpD.TabIndex = 26;
+            this.maskedTextBoxShiny3rdParentB_SpD.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentB_SpD.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentB_SpA
@@ -4321,6 +4337,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentB_SpA.Name = "maskedTextBoxShiny3rdParentB_SpA";
             this.maskedTextBoxShiny3rdParentB_SpA.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentB_SpA.TabIndex = 25;
+            this.maskedTextBoxShiny3rdParentB_SpA.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentB_SpA.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentB_HP
@@ -4331,6 +4348,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentB_HP.Name = "maskedTextBoxShiny3rdParentB_HP";
             this.maskedTextBoxShiny3rdParentB_HP.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentB_HP.TabIndex = 22;
+            this.maskedTextBoxShiny3rdParentB_HP.Tag = "ivs";
             // 
             // maskedTextBoxShiny3rdParentA_Def
             // 
@@ -4340,6 +4358,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentA_Def.Name = "maskedTextBoxShiny3rdParentA_Def";
             this.maskedTextBoxShiny3rdParentA_Def.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentA_Def.TabIndex = 18;
+            this.maskedTextBoxShiny3rdParentA_Def.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentA_Def.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentA_Atk
@@ -4350,6 +4369,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentA_Atk.Name = "maskedTextBoxShiny3rdParentA_Atk";
             this.maskedTextBoxShiny3rdParentA_Atk.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentA_Atk.TabIndex = 17;
+            this.maskedTextBoxShiny3rdParentA_Atk.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentA_Atk.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentA_Spe
@@ -4360,6 +4380,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentA_Spe.Name = "maskedTextBoxShiny3rdParentA_Spe";
             this.maskedTextBoxShiny3rdParentA_Spe.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentA_Spe.TabIndex = 21;
+            this.maskedTextBoxShiny3rdParentA_Spe.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentA_Spe.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentA_SpD
@@ -4370,6 +4391,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentA_SpD.Name = "maskedTextBoxShiny3rdParentA_SpD";
             this.maskedTextBoxShiny3rdParentA_SpD.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentA_SpD.TabIndex = 20;
+            this.maskedTextBoxShiny3rdParentA_SpD.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentA_SpD.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentA_SpA
@@ -4380,6 +4402,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentA_SpA.Name = "maskedTextBoxShiny3rdParentA_SpA";
             this.maskedTextBoxShiny3rdParentA_SpA.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentA_SpA.TabIndex = 19;
+            this.maskedTextBoxShiny3rdParentA_SpA.Tag = "ivs";
             this.maskedTextBoxShiny3rdParentA_SpA.ValidatingType = typeof(int);
             // 
             // maskedTextBoxShiny3rdParentA_HP
@@ -4390,6 +4413,7 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdParentA_HP.Name = "maskedTextBoxShiny3rdParentA_HP";
             this.maskedTextBoxShiny3rdParentA_HP.Size = new System.Drawing.Size(38, 20);
             this.maskedTextBoxShiny3rdParentA_HP.TabIndex = 16;
+            this.maskedTextBoxShiny3rdParentA_HP.Tag = "ivs";
             // 
             // maskedTextBoxShiny3rdSID
             // 
@@ -4505,6 +4529,84 @@ namespace RNGReporter
             this.tabPageWild.Text = "Wild";
             this.tabPageWild.UseVisualStyleBackColor = true;
             // 
+            // speClear
+            // 
+            this.speClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.speClear.ForeColor = System.Drawing.Color.Black;
+            this.speClear.Location = new System.Drawing.Point(623, 136);
+            this.speClear.Name = "speClear";
+            this.speClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.speClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.speClear.Size = new System.Drawing.Size(44, 23);
+            this.speClear.TabIndex = 455;
+            this.speClear.Text = "Clear";
+            this.speClear.Click += new System.EventHandler(this.speClear_Click);
+            // 
+            // spdClear
+            // 
+            this.spdClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spdClear.ForeColor = System.Drawing.Color.Black;
+            this.spdClear.Location = new System.Drawing.Point(623, 111);
+            this.spdClear.Name = "spdClear";
+            this.spdClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spdClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.spdClear.Size = new System.Drawing.Size(44, 23);
+            this.spdClear.TabIndex = 454;
+            this.spdClear.Text = "Clear";
+            this.spdClear.Click += new System.EventHandler(this.spdClear_Click);
+            // 
+            // spaClear
+            // 
+            this.spaClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spaClear.ForeColor = System.Drawing.Color.Black;
+            this.spaClear.Location = new System.Drawing.Point(623, 86);
+            this.spaClear.Name = "spaClear";
+            this.spaClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spaClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.spaClear.Size = new System.Drawing.Size(44, 23);
+            this.spaClear.TabIndex = 453;
+            this.spaClear.Text = "Clear";
+            this.spaClear.Click += new System.EventHandler(this.spaClear_Click);
+            // 
+            // defClear
+            // 
+            this.defClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.defClear.ForeColor = System.Drawing.Color.Black;
+            this.defClear.Location = new System.Drawing.Point(623, 61);
+            this.defClear.Name = "defClear";
+            this.defClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.defClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.defClear.Size = new System.Drawing.Size(44, 23);
+            this.defClear.TabIndex = 452;
+            this.defClear.Text = "Clear";
+            this.defClear.Click += new System.EventHandler(this.defClear_Click);
+            // 
+            // atkClear
+            // 
+            this.atkClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.atkClear.ForeColor = System.Drawing.Color.Black;
+            this.atkClear.Location = new System.Drawing.Point(623, 35);
+            this.atkClear.Name = "atkClear";
+            this.atkClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.atkClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.atkClear.Size = new System.Drawing.Size(44, 23);
+            this.atkClear.TabIndex = 451;
+            this.atkClear.Text = "Clear";
+            this.atkClear.Click += new System.EventHandler(this.atkClear_Click);
+            // 
+            // hpClear
+            // 
+            this.hpClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.hpClear.ForeColor = System.Drawing.Color.Black;
+            this.hpClear.Location = new System.Drawing.Point(623, 10);
+            this.hpClear.Name = "hpClear";
+            this.hpClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.hpClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.hpClear.Size = new System.Drawing.Size(44, 23);
+            this.hpClear.TabIndex = 450;
+            this.hpClear.Text = "Clear";
+            this.hpClear.Click += new System.EventHandler(this.hpClear_Click);
+            // 
             // cancel
             // 
             this.cancel.BackColor = System.Drawing.Color.AntiqueWhite;
@@ -4539,8 +4641,8 @@ namespace RNGReporter
             // comboBoxSlots
             // 
             this.comboBoxSlots.BlankText = "Any";
-            checkBoxProperties8.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxSlots.CheckBoxProperties = checkBoxProperties8;
+            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxSlots.CheckBoxProperties = checkBoxProperties5;
             this.comboBoxSlots.DisplayMemberSingleItem = "";
             this.comboBoxSlots.DropDownHeight = 310;
             this.comboBoxSlots.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4612,8 +4714,8 @@ namespace RNGReporter
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties6.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties6;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4707,8 +4809,8 @@ namespace RNGReporter
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "PID";
-            dataGridViewCellStyle49.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle49;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle23;
             this.dataGridViewTextBoxColumn4.HeaderText = "PID";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -4842,6 +4944,7 @@ namespace RNGReporter
             this.speValue.Name = "speValue";
             this.speValue.Size = new System.Drawing.Size(24, 20);
             this.speValue.TabIndex = 437;
+            this.speValue.Tag = "ivs";
             this.speValue.Text = "31";
             this.speValue.ValidatingType = typeof(int);
             // 
@@ -4853,6 +4956,7 @@ namespace RNGReporter
             this.spdValue.Name = "spdValue";
             this.spdValue.Size = new System.Drawing.Size(24, 20);
             this.spdValue.TabIndex = 436;
+            this.spdValue.Tag = "ivs";
             this.spdValue.Text = "31";
             this.spdValue.ValidatingType = typeof(int);
             // 
@@ -4864,6 +4968,7 @@ namespace RNGReporter
             this.spaValue.Name = "spaValue";
             this.spaValue.Size = new System.Drawing.Size(24, 20);
             this.spaValue.TabIndex = 435;
+            this.spaValue.Tag = "ivs";
             this.spaValue.Text = "0";
             this.spaValue.ValidatingType = typeof(int);
             // 
@@ -4875,6 +4980,7 @@ namespace RNGReporter
             this.defValue.Name = "defValue";
             this.defValue.Size = new System.Drawing.Size(24, 20);
             this.defValue.TabIndex = 434;
+            this.defValue.Tag = "ivs";
             this.defValue.Text = "31";
             this.defValue.ValidatingType = typeof(int);
             // 
@@ -4886,6 +4992,7 @@ namespace RNGReporter
             this.atkValue.Name = "atkValue";
             this.atkValue.Size = new System.Drawing.Size(24, 20);
             this.atkValue.TabIndex = 433;
+            this.atkValue.Tag = "ivs";
             this.atkValue.Text = "31";
             this.atkValue.ValidatingType = typeof(int);
             // 
@@ -4897,6 +5004,7 @@ namespace RNGReporter
             this.hpValue.Name = "hpValue";
             this.hpValue.Size = new System.Drawing.Size(24, 20);
             this.hpValue.TabIndex = 432;
+            this.hpValue.Tag = "ivs";
             this.hpValue.Text = "31";
             this.hpValue.ValidatingType = typeof(int);
             // 
@@ -5447,8 +5555,8 @@ namespace RNGReporter
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties7.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties7;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -5457,84 +5565,6 @@ namespace RNGReporter
             this.comboBoxNature.Name = "comboBoxNature";
             this.comboBoxNature.Size = new System.Drawing.Size(176, 21);
             this.comboBoxNature.TabIndex = 382;
-            // 
-            // hpClear
-            // 
-            this.hpClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.hpClear.ForeColor = System.Drawing.Color.Black;
-            this.hpClear.Location = new System.Drawing.Point(623, 10);
-            this.hpClear.Name = "hpClear";
-            this.hpClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.hpClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.hpClear.Size = new System.Drawing.Size(44, 23);
-            this.hpClear.TabIndex = 450;
-            this.hpClear.Text = "Clear";
-            this.hpClear.Click += new System.EventHandler(this.hpClear_Click);
-            // 
-            // atkClear
-            // 
-            this.atkClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.atkClear.ForeColor = System.Drawing.Color.Black;
-            this.atkClear.Location = new System.Drawing.Point(623, 35);
-            this.atkClear.Name = "atkClear";
-            this.atkClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.atkClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.atkClear.Size = new System.Drawing.Size(44, 23);
-            this.atkClear.TabIndex = 451;
-            this.atkClear.Text = "Clear";
-            this.atkClear.Click += new System.EventHandler(this.atkClear_Click);
-            // 
-            // defClear
-            // 
-            this.defClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.defClear.ForeColor = System.Drawing.Color.Black;
-            this.defClear.Location = new System.Drawing.Point(623, 61);
-            this.defClear.Name = "defClear";
-            this.defClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.defClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.defClear.Size = new System.Drawing.Size(44, 23);
-            this.defClear.TabIndex = 452;
-            this.defClear.Text = "Clear";
-            this.defClear.Click += new System.EventHandler(this.defClear_Click);
-            // 
-            // spaClear
-            // 
-            this.spaClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spaClear.ForeColor = System.Drawing.Color.Black;
-            this.spaClear.Location = new System.Drawing.Point(623, 86);
-            this.spaClear.Name = "spaClear";
-            this.spaClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spaClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.spaClear.Size = new System.Drawing.Size(44, 23);
-            this.spaClear.TabIndex = 453;
-            this.spaClear.Text = "Clear";
-            this.spaClear.Click += new System.EventHandler(this.spaClear_Click);
-            // 
-            // spdClear
-            // 
-            this.spdClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spdClear.ForeColor = System.Drawing.Color.Black;
-            this.spdClear.Location = new System.Drawing.Point(623, 111);
-            this.spdClear.Name = "spdClear";
-            this.spdClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spdClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.spdClear.Size = new System.Drawing.Size(44, 23);
-            this.spdClear.TabIndex = 454;
-            this.spdClear.Text = "Clear";
-            this.spdClear.Click += new System.EventHandler(this.spdClear_Click);
-            // 
-            // speClear
-            // 
-            this.speClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.speClear.ForeColor = System.Drawing.Color.Black;
-            this.speClear.Location = new System.Drawing.Point(623, 136);
-            this.speClear.Name = "speClear";
-            this.speClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.speClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.speClear.Size = new System.Drawing.Size(44, 23);
-            this.speClear.TabIndex = 455;
-            this.speClear.Text = "Clear";
-            this.speClear.Click += new System.EventHandler(this.speClear_Click);
             // 
             // TimeFinder3rd
             // 

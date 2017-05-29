@@ -30,17 +30,17 @@ namespace RNGReporter
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.buttonOk = new RNGReporter.GlassButton();
             this.buttonCancel = new RNGReporter.GlassButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -629,9 +629,9 @@ namespace RNGReporter
             // FullSeed
             // 
             this.FullSeed.DataPropertyName = "RngSeed";
-            dataGridViewCellStyle1.Format = "X";
-            dataGridViewCellStyle1.NullValue = null;
-            this.FullSeed.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle12.Format = "X";
+            dataGridViewCellStyle12.NullValue = null;
+            this.FullSeed.DefaultCellStyle = dataGridViewCellStyle12;
             this.FullSeed.HeaderText = "Seed";
             this.FullSeed.Name = "FullSeed";
             this.FullSeed.ReadOnly = true;
@@ -668,6 +668,7 @@ namespace RNGReporter
             this.maskedTextBoxHP_A.Name = "maskedTextBoxHP_A";
             this.maskedTextBoxHP_A.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxHP_A.TabIndex = 13;
+            this.maskedTextBoxHP_A.Tag = "ivs";
             // 
             // buttonFind_A
             // 
@@ -699,6 +700,7 @@ namespace RNGReporter
             this.maskedTextBoxAtk_A.Name = "maskedTextBoxAtk_A";
             this.maskedTextBoxAtk_A.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxAtk_A.TabIndex = 15;
+            this.maskedTextBoxAtk_A.Tag = "ivs";
             // 
             // label10
             // 
@@ -727,6 +729,7 @@ namespace RNGReporter
             this.maskedTextBoxDef_A.Name = "maskedTextBoxDef_A";
             this.maskedTextBoxDef_A.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxDef_A.TabIndex = 17;
+            this.maskedTextBoxDef_A.Tag = "ivs";
             // 
             // label15
             // 
@@ -754,6 +757,7 @@ namespace RNGReporter
             this.maskedTextBoxSpA_A.Name = "maskedTextBoxSpA_A";
             this.maskedTextBoxSpA_A.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpA_A.TabIndex = 19;
+            this.maskedTextBoxSpA_A.Tag = "ivs";
             // 
             // label16
             // 
@@ -781,6 +785,7 @@ namespace RNGReporter
             this.maskedTextBoxSpD_A.Name = "maskedTextBoxSpD_A";
             this.maskedTextBoxSpD_A.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpD_A.TabIndex = 21;
+            this.maskedTextBoxSpD_A.Tag = "ivs";
             // 
             // label17
             // 
@@ -808,6 +813,7 @@ namespace RNGReporter
             this.maskedTextBoxSpe_A.Name = "maskedTextBoxSpe_A";
             this.maskedTextBoxSpe_A.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpe_A.TabIndex = 23;
+            this.maskedTextBoxSpe_A.Tag = "ivs";
             // 
             // label18
             // 
@@ -1083,9 +1089,9 @@ namespace RNGReporter
             // OffsetSeed
             // 
             this.OffsetSeed.DataPropertyName = "RngSeed";
-            dataGridViewCellStyle2.Format = "X";
-            dataGridViewCellStyle2.NullValue = null;
-            this.OffsetSeed.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle13.Format = "X";
+            dataGridViewCellStyle13.NullValue = null;
+            this.OffsetSeed.DefaultCellStyle = dataGridViewCellStyle13;
             this.OffsetSeed.HeaderText = "Seed";
             this.OffsetSeed.Name = "OffsetSeed";
             this.OffsetSeed.ReadOnly = true;
@@ -1501,9 +1507,9 @@ namespace RNGReporter
             // dataGridViewTextBoxColumn15
             // 
             this.dataGridViewTextBoxColumn15.DataPropertyName = "RngSeed";
-            dataGridViewCellStyle3.Format = "X";
-            dataGridViewCellStyle3.NullValue = null;
-            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle14.Format = "X";
+            dataGridViewCellStyle14.NullValue = null;
+            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridViewTextBoxColumn15.HeaderText = "Seed";
             this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
             this.dataGridViewTextBoxColumn15.ReadOnly = true;
@@ -1677,6 +1683,7 @@ namespace RNGReporter
             this.maskedTextBoxMaxHP.Name = "maskedTextBoxMaxHP";
             this.maskedTextBoxMaxHP.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMaxHP.TabIndex = 49;
+            this.maskedTextBoxMaxHP.Tag = "ivs";
             // 
             // maskedTextBoxMaxAtk
             // 
@@ -1686,6 +1693,7 @@ namespace RNGReporter
             this.maskedTextBoxMaxAtk.Name = "maskedTextBoxMaxAtk";
             this.maskedTextBoxMaxAtk.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMaxAtk.TabIndex = 50;
+            this.maskedTextBoxMaxAtk.Tag = "ivs";
             // 
             // maskedTextBoxMaxDef
             // 
@@ -1695,6 +1703,7 @@ namespace RNGReporter
             this.maskedTextBoxMaxDef.Name = "maskedTextBoxMaxDef";
             this.maskedTextBoxMaxDef.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMaxDef.TabIndex = 51;
+            this.maskedTextBoxMaxDef.Tag = "ivs";
             // 
             // maskedTextBoxMaxSpAtk
             // 
@@ -1704,6 +1713,7 @@ namespace RNGReporter
             this.maskedTextBoxMaxSpAtk.Name = "maskedTextBoxMaxSpAtk";
             this.maskedTextBoxMaxSpAtk.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMaxSpAtk.TabIndex = 52;
+            this.maskedTextBoxMaxSpAtk.Tag = "ivs";
             // 
             // maskedTextBoxMaxSpDef
             // 
@@ -1713,6 +1723,7 @@ namespace RNGReporter
             this.maskedTextBoxMaxSpDef.Name = "maskedTextBoxMaxSpDef";
             this.maskedTextBoxMaxSpDef.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMaxSpDef.TabIndex = 53;
+            this.maskedTextBoxMaxSpDef.Tag = "ivs";
             // 
             // maskedTextBoxMaxSpeed
             // 
@@ -1722,6 +1733,7 @@ namespace RNGReporter
             this.maskedTextBoxMaxSpeed.Name = "maskedTextBoxMaxSpeed";
             this.maskedTextBoxMaxSpeed.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMaxSpeed.TabIndex = 54;
+            this.maskedTextBoxMaxSpeed.Tag = "ivs";
             // 
             // maskedTextBoxMinHP
             // 
@@ -1731,6 +1743,7 @@ namespace RNGReporter
             this.maskedTextBoxMinHP.Name = "maskedTextBoxMinHP";
             this.maskedTextBoxMinHP.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMinHP.TabIndex = 37;
+            this.maskedTextBoxMinHP.Tag = "ivs";
             // 
             // maskedTextBoxMinutes_IVRange
             // 
@@ -1749,6 +1762,7 @@ namespace RNGReporter
             this.maskedTextBoxMinAtk.Name = "maskedTextBoxMinAtk";
             this.maskedTextBoxMinAtk.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMinAtk.TabIndex = 39;
+            this.maskedTextBoxMinAtk.Tag = "ivs";
             // 
             // maskedTextBoxYear_IVRange
             // 
@@ -1768,6 +1782,7 @@ namespace RNGReporter
             this.maskedTextBoxMinDef.Name = "maskedTextBoxMinDef";
             this.maskedTextBoxMinDef.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMinDef.TabIndex = 41;
+            this.maskedTextBoxMinDef.Tag = "ivs";
             // 
             // maskedTextBoxMinSpAtk
             // 
@@ -1777,6 +1792,7 @@ namespace RNGReporter
             this.maskedTextBoxMinSpAtk.Name = "maskedTextBoxMinSpAtk";
             this.maskedTextBoxMinSpAtk.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMinSpAtk.TabIndex = 43;
+            this.maskedTextBoxMinSpAtk.Tag = "ivs";
             // 
             // maskedTextBoxMonth_IVRange
             // 
@@ -1795,6 +1811,7 @@ namespace RNGReporter
             this.maskedTextBoxMinSpDef.Name = "maskedTextBoxMinSpDef";
             this.maskedTextBoxMinSpDef.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMinSpDef.TabIndex = 45;
+            this.maskedTextBoxMinSpDef.Tag = "ivs";
             // 
             // maskedTextBoxMinSpeed
             // 
@@ -1804,6 +1821,7 @@ namespace RNGReporter
             this.maskedTextBoxMinSpeed.Name = "maskedTextBoxMinSpeed";
             this.maskedTextBoxMinSpeed.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxMinSpeed.TabIndex = 47;
+            this.maskedTextBoxMinSpeed.Tag = "ivs";
             // 
             // maskedTextBoxHours_IVRange
             // 
@@ -2493,14 +2511,14 @@ namespace RNGReporter
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn2,
@@ -2508,26 +2526,26 @@ namespace RNGReporter
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridView1.Location = new System.Drawing.Point(7, 134);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -2548,9 +2566,9 @@ namespace RNGReporter
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "RngSeed";
-            dataGridViewCellStyle5.Format = "X";
-            dataGridViewCellStyle5.NullValue = null;
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle16.Format = "X";
+            dataGridViewCellStyle16.NullValue = null;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridViewTextBoxColumn3.HeaderText = "Seed";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
@@ -2765,14 +2783,14 @@ namespace RNGReporter
             this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn9,
@@ -2780,26 +2798,26 @@ namespace RNGReporter
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12,
             this.dataGridViewTextBoxColumn13});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle21;
             this.dataGridView2.Location = new System.Drawing.Point(7, 134);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle22;
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.RowTemplate.Height = 20;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -2820,9 +2838,9 @@ namespace RNGReporter
             // dataGridViewTextBoxColumn10
             // 
             this.dataGridViewTextBoxColumn10.DataPropertyName = "RngSeed";
-            dataGridViewCellStyle9.Format = "X";
-            dataGridViewCellStyle9.NullValue = null;
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle20.Format = "X";
+            dataGridViewCellStyle20.NullValue = null;
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridViewTextBoxColumn10.HeaderText = "Seed";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.ReadOnly = true;

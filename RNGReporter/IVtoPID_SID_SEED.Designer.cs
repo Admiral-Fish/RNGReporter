@@ -444,6 +444,7 @@ namespace RNGReporter
             this.maskedTextBoxHP.Name = "maskedTextBoxHP";
             this.maskedTextBoxHP.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxHP.TabIndex = 28;
+            this.maskedTextBoxHP.Tag = "ivs";
             // 
             // maskedTextBoxAtk
             // 
@@ -453,6 +454,7 @@ namespace RNGReporter
             this.maskedTextBoxAtk.Name = "maskedTextBoxAtk";
             this.maskedTextBoxAtk.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxAtk.TabIndex = 30;
+            this.maskedTextBoxAtk.Tag = "ivs";
             // 
             // maskedTextBoxDef
             // 
@@ -462,6 +464,7 @@ namespace RNGReporter
             this.maskedTextBoxDef.Name = "maskedTextBoxDef";
             this.maskedTextBoxDef.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxDef.TabIndex = 32;
+            this.maskedTextBoxDef.Tag = "ivs";
             // 
             // maskedTextBoxSpA
             // 
@@ -471,6 +474,7 @@ namespace RNGReporter
             this.maskedTextBoxSpA.Name = "maskedTextBoxSpA";
             this.maskedTextBoxSpA.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpA.TabIndex = 34;
+            this.maskedTextBoxSpA.Tag = "ivs";
             // 
             // maskedTextBoxSpD
             // 
@@ -480,6 +484,7 @@ namespace RNGReporter
             this.maskedTextBoxSpD.Name = "maskedTextBoxSpD";
             this.maskedTextBoxSpD.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpD.TabIndex = 36;
+            this.maskedTextBoxSpD.Tag = "ivs";
             // 
             // maskedTextBoxSpe
             // 
@@ -489,6 +494,7 @@ namespace RNGReporter
             this.maskedTextBoxSpe.Name = "maskedTextBoxSpe";
             this.maskedTextBoxSpe.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpe.TabIndex = 38;
+            this.maskedTextBoxSpe.Tag = "ivs";
             // 
             // IVtoPID_SID_SEED
             // 

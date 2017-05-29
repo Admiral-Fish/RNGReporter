@@ -719,6 +719,7 @@ namespace RNGReporter
             this.maskedTextBoxDefB.Name = "maskedTextBoxDefB";
             this.maskedTextBoxDefB.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxDefB.TabIndex = 14;
+            this.maskedTextBoxDefB.Tag = "ivs";
             this.maskedTextBoxDefB.ValidatingType = typeof(int);
             // 
             // maskedTextBoxAtkB
@@ -729,6 +730,7 @@ namespace RNGReporter
             this.maskedTextBoxAtkB.Name = "maskedTextBoxAtkB";
             this.maskedTextBoxAtkB.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxAtkB.TabIndex = 12;
+            this.maskedTextBoxAtkB.Tag = "ivs";
             this.maskedTextBoxAtkB.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpeB
@@ -739,6 +741,7 @@ namespace RNGReporter
             this.maskedTextBoxSpeB.Name = "maskedTextBoxSpeB";
             this.maskedTextBoxSpeB.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxSpeB.TabIndex = 17;
+            this.maskedTextBoxSpeB.Tag = "ivs";
             this.maskedTextBoxSpeB.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpDB
@@ -749,6 +752,7 @@ namespace RNGReporter
             this.maskedTextBoxSpDB.Name = "maskedTextBoxSpDB";
             this.maskedTextBoxSpDB.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxSpDB.TabIndex = 16;
+            this.maskedTextBoxSpDB.Tag = "ivs";
             this.maskedTextBoxSpDB.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpAB
@@ -759,6 +763,7 @@ namespace RNGReporter
             this.maskedTextBoxSpAB.Name = "maskedTextBoxSpAB";
             this.maskedTextBoxSpAB.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxSpAB.TabIndex = 15;
+            this.maskedTextBoxSpAB.Tag = "ivs";
             this.maskedTextBoxSpAB.ValidatingType = typeof(int);
             // 
             // maskedTextBoxHPB
@@ -769,6 +774,7 @@ namespace RNGReporter
             this.maskedTextBoxHPB.Name = "maskedTextBoxHPB";
             this.maskedTextBoxHPB.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxHPB.TabIndex = 11;
+            this.maskedTextBoxHPB.Tag = "ivs";
             // 
             // maskedTextBoxDefA
             // 
@@ -778,6 +784,7 @@ namespace RNGReporter
             this.maskedTextBoxDefA.Name = "maskedTextBoxDefA";
             this.maskedTextBoxDefA.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxDefA.TabIndex = 7;
+            this.maskedTextBoxDefA.Tag = "ivs";
             this.maskedTextBoxDefA.ValidatingType = typeof(int);
             // 
             // maskedTextBoxAtkA
@@ -788,6 +795,7 @@ namespace RNGReporter
             this.maskedTextBoxAtkA.Name = "maskedTextBoxAtkA";
             this.maskedTextBoxAtkA.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxAtkA.TabIndex = 6;
+            this.maskedTextBoxAtkA.Tag = "ivs";
             this.maskedTextBoxAtkA.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpeA
@@ -798,6 +806,7 @@ namespace RNGReporter
             this.maskedTextBoxSpeA.Name = "maskedTextBoxSpeA";
             this.maskedTextBoxSpeA.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxSpeA.TabIndex = 10;
+            this.maskedTextBoxSpeA.Tag = "ivs";
             this.maskedTextBoxSpeA.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpDA
@@ -808,6 +817,7 @@ namespace RNGReporter
             this.maskedTextBoxSpDA.Name = "maskedTextBoxSpDA";
             this.maskedTextBoxSpDA.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxSpDA.TabIndex = 9;
+            this.maskedTextBoxSpDA.Tag = "ivs";
             this.maskedTextBoxSpDA.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpAA
@@ -818,6 +828,7 @@ namespace RNGReporter
             this.maskedTextBoxSpAA.Name = "maskedTextBoxSpAA";
             this.maskedTextBoxSpAA.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxSpAA.TabIndex = 8;
+            this.maskedTextBoxSpAA.Tag = "ivs";
             this.maskedTextBoxSpAA.ValidatingType = typeof(int);
             // 
             // maskedTextBoxHPA
@@ -828,6 +839,7 @@ namespace RNGReporter
             this.maskedTextBoxHPA.Name = "maskedTextBoxHPA";
             this.maskedTextBoxHPA.Size = new System.Drawing.Size(27, 20);
             this.maskedTextBoxHPA.TabIndex = 5;
+            this.maskedTextBoxHPA.Tag = "ivs";
             // 
             // maskedTextBoxMaxOffset
             // 

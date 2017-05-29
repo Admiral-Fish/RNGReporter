@@ -62,13 +62,13 @@ namespace RNGReporter
             this.buttonCheck = new RNGReporter.GlassButton();
             this.buttonOk = new RNGReporter.GlassButton();
             this.textBoxResults = new RNGReporter.TextBox2();
-            this.maskedTextBoxLevel = new MaskedTextBox2();
-            this.maskedTextBoxDef = new MaskedTextBox2();
-            this.maskedTextBoxAtk = new MaskedTextBox2();
-            this.maskedTextBoxSpe = new MaskedTextBox2();
-            this.maskedTextBoxSpD = new MaskedTextBox2();
-            this.maskedTextBoxSpA = new MaskedTextBox2();
-            this.maskedTextBoxHP = new MaskedTextBox2();
+            this.maskedTextBoxLevel = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxDef = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxAtk = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpe = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpD = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpA = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxHP = new RNGReporter.Controls.MaskedTextBox2();
             this.SuspendLayout();
             // 
             // comboBoxPokemon
@@ -76,9 +76,11 @@ namespace RNGReporter
             this.comboBoxPokemon.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxPokemon.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxPokemon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPokemon.ForeColor = System.Drawing.Color.Black;
             this.comboBoxPokemon.FormattingEnabled = true;
             this.comboBoxPokemon.Location = new System.Drawing.Point(12, 25);
             this.comboBoxPokemon.Name = "comboBoxPokemon";
+            this.comboBoxPokemon.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxPokemon.Size = new System.Drawing.Size(171, 21);
             this.comboBoxPokemon.TabIndex = 1;
             this.comboBoxPokemon.SelectedIndexChanged += new System.EventHandler(this.comboBoxPokemon_SelectedIndexChanged);
@@ -233,9 +235,11 @@ namespace RNGReporter
             this.comboBoxCharacteristic.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxCharacteristic.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxCharacteristic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCharacteristic.ForeColor = System.Drawing.Color.Black;
             this.comboBoxCharacteristic.FormattingEnabled = true;
             this.comboBoxCharacteristic.Location = new System.Drawing.Point(12, 65);
             this.comboBoxCharacteristic.Name = "comboBoxCharacteristic";
+            this.comboBoxCharacteristic.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxCharacteristic.Size = new System.Drawing.Size(171, 21);
             this.comboBoxCharacteristic.TabIndex = 5;
             // 
@@ -262,9 +266,11 @@ namespace RNGReporter
             this.comboBoxNature.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxNature.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNature.ForeColor = System.Drawing.Color.Black;
             this.comboBoxNature.FormattingEnabled = true;
             this.comboBoxNature.Location = new System.Drawing.Point(189, 25);
             this.comboBoxNature.Name = "comboBoxNature";
+            this.comboBoxNature.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxNature.Size = new System.Drawing.Size(121, 21);
             this.comboBoxNature.TabIndex = 3;
             // 
@@ -342,26 +348,30 @@ namespace RNGReporter
             // 
             // buttonCheck
             // 
-            this.buttonCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCheck.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.buttonCheck.ForeColor = System.Drawing.Color.Black;
             this.buttonCheck.Location = new System.Drawing.Point(236, 131);
             this.buttonCheck.Name = "buttonCheck";
+            this.buttonCheck.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonCheck.ShineColor = System.Drawing.SystemColors.Window;
             this.buttonCheck.Size = new System.Drawing.Size(75, 23);
             this.buttonCheck.TabIndex = 60;
             this.buttonCheck.Text = "Check IVs";
-            this.buttonCheck.UseVisualStyleBackColor = true;
             this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
             // 
             // buttonOk
             // 
             this.buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonOk.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonOk.ForeColor = System.Drawing.Color.Black;
             this.buttonOk.Location = new System.Drawing.Point(441, 286);
             this.buttonOk.Name = "buttonOk";
+            this.buttonOk.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonOk.ShineColor = System.Drawing.SystemColors.Window;
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 61;
             this.buttonOk.Text = "OK";
-            this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // textBoxResults
@@ -375,6 +385,7 @@ namespace RNGReporter
             // 
             // maskedTextBoxLevel
             // 
+            this.maskedTextBoxLevel.Hex = false;
             this.maskedTextBoxLevel.Location = new System.Drawing.Point(12, 105);
             this.maskedTextBoxLevel.Mask = "000";
             this.maskedTextBoxLevel.Name = "maskedTextBoxLevel";
@@ -384,56 +395,68 @@ namespace RNGReporter
             // 
             // maskedTextBoxDef
             // 
+            this.maskedTextBoxDef.Hex = false;
             this.maskedTextBoxDef.Location = new System.Drawing.Point(148, 105);
             this.maskedTextBoxDef.Mask = "000";
             this.maskedTextBoxDef.Name = "maskedTextBoxDef";
             this.maskedTextBoxDef.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxDef.TabIndex = 13;
+            this.maskedTextBoxDef.Tag = "ivs";
             this.maskedTextBoxDef.ValidatingType = typeof(int);
             // 
             // maskedTextBoxAtk
             // 
+            this.maskedTextBoxAtk.Hex = false;
             this.maskedTextBoxAtk.Location = new System.Drawing.Point(106, 105);
             this.maskedTextBoxAtk.Mask = "000";
             this.maskedTextBoxAtk.Name = "maskedTextBoxAtk";
             this.maskedTextBoxAtk.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxAtk.TabIndex = 11;
+            this.maskedTextBoxAtk.Tag = "ivs";
             this.maskedTextBoxAtk.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpe
             // 
+            this.maskedTextBoxSpe.Hex = false;
             this.maskedTextBoxSpe.Location = new System.Drawing.Point(274, 105);
             this.maskedTextBoxSpe.Mask = "000";
             this.maskedTextBoxSpe.Name = "maskedTextBoxSpe";
             this.maskedTextBoxSpe.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxSpe.TabIndex = 19;
+            this.maskedTextBoxSpe.Tag = "ivs";
             this.maskedTextBoxSpe.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpD
             // 
+            this.maskedTextBoxSpD.Hex = false;
             this.maskedTextBoxSpD.Location = new System.Drawing.Point(232, 105);
             this.maskedTextBoxSpD.Mask = "000";
             this.maskedTextBoxSpD.Name = "maskedTextBoxSpD";
             this.maskedTextBoxSpD.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxSpD.TabIndex = 17;
+            this.maskedTextBoxSpD.Tag = "ivs";
             this.maskedTextBoxSpD.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpA
             // 
+            this.maskedTextBoxSpA.Hex = false;
             this.maskedTextBoxSpA.Location = new System.Drawing.Point(190, 105);
             this.maskedTextBoxSpA.Mask = "000";
             this.maskedTextBoxSpA.Name = "maskedTextBoxSpA";
             this.maskedTextBoxSpA.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxSpA.TabIndex = 15;
+            this.maskedTextBoxSpA.Tag = "ivs";
             this.maskedTextBoxSpA.ValidatingType = typeof(int);
             // 
             // maskedTextBoxHP
             // 
+            this.maskedTextBoxHP.Hex = false;
             this.maskedTextBoxHP.Location = new System.Drawing.Point(64, 105);
             this.maskedTextBoxHP.Mask = "000";
             this.maskedTextBoxHP.Name = "maskedTextBoxHP";
             this.maskedTextBoxHP.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxHP.TabIndex = 9;
+            this.maskedTextBoxHP.Tag = "ivs";
             this.maskedTextBoxHP.ValidatingType = typeof(int);
             // 
             // DexIVCheck

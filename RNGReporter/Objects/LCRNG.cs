@@ -69,6 +69,12 @@ namespace RNGReporter.Objects
 
             return Seed;
         }
+
+        public void GetNext32BitNumber(int num)
+        {
+            for (int i = 0; i < num; i++)
+                GetNext32BitNumber();
+        }
     }
 
     internal class PokeRng : GenericRng

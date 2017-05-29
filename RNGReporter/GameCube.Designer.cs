@@ -1212,6 +1212,7 @@
             this.hpValue.Name = "hpValue";
             this.hpValue.Size = new System.Drawing.Size(24, 20);
             this.hpValue.TabIndex = 324;
+            this.hpValue.Tag = "ivs";
             this.hpValue.Text = "31";
             this.hpValue.ValidatingType = typeof(int);
             // 
@@ -1223,6 +1224,7 @@
             this.atkValue.Name = "atkValue";
             this.atkValue.Size = new System.Drawing.Size(24, 20);
             this.atkValue.TabIndex = 325;
+            this.atkValue.Tag = "ivs";
             this.atkValue.Text = "31";
             this.atkValue.ValidatingType = typeof(int);
             // 
@@ -1234,6 +1236,7 @@
             this.defValue.Name = "defValue";
             this.defValue.Size = new System.Drawing.Size(24, 20);
             this.defValue.TabIndex = 326;
+            this.defValue.Tag = "ivs";
             this.defValue.Text = "31";
             this.defValue.ValidatingType = typeof(int);
             // 
@@ -1245,6 +1248,7 @@
             this.spaValue.Name = "spaValue";
             this.spaValue.Size = new System.Drawing.Size(24, 20);
             this.spaValue.TabIndex = 327;
+            this.spaValue.Tag = "ivs";
             this.spaValue.Text = "0";
             this.spaValue.ValidatingType = typeof(int);
             // 
@@ -1256,6 +1260,7 @@
             this.spdValue.Name = "spdValue";
             this.spdValue.Size = new System.Drawing.Size(24, 20);
             this.spdValue.TabIndex = 328;
+            this.spdValue.Tag = "ivs";
             this.spdValue.Text = "31";
             this.spdValue.ValidatingType = typeof(int);
             // 
@@ -1267,6 +1272,7 @@
             this.speValue.Name = "speValue";
             this.speValue.Size = new System.Drawing.Size(24, 20);
             this.speValue.TabIndex = 329;
+            this.speValue.Tag = "ivs";
             this.speValue.Text = "31";
             this.speValue.ValidatingType = typeof(int);
             // 
@@ -2229,6 +2235,7 @@
             this.speShadow.Name = "speShadow";
             this.speShadow.Size = new System.Drawing.Size(24, 20);
             this.speShadow.TabIndex = 373;
+            this.speShadow.Tag = "ivs";
             this.speShadow.ValidatingType = typeof(int);
             // 
             // spdShadow
@@ -2239,6 +2246,7 @@
             this.spdShadow.Name = "spdShadow";
             this.spdShadow.Size = new System.Drawing.Size(24, 20);
             this.spdShadow.TabIndex = 372;
+            this.spdShadow.Tag = "ivs";
             this.spdShadow.ValidatingType = typeof(int);
             // 
             // spaShadow
@@ -2249,6 +2257,7 @@
             this.spaShadow.Name = "spaShadow";
             this.spaShadow.Size = new System.Drawing.Size(24, 20);
             this.spaShadow.TabIndex = 371;
+            this.spaShadow.Tag = "ivs";
             this.spaShadow.ValidatingType = typeof(int);
             // 
             // defShadow
@@ -2259,6 +2268,7 @@
             this.defShadow.Name = "defShadow";
             this.defShadow.Size = new System.Drawing.Size(24, 20);
             this.defShadow.TabIndex = 370;
+            this.defShadow.Tag = "ivs";
             this.defShadow.ValidatingType = typeof(int);
             // 
             // atkShadow
@@ -2269,6 +2279,7 @@
             this.atkShadow.Name = "atkShadow";
             this.atkShadow.Size = new System.Drawing.Size(24, 20);
             this.atkShadow.TabIndex = 369;
+            this.atkShadow.Tag = "ivs";
             this.atkShadow.ValidatingType = typeof(int);
             // 
             // hpShadow
@@ -2279,6 +2290,7 @@
             this.hpShadow.Name = "hpShadow";
             this.hpShadow.Size = new System.Drawing.Size(24, 20);
             this.hpShadow.TabIndex = 368;
+            this.hpShadow.Tag = "ivs";
             this.hpShadow.ValidatingType = typeof(int);
             // 
             // hpLogicShadow

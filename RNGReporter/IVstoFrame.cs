@@ -70,8 +70,7 @@ namespace RNGReporter
             uint[] seeds = new uint[5];
             var rng = new PokeRng(initseed);
 
-            for (int a = 0; a < minframes; a++)
-                rng.GetNext32BitNumber();
+            rng.GetNext32BitNumber((int)minframes);
 
             for (int x = 0; x < 5; x++)
                 seeds[x] = rng.GetNext16BitNumber();
@@ -120,8 +119,7 @@ namespace RNGReporter
             uint[] seeds = new uint[5];
             var rng = new XdRng(initseed);
 
-            for (int a = 0; a < minframes; a++)
-                rng.GetNext32BitNumber();
+            rng.GetNext32BitNumber((int)minframes);
 
             for (int x = 0; x < 5; x++)
                 seeds[x] = rng.GetNext16BitNumber();

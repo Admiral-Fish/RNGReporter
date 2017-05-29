@@ -614,6 +614,7 @@
             this.txtHP.Name = "txtHP";
             this.txtHP.Size = new System.Drawing.Size(24, 20);
             this.txtHP.TabIndex = 250;
+            this.txtHP.Tag = "ivs";
             this.txtHP.ValidatingType = typeof(int);
             this.txtHP.TextChanged += new System.EventHandler(this.txtHP_TextChanged);
             // 
@@ -625,6 +626,7 @@
             this.txtSpA.Name = "txtSpA";
             this.txtSpA.Size = new System.Drawing.Size(24, 20);
             this.txtSpA.TabIndex = 256;
+            this.txtSpA.Tag = "ivs";
             this.txtSpA.ValidatingType = typeof(int);
             this.txtSpA.TextChanged += new System.EventHandler(this.txtSpA_TextChanged);
             // 
@@ -636,6 +638,7 @@
             this.txtSpD.Name = "txtSpD";
             this.txtSpD.Size = new System.Drawing.Size(24, 20);
             this.txtSpD.TabIndex = 258;
+            this.txtSpD.Tag = "ivs";
             this.txtSpD.ValidatingType = typeof(int);
             this.txtSpD.TextChanged += new System.EventHandler(this.txtSpD_TextChanged);
             // 
@@ -647,6 +650,7 @@
             this.txtAtk.Name = "txtAtk";
             this.txtAtk.Size = new System.Drawing.Size(24, 20);
             this.txtAtk.TabIndex = 252;
+            this.txtAtk.Tag = "ivs";
             this.txtAtk.ValidatingType = typeof(int);
             this.txtAtk.TextChanged += new System.EventHandler(this.txtAtk_TextChanged);
             // 
@@ -658,6 +662,7 @@
             this.txtDef.Name = "txtDef";
             this.txtDef.Size = new System.Drawing.Size(24, 20);
             this.txtDef.TabIndex = 254;
+            this.txtDef.Tag = "ivs";
             this.txtDef.ValidatingType = typeof(int);
             this.txtDef.TextChanged += new System.EventHandler(this.txtDef_TextChanged);
             // 
@@ -669,6 +674,7 @@
             this.txtSpe.Name = "txtSpe";
             this.txtSpe.Size = new System.Drawing.Size(24, 20);
             this.txtSpe.TabIndex = 260;
+            this.txtSpe.Tag = "ivs";
             this.txtSpe.ValidatingType = typeof(int);
             this.txtSpe.TextChanged += new System.EventHandler(this.txtSpe_TextChanged);
             // 

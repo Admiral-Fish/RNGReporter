@@ -268,81 +268,56 @@ namespace RNGReporter
                             //No NL
                             case 0:
                                 filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
+                                pid ^= 0x80008000;
+                                nature = pid - 25 * (pid / 25);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 0);
                                 break;
                             //First shadow
                             case 1:
-                                bool cont = natureLock.method1FirstShadow(coloSeed);
-                                if (cont)
+                                if (natureLock.method1FirstShadow(coloSeed))
                                 {
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
                                 }
-                                else
+                                else if (natureLock.method1FirstShadow(xorSeed))
                                 {
-                                    cont = natureLock.method1FirstShadow(xorSeed);
-                                    if (cont)
-                                    {
-                                        pid ^= 0x80008000;
-                                        nature = pid - 25 * (pid / 25);
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 0);
-                                    }
+                                    pid ^= 0x80008000;
+                                    nature = pid - 25 * (pid / 25);
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 0);
                                 }
-                                break;
+                            break;
                             //Second shadow
                             case 6:
-                                cont = natureLock.method1SecondShadowSet(coloSeed);
-                                if (cont)
+                                if (natureLock.method1SecondShadowSet(coloSeed))
                                 {
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 1);
                                 }
-                                else
+                                else if (natureLock.method1SecondShadowSet(xorSeed))
                                 {
-                                    cont = natureLock.method1SecondShadowSet(xorSeed);
-                                    if (cont)
-                                    {
-                                        pid ^= 0x80008000;
-                                        nature = pid - 25 * (pid / 25);
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 1);
-                                    }
+                                    pid ^= 0x80008000;
+                                    nature = pid - 25 * (pid / 25);
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 1);
                                 }
-
-                                if (cont)
-                                    continue;
-
-                                cont = natureLock.method1SecondShadowUnset(coloSeed);
-                                if (cont)
+                                else if (natureLock.method1SecondShadowUnset(coloSeed))
                                 {
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 2);
                                 }
-                                else
+                                else if (natureLock.method1SecondShadowUnset(xorSeed))
                                 {
-                                    cont = natureLock.method1SecondShadowUnset(xorSeed);
-                                    if (cont)
-                                    {
-                                        pid ^= 0x80008000;
-                                        nature = pid - 25 * (pid / 25);
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 2);
-                                    }
+                                    pid ^= 0x80008000;
+                                    nature = pid - 25 * (pid / 25);
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 2);
                                 }
-
-                                if (cont)
-                                    continue;
-
-                                cont = natureLock.method1SecondShadowShinySkip(coloSeed);
-                                if (cont)
+                                else if (natureLock.method1SecondShadowShinySkip(coloSeed))
                                 {
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
                                 }
-                                else
+                                else if (natureLock.method1SecondShadowShinySkip(xorSeed))
                                 {
-                                    cont = natureLock.method1SecondShadowShinySkip(xorSeed);
-                                    if (cont)
-                                    {
-                                        pid ^= 0x80008000;
-                                        nature = pid - 25 * (pid / 25);
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 3);
-                                    }
+                                    pid ^= 0x80008000;
+                                    nature = pid - 25 * (pid / 25);
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 3);
                                 }
-                                break; 
+                            break; 
                         }
                     }
                 }

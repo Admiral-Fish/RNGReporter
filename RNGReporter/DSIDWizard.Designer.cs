@@ -394,6 +394,7 @@ namespace RNGReporter
             this.maskedTextBoxDefMax.Name = "maskedTextBoxDefMax";
             this.maskedTextBoxDefMax.Size = new System.Drawing.Size(33, 20);
             this.maskedTextBoxDefMax.TabIndex = 8;
+            this.maskedTextBoxDefMax.Tag = "ivs";
             // 
             // label4
             // 
@@ -412,6 +413,7 @@ namespace RNGReporter
             this.maskedTextBoxSpeedMax.Name = "maskedTextBoxSpeedMax";
             this.maskedTextBoxSpeedMax.Size = new System.Drawing.Size(33, 20);
             this.maskedTextBoxSpeedMax.TabIndex = 11;
+            this.maskedTextBoxSpeedMax.Tag = "ivs";
             // 
             // maskedTextBoxSpDefMax
             // 
@@ -421,6 +423,7 @@ namespace RNGReporter
             this.maskedTextBoxSpDefMax.Name = "maskedTextBoxSpDefMax";
             this.maskedTextBoxSpDefMax.Size = new System.Drawing.Size(33, 20);
             this.maskedTextBoxSpDefMax.TabIndex = 10;
+            this.maskedTextBoxSpDefMax.Tag = "ivs";
             // 
             // maskedTextBoxSpAtkMax
             // 
@@ -430,6 +433,7 @@ namespace RNGReporter
             this.maskedTextBoxSpAtkMax.Name = "maskedTextBoxSpAtkMax";
             this.maskedTextBoxSpAtkMax.Size = new System.Drawing.Size(34, 20);
             this.maskedTextBoxSpAtkMax.TabIndex = 9;
+            this.maskedTextBoxSpAtkMax.Tag = "ivs";
             // 
             // maskedTextBoxHPMax
             // 
@@ -439,6 +443,7 @@ namespace RNGReporter
             this.maskedTextBoxHPMax.Name = "maskedTextBoxHPMax";
             this.maskedTextBoxHPMax.Size = new System.Drawing.Size(34, 20);
             this.maskedTextBoxHPMax.TabIndex = 6;
+            this.maskedTextBoxHPMax.Tag = "ivs";
             // 
             // maskedTextBoxAtkMax
             // 
@@ -448,6 +453,7 @@ namespace RNGReporter
             this.maskedTextBoxAtkMax.Name = "maskedTextBoxAtkMax";
             this.maskedTextBoxAtkMax.Size = new System.Drawing.Size(33, 20);
             this.maskedTextBoxAtkMax.TabIndex = 7;
+            this.maskedTextBoxAtkMax.Tag = "ivs";
             // 
             // checkBoxHalfSeed
             // 
@@ -479,6 +485,7 @@ namespace RNGReporter
             this.maskedTextBoxDefMin.Name = "maskedTextBoxDefMin";
             this.maskedTextBoxDefMin.Size = new System.Drawing.Size(33, 20);
             this.maskedTextBoxDefMin.TabIndex = 2;
+            this.maskedTextBoxDefMin.Tag = "ivs";
             this.maskedTextBoxDefMin.Leave += new System.EventHandler(this.maskedTextBoxDefMin_Leave);
             // 
             // textBoxDirectSeed
@@ -498,6 +505,7 @@ namespace RNGReporter
             this.maskedTextBoxSpeedMin.Name = "maskedTextBoxSpeedMin";
             this.maskedTextBoxSpeedMin.Size = new System.Drawing.Size(33, 20);
             this.maskedTextBoxSpeedMin.TabIndex = 5;
+            this.maskedTextBoxSpeedMin.Tag = "ivs";
             this.maskedTextBoxSpeedMin.Leave += new System.EventHandler(this.maskedTextBoxSpeedMin_Leave);
             // 
             // maskedTextBoxHour
@@ -517,6 +525,7 @@ namespace RNGReporter
             this.maskedTextBoxSpDefMin.Name = "maskedTextBoxSpDefMin";
             this.maskedTextBoxSpDefMin.Size = new System.Drawing.Size(33, 20);
             this.maskedTextBoxSpDefMin.TabIndex = 4;
+            this.maskedTextBoxSpDefMin.Tag = "ivs";
             this.maskedTextBoxSpDefMin.Leave += new System.EventHandler(this.maskedTextBoxSpDefMin_Leave);
             // 
             // maskedTextBoxMinute
@@ -546,6 +555,7 @@ namespace RNGReporter
             this.maskedTextBoxSpAtkMin.Name = "maskedTextBoxSpAtkMin";
             this.maskedTextBoxSpAtkMin.Size = new System.Drawing.Size(34, 20);
             this.maskedTextBoxSpAtkMin.TabIndex = 3;
+            this.maskedTextBoxSpAtkMin.Tag = "ivs";
             this.maskedTextBoxSpAtkMin.Leave += new System.EventHandler(this.maskedTextBoxSpAtkMin_Leave);
             // 
             // maskedTextBoxHPMin
@@ -556,6 +566,7 @@ namespace RNGReporter
             this.maskedTextBoxHPMin.Name = "maskedTextBoxHPMin";
             this.maskedTextBoxHPMin.Size = new System.Drawing.Size(34, 20);
             this.maskedTextBoxHPMin.TabIndex = 0;
+            this.maskedTextBoxHPMin.Tag = "ivs";
             this.maskedTextBoxHPMin.Leave += new System.EventHandler(this.maskedTextBoxHPMin_Leave);
             // 
             // maskedTextBoxAtkMin
@@ -566,6 +577,7 @@ namespace RNGReporter
             this.maskedTextBoxAtkMin.Name = "maskedTextBoxAtkMin";
             this.maskedTextBoxAtkMin.Size = new System.Drawing.Size(33, 20);
             this.maskedTextBoxAtkMin.TabIndex = 1;
+            this.maskedTextBoxAtkMin.Tag = "ivs";
             this.maskedTextBoxAtkMin.Leave += new System.EventHandler(this.maskedTextBoxAtkMin_Leave);
             // 
             // groupBox2

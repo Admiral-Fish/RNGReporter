@@ -41,24 +41,24 @@ namespace RNGReporter
             this.label1 = new System.Windows.Forms.Label();
             this.buttonOk1 = new RNGReporter.GlassButton();
             this.buttonCancel1 = new RNGReporter.GlassButton();
-            this.maskedTextBoxSpe_IVRNG = new MaskedTextBox2();
-            this.maskedTextBoxSpD_IVRNG = new MaskedTextBox2();
-            this.maskedTextBoxSpA_IVRNG = new MaskedTextBox2();
-            this.maskedTextBoxDef_IVRNG = new MaskedTextBox2();
-            this.maskedTextBoxAtk_IVRNG = new MaskedTextBox2();
-            this.maskedTextBoxHP_IVRNG = new MaskedTextBox2();
-            this.maskedTextBoxSpe_ParentA = new MaskedTextBox2();
-            this.maskedTextBoxSpD_ParentA = new MaskedTextBox2();
-            this.maskedTextBoxSpA_ParentA = new MaskedTextBox2();
-            this.maskedTextBoxDef_ParentA = new MaskedTextBox2();
-            this.maskedTextBoxAtk_ParentA = new MaskedTextBox2();
-            this.maskedTextBoxHP_ParentA = new MaskedTextBox2();
-            this.maskedTextBoxSpe_ParentB = new MaskedTextBox2();
-            this.maskedTextBoxSpD_ParentB = new MaskedTextBox2();
-            this.maskedTextBoxSpA_ParentB = new MaskedTextBox2();
-            this.maskedTextBoxDef_ParentB = new MaskedTextBox2();
-            this.maskedTextBoxAtk_ParentB = new MaskedTextBox2();
-            this.maskedTextBoxHP_ParentB = new MaskedTextBox2();
+            this.maskedTextBoxSpe_IVRNG = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpD_IVRNG = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpA_IVRNG = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxDef_IVRNG = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxAtk_IVRNG = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxHP_IVRNG = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpe_ParentA = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpD_ParentA = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpA_ParentA = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxDef_ParentA = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxAtk_ParentA = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxHP_ParentA = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpe_ParentB = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpD_ParentB = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpA_ParentB = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxDef_ParentB = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxAtk_ParentB = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxHP_ParentB = new RNGReporter.Controls.MaskedTextBox2();
             this.buttonRetrieveIVs = new RNGReporter.GlassButton();
             this.SuspendLayout();
             // 
@@ -145,180 +145,222 @@ namespace RNGReporter
             // 
             // buttonOk1
             // 
+            this.buttonOk1.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonOk1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonOk1.Location = new System.Drawing.Point(175, 127);
+            this.buttonOk1.ForeColor = System.Drawing.Color.Black;
+            this.buttonOk1.Location = new System.Drawing.Point(175, 124);
             this.buttonOk1.Name = "buttonOk1";
+            this.buttonOk1.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonOk1.ShineColor = System.Drawing.SystemColors.Window;
             this.buttonOk1.Size = new System.Drawing.Size(75, 23);
             this.buttonOk1.TabIndex = 78;
             this.buttonOk1.Text = "OK";
-            this.buttonOk1.UseVisualStyleBackColor = true;
             this.buttonOk1.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel1
             // 
+            this.buttonCancel1.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonCancel1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancel1.Location = new System.Drawing.Point(257, 127);
+            this.buttonCancel1.ForeColor = System.Drawing.Color.Black;
+            this.buttonCancel1.Location = new System.Drawing.Point(257, 124);
             this.buttonCancel1.Name = "buttonCancel1";
+            this.buttonCancel1.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonCancel1.ShineColor = System.Drawing.SystemColors.Window;
             this.buttonCancel1.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel1.TabIndex = 79;
             this.buttonCancel1.Text = "Cancel";
-            this.buttonCancel1.UseVisualStyleBackColor = true;
             // 
             // maskedTextBoxSpe_IVRNG
             // 
+            this.maskedTextBoxSpe_IVRNG.Hex = false;
             this.maskedTextBoxSpe_IVRNG.Location = new System.Drawing.Point(298, 89);
             this.maskedTextBoxSpe_IVRNG.Mask = "00";
             this.maskedTextBoxSpe_IVRNG.Name = "maskedTextBoxSpe_IVRNG";
             this.maskedTextBoxSpe_IVRNG.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpe_IVRNG.TabIndex = 76;
+            this.maskedTextBoxSpe_IVRNG.Tag = "ivs";
             // 
             // maskedTextBoxSpD_IVRNG
             // 
+            this.maskedTextBoxSpD_IVRNG.Hex = false;
             this.maskedTextBoxSpD_IVRNG.Location = new System.Drawing.Point(257, 89);
             this.maskedTextBoxSpD_IVRNG.Mask = "00";
             this.maskedTextBoxSpD_IVRNG.Name = "maskedTextBoxSpD_IVRNG";
             this.maskedTextBoxSpD_IVRNG.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpD_IVRNG.TabIndex = 75;
+            this.maskedTextBoxSpD_IVRNG.Tag = "ivs";
             // 
             // maskedTextBoxSpA_IVRNG
             // 
+            this.maskedTextBoxSpA_IVRNG.Hex = false;
             this.maskedTextBoxSpA_IVRNG.Location = new System.Drawing.Point(216, 89);
             this.maskedTextBoxSpA_IVRNG.Mask = "00";
             this.maskedTextBoxSpA_IVRNG.Name = "maskedTextBoxSpA_IVRNG";
             this.maskedTextBoxSpA_IVRNG.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpA_IVRNG.TabIndex = 74;
+            this.maskedTextBoxSpA_IVRNG.Tag = "ivs";
             // 
             // maskedTextBoxDef_IVRNG
             // 
+            this.maskedTextBoxDef_IVRNG.Hex = false;
             this.maskedTextBoxDef_IVRNG.Location = new System.Drawing.Point(175, 89);
             this.maskedTextBoxDef_IVRNG.Mask = "00";
             this.maskedTextBoxDef_IVRNG.Name = "maskedTextBoxDef_IVRNG";
             this.maskedTextBoxDef_IVRNG.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxDef_IVRNG.TabIndex = 73;
+            this.maskedTextBoxDef_IVRNG.Tag = "ivs";
             // 
             // maskedTextBoxAtk_IVRNG
             // 
+            this.maskedTextBoxAtk_IVRNG.Hex = false;
             this.maskedTextBoxAtk_IVRNG.Location = new System.Drawing.Point(134, 89);
             this.maskedTextBoxAtk_IVRNG.Mask = "00";
             this.maskedTextBoxAtk_IVRNG.Name = "maskedTextBoxAtk_IVRNG";
             this.maskedTextBoxAtk_IVRNG.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxAtk_IVRNG.TabIndex = 72;
+            this.maskedTextBoxAtk_IVRNG.Tag = "ivs";
             // 
             // maskedTextBoxHP_IVRNG
             // 
+            this.maskedTextBoxHP_IVRNG.Hex = false;
             this.maskedTextBoxHP_IVRNG.Location = new System.Drawing.Point(93, 89);
             this.maskedTextBoxHP_IVRNG.Mask = "00";
             this.maskedTextBoxHP_IVRNG.Name = "maskedTextBoxHP_IVRNG";
             this.maskedTextBoxHP_IVRNG.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxHP_IVRNG.TabIndex = 71;
+            this.maskedTextBoxHP_IVRNG.Tag = "ivs";
             // 
             // maskedTextBoxSpe_ParentA
             // 
+            this.maskedTextBoxSpe_ParentA.Hex = false;
             this.maskedTextBoxSpe_ParentA.Location = new System.Drawing.Point(298, 37);
             this.maskedTextBoxSpe_ParentA.Mask = "00";
             this.maskedTextBoxSpe_ParentA.Name = "maskedTextBoxSpe_ParentA";
             this.maskedTextBoxSpe_ParentA.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpe_ParentA.TabIndex = 62;
+            this.maskedTextBoxSpe_ParentA.Tag = "ivs";
             // 
             // maskedTextBoxSpD_ParentA
             // 
+            this.maskedTextBoxSpD_ParentA.Hex = false;
             this.maskedTextBoxSpD_ParentA.Location = new System.Drawing.Point(257, 37);
             this.maskedTextBoxSpD_ParentA.Mask = "00";
             this.maskedTextBoxSpD_ParentA.Name = "maskedTextBoxSpD_ParentA";
             this.maskedTextBoxSpD_ParentA.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpD_ParentA.TabIndex = 61;
+            this.maskedTextBoxSpD_ParentA.Tag = "ivs";
             // 
             // maskedTextBoxSpA_ParentA
             // 
+            this.maskedTextBoxSpA_ParentA.Hex = false;
             this.maskedTextBoxSpA_ParentA.Location = new System.Drawing.Point(216, 37);
             this.maskedTextBoxSpA_ParentA.Mask = "00";
             this.maskedTextBoxSpA_ParentA.Name = "maskedTextBoxSpA_ParentA";
             this.maskedTextBoxSpA_ParentA.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpA_ParentA.TabIndex = 60;
+            this.maskedTextBoxSpA_ParentA.Tag = "ivs";
             // 
             // maskedTextBoxDef_ParentA
             // 
+            this.maskedTextBoxDef_ParentA.Hex = false;
             this.maskedTextBoxDef_ParentA.Location = new System.Drawing.Point(175, 37);
             this.maskedTextBoxDef_ParentA.Mask = "00";
             this.maskedTextBoxDef_ParentA.Name = "maskedTextBoxDef_ParentA";
             this.maskedTextBoxDef_ParentA.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxDef_ParentA.TabIndex = 59;
+            this.maskedTextBoxDef_ParentA.Tag = "ivs";
             // 
             // maskedTextBoxAtk_ParentA
             // 
+            this.maskedTextBoxAtk_ParentA.Hex = false;
             this.maskedTextBoxAtk_ParentA.Location = new System.Drawing.Point(134, 37);
             this.maskedTextBoxAtk_ParentA.Mask = "00";
             this.maskedTextBoxAtk_ParentA.Name = "maskedTextBoxAtk_ParentA";
             this.maskedTextBoxAtk_ParentA.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxAtk_ParentA.TabIndex = 58;
+            this.maskedTextBoxAtk_ParentA.Tag = "ivs";
             // 
             // maskedTextBoxHP_ParentA
             // 
+            this.maskedTextBoxHP_ParentA.Hex = false;
             this.maskedTextBoxHP_ParentA.Location = new System.Drawing.Point(93, 37);
             this.maskedTextBoxHP_ParentA.Mask = "00";
             this.maskedTextBoxHP_ParentA.Name = "maskedTextBoxHP_ParentA";
             this.maskedTextBoxHP_ParentA.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxHP_ParentA.TabIndex = 57;
+            this.maskedTextBoxHP_ParentA.Tag = "ivs";
             // 
             // maskedTextBoxSpe_ParentB
             // 
+            this.maskedTextBoxSpe_ParentB.Hex = false;
             this.maskedTextBoxSpe_ParentB.Location = new System.Drawing.Point(298, 63);
             this.maskedTextBoxSpe_ParentB.Mask = "00";
             this.maskedTextBoxSpe_ParentB.Name = "maskedTextBoxSpe_ParentB";
             this.maskedTextBoxSpe_ParentB.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpe_ParentB.TabIndex = 56;
+            this.maskedTextBoxSpe_ParentB.Tag = "ivs";
             // 
             // maskedTextBoxSpD_ParentB
             // 
+            this.maskedTextBoxSpD_ParentB.Hex = false;
             this.maskedTextBoxSpD_ParentB.Location = new System.Drawing.Point(257, 63);
             this.maskedTextBoxSpD_ParentB.Mask = "00";
             this.maskedTextBoxSpD_ParentB.Name = "maskedTextBoxSpD_ParentB";
             this.maskedTextBoxSpD_ParentB.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpD_ParentB.TabIndex = 55;
+            this.maskedTextBoxSpD_ParentB.Tag = "ivs";
             // 
             // maskedTextBoxSpA_ParentB
             // 
+            this.maskedTextBoxSpA_ParentB.Hex = false;
             this.maskedTextBoxSpA_ParentB.Location = new System.Drawing.Point(216, 63);
             this.maskedTextBoxSpA_ParentB.Mask = "00";
             this.maskedTextBoxSpA_ParentB.Name = "maskedTextBoxSpA_ParentB";
             this.maskedTextBoxSpA_ParentB.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpA_ParentB.TabIndex = 54;
+            this.maskedTextBoxSpA_ParentB.Tag = "ivs";
             // 
             // maskedTextBoxDef_ParentB
             // 
+            this.maskedTextBoxDef_ParentB.Hex = false;
             this.maskedTextBoxDef_ParentB.Location = new System.Drawing.Point(175, 63);
             this.maskedTextBoxDef_ParentB.Mask = "00";
             this.maskedTextBoxDef_ParentB.Name = "maskedTextBoxDef_ParentB";
             this.maskedTextBoxDef_ParentB.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxDef_ParentB.TabIndex = 53;
+            this.maskedTextBoxDef_ParentB.Tag = "ivs";
             // 
             // maskedTextBoxAtk_ParentB
             // 
+            this.maskedTextBoxAtk_ParentB.Hex = false;
             this.maskedTextBoxAtk_ParentB.Location = new System.Drawing.Point(134, 63);
             this.maskedTextBoxAtk_ParentB.Mask = "00";
             this.maskedTextBoxAtk_ParentB.Name = "maskedTextBoxAtk_ParentB";
             this.maskedTextBoxAtk_ParentB.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxAtk_ParentB.TabIndex = 52;
+            this.maskedTextBoxAtk_ParentB.Tag = "ivs";
             // 
             // maskedTextBoxHP_ParentB
             // 
+            this.maskedTextBoxHP_ParentB.Hex = false;
             this.maskedTextBoxHP_ParentB.Location = new System.Drawing.Point(93, 63);
             this.maskedTextBoxHP_ParentB.Mask = "00";
             this.maskedTextBoxHP_ParentB.Name = "maskedTextBoxHP_ParentB";
             this.maskedTextBoxHP_ParentB.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxHP_ParentB.TabIndex = 51;
+            this.maskedTextBoxHP_ParentB.Tag = "ivs";
             // 
             // buttonRetrieveIVs
             // 
-            this.buttonRetrieveIVs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRetrieveIVs.Location = new System.Drawing.Point(6, 127);
+            this.buttonRetrieveIVs.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.buttonRetrieveIVs.ForeColor = System.Drawing.Color.Black;
+            this.buttonRetrieveIVs.Location = new System.Drawing.Point(6, 124);
             this.buttonRetrieveIVs.Name = "buttonRetrieveIVs";
+            this.buttonRetrieveIVs.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonRetrieveIVs.ShineColor = System.Drawing.SystemColors.Window;
             this.buttonRetrieveIVs.Size = new System.Drawing.Size(163, 23);
             this.buttonRetrieveIVs.TabIndex = 80;
             this.buttonRetrieveIVs.Text = "Get IVs from RNG";
-            this.buttonRetrieveIVs.UseVisualStyleBackColor = true;
             this.buttonRetrieveIVs.Click += new System.EventHandler(this.buttonRetrieveIVs_Click);
             // 
             // EggParents
@@ -327,7 +369,7 @@ namespace RNGReporter
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel1;
-            this.ClientSize = new System.Drawing.Size(351, 162);
+            this.ClientSize = new System.Drawing.Size(341, 148);
             this.ControlBox = false;
             this.Controls.Add(this.buttonRetrieveIVs);
             this.Controls.Add(this.buttonCancel1);

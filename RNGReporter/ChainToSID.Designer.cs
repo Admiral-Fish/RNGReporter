@@ -60,25 +60,27 @@ namespace RNGReporter
             this.buttonCancel = new RNGReporter.GlassButton();
             this.labelSid = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.maskedTextBoxID = new MaskedTextBox2();
-            this.maskedTextBoxHP = new MaskedTextBox2();
-            this.maskedTextBoxAtk = new MaskedTextBox2();
-            this.maskedTextBoxDef = new MaskedTextBox2();
-            this.maskedTextBoxSpA = new MaskedTextBox2();
-            this.maskedTextBoxSpD = new MaskedTextBox2();
-            this.maskedTextBoxSpe = new MaskedTextBox2();
+            this.maskedTextBoxID = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxHP = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxAtk = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxDef = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpA = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpD = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxSpe = new RNGReporter.Controls.MaskedTextBox2();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCalculate.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.buttonCalculate.ForeColor = System.Drawing.Color.Black;
             this.buttonCalculate.Location = new System.Drawing.Point(330, 120);
             this.buttonCalculate.Name = "buttonCalculate";
+            this.buttonCalculate.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonCalculate.ShineColor = System.Drawing.SystemColors.Window;
             this.buttonCalculate.Size = new System.Drawing.Size(75, 23);
             this.buttonCalculate.TabIndex = 23;
             this.buttonCalculate.Text = "Calculate";
-            this.buttonCalculate.UseVisualStyleBackColor = true;
             this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
             // 
             // label10
@@ -129,9 +131,11 @@ namespace RNGReporter
             // comboBoxNature
             // 
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNature.ForeColor = System.Drawing.Color.Black;
             this.comboBoxNature.FormattingEnabled = true;
             this.comboBoxNature.Location = new System.Drawing.Point(12, 22);
             this.comboBoxNature.Name = "comboBoxNature";
+            this.comboBoxNature.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxNature.Size = new System.Drawing.Size(105, 21);
             this.comboBoxNature.TabIndex = 1;
             // 
@@ -156,6 +160,7 @@ namespace RNGReporter
             // comboBoxAbility
             // 
             this.comboBoxAbility.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAbility.ForeColor = System.Drawing.Color.Black;
             this.comboBoxAbility.FormattingEnabled = true;
             this.comboBoxAbility.Items.AddRange(new object[] {
             "Single Ability",
@@ -163,6 +168,7 @@ namespace RNGReporter
             "Ability 1"});
             this.comboBoxAbility.Location = new System.Drawing.Point(12, 61);
             this.comboBoxAbility.Name = "comboBoxAbility";
+            this.comboBoxAbility.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxAbility.Size = new System.Drawing.Size(105, 21);
             this.comboBoxAbility.TabIndex = 15;
             // 
@@ -178,9 +184,11 @@ namespace RNGReporter
             // comboBoxGender
             // 
             this.comboBoxGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxGender.ForeColor = System.Drawing.Color.Black;
             this.comboBoxGender.FormattingEnabled = true;
             this.comboBoxGender.Location = new System.Drawing.Point(125, 61);
             this.comboBoxGender.Name = "comboBoxGender";
+            this.comboBoxGender.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxGender.Size = new System.Drawing.Size(240, 21);
             this.comboBoxGender.TabIndex = 17;
             // 
@@ -195,13 +203,15 @@ namespace RNGReporter
             // 
             // buttonClear
             // 
-            this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.buttonClear.ForeColor = System.Drawing.Color.Black;
             this.buttonClear.Location = new System.Drawing.Point(250, 120);
             this.buttonClear.Name = "buttonClear";
+            this.buttonClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonClear.ShineColor = System.Drawing.SystemColors.Window;
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 22;
             this.buttonClear.Text = "Clear";
-            this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // label3
@@ -216,14 +226,16 @@ namespace RNGReporter
             // buttonOk
             // 
             this.buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonOk.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonOk.ForeColor = System.Drawing.Color.Black;
             this.buttonOk.Location = new System.Drawing.Point(250, 348);
             this.buttonOk.Name = "buttonOk";
+            this.buttonOk.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonOk.ShineColor = System.Drawing.SystemColors.Window;
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 27;
             this.buttonOk.Text = "OK";
-            this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -248,9 +260,9 @@ namespace RNGReporter
             this.dataGridViewValues.AllowUserToAddRows = false;
             this.dataGridViewValues.AllowUserToDeleteRows = false;
             this.dataGridViewValues.AllowUserToResizeRows = false;
-            this.dataGridViewValues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewValues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -330,14 +342,16 @@ namespace RNGReporter
             // 
             // buttonCancel
             // 
+            this.buttonCancel.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCancel.ForeColor = System.Drawing.Color.Black;
             this.buttonCancel.Location = new System.Drawing.Point(330, 348);
             this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonCancel.ShineColor = System.Drawing.SystemColors.Window;
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 28;
             this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // labelSid
             // 
@@ -359,6 +373,7 @@ namespace RNGReporter
             // 
             // maskedTextBoxID
             // 
+            this.maskedTextBoxID.Hex = false;
             this.maskedTextBoxID.Location = new System.Drawing.Point(12, 101);
             this.maskedTextBoxID.Mask = "00000";
             this.maskedTextBoxID.Name = "maskedTextBoxID";
@@ -368,51 +383,63 @@ namespace RNGReporter
             // 
             // maskedTextBoxHP
             // 
+            this.maskedTextBoxHP.Hex = false;
             this.maskedTextBoxHP.Location = new System.Drawing.Point(125, 22);
             this.maskedTextBoxHP.Mask = "00";
             this.maskedTextBoxHP.Name = "maskedTextBoxHP";
             this.maskedTextBoxHP.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxHP.TabIndex = 3;
+            this.maskedTextBoxHP.Tag = "ivs";
             // 
             // maskedTextBoxAtk
             // 
+            this.maskedTextBoxAtk.Hex = false;
             this.maskedTextBoxAtk.Location = new System.Drawing.Point(166, 22);
             this.maskedTextBoxAtk.Mask = "00";
             this.maskedTextBoxAtk.Name = "maskedTextBoxAtk";
             this.maskedTextBoxAtk.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxAtk.TabIndex = 5;
+            this.maskedTextBoxAtk.Tag = "ivs";
             // 
             // maskedTextBoxDef
             // 
+            this.maskedTextBoxDef.Hex = false;
             this.maskedTextBoxDef.Location = new System.Drawing.Point(207, 22);
             this.maskedTextBoxDef.Mask = "00";
             this.maskedTextBoxDef.Name = "maskedTextBoxDef";
             this.maskedTextBoxDef.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxDef.TabIndex = 7;
+            this.maskedTextBoxDef.Tag = "ivs";
             // 
             // maskedTextBoxSpA
             // 
+            this.maskedTextBoxSpA.Hex = false;
             this.maskedTextBoxSpA.Location = new System.Drawing.Point(248, 22);
             this.maskedTextBoxSpA.Mask = "00";
             this.maskedTextBoxSpA.Name = "maskedTextBoxSpA";
             this.maskedTextBoxSpA.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpA.TabIndex = 9;
+            this.maskedTextBoxSpA.Tag = "ivs";
             // 
             // maskedTextBoxSpD
             // 
+            this.maskedTextBoxSpD.Hex = false;
             this.maskedTextBoxSpD.Location = new System.Drawing.Point(289, 22);
             this.maskedTextBoxSpD.Mask = "00";
             this.maskedTextBoxSpD.Name = "maskedTextBoxSpD";
             this.maskedTextBoxSpD.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpD.TabIndex = 11;
+            this.maskedTextBoxSpD.Tag = "ivs";
             // 
             // maskedTextBoxSpe
             // 
+            this.maskedTextBoxSpe.Hex = false;
             this.maskedTextBoxSpe.Location = new System.Drawing.Point(330, 22);
             this.maskedTextBoxSpe.Mask = "00";
             this.maskedTextBoxSpe.Name = "maskedTextBoxSpe";
             this.maskedTextBoxSpe.Size = new System.Drawing.Size(35, 20);
             this.maskedTextBoxSpe.TabIndex = 13;
+            this.maskedTextBoxSpe.Tag = "ivs";
             // 
             // ChainToSID
             // 

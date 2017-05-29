@@ -3186,5 +3186,11 @@ namespace RNGReporter
         {
             comboBoxMethod.SelectedIndex = type;
         }
+
+        private void iVsToFrameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var ivsToFrame = new IVstoFrame();
+            ivsToFrame.Show();
+        }
     }
 }

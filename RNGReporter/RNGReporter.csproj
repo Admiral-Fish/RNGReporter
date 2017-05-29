@@ -180,6 +180,26 @@
     <Compile Include="Controls\RoundGlossPainter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\SetIVs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SetIVs.Designer.cs">
+      <DependentUpon>SetIVs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\_DataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\_DataGridView.Designer.cs" />
+    <Compile Include="Controls\_MaskedTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\_MaskedTextBox.Designer.cs" />
+    <Compile Include="IVstoFrame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IVstoFrame.Designer.cs">
+      <DependentUpon>IVstoFrame.cs</DependentUpon>
+    </Compile>
     <Compile Include="JirachiGeneration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -519,6 +539,9 @@
     <EmbeddedResource Include="DSParametersIVCheck.resx">
       <DependentUpon>DSParametersIVCheck.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IVstoFrame.resx">
+      <DependentUpon>IVstoFrame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JirachiGeneration.resx">
       <DependentUpon>JirachiGeneration.cs</DependentUpon>

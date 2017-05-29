@@ -6,6 +6,7 @@ using RNGReporter.Objects;
 using System.Linq;
 using System.ComponentModel;
 using System.IO;
+using System.Globalization;
 
 namespace RNGReporter
 {
@@ -261,6 +262,7 @@ namespace RNGReporter
                     if (natureList == null || natureList.Contains(nature))
                     {
                         uint coloSeed = reverseXD(seedb);
+                        uint xorSeed = coloSeed ^ 0x80000000;
                         switch (shadow)
                         {
                             //No NL
@@ -271,16 +273,17 @@ namespace RNGReporter
                             case 1:
                                 bool cont = natureLock.method1FirstShadow(coloSeed);
                                 if (cont)
+                                {
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
+                                }
                                 else
                                 {
-                                    coloSeed ^= 0x80000000;
-                                    cont = natureLock.method1FirstShadow(coloSeed);
+                                    cont = natureLock.method1FirstShadow(xorSeed);
                                     if (cont)
                                     {
                                         pid ^= 0x80008000;
                                         nature = pid - 25 * (pid / 25);
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 0);
                                     }
                                 }
                                 break;
@@ -288,15 +291,17 @@ namespace RNGReporter
                             case 6:
                                 cont = natureLock.method1SecondShadowSet(coloSeed);
                                 if (cont)
+                                {
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 1);
+                                }
                                 else
                                 {
-                                    cont = natureLock.method1SecondShadowSet(coloSeed ^= 0x80000000);
+                                    cont = natureLock.method1SecondShadowSet(xorSeed);
                                     if (cont)
                                     {
                                         pid ^= 0x80008000;
                                         nature = pid - 25 * (pid / 25);
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed ^ 0x80000000, 1);
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 1);
                                     }
                                 }
 
@@ -305,15 +310,17 @@ namespace RNGReporter
 
                                 cont = natureLock.method1SecondShadowUnset(coloSeed);
                                 if (cont)
+                                {
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 2);
+                                }
                                 else
                                 {
-                                    cont = natureLock.method1SecondShadowUnset(coloSeed ^ 0x80000000);
+                                    cont = natureLock.method1SecondShadowUnset(xorSeed);
                                     if (cont)
                                     {
                                         pid ^= 0x80008000;
                                         nature = pid - 25 * (pid / 25);
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed ^ 0x80000000, 2);
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 2);
                                     }
                                 }
 
@@ -322,21 +329,20 @@ namespace RNGReporter
 
                                 cont = natureLock.method1SecondShadowShinySkip(coloSeed);
                                 if (cont)
+                                {
                                     filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
+                                }
                                 else
                                 {
-                                    coloSeed ^= 0x80000000;
-                                    cont = natureLock.method1SecondShadowShinySkip(coloSeed);
+                                    cont = natureLock.method1SecondShadowShinySkip(xorSeed);
                                     if (cont)
                                     {
                                         pid ^= 0x80008000;
                                         nature = pid - 25 * (pid / 25);
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 3);
                                     }
                                 }
-
-                                break;
-                            
+                                break; 
                         }
                     }
                 }
@@ -587,7 +593,7 @@ namespace RNGReporter
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeed(a, b, c, d, e, f, ability, gender);
                             }
-
+            
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
@@ -1374,7 +1380,7 @@ namespace RNGReporter
 
                 uint.TryParse(maskedTextBoxStartingFrame.Text, out uint initialFrame);
                 uint.TryParse(maskedTextBoxMaxFrames.Text, out uint maxFrame);
-                uint.TryParse(textBoxSeed.Text, out uint seed);
+                uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint seed);
                 int shadowMethod = comboBoxMethodShadow.SelectedIndex;
                 uint gender = (uint)comboBoxGenderShadow.SelectedIndex;
                 uint ability = (uint)comboBoxAbilityShadow.SelectedIndex;
@@ -1389,8 +1395,6 @@ namespace RNGReporter
                 searchThread = new Thread[1];
                 searchThread[0] = new Thread(() => shadowSearch(ivsLower, ivsUpper, initialFrame, maxFrame, seed, shadowMethod, gender, ability));
                 searchThread[0].Start();
-                var update = new Thread(updateGUI2);
-                update.Start();
             }
         }
 
@@ -1512,6 +1516,7 @@ namespace RNGReporter
                     break;
             }
             isSearching = false;
+            dataGridShadow.Invoke((MethodInvoker)(() => dataGridShadow.Refresh()));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -1777,36 +1782,6 @@ namespace RNGReporter
                 Invoke(resizeGrid);
             }
         }
-
-        private void updateGUI2()
-        {
-            gridUpdate = dataGridUpdate;
-            ThreadDelegate resizeGrid = dataGridShadow.AutoResizeColumns;
-            try
-            {
-                bool alive = true;
-                while (alive)
-                {
-                    if (refresh)
-                    {
-                        Invoke(gridUpdate);
-                        refresh = false;
-                    }
-                    if (searchThread == null || !isSearching)
-                    {
-                        alive = false;
-                    }
-
-                    Thread.Sleep(500);
-                }
-            }
-            finally
-            {
-                Invoke(gridUpdate);
-                Invoke(resizeGrid);
-            }
-        }
-
 
         #region Nested type: ThreadDelegate
 

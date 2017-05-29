@@ -216,6 +216,7 @@ namespace RNGReporter
             this.maskedTextBoxMaxFrames = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxMethod = new RNGReporter.GlassComboBox();
             this.checkBoxMemoryLink = new System.Windows.Forms.CheckBox();
+            this.iVsToFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripGrid.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripTimeFinder.SuspendLayout();
@@ -661,6 +662,7 @@ namespace RNGReporter
             this.bitSeedToTimeToolStripMenuItem,
             this.jirachiGenerationToolStripMenuItem,
             this.pIDToIVsToolStripMenuItem,
+            this.iVsToFrameToolStripMenuItem,
             this.togamiCalcToolStripMenuItem,
             this.pokespotToolStripMenuItem,
             this.toolStripSeparator4,
@@ -1977,6 +1979,13 @@ namespace RNGReporter
             this.checkBoxMemoryLink.UseVisualStyleBackColor = true;
             this.checkBoxMemoryLink.Visible = false;
             // 
+            // iVsToFrameToolStripMenuItem
+            // 
+            this.iVsToFrameToolStripMenuItem.Name = "iVsToFrameToolStripMenuItem";
+            this.iVsToFrameToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
+            this.iVsToFrameToolStripMenuItem.Text = "IVs to Frame";
+            this.iVsToFrameToolStripMenuItem.Click += new System.EventHandler(this.iVsToFrameToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2240,6 +2249,7 @@ namespace RNGReporter
         private System.Windows.Forms.ToolStripMenuItem jirachiGenerationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pIDToIVsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pokespotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iVsToFrameToolStripMenuItem;
     }
 }
 

@@ -14,6 +14,8 @@ Credits to Kaphotics for PID to IVs (aka Find Frame) logic and Pokespot RNG.
 
 Credits to CollectorTogami for TogamiCalc.
 
+Credits to Signum21 for IVs to Frame
+
 Credits for string flipping here http://stackoverflow.com/questions/228038/best-way-to-reverse-a-string
 
 # Planned Features 

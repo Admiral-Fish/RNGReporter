@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RNGReporter.Objects
 {
@@ -252,17 +248,8 @@ namespace RNGReporter.Objects
                     rng.GetNext32BitNumber();
                 pid = getPIDReverse();
                 genderval = pid & 255;
-                if ((genderval >= lockInfo[2 + 3 * x] && genderval <= lockInfo[3 + 3 * x]) || (lockInfo[2 + 3 * x] == 500 && lockInfo[3 + 3 * x] == 500))
-                {
-                    if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
-                    {
-                        countBackTwo(x);
-                    }
-                }
-                else
-                {
+                if ((genderval < lockInfo[2 + 3 * x] && genderval > lockInfo[3 + 3 * x]) || lockInfo[2 + 3 * x] != 500 || !(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] != 500)))
                     countBackTwo(x);
-                }
             }
 
             rng2.Seed = rng.Seed;
@@ -276,19 +263,8 @@ namespace RNGReporter.Objects
                     rng2.GetNext32BitNumber();
                 pid = getPIDForward();
                 genderval = pid & 255;
-                if ((genderval >= lockInfo[lastIndex + 1 - 3 * x] && genderval <= lockInfo[lastIndex + 2 - 3 * x]) || (lockInfo[lastIndex + 1 - 3 * x] == 500 && lockInfo[lastIndex + 1 - 3 * x] == 500))
-                {
-                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
-                    {
-                        {
-                            countForwardTwo(x);
-                        }
-                    }
-                }
-                else
-                {
+                if ((genderval < lockInfo[lastIndex + 1 - 3 * x] && genderval > lockInfo[lastIndex + 2 - 3 * x]) || lockInfo[lastIndex + 1 - 3 * x] != 500 || !(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] != 500)))
                     countForwardTwo(x);
-                }
             }
 
             return forwardCounter == backwardCounter;
@@ -317,17 +293,8 @@ namespace RNGReporter.Objects
                     rng.GetNext32BitNumber();
                 pid = getPIDReverse();
                 genderval = pid & 255;
-                if ((genderval >= lockInfo[2 + 3 * x] && genderval <= lockInfo[3 + 3 * x]) || (lockInfo[2 + 3 * x] == 500 && lockInfo[3 + 3 * x] == 500))
-                {
-                    if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
-                    {
-                        countBackTwo(x);
-                    }
-                }
-                else
-                {
+                if ((genderval < lockInfo[2 + 3 * x] && genderval > lockInfo[3 + 3 * x]) || lockInfo[2 + 3 * x] != 500 || !(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] != 500)))
                     countBackTwo(x);
-                }
             }
 
             rng2.Seed = rng.Seed;
@@ -341,17 +308,8 @@ namespace RNGReporter.Objects
                     rng2.GetNext32BitNumber();
                 pid = getPIDForward();
                 genderval = pid & 255;
-                if ((genderval >= lockInfo[lastIndex + 1 - 3 * x] && genderval <= lockInfo[lastIndex + 2 - 3 * x]) || (lockInfo[lastIndex + 1 - 3 * x] == 500 && lockInfo[lastIndex + 1 - 3 * x] == 500))
-                {
-                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
-                    {
-                        countForwardTwo(x);
-                    }
-                }
-                else
-                {
+                if ((genderval < lockInfo[lastIndex + 1 - 3 * x] && genderval > lockInfo[lastIndex + 2 - 3 * x]) || lockInfo[lastIndex + 1 - 3 * x] != 500 || !(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] != 500)))
                     countForwardTwo(x);
-                }
             }
 
             return forwardCounter == backwardCounter;
@@ -370,7 +328,7 @@ namespace RNGReporter.Objects
 
             //Backwards nature lock check
             uint genderval = pid & 255;
-            if (genderval < lockInfo[2] || genderval > lockInfo[3] || !((pid - 25 * (pid / 25)) == lockInfo[4]))
+            if (genderval < lockInfo[2] || genderval > lockInfo[3] || ((pid - 25 * (pid / 25)) != lockInfo[4]))
                 return false;
 
             for (int x = 1; x <= count; x++)
@@ -380,17 +338,8 @@ namespace RNGReporter.Objects
                     rng.GetNext32BitNumber();
                 pid = getPIDReverse();
                 genderval = pid & 255;
-                if ((genderval >= lockInfo[2 + 3 * x] && genderval <= lockInfo[3 + 3 * x]) || (lockInfo[2 + 3 * x] == 500 && lockInfo[3 + 3 * x] == 500))
-                {
-                    if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
-                    {
-                        countBackTwo(x);
-                    }
-                }
-                else
-                {
+                if ((genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x]) || lockInfo[2 + 3 * x] == 500 || ((pid - 25 * (pid / 25)) != lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500))
                     countBackTwo(x);
-                }
             }
 
             rng2.Seed = rng.Seed;
@@ -404,17 +353,8 @@ namespace RNGReporter.Objects
                     rng2.GetNext32BitNumber();
                 pid = getPIDForward();
                 genderval = pid & 255;
-                if ((genderval >= lockInfo[lastIndex + 1 - 3 * x] && genderval <= lockInfo[lastIndex + 2 - 3 * x]) || (lockInfo[lastIndex + 1 - 3 * x] == 500 && lockInfo[lastIndex + 1 - 3 * x] == 500))
-                {
-                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
-                    {
-                        countForwardTwo(x);
-                    }
-                }
-                else
-                {
+                if ((genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x]) || lockInfo[lastIndex + 1 - 3 * x] == 500 || ((pid - 25 * (pid / 25)) != lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500))
                     countForwardTwo(x);
-                }
             }
 
             return forwardCounter == backwardCounter;
@@ -425,7 +365,7 @@ namespace RNGReporter.Objects
             backwardCounter = 14;
             forwardCounter = 14;
             rng.Seed = seed;
-            for (int c = 0; c < 1; c++)
+            for (int j = 0; j < 8; j++)
                 rng.GetNext32BitNumber();
 
             uint pid, psv, psvtemp;
@@ -457,17 +397,8 @@ namespace RNGReporter.Objects
                     rng.GetNext32BitNumber();
                 pid = getPIDReverse();
                 genderval = pid & 255;
-                if ((genderval >= lockInfo[2 + 3 * x] && genderval <= lockInfo[3 + 3 * x]) || (lockInfo[2 + 3 * x] == 500 && lockInfo[3 + 3 * x] == 500))
-                {
-                    if (!(((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500)))
-                    {
-                        countBackTwo(x);
-                    }
-                }
-                else
-                {
+                if ((genderval < lockInfo[2 + 3 * x] && genderval > lockInfo[3 + 3 * x]) || lockInfo[2 + 3 * x] == 500 || ((pid - 25 * (pid / 25)) != lockInfo[4 + 3 * x]) || (lockInfo[4 + 3 * x] == 500))
                     countBackTwo(x);
-                }
             }
 
             rng2.Seed = rng.Seed;
@@ -481,17 +412,8 @@ namespace RNGReporter.Objects
                     rng2.GetNext32BitNumber();
                 pid = getPIDForward();
                 genderval = pid & 255;
-                if ((genderval >= lockInfo[lastIndex + 1 - 3 * x] && genderval <= lockInfo[lastIndex + 2 - 3 * x]) || (lockInfo[lastIndex + 1 - 3 * x] == 500 && lockInfo[lastIndex + 1 - 3 * x] == 500))
-                {
-                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500)))
-                    {
-                        countForwardTwo(x);
-                    }
-                }
-                else
-                {
+                if ((genderval < lockInfo[lastIndex + 1 - 3 * x] && genderval > lockInfo[lastIndex + 2 - 3 * x]) || lockInfo[lastIndex + 1 - 3 * x] == 500 || ((pid - 25 * (pid / 25)) != lockInfo[lastIndex + 3 - 3 * x]) || (lockInfo[lastIndex + 3 - 3 * x] == 500))
                     countForwardTwo(x);
-                }
             }
 
             for (int d = 0; d < 5; d++)
@@ -523,39 +445,15 @@ namespace RNGReporter.Objects
             for (int x = 0; x < count2; x++)
             {
                 forwardCounter += 5;
-                pid = (rand[forwardCounter - 1] & 0xFFFF0000) | (rand[forwardCounter] >> 16);
-                bool flag = true;
+                pid = getPIDShadow();
                 genderval = pid & 255;
-                if ((genderval >= lockInfo[lastIndex2 - 2 - 3 * x] && genderval <= lockInfo[lastIndex2 - 1 - 3 * x]) || (lockInfo[lastIndex2 - 2 - 3 * x] == 500 && lockInfo[lastIndex2 - 1 - 3 * x] == 500))
-                {
-                    if (!(((pid - 25 * (pid / 25)) == lockInfo[lastIndex2 - 3 * x]) || (lockInfo[lastIndex2 - 3 * x] == 500)))
-                    {
-                        while (flag)
-                        {
-                            forwardCounter += 2;
-                            pid = (rand[forwardCounter - 1] & 0xFFFF0000) | (rand[forwardCounter] >> 16);
-                            genderval = pid & 255;
-                            if (genderval >= lockInfo[lastIndex2 - 2 - 3 * x] && genderval <= lockInfo[lastIndex2 - 1 - 3 * x])
-                                if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex2 - 3 * x])
-                                    flag = false;
-                        }
-                    }
-                }
-                else
-                {
-                    while (flag)
-                    {
-                        forwardCounter += 2;
-                        pid = (rand[forwardCounter - 1] & 0xFFFF0000) | (rand[forwardCounter] >> 16);
-                        genderval = pid & 255;
-                        if (genderval >= lockInfo[lastIndex2 - 2 - 3 * x] && genderval <= lockInfo[lastIndex2 - 1 - 3 * x])
-                            if ((pid - 25 * (pid / 25)) == lockInfo[lastIndex2 - 3 * x])
-                                flag = false;
-                    }
-                }
+
+                if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || !((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]))
+                    countForwardTwoShadow(x);
             }
 
-            pid = (rand[forwardCounter + 6] & 0xFFFF0000) | (rand[forwardCounter + 7] >> 16);
+            forwardCounter += 7;
+            pid = getPIDShadow();
             iv1 = rand[forwardCounter + 3];
             iv2 = rand[forwardCounter + 4];
         }
@@ -731,12 +629,17 @@ namespace RNGReporter.Objects
             return (rng2.GetNext32BitNumber() & 0xFFFF0000) | rng2.GetNext16BitNumber();
         }
 
+        private uint getPIDShadow()
+        {
+            return (rand[forwardCounter - 1] & 0xFFFF0000) | (rand[forwardCounter] >> 16);
+        }
+
         private void countBackTwo(int x)
         {
             backwardCounter += 2;
             uint pid = getPIDReverse();
             uint genderval = pid & 255;
-            while (genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x] || !((pid - 25 * (pid / 25)) == lockInfo[4 + 3 * x]))
+            while (genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x] || ((pid - 25 * (pid / 25)) != lockInfo[4 + 3 * x]))
             {
                 backwardCounter += 2;
                 pid = getPIDReverse();
@@ -749,10 +652,23 @@ namespace RNGReporter.Objects
             forwardCounter += 2;
             uint pid = getPIDForward();
             uint genderval = pid & 255;
-            while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || !((pid - 25 * (pid / 25)) == lockInfo[lastIndex + 3 - 3 * x]))
+            while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || ((pid - 25 * (pid / 25)) != lockInfo[lastIndex + 3 - 3 * x]))
             {
                 forwardCounter += 2;
                 pid = getPIDForward();
+                genderval = pid & 255;
+            }
+        }
+
+        private void countForwardTwoShadow(int x)
+        {
+            forwardCounter += 2;
+            uint pid = getPIDShadow();
+            uint genderval = pid & 255;
+            while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || ((pid - 25 * (pid / 25)) != lockInfo[lastIndex + 3 - 3 * x]))
+            {
+                forwardCounter += 2;
+                pid = getPIDShadow();
                 genderval = pid & 255;
             }
         }

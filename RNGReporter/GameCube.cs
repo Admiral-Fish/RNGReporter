@@ -258,67 +258,62 @@ namespace RNGReporter
                     uint pid2 = forwardXD(pid1);
                     uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                     uint nature = pid - 25 * (pid / 25);
+                    uint galesSeed = reverseXD(seedb);
+                    bool pass = (natureList == null || natureList.Contains(nature)) ? true : false;
 
-                    if (natureList == null || natureList.Contains(nature))
+                    uint xorSeed = galesSeed ^ 0x80000000;
+                    uint xorPID = pid ^= 0x80008000;
+                    uint xorNature = xorPID - 25 * (xorPID / 25);
+                    bool xorPass = (natureList == null || natureList.Contains(xorNature)) ? true : false;
+
+                    switch (shadow)
                     {
-                        uint coloSeed = reverseXD(seedb);
-                        uint xorSeed = coloSeed ^ 0x80000000;
-                        switch (shadow)
-                        {
-                            //No NL
-                            case 0:
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
-                                pid ^= 0x80008000;
-                                nature = pid - 25 * (pid / 25);
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 0);
-                                break;
-                            //First shadow
-                            case 1:
-                                if (natureLock.method1FirstShadow(coloSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 0);
-                                }
-                                else if (natureLock.method1FirstShadow(xorSeed))
-                                {
-                                    pid ^= 0x80008000;
-                                    nature = pid - 25 * (pid / 25);
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 0);
-                                }
-                            break;
-                            //Second shadow
-                            case 6:
-                                if (natureLock.method1SecondShadowSet(coloSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 1);
-                                }
-                                else if (natureLock.method1SecondShadowSet(xorSeed))
-                                {
-                                    pid ^= 0x80008000;
-                                    nature = pid - 25 * (pid / 25);
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 1);
-                                }
-                                else if (natureLock.method1SecondShadowUnset(coloSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 2);
-                                }
-                                else if (natureLock.method1SecondShadowUnset(xorSeed))
-                                {
-                                    pid ^= 0x80008000;
-                                    nature = pid - 25 * (pid / 25);
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 2);
-                                }
-                                else if (natureLock.method1SecondShadowShinySkip(coloSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed, 3);
-                                }
-                                else if (natureLock.method1SecondShadowShinySkip(xorSeed))
-                                {
-                                    pid ^= 0x80008000;
-                                    nature = pid - 25 * (pid / 25);
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, xorSeed, 3);
-                                }
-                            break; 
-                        }
+                        //No NL
+                        case 0:
+                            if (pass)
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 0);
+
+                            if (xorPass)
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 0);
+                        break;
+                        //First shadow
+                        case 1:
+                            if (pass && natureLock.method1FirstShadow(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 0);
+                            }
+                            else if (xorPass && natureLock.method1FirstShadow(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 0);
+                            }
+                        break;
+                        //Second shadow
+                        case 6:
+                            if (pass && natureLock.method1SecondShadowSet(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 1);
+                            }
+                            else if (xorPass && natureLock.method1SecondShadowSet(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 1);
+                            }
+                            else if (pass && natureLock.method1SecondShadowUnset(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 2);
+                            }
+                            else if (xorPass && natureLock.method1SecondShadowUnset(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 2);
+                            }
+                            else if (pass && natureLock.method1SecondShadowShinySkip(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 3);
+                            }
+                            else if (xorPass && natureLock.method1SecondShadowShinySkip(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 3);
+                            }
+                        break; 
                     }
                 }
             }
@@ -1373,7 +1368,6 @@ namespace RNGReporter
         private void shadowSearch(uint[] ivsLower, uint[] ivsUpper, uint initialFrame, uint maxFrame, uint inSeed, int secondMethod, uint gender, uint ability)
         {
             var rng = new XdRng(inSeed);
-            var hunt = new XdRng(0);
 
             for (uint cnt = 1; cnt < initialFrame; cnt++)
                 rng.GetNext32BitNumber();

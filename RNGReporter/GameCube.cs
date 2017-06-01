@@ -29,8 +29,13 @@ namespace RNGReporter
         private uint shadow;
         private static List<uint> natureList;
         private static List<uint> hiddenPowerList;
+        private static uint genderFilter;
+        private static uint abilityFilter;
         private static bool galesFlag = false;
         private static List<uint> seedList;
+        private static uint[] ivsLower;
+        private static uint[] ivsUpper;
+        private static int natureLockIndex;
 
         public GameCube(int TID, int SID)
         {
@@ -94,7 +99,7 @@ namespace RNGReporter
         #region Start search
         private void search_Click(object sender, EventArgs e)
         {
-            getIVs(out uint[] ivsLower, out uint[] ivsUpper);
+            getIVs(out ivsLower, out ivsUpper);
             galesFlag = false;
 
             if (ivsLower[0] > ivsUpper[0])
@@ -133,6 +138,9 @@ namespace RNGReporter
                 if (temp.Count != 0)
                     hiddenPowerList = temp;
 
+                abilityFilter = (uint)abilityType.SelectedIndex;
+                genderFilter = (uint)genderType.SelectedIndex;
+
                 displayList = new List<DisplayList>();
                 binding = new BindingSource { DataSource = displayList };
                 dataGridViewResult.DataSource = binding;
@@ -147,48 +155,48 @@ namespace RNGReporter
                 {
                     shinyval = 0;
                 }
-                searchNumber = getSearchMethod();
+                searchNumber = (uint)searchMethod.SelectedIndex;
 
                 if (galesCheck.Checked)
                     Reason.Visible = true;
                 else
                     Reason.Visible = false;
 
-                getSearch(ivsLower, ivsUpper);
+                getSearch();
             }
         }
 
-        private void getSearch(uint[] ivsLower, uint[] ivsUpper)
+        private void getSearch()
         {
             if (searchNumber == 0)
             {
                 if (wshMkr.Checked)
                 {
                     searchThread = new Thread[1];
-                    searchThread[0] = new Thread(() => generateWishmkr(ivsLower, ivsUpper));
+                    searchThread[0] = new Thread(() => generateWishmkr());
                     searchThread[0].Start();
                     var update = new Thread(updateGUI);
                     update.Start();
                 }
                 else
-                    getRMethod(ivsLower, ivsUpper);
+                    getRMethod();
             }
             else if (searchNumber == 1)
             {
                 if (galesCheck.Checked == true)
-                    getGalesMethod(ivsLower, ivsUpper);
+                    getGalesMethod();
                 else
-                    getMethod(ivsLower, ivsUpper);
+                    getColoMethod();
             }
             else
-                getChannelMethod(ivsLower, ivsUpper);
+                getChannelMethod();
         }
         #endregion
 
         #region Gales Search
-        private void getGalesMethod(uint[] ivsLower, uint[] ivsUpper)
+        private void getGalesMethod()
         {
-            int natureLockIndex = getNatureLock();
+            natureLockIndex = shadowPokemon.SelectedIndex;
             natureLock = new NatureLock(natureLockIndex);
             shadow = natureLock.getType();
 
@@ -203,7 +211,7 @@ namespace RNGReporter
             if (method > 16384)
             {
                 searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateGales(ivsLower, ivsUpper));
+                searchThread[0] = new Thread(() => generateGales());
                 searchThread[0].Start();
                 var update = new Thread(updateGUI);
                 update.Start();
@@ -211,7 +219,7 @@ namespace RNGReporter
             else
             {
                 searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateGales(ivsLower, ivsUpper));
+                searchThread[0] = new Thread(() => generateGales());
                 searchThread[0].Start();
                 var update = new Thread(updateGUI);
                 update.Start();
@@ -220,11 +228,9 @@ namespace RNGReporter
         }
 
         #region First search method
-        private void generateGales(uint[] ivsLower, uint[] ivsUpper)
+        private void generateGales()
         {
             isSearching = true;
-            uint ability = getAbility();
-            uint gender = getGender();
 
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
@@ -234,13 +240,13 @@ namespace RNGReporter
                             {
                                 refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
-                                    checkSeedGales(a, b, c, d, e, f, ability, gender);
+                                    checkSeedGales(a, b, c, d, e, f);
                             }
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
-        private void checkSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
+        private void checkSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             uint x8 = hp | (atk << 5) | (def << 10);
             uint x8_2 = x8 ^ 0x8000;
@@ -271,47 +277,47 @@ namespace RNGReporter
                         //No NL
                         case 0:
                             if (pass)
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 0);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0);
 
                             if (xorPass)
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 0);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
                         break;
                         //First shadow
                         case 1:
                             if (pass && natureLock.method1FirstShadow(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 0);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0);
                             }
                             else if (xorPass && natureLock.method1FirstShadow(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 0);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
                             }
                         break;
                         //Second shadow
                         case 6:
                             if (pass && natureLock.method1SecondShadowSet(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 1);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1);
                             }
                             else if (xorPass && natureLock.method1SecondShadowSet(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 1);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1);
                             }
                             else if (pass && natureLock.method1SecondShadowUnset(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 2);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2);
                             }
                             else if (xorPass && natureLock.method1SecondShadowUnset(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 2);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2);
                             }
                             else if (pass && natureLock.method1SecondShadowShinySkip(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, galesSeed, 3);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3);
                             }
                             else if (xorPass && natureLock.method1SecondShadowShinySkip(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, ability, gender, xorPID, xorNature, xorSeed, 3);
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3);
                             }
                         break; 
                     }
@@ -319,10 +325,10 @@ namespace RNGReporter
             }
         }
 
-        private void filterSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint pid, uint nature, uint seed, int num)
+        private void filterSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed, int num)
         {
             String shiny = "";
-            if (getNatureLock() == 41)
+            if (natureLockIndex == 41)
                 if (Shiny_Check.Checked)
                 {
                     if (!isShiny(pid))
@@ -335,45 +341,47 @@ namespace RNGReporter
                 if (!hiddenPowerList.Contains(actualHP))
                     return;
 
-            if (ability != 0)
+            uint ability = pid & 1;
+            if (abilityFilter != 0)
             {
-                if ((pid & 1) != (ability - 1))
+                if (ability != (abilityFilter - 1))
                     return;
             }
             ability = pid & 1;
 
-            switch(gender)
+            uint gender = pid & 255;
+            switch (genderFilter)
             {
                 case 1:
-                    if ((pid & 255) < 127)
+                    if (gender < 127)
                         return;
                     break;
                 case 2:
-                    if ((pid & 255) > 126)
+                    if (gender > 126)
                         return;
                     break;
                 case 3:
-                    if ((pid & 255) < 191)
+                    if (gender < 191)
                         return;
                     break;
                 case 4:
-                    if ((pid & 255) > 190)
+                    if (gender > 190)
                         return;
                     break;
                 case 5:
-                    if ((pid & 255) < 64)
+                    if (gender < 64)
                         return;
                     break;
                 case 6:
-                    if ((pid & 255) > 63)
+                    if (gender > 63)
                         return;
                     break;
                 case 7:
-                    if ((pid & 255) < 31)
+                    if (gender < 31)
                         return;
                     break;
                 case 8:
-                    if ((pid & 255) > 30)
+                    if (gender > 30)
                         return;
                     break;
             }
@@ -400,21 +408,17 @@ namespace RNGReporter
         #endregion
 
         #region Second search method
-        private void generateGales2(uint[] ivsLower, uint[] ivsUpper)
+        private void generateGales2()
         {
             seedList = new List<uint>(); 
             uint s = 0;
             uint srange = 1048576;
             isSearching = true;
 
-            uint ability = getAbility();
-            uint gender = getGender();
-
             for (uint z = 0; z < 32; z++)
             {
                 for (uint h = 0; h < 64; h++)
                 {
-                    populate(s, srange + 1500);
                     for (uint n = 0; n < srange; n++)
                     {  
                         for (uint sisterSeed = 0; sisterSeed < 2; sisterSeed++)
@@ -426,13 +430,13 @@ namespace RNGReporter
                                 uint tempSeed = sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000;
                                 if (!seedList.Contains(tempSeed))
                                 {
-                                    uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forward));
+                                    uint[] ivs = calcIVs((uint)(n + forward));
                                     if (ivs != null)
                                     {
                                         uint pid = pidChk((uint)(n + forward), sisterSeed);
                                         uint nature = pid - 25 * (pid / 25);
                                         if (natureList == null || natureList.Contains(nature))
-                                            filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, tempSeed, 0);
+                                            filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, tempSeed, 0);
                                     }
                                 }
                             }
@@ -445,13 +449,13 @@ namespace RNGReporter
                                     uint tempSeed = sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000;
                                     if (!seedList.Contains(tempSeed))
                                     {
-                                        uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forward));
+                                        uint[] ivs = calcIVs((uint)(n + forward));
                                         if (ivs != null)
                                         {
                                             uint pid = pidChk((uint)(n + forward), sisterSeed);
                                             uint nature = pid - 25 * (pid / 25);
                                             if (natureList == null || natureList.Contains(nature))
-                                                filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, tempSeed, 0);
+                                                filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, tempSeed, 0);
                                         }
                                     }
                                 }
@@ -492,12 +496,12 @@ namespace RNGReporter
                                         uint tempSeed = sisterSeed == 0 ? slist[(int)(n + forward)] : slist[(int)(n + forward)] ^ 0x80000000;
                                         if (!seedList.Contains(tempSeed))
                                         {
-                                            uint[] ivs = calcIVs(ivsLower, ivsUpper, (uint)(n + forward + shinySkipCount));
+                                            uint[] ivs = calcIVs((uint)(n + forward + shinySkipCount));
                                             if (ivs != null)
                                             {
                                                 uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
                                                 if (natureList == null || natureList.Contains(nature))
-                                                    filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, tempSeed, secondShadowNum);
+                                                    filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, tempSeed, secondShadowNum);
                                             }
                                         }
                                     }
@@ -518,7 +522,7 @@ namespace RNGReporter
         #endregion
 
         #region Colo search
-        private void getMethod(uint[] ivsLower, uint[] ivsUpper)
+        private void getColoMethod()
         {
             uint method = 1;
 
@@ -531,7 +535,7 @@ namespace RNGReporter
             if (method > 84095)
             {
                 searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generate2(ivsLower, ivsUpper));
+                searchThread[0] = new Thread(() => generateColo2());
                 searchThread[0].Start();
                 var update = new Thread(updateGUI);
                 update.Start();
@@ -539,7 +543,7 @@ namespace RNGReporter
             else
             {
                 searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generate(ivsLower, ivsUpper));
+                searchThread[0] = new Thread(() => generateColo());
                 searchThread[0].Start();
                 var update = new Thread(updateGUI);
                 update.Start();
@@ -547,12 +551,10 @@ namespace RNGReporter
         }
 
         #region First search method
-        private void generate(uint[] ivsLower, uint[] ivsUpper)
+        private void generateColo()
         {
             isSearching = true;
-            uint ability = getAbility();
-            uint gender = getGender();
-
+            
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
@@ -561,7 +563,7 @@ namespace RNGReporter
                             {
                                 refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
-                                    checkSeed(a, b, c, d, e, f, ability, gender);
+                                    checkSeed(a, b, c, d, e, f);
                             }
             
             isSearching = false;
@@ -569,7 +571,7 @@ namespace RNGReporter
         }
 
         //Credit to RNG Reporter for this
-        private void checkSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
+        private void checkSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             uint x8 = hp + (atk << 5) + (def << 10);
             uint x8_2 = x8 ^ 0x8000;
@@ -590,7 +592,7 @@ namespace RNGReporter
                     if (natureList == null || natureList.Contains(nature))
                     {
                         uint coloSeed = reverseXD(seedb);
-                        filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed);
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, coloSeed);
                     }
 
                     pid ^= 0x80008000;
@@ -598,14 +600,14 @@ namespace RNGReporter
                     if (natureList == null || natureList.Contains(nature))
                     {
                         uint coloSeed = reverseXD(seedb) ^ 0x80000000;
-                        filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, coloSeed);
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, coloSeed);
                     }
                 }
                 
             }
         }
 
-        private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint pid, uint nature, uint seed)
+        private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed)
         {
             String shiny = "";
             if (!galesFlag)
@@ -621,43 +623,44 @@ namespace RNGReporter
                 if (!hiddenPowerList.Contains(actualHP))
                     return;
 
-            if (ability != 0)
-                if ((pid & 1) != (ability - 1))
+            uint ability = pid & 1;
+            if (abilityFilter != 0)
+                if (ability != (abilityFilter - 1))
                     return;
-            ability = pid & 1;
 
-            switch (gender)
+            uint gender = pid & 255;
+            switch (genderFilter)
             {
                 case 1:
-                    if ((pid & 255) < 127)
+                    if (gender < 127)
                         return;
                     break;
                 case 2:
-                    if ((pid & 255) > 126)
+                    if (gender > 126)
                         return;
                     break;
                 case 3:
-                    if ((pid & 255) < 191)
+                    if (gender < 191)
                         return;
                     break;
                 case 4:
-                    if ((pid & 255) > 190)
+                    if (gender > 190)
                         return;
                     break;
                 case 5:
-                    if ((pid & 255) < 64)
+                    if (gender < 64)
                         return;
                     break;
                 case 6:
-                    if ((pid & 255) > 63)
+                    if (gender > 63)
                         return;
                     break;
                 case 7:
-                    if ((pid & 255) < 31)
+                    if (gender < 31)
                         return;
                     break;
                 case 8:
-                    if ((pid & 255) > 30)
+                    if (gender > 30)
                         return;
                     break;
             }
@@ -668,40 +671,50 @@ namespace RNGReporter
 
         #region Second search method
         //Credits to Zari for this
-        private void generate2(uint[] ivsLower, uint[] ivsUpper)
+        private void generateColo2()
         {
-            uint s = 0;
-            uint srange = 1048576;
             isSearching = true;
 
-            uint ability = getAbility();
-            uint gender = getGender();
+            uint[] seedLong = new uint[6];
+            uint[] seedShort = new uint[6];
+            var rng = new XdRng(0);
+            seedLong[0] = 0;
+            seedShort[0] = 0;
+
+            for (int x = 1; x < 6; x++)
+            {
+                seedShort[x] = rng.GetNext16BitNumber();
+                seedLong[x] = rng.Seed;
+            }
+
+            int j = 5;
+            uint pid, nature;
+            uint[] ivs;
 
             for (uint z = 0; z < 32; z++)
             {
                 for (uint h = 0; h < 64; h++)
                 {
-                    populate(s, srange);
-                    for (uint n = 0; n < srange; n++)
+                    for (uint n = 0; n < 1048576; n++, seedShort[j] = rng.GetNext16BitNumber(), seedLong[j] = rng.Seed)
                     {
-                        uint[] ivs = calcIVs(ivsLower, ivsUpper, n);
+                        if (++j > 5)
+                            j = 0;
+
+                        ivs = createIVs(seedShort[j >= 5 ? j - 5 : j + 1], seedShort[j >= 4 ? j - 4 : j + 2]);
                         if (ivs != null)
                         {
-                            uint pid = pidChk(n, 0);
-                            uint nature = pid - 25 * (pid / 25);
-                            if (natureList == null || natureList.Contains(nature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, slist[(int)n]);
-
-                            pid = pidChk(n, 1);
+                            pid = seedLong[j >= 2 ? j - 2 : j + 4] & 0xFFFF0000 | seedShort[j >= 1 ? j - 1 : j + 5];
                             nature = pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(nature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, slist[(int)n] ^ 0x8000000);
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j == 0 ? 5 : j - 1]);
+
+                            pid ^= 0x80008000;
+                            nature = pid - 25 * (pid / 25);
+                            if (natureList == null || natureList.Contains(nature))
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j == 0 ? 5 : j - 1] ^ 0x80000000);
                         }
                     }
                     refresh = true;
-                    s = slist[(int)srange];
-                    slist.Clear();
-                    rlist.Clear();
                 }
             }
             isSearching = false;
@@ -723,16 +736,7 @@ namespace RNGReporter
                 s = populateRNG(s);
         }
 
-        private uint[] calcIVs(uint[] ivsLower, uint[] ivsUpper, uint frame)
-        {
-            uint[] ivs;
-            uint iv1 = rlist[(int)(frame + 1)];
-            uint iv2 = rlist[(int)(frame + 2)];
-            ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
-            return ivs;
-        }
-
-        private uint[] createIVs(uint iv1, uint ivs2, uint[] ivsLower, uint[] ivsUpper)
+        private uint[] createIVs(uint iv1, uint ivs2)
         {
             uint[] ivs = new uint[6];
 
@@ -766,21 +770,12 @@ namespace RNGReporter
 
             return ivs;
         }
-
-        private uint pidChk(uint frame, uint xor_val)
-        {
-            uint pid = (rlist[(int)(frame + 4)] << 16) | rlist[(int)(frame + 5)];
-            if (xor_val == 1)
-                pid = pid ^ 0x80008000;
-
-            return pid;
-        }
         #endregion
         #endregion
 
         #region Channel
 
-        private void getChannelMethod(uint[] ivsLower, uint[] ivsUpper)
+        private void getChannelMethod()
         {
             uint method = 1;
 
@@ -793,7 +788,7 @@ namespace RNGReporter
             if (method > 120)
             {
                 searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateChannel2(ivsLower, ivsUpper));
+                searchThread[0] = new Thread(() => generateChannel2());
                 searchThread[0].Start();
                 var update = new Thread(updateGUI);
                 update.Start();
@@ -801,7 +796,7 @@ namespace RNGReporter
             else
             {
                 searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateChannel(ivsLower, ivsUpper));
+                searchThread[0] = new Thread(() => generateChannel());
                 searchThread[0].Start();
                 var update = new Thread(updateGUI);
                 update.Start();
@@ -809,11 +804,9 @@ namespace RNGReporter
         }
 
         #region Search 1
-        private void generateChannel(uint[] ivsLower, uint[] ivsUpper)
+        private void generateChannel()
         {
             isSearching = true;
-            uint ability = getAbility();
-            uint gender = getGender();
 
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
@@ -823,14 +816,14 @@ namespace RNGReporter
                             {
                                 refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
-                                    checkSeedChannel(a, b, c, d, e, f, ability, gender);
+                                    checkSeedChannel(a, b, c, d, e, f);
                             }
 
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
-        private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
+        private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             uint x16 = spd << 27;
             uint upper = x16 | 0x7ffffff;
@@ -866,7 +859,7 @@ namespace RNGReporter
                                     {
                                         uint seed = rng.GetNext32BitNumber();
                                         shinyval = (40122 ^ (sid)) >> 3;
-                                        filterSeedChannel(hp, atk, def, spa, spd, spe, ability, gender, seed, pid, nature);
+                                        filterSeedChannel(hp, atk, def, spa, spd, spe, seed, pid, nature);
                                     }
                                 }
                             }
@@ -879,14 +872,11 @@ namespace RNGReporter
 
         #region Search 2
         //Credits to Zari and amab for this
-        private void generateChannel2(uint[] ivsLower, uint[] ivsUpper)
+        private void generateChannel2()
         {
             uint s = 0;
             uint srange = 1048576;
             isSearching = true;
-
-            uint ability = getAbility();
-            uint gender = getGender();
 
             for (uint z = 0; z < 32; z++)
             {
@@ -895,7 +885,7 @@ namespace RNGReporter
                     populate(s, srange);
                     for (uint n = 0; n < srange; n++)
                     {
-                        uint[] ivs = calcIVsChannel(ivsLower, ivsUpper, n, 0);
+                        uint[] ivs = calcIVsChannel(n, 0);
                         if (ivs != null)
                         {
                             uint pid = pidChkChannel(rlist[(int)(n + 2)], rlist[(int)(n + 3)], rlist[(int)n + 1]);
@@ -903,10 +893,10 @@ namespace RNGReporter
                             if (natureList == null || natureList.Contains(nature))
                             {
                                 shinyval = (40122 ^ rlist[(int)n + 1]) >> 3;
-                                filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, slist[(int)n], pid, nature);
+                                filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], slist[(int)n], pid, nature);
                             }
 
-                            ivs = calcIVsChannel(ivsLower, ivsUpper, n, 1);
+                            ivs = calcIVsChannel(n, 1);
                             if (ivs != null)
                             {
                                 pid = pidChkChannel(rlist[(int)(n + 2)] ^ 0x8000, rlist[(int)(n + 3)] ^ 0x8000, rlist[(int)n + 1] ^ 0x8000);
@@ -914,7 +904,7 @@ namespace RNGReporter
                                 if (natureList == null || natureList.Contains(nature))
                                 {
                                     shinyval = (40122 ^ (rlist[(int)n + 1] ^ 0x8000)) >> 3;
-                                    filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, (slist[(int)n] ^ 0x80000000), pid, nature);
+                                    filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (slist[(int)n] ^ 0x80000000), pid, nature);
                                 }
                             }
                         }
@@ -929,24 +919,24 @@ namespace RNGReporter
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
-        private uint[] calcIVsChannel(uint[] ivsLower, uint[] ivsUpper, uint frame, uint xorvalue)
+        private uint[] calcIVsChannel(uint frame, uint xorvalue)
         {
             uint[] ivs;
             if (xorvalue == 0)
             {
                 uint[] iv = { rlist[(int)(frame + 7)], rlist[(int)(frame + 8)], rlist[(int)(frame + 9)], rlist[(int)(frame + 11)], rlist[(int)(frame + 12)], rlist[(int)(frame + 10)] };
-                ivs = createIVsChannel(iv, ivsLower, ivsUpper);
+                ivs = createIVsChannel(iv);
             }
             else
             {
                 uint[] iv = { rlist[(int)(frame + 7)] ^ 0x8000, rlist[(int)(frame + 8)] ^ 0x8000, rlist[(int)(frame + 9)] ^ 0x8000, rlist[(int)(frame + 11)] ^ 0x8000, rlist[(int)(frame + 12)] ^ 0x8000, rlist[(int)(frame + 10)] ^ 0x8000 };
-                ivs = createIVsChannel(iv, ivsLower, ivsUpper);
+                ivs = createIVsChannel(iv);
             }
 
             return ivs;
         }
 
-        private uint[] createIVsChannel(uint[] iv, uint[] ivsLower, uint[] ivsUpper)
+        private uint[] createIVsChannel(uint[] iv)
         {
             uint[] ivs = new uint[6];
 
@@ -970,7 +960,7 @@ namespace RNGReporter
             return pid;
         }
 
-        private void filterSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender, uint seed, uint pid, uint nature)
+        private void filterSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint seed, uint pid, uint nature)
         {
             String shiny = "";
             if (Shiny_Check.Checked == true)
@@ -985,53 +975,55 @@ namespace RNGReporter
                 if (!hiddenPowerList.Contains(actualHP))
                     return;
 
-            if (ability != 0)
-                if ((pid & 1) != (ability - 1))
+            uint ability = pid & 1;
+            if (abilityFilter != 0)
+                if (ability != (abilityFilter - 1))
                     return;
-            ability = pid & 1;
 
-            switch (gender)
+            uint gender = pid & 255;
+            switch (genderFilter)
             {
                 case 1:
-                    if ((pid & 255) < 127)
+                    if (gender < 127)
                         return;
                     break;
                 case 2:
-                    if ((pid & 255) > 126)
+                    if (gender > 126)
                         return;
                     break;
                 case 3:
-                    if ((pid & 255) < 191)
+                    if (gender < 191)
                         return;
                     break;
                 case 4:
-                    if ((pid & 255) > 190)
+                    if (gender > 190)
                         return;
                     break;
                 case 5:
-                    if ((pid & 255) < 64)
+                    if (gender < 64)
                         return;
                     break;
                 case 6:
-                    if ((pid & 255) > 63)
+                    if (gender > 63)
                         return;
                     break;
                 case 7:
-                    if ((pid & 255) < 31)
+                    if (gender < 31)
                         return;
                     break;
                 case 8:
-                    if ((pid & 255) > 30)
+                    if (gender > 30)
                         return;
                     break;
             }
+
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "");
         }
         #endregion
         #endregion
 
         #region Reverse Method 1
-        private void getRMethod(uint[] ivsLower, uint[] ivsUpper)
+        private void getRMethod()
         {
             uint method = 1;
 
@@ -1044,7 +1036,7 @@ namespace RNGReporter
             if (method > 76871)
             {
                 searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateR2(ivsLower, ivsUpper));
+                searchThread[0] = new Thread(() => generateR2());
                 searchThread[0].Start();
                 var update = new Thread(updateGUI);
                 update.Start();
@@ -1052,7 +1044,7 @@ namespace RNGReporter
             else
             {
                 searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateR(ivsLower, ivsUpper));
+                searchThread[0] = new Thread(() => generateR2());
                 searchThread[0].Start();
                 var update = new Thread(updateGUI);
                 update.Start();
@@ -1060,11 +1052,9 @@ namespace RNGReporter
         }
 
         #region Search 1
-        private void generateR(uint[] ivsLower, uint[] ivsUpper)
+        private void generateR()
         {
             isSearching = true;
-            uint ability = getAbility();
-            uint gender = getGender();
 
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
@@ -1074,7 +1064,7 @@ namespace RNGReporter
                             {
                                 refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
-                                    checkSeedR(a, b, c, d, e, f, ability, gender);
+                                    checkSeedR(a, b, c, d, e, f);
                             }
 
             isSearching = false;
@@ -1082,7 +1072,7 @@ namespace RNGReporter
         }
 
         //Credits to RNG reporter for this
-        private void checkSeedR(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint ability, uint gender)
+        private void checkSeedR(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             uint x4 = hp | (atk << 5) | (def << 10);
             uint x4_2 = x4 ^ 0x8000;
@@ -1103,7 +1093,7 @@ namespace RNGReporter
                     uint seed = reverse(pid1);
                     if (natureList == null || natureList.Contains(nature))
                     {
-                        filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
                     }
 
                     pid ^= 0x80008000;
@@ -1111,7 +1101,7 @@ namespace RNGReporter
                     if (natureList == null || natureList.Contains(nature))
                     {
                         seed ^= 0x80000000;
-                        filterSeed(hp, atk, def, spa, spd, spe, ability, gender, pid, nature, seed);
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
                     }
                 }
             }
@@ -1119,123 +1109,62 @@ namespace RNGReporter
         #endregion
 
         #region Search 2
-        private void generateR2(uint[] ivsLower, uint[] ivsUpper)
+        private void generateR2()
         {
-            uint s = 0;
-            uint srange = 1048576;
             isSearching = true;
+            uint[] seedLong = new uint[5];
+            uint[] seedShort = new uint[5];
+            seedLong[0] = 0;
+            seedShort[0] = 0;
+            var rng = new PokeRng(0);
 
-            uint ability = getAbility();
-            uint gender = getGender();
+            for (int x = 1; x < 5; x++)
+            {
+                seedShort[x] = rng.GetNext16BitNumber();
+                seedLong[x] = rng.Seed;
+            }
+
+            uint pid, nature;
+            uint[] ivs;
+            int j = 4;
 
             for (uint z = 0; z < 32; z++)
             {
                 for (uint h = 0; h < 64; h++)
                 {
-                    populateR(s, srange);
-                    for (uint n = 0; n < srange; n++)
+                    for (uint n = 0; n < 1048576; n++, seedShort[j] = rng.GetNext16BitNumber(), seedLong[j] = rng.Seed)
                     {
-                        uint[] ivs = calcIVsR(ivsLower, ivsUpper, n);
+                        if (++j > 4)
+                            j = 0;
+
+                        ivs = createIVs(seedShort[j >= 2 ? j - 2 : j + 3], seedShort[j >= 1 ? j - 1 : j + 4]);
                         if (ivs != null)
                         {
-                            uint pid = pidChkR(n, 0);
-                            uint nature = pid - 25 * (pid / 25);
-                            if (natureList == null || natureList.Contains(nature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, slist[(int)(n)]);
-
-                            pid = pidChkR(n, 1);
+                            pid = seedLong[j >= 4 ? j - 4 : j + 1] & 0xFFFF0000 | seedShort[j >= 3 ? j - 3 : j + 2];
                             nature = pid - 25 * (pid / 25);
                             if (natureList == null || natureList.Contains(nature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, slist[(int)(n)] ^ 0x80000000);
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j]);
+
+                            pid ^= 0x80008000;
+                            nature = pid - 25 * (pid / 25);
+                            if (natureList == null || natureList.Contains(nature))
+                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j] ^ 0x80000000);
                         }
                     }
                     refresh = true;
-                    s = slist[(int)srange];
-                    slist.Clear();
-                    rlist.Clear();
                 }
             }
             isSearching = false;
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
-
-        private uint populateRNGR(uint seed)
-        {
-            seed = forward(seed);
-            slist.Add(seed);
-            rlist.Add((seed >> 16));
-            return seed;
-        }
-
-        private void populateR(uint seed, uint srange)
-        {
-            uint s = seed;
-            for (uint x = 0; x < (srange + 10); x++)
-                s = populateRNGR(s);
-        }
-
-        private uint[] calcIVsR(uint[] ivsLower, uint[] ivsUpper, uint frame)
-        {
-            uint[] ivs;
-            uint iv1 = rlist[(int)(frame + 3)];
-            uint iv2 = rlist[(int)(frame + 4)];
-            ivs = createIVsR(iv1, iv2, ivsLower, ivsUpper);
-            return ivs;
-        }
-
-        private uint[] createIVsR(uint iv1, uint ivs2, uint[] ivsLower, uint[] ivsUpper)
-        {
-            uint[] ivs = new uint[6];
-
-            for (int x = 0; x < 3; x++)
-            {
-                int q = x * 5;
-                uint iv = (iv1 >> q) & 31;
-                if (iv >= ivsLower[x] && iv <= ivsUpper[x])
-                    ivs[x] = iv;
-                else
-                    return null;
-            }
-
-            uint iV = (ivs2 >> 5) & 31;
-            if (iV >= ivsLower[3] && iV <= ivsUpper[3])
-                ivs[3] = iV;
-            else
-                return null;
-
-            iV = (ivs2 >> 10) & 31;
-            if (iV >= ivsLower[4] && iV <= ivsUpper[4])
-                ivs[4] = iV;
-            else
-                return null;
-
-            iV = ivs2 & 31;
-            if (iV >= ivsLower[5] && iV <= ivsUpper[5])
-                ivs[5] = iV;
-            else
-                return null;
-
-            return ivs;
-        }
-
-        private uint pidChkR(uint frame, uint xor_val)
-        {
-            uint pid = (rlist[(int)(frame + 1)] << 16) | rlist[(int)(frame + 2)];
-            if (xor_val == 1)
-                pid = pid ^ 0x80008000;
-
-            return pid;
-        }
         #endregion
         #endregion
 
         #region Wishmkr
-        private void generateWishmkr(uint[] IVsLower, uint[] IVsUpper)
+        private void generateWishmkr()
         {
             isSearching = true;
             shinyval = 2505;
-            uint ability = getAbility();
-            uint gender = getGender();
 
             for (uint x = 0; x <= 0xFFFF; x++)
             {
@@ -1250,9 +1179,9 @@ namespace RNGReporter
                     uint ivs2 = forward(ivs1);
                     ivs1 >>= 16;
                     ivs2 >>= 16;
-                    uint[] ivs = createIVsR(ivs1, ivs2, IVsLower, IVsUpper);
+                    uint[] ivs = createIVs(ivs1, ivs2);
                     if (ivs != null)
-                        filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], ability, gender, pid, nature, x);
+                        filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, x);
                 }
             }
             isSearching = false;
@@ -1312,7 +1241,7 @@ namespace RNGReporter
 
         private void generateShadow_Click(object sender, EventArgs e)
         {
-            getIVsShadow(out uint[] ivsLower, out uint[] ivsUpper);
+            getIVsShadow(out ivsLower, out ivsUpper);
             if (ivsLower[0] > ivsUpper[0])
                 MessageBox.Show("HP: Lower limit > Upper limit");
             else if (ivsLower[1] > ivsUpper[1])
@@ -1360,12 +1289,12 @@ namespace RNGReporter
                 status.Text = "Searching";
 
                 searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => shadowSearch(ivsLower, ivsUpper, initialFrame, maxFrame, seed, shadowMethod, gender, ability));
+                searchThread[0] = new Thread(() => shadowSearch(initialFrame, maxFrame, seed, shadowMethod, gender, ability));
                 searchThread[0].Start();
             }
         }
 
-        private void shadowSearch(uint[] ivsLower, uint[] ivsUpper, uint initialFrame, uint maxFrame, uint inSeed, int secondMethod, uint gender, uint ability)
+        private void shadowSearch(uint initialFrame, uint maxFrame, uint inSeed, int secondMethod, uint gender, uint ability)
         {
             var rng = new XdRng(inSeed);
 
@@ -1391,7 +1320,7 @@ namespace RNGReporter
                         nature = pid - 25 * (pid / 25);
                         if (natureList == null || natureList.Contains(nature))
                         {
-                            ivs = createIVs(rand[0], rand[1], ivsLower, ivsUpper);
+                            ivs = createIVs(rand[0], rand[1]);
                             if (ivs != null)
                                 filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(initialFrame + cnt), nature, pid, gender, ability);
                         }
@@ -1411,7 +1340,7 @@ namespace RNGReporter
                         nature = pid - 25 * (pid / 25);
                         if (natureList == null || natureList.Contains(nature))
                         {
-                            ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+                            ivs = createIVs(iv1, iv2);
                             if (ivs != null)
                                 filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
                         }
@@ -1434,7 +1363,7 @@ namespace RNGReporter
                                 nature = pid - 25 * (pid / 25);
                                 if (natureList == null || natureList.Contains(nature))
                                 {
-                                    ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+                                    ivs = createIVs(iv1, iv2);
                                     if (ivs != null)
                                         filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
                                 }
@@ -1453,7 +1382,7 @@ namespace RNGReporter
                                 nature = pid - 25 * (pid / 25);
                                 if (natureList == null || natureList.Contains(nature))
                                 {
-                                    ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+                                    ivs = createIVs(iv1, iv2);
                                     if (ivs != null)
                                         filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
                                 }
@@ -1472,7 +1401,7 @@ namespace RNGReporter
                                 nature = pid - 25 * (pid / 25);
                                 if (natureList == null || natureList.Contains(nature))
                                 {
-                                    ivs = createIVs(iv1, iv2, ivsLower, ivsUpper);
+                                    ivs = createIVs(iv1, iv2);
                                     if (ivs != null)
                                         filterSeedShadow(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], (int)(cnt + initialFrame), nature, pid, gender, ability);
                                 }
@@ -1651,38 +1580,6 @@ namespace RNGReporter
             }
         }
 
-        private int getNatureLock()
-        {
-            if (shadowPokemon.InvokeRequired)
-                return (int)shadowPokemon.Invoke(new Func<int>(getNatureLock));
-            else
-                return (int)shadowPokemon.SelectedIndex;
-        }
-
-        private uint getAbility()
-        {
-            if (abilityType.InvokeRequired)
-                return (uint)abilityType.Invoke(new Func<uint>(getAbility));
-            else
-                return (uint)abilityType.SelectedIndex;
-        }
-
-        private uint getGender()
-        {
-            if (genderType.InvokeRequired)
-                return (uint)genderType.Invoke(new Func<uint>(getGender));
-            else
-                return (uint)genderType.SelectedIndex;
-        }
-
-        private uint getSearchMethod()
-        {
-            if (searchMethod.InvokeRequired)
-                return (uint)searchMethod.Invoke(new Func<uint>(getSearchMethod));
-            else
-                return (uint)searchMethod.SelectedIndex;
-        }
-
         private uint forwardXD(uint seed)
         {
             return seed * 0x343FD + 0x269EC3;
@@ -1762,7 +1659,7 @@ namespace RNGReporter
 
         private String[] addHP()
         {
-            String[] temp = new String[]
+            return new String[]
                 {
                     "Fighting",
                     "Flying",
@@ -1781,20 +1678,16 @@ namespace RNGReporter
                     "Dragon",
                     "Dark"
                 };
-
-            return temp;
         }
 
         private String[] addShadowMethod()
         {
-            String[] temp = new String[]
+            return new String[]
                 {
                     "Set",
                     "Unset",
                     "Shiny Skip"
                 };
-
-            return temp;
         }
         #endregion
 

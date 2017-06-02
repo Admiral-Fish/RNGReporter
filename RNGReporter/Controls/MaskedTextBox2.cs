@@ -81,6 +81,11 @@ namespace RNGReporter.Controls
             {
                 Text = "31";
             }
+            else if (Tag == "level" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 100)
+            {
+                //change the tags of all the maskedTextBoxes that accept a maximum number of 100 to "level"
+                Text = "100";
+            }
 
             if (Hex)
             {

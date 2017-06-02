@@ -61,13 +61,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.setIVs1 = new RNGReporter.SetIVs();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.chiudiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -101,7 +98,6 @@
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView1.Size = new System.Drawing.Size(103, 287);
             this.dataGridView1.TabIndex = 128;
-            this.dataGridView1.TabStop = false;
             // 
             // Frame
             // 
@@ -187,6 +183,7 @@
             this.maskedTextBox4.Name = "maskedTextBox4";
             this.maskedTextBox4.Size = new System.Drawing.Size(182, 20);
             this.maskedTextBox4.TabIndex = 4;
+            this.maskedTextBox4.Tag = "frame";
             this.maskedTextBox4.Text = "100000";
             // 
             // maskedTextBox3
@@ -196,6 +193,7 @@
             this.maskedTextBox3.Name = "maskedTextBox3";
             this.maskedTextBox3.Size = new System.Drawing.Size(182, 20);
             this.maskedTextBox3.TabIndex = 3;
+            this.maskedTextBox3.Tag = "frame";
             this.maskedTextBox3.Text = "1";
             // 
             // maskedTextBox2
@@ -249,6 +247,7 @@
             this._MaskedTextBox1.Name = "_MaskedTextBox1";
             this._MaskedTextBox1.Size = new System.Drawing.Size(26, 20);
             this._MaskedTextBox1.TabIndex = 10;
+            this._MaskedTextBox1.Tag = "ivs";
             this._MaskedTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this._MaskedTextBox1_KeyDown);
             // 
             // glassButton18
@@ -261,6 +260,7 @@
             this.glassButton18.ShineColor = System.Drawing.SystemColors.Window;
             this.glassButton18.Size = new System.Drawing.Size(42, 21);
             this.glassButton18.TabIndex = 138;
+            this.glassButton18.TabStop = false;
             this.glassButton18.Text = "Clear";
             this.glassButton18.Click += new System.EventHandler(this.button1_3_Click);
             // 
@@ -274,6 +274,7 @@
             this.glassButton12.ShineColor = System.Drawing.SystemColors.Window;
             this.glassButton12.Size = new System.Drawing.Size(42, 21);
             this.glassButton12.TabIndex = 137;
+            this.glassButton12.TabStop = false;
             this.glassButton12.Text = "==30";
             this.glassButton12.Click += new System.EventHandler(this.button1_2_Click);
             // 
@@ -287,6 +288,7 @@
             this.glassButton2.ShineColor = System.Drawing.SystemColors.Window;
             this.glassButton2.Size = new System.Drawing.Size(42, 21);
             this.glassButton2.TabIndex = 136;
+            this.glassButton2.TabStop = false;
             this.glassButton2.Text = "==31";
             this.glassButton2.Click += new System.EventHandler(this.button1_1_Click);
             // 
@@ -403,37 +405,15 @@
             this.setIVs1.Size = new System.Drawing.Size(189, 28);
             this.setIVs1.TabIndex = 5;
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.chiudiToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(443, 24);
-            this.menuStrip1.TabIndex = 146;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Visible = false;
-            // 
-            // chiudiToolStripMenuItem
-            // 
-            this.chiudiToolStripMenuItem.Name = "chiudiToolStripMenuItem";
-            this.chiudiToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.chiudiToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.chiudiToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
-            this.chiudiToolStripMenuItem.Text = "hidden close";
-            this.chiudiToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
             // IVstoFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(443, 380);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
-            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "IVstoFrame";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -443,11 +423,7 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
-
         }
 
         #endregion
@@ -483,8 +459,5 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem chiudiToolStripMenuItem;
     }
 }
-

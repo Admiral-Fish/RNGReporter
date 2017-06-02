@@ -401,7 +401,6 @@ namespace RNGReporter
             this.maskedTextBoxDef.Name = "maskedTextBoxDef";
             this.maskedTextBoxDef.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxDef.TabIndex = 13;
-            this.maskedTextBoxDef.Tag = "ivs";
             this.maskedTextBoxDef.ValidatingType = typeof(int);
             // 
             // maskedTextBoxAtk
@@ -412,7 +411,6 @@ namespace RNGReporter
             this.maskedTextBoxAtk.Name = "maskedTextBoxAtk";
             this.maskedTextBoxAtk.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxAtk.TabIndex = 11;
-            this.maskedTextBoxAtk.Tag = "ivs";
             this.maskedTextBoxAtk.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpe
@@ -423,7 +421,6 @@ namespace RNGReporter
             this.maskedTextBoxSpe.Name = "maskedTextBoxSpe";
             this.maskedTextBoxSpe.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxSpe.TabIndex = 19;
-            this.maskedTextBoxSpe.Tag = "ivs";
             this.maskedTextBoxSpe.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpD
@@ -434,7 +431,6 @@ namespace RNGReporter
             this.maskedTextBoxSpD.Name = "maskedTextBoxSpD";
             this.maskedTextBoxSpD.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxSpD.TabIndex = 17;
-            this.maskedTextBoxSpD.Tag = "ivs";
             this.maskedTextBoxSpD.ValidatingType = typeof(int);
             // 
             // maskedTextBoxSpA
@@ -445,7 +441,6 @@ namespace RNGReporter
             this.maskedTextBoxSpA.Name = "maskedTextBoxSpA";
             this.maskedTextBoxSpA.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxSpA.TabIndex = 15;
-            this.maskedTextBoxSpA.Tag = "ivs";
             this.maskedTextBoxSpA.ValidatingType = typeof(int);
             // 
             // maskedTextBoxHP
@@ -456,7 +451,6 @@ namespace RNGReporter
             this.maskedTextBoxHP.Name = "maskedTextBoxHP";
             this.maskedTextBoxHP.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxHP.TabIndex = 9;
-            this.maskedTextBoxHP.Tag = "ivs";
             this.maskedTextBoxHP.ValidatingType = typeof(int);
             // 
             // DexIVCheck

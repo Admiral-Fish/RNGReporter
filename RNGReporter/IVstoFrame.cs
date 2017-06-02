@@ -187,10 +187,5 @@ namespace RNGReporter
             if (e.KeyCode == Keys.Enter)
                 _Search();
         }
-
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
     }
 }

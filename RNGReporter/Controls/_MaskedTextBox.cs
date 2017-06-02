@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace RNGReporter
@@ -8,6 +9,8 @@ namespace RNGReporter
     {
         int pos1;
         int start;
+        bool select = false;
+        bool Check = false;
 
         public _MaskedTextBox()
         {
@@ -23,8 +26,12 @@ namespace RNGReporter
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            pos1 = MousePosition.X;
-
+            pos1 = MousePosition.X;          
+            
+            if (e.Button == MouseButtons.Right)
+            {
+                select = true;
+            }
             base.OnMouseDown(e);
         }
 
@@ -32,8 +39,7 @@ namespace RNGReporter
         {
             if (SelectionStart > Text.Length)
             {
-                Select(0, 0);
-                SelectionStart = Text.Length;
+                Select(Text.Length, 0);
             }
             else if (SelectedText == Text)
             {
@@ -58,9 +64,10 @@ namespace RNGReporter
         {
             Focus();
 
-            if (Text != "")
+            if (Text != "" || select == true)
             {
                 Select(0, Text.Length);
+                select = false;
             }
             else
             { SelectAll(); }
@@ -70,11 +77,15 @@ namespace RNGReporter
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            if (SelectedText == "")
+            {
+                Select(SelectionStart, 0);
+            }
+
             if (!e.Control && !e.Shift && e.KeyCode == Keys.Right)  //Right
             {
                 if (SelectionStart == Text.Length)
                 {
-                    Select(Text.Length, 0);
                     e.Handled = true;
                 }
                 else if (SelectionStart < Text.Length && SelectedText != "")
@@ -129,7 +140,6 @@ namespace RNGReporter
                 }
                 else
                 {
-                    Select(Text.Length, 0);
                     e.Handled = true;
                 }
             }
@@ -221,6 +231,13 @@ namespace RNGReporter
                     e.Handled = true;
                 }
             }
+            else if (e.KeyCode == Keys.Space)  //Space
+            {
+                if (SelectedText != "")
+                {
+                    SelectedText = "";
+                }
+            }
 
             if (SelectionStart > Text.Length)
             {
@@ -241,45 +258,58 @@ namespace RNGReporter
 
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
-            if (SelectedText == "" && e.KeyChar == ' ')
+            if (!char.IsControl(e.KeyChar))
             {
-                e.KeyChar = (char)0;
-            }
-            else if (SelectedText != "" && e.KeyChar == ' ')
-            {
-                e.KeyChar = (char)0;
-                SelectedText = "";
+                try
+                {
+                    int HexTest = int.Parse(e.KeyChar.ToString(), NumberStyles.HexNumber);
+                    e.KeyChar = char.ToUpper(e.KeyChar);
+                    Check = true;
+                }
+                catch { e.KeyChar = (char)0; }
             }
             base.OnKeyPress(e);
         }
 
         protected override void OnTextChanged(EventArgs e)
         {
-            if (Name == "_MaskedTextBox1" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 31)
+            if (Tag == "ivs" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 31)
             {
                 Text = "31";
             }
-            else if ((Name == "maskedTextBox3" || Name == "maskedTextBox4") && Text.Substring(Text.Length - 1, 1) != "_" && ulong.Parse(Text) > 4294967295)
+            else if (Tag == "frame" && Text.Substring(Text.Length - 1, 1) != "_" && ulong.Parse(Text) > 4294967295)
             {
                 Text = "4294967295";
             }
-            else if (Name == "maskedTextBox1" || Name == "maskedTextBox2")
+
+            if (Check == false)
             {
-                string replace = "";
+                string NewText = "";
+                string ReplacedText = Text.Replace("_", "");
 
-                for (int charPos = 0; charPos < Text.Length; charPos++)
+                foreach (char a in ReplacedText)
                 {
-                    char charText = char.ToUpper(Text[charPos]);
-
-                    if ((charText >= 'A' && charText <= 'F') ||
-                            (charText >= '0' && charText <= '9'))
+                    try
                     {
-                        replace = replace + charText;
+                        int HexTest = int.Parse(a.ToString(), NumberStyles.HexNumber);
+                        NewText = NewText + char.ToUpper(a);
                     }
+                    catch { }
                 }
-                Text = replace;
+                Text = NewText;
             }
+            else { Check = false; }
+            
             base.OnTextChanged(e);
+        }
+        
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            if (SelectionStart > Text.Length)
+            {
+                SelectionStart = Text.Length;
+            }
+            base.OnKeyUp(e);
         }
     }
 }

@@ -45,6 +45,7 @@
             this.glassButton1.ShineColor = System.Drawing.SystemColors.Window;
             this.glassButton1.Size = new System.Drawing.Size(42, 21);
             this.glassButton1.TabIndex = 122;
+            this.glassButton1.TabStop = false;
             this.glassButton1.Text = "==31";
             this.glassButton1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -58,6 +59,7 @@
             this.glassButton12.ShineColor = System.Drawing.SystemColors.Window;
             this.glassButton12.Size = new System.Drawing.Size(42, 21);
             this.glassButton12.TabIndex = 128;
+            this.glassButton12.TabStop = false;
             this.glassButton12.Text = "==30";
             this.glassButton12.Click += new System.EventHandler(this.button1_2_Click);
             // 
@@ -71,6 +73,7 @@
             this.glassButton18.ShineColor = System.Drawing.SystemColors.Window;
             this.glassButton18.Size = new System.Drawing.Size(42, 21);
             this.glassButton18.TabIndex = 134;
+            this.glassButton18.TabStop = false;
             this.glassButton18.Text = "Clear";
             this.glassButton18.Click += new System.EventHandler(this.button1_3_Click);
             // 
@@ -81,6 +84,7 @@
             this._MaskedTextBox1.Name = "_MaskedTextBox1";
             this._MaskedTextBox1.Size = new System.Drawing.Size(26, 20);
             this._MaskedTextBox1.TabIndex = 0;
+            this._MaskedTextBox1.Tag = "ivs";
             // 
             // SetIVs
             // 
@@ -93,8 +97,7 @@
             this.Name = "SetIVs";
             this.Size = new System.Drawing.Size(188, 30);
             this.ResumeLayout(false);
-            this.PerformLayout();
-
+            this.PerformLayout();           
         }
 
         #endregion

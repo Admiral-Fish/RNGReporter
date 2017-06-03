@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
             this.L_mezapa = new System.Windows.Forms.Label();
             this.genderType = new System.Windows.Forms.ComboBox();
             this.L_sex = new System.Windows.Forms.Label();
@@ -40,7 +40,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.status = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -169,15 +168,6 @@
             this.label3.Text = "PokeSpot Type";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(9, 239);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(212, 20);
-            this.label4.TabIndex = 296;
-            this.label4.Text = "Credits to amab, Zari and Kaphotics for this";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // status
             // 
             this.status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -269,8 +259,8 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "PID";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn1.HeaderText = "PID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -453,8 +443,8 @@
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties3;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -467,8 +457,8 @@
             // comboBoxSpotType
             // 
             this.comboBoxSpotType.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxSpotType.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxSpotType.CheckBoxProperties = checkBoxProperties1;
             this.comboBoxSpotType.DisplayMemberSingleItem = "";
             this.comboBoxSpotType.DropDownHeight = 110;
             this.comboBoxSpotType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -499,7 +489,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.status);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -529,7 +518,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox Shiny_Check;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label status;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;

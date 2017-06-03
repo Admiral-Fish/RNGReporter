@@ -33,14 +33,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label20 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonGenerate = new RNGReporter.GlassButton();
             this.dataGridViewValues = new RNGReporter.DoubleBufferedDataGridView();
-            this.seedToTimeSeed = new RNGReporter.Controls.MaskedTextBox2();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seconds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.seedToTimeSeed = new RNGReporter.Controls.MaskedTextBox2();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,15 +51,6 @@
             this.label20.Size = new System.Drawing.Size(79, 13);
             this.label20.TabIndex = 43;
             this.label20.Text = "16/32-Bit Seed";
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(12, 366);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(142, 13);
-            this.label43.TabIndex = 125;
-            this.label43.Text = "Credits to Zari for this feature";
             // 
             // label1
             // 
@@ -139,17 +129,8 @@
             this.dataGridViewValues.ShowCellToolTips = false;
             this.dataGridViewValues.ShowEditingIcon = false;
             this.dataGridViewValues.ShowRowErrors = false;
-            this.dataGridViewValues.Size = new System.Drawing.Size(199, 258);
+            this.dataGridViewValues.Size = new System.Drawing.Size(199, 271);
             this.dataGridViewValues.TabIndex = 45;
-            // 
-            // seedToTimeSeed
-            // 
-            this.seedToTimeSeed.Hex = true;
-            this.seedToTimeSeed.Location = new System.Drawing.Point(15, 25);
-            this.seedToTimeSeed.Mask = "AAAAAAAA";
-            this.seedToTimeSeed.Name = "seedToTimeSeed";
-            this.seedToTimeSeed.Size = new System.Drawing.Size(59, 20);
-            this.seedToTimeSeed.TabIndex = 44;
             // 
             // Time
             // 
@@ -168,6 +149,15 @@
             this.Seconds.ReadOnly = true;
             this.Seconds.Width = 95;
             // 
+            // seedToTimeSeed
+            // 
+            this.seedToTimeSeed.Hex = true;
+            this.seedToTimeSeed.Location = new System.Drawing.Point(15, 25);
+            this.seedToTimeSeed.Mask = "AAAAAAAA";
+            this.seedToTimeSeed.Name = "seedToTimeSeed";
+            this.seedToTimeSeed.Size = new System.Drawing.Size(59, 20);
+            this.seedToTimeSeed.TabIndex = 44;
+            // 
             // thirdGenSeedToTime
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,7 +165,6 @@
             this.ClientSize = new System.Drawing.Size(223, 388);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label43);
             this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.dataGridViewValues);
             this.Controls.Add(this.seedToTimeSeed);
@@ -195,7 +184,6 @@
         private Controls.MaskedTextBox2 seedToTimeSeed;
         private DoubleBufferedDataGridView dataGridViewValues;
         private GlassButton buttonGenerate;
-        private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;

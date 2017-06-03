@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties6 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties4 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.L_ball = new System.Windows.Forms.Label();
             this.genderType = new System.Windows.Forms.ComboBox();
@@ -403,7 +403,7 @@
             this.status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.status.Location = new System.Drawing.Point(12, 593);
             this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(97, 20);
+            this.status.Size = new System.Drawing.Size(257, 20);
             this.status.TabIndex = 267;
             this.status.Text = "Awaiting Command";
             this.status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -662,8 +662,8 @@
             // comboBoxShadowMethod
             // 
             this.comboBoxShadowMethod.BlankText = "Any";
-            checkBoxProperties6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties6;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties1;
             this.comboBoxShadowMethod.DisplayMemberSingleItem = "";
             this.comboBoxShadowMethod.DropDownHeight = 90;
             this.comboBoxShadowMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -676,8 +676,8 @@
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties2;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -690,8 +690,8 @@
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties3;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -758,8 +758,8 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "PID";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn1.HeaderText = "PID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -1610,8 +1610,8 @@
             // dataGridViewTextBoxColumn13
             // 
             this.dataGridViewTextBoxColumn13.DataPropertyName = "PID";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn13.HeaderText = "PID";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -1948,8 +1948,8 @@
             // checkBoxHPShadow
             // 
             this.checkBoxHPShadow.BlankText = "Any";
-            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBoxHPShadow.CheckBoxProperties = checkBoxProperties3;
+            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBoxHPShadow.CheckBoxProperties = checkBoxProperties4;
             this.checkBoxHPShadow.DisplayMemberSingleItem = "";
             this.checkBoxHPShadow.DropDownHeight = 300;
             this.checkBoxHPShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2084,8 +2084,8 @@
             // checkBoxNatureShadow
             // 
             this.checkBoxNatureShadow.BlankText = "Any";
-            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBoxNatureShadow.CheckBoxProperties = checkBoxProperties4;
+            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBoxNatureShadow.CheckBoxProperties = checkBoxProperties5;
             this.checkBoxNatureShadow.DisplayMemberSingleItem = "";
             this.checkBoxNatureShadow.DropDownHeight = 300;
             this.checkBoxNatureShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;

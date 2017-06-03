@@ -15,25 +15,16 @@ namespace RNGReporter
         private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
         private readonly String[] hiddenPowers = { "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark" };
         private Thread[] searchThread;
-        private bool refresh;
         private ThreadDelegate gridUpdate;
         private BindingSource binding = new BindingSource();
         private List<DisplayList> displayList;
         private List<ShadowDisplay> shadowDisplay;
-        private bool isSearching = false;
-        private uint shinyval;
+        private bool isSearching, galesFlag, refresh;
+        private uint searchNumber, shadow, genderFilter, abilityFilter;
         private NatureLock natureLock;
-        private uint searchNumber;
-        private uint shadow;
-        private static List<uint> natureList;
-        private static List<uint> hiddenPowerList;
-        private static uint genderFilter;
-        private static uint abilityFilter;
-        private static bool galesFlag = false;
-        private static List<uint> seedList;
-        private static uint[] ivsLower;
-        private static uint[] ivsUpper;
-        private static int natureLockIndex;
+        private List<uint> natureList, seedList, hiddenPowerList;
+        private uint[] ivsLower, ivsUpper, shinyval;
+        private int natureLockIndex, cores;
 
         public GameCube(int TID, int SID)
         {
@@ -63,6 +54,10 @@ namespace RNGReporter
             speLogicShadow.SelectedIndex = 0;
             dataGridViewResult.DataSource = binding;
             dataGridViewResult.AutoGenerateColumns = false;
+            shinyval = new uint[8];
+            cores = Environment.ProcessorCount;
+            while (cores != 1 && cores != 2 && cores != 4 && cores != 8)
+                cores--;
         }
 
         private void GameCube_Load(object sender, EventArgs e)
@@ -145,11 +140,11 @@ namespace RNGReporter
                 status.Text = "Searching";
                 try
                 {
-                    shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
+                    shinyval[0] = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
                 }
                 catch
                 {
-                    shinyval = 0;
+                    shinyval[0] = 0;
                 }
                 searchNumber = (uint)searchMethod.SelectedIndex;
 
@@ -328,7 +323,7 @@ namespace RNGReporter
             if (!galesFlag)
                 if (Shiny_Check.Checked)
                 {
-                    if (!isShiny(pid))
+                    if (!isShiny(pid, 0))
                         return;
                     shiny = "!!!";
                 }
@@ -400,23 +395,21 @@ namespace RNGReporter
             }
             if (seedList != null)
                 seedList.Add(seed);
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, reason);
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, reason, 0);
         }
         #endregion
 
         #region Second search method
         private void generateGales2()
         {
-            seedList = new List<uint>(); 
-            uint s = 0;
-            uint srange = 1048576;
+            seedList = new List<uint>();
             isSearching = true;
 
             for (uint z = 0; z < 32; z++)
             {
                 for (uint h = 0; h < 64; h++)
                 {
-                    for (uint n = 0; n < srange; n++)
+                    for (uint n = 0; n < 1048576; n++)
                     {  
                         for (uint sisterSeed = 0; sisterSeed < 2; sisterSeed++)
                         {
@@ -526,25 +519,101 @@ namespace RNGReporter
                 method *= temp;
             }
 
-            if (method > 84095)
+            switch (cores)
             {
-                searchThread = new Thread[2];
-                searchThread[0] = new Thread(() => generateColo2(0));
-                searchThread[0].Start();
-                Thread.Sleep(200);
-                searchThread[1] = new Thread(() => generateColo2(0x40000000));
-                searchThread[1].Start();
-                Thread.Sleep(200);
-                var update = new Thread(updateGUI);
-                update.Start();
-            }
-            else
-            {
-                searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateColo());
-                searchThread[0].Start();
-                var update = new Thread(updateGUI);
-                update.Start();
+                case 1:
+                    if (method > 162268)
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateColo2(0, 64));
+                        searchThread[0].Start();
+                        Thread.Sleep(200);
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateColo());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
+                case 2:
+                    if (method > 83720)
+                    {
+                        searchThread = new Thread[2];
+                        for (int i = 0; i < 2; i++)
+                        {
+                            searchThread[i] = new Thread(() => generateColo2((uint)(i * 0x40000000), 32));
+                            searchThread[i].Start();
+                            Thread.Sleep(200);
+                        }
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateColo());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
+                case 4:
+                    if (method > 45918)
+                    {
+                        searchThread = new Thread[4];
+                        for (int i = 0; i < 4; i++)
+                        {
+                            searchThread[i] = new Thread(() => generateColo2((uint)(i * 0x20000000), 16));
+                            searchThread[i].Start();
+                            Thread.Sleep(200);
+                        }
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateColo());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
+                case 8:
+                    if (method > 34970)
+                    {
+                        searchThread = new Thread[8];
+                        for (int i = 0; i < 8; i++)
+                        {
+                            searchThread[i] = new Thread(() => generateColo2((uint)(i * 0x10000000), 8));
+                            searchThread[i].Start();
+                            Thread.Sleep(200);
+                        }
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateColo());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
             }
         }
 
@@ -608,9 +677,9 @@ namespace RNGReporter
         private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed)
         {
             String shiny = "";
-            if (Shiny_Check.Checked == true)
+            if (Shiny_Check.Checked)
             {
-                if (!isShiny(pid))
+                if (!isShiny(pid, 0))
                     return;
                 shiny = "!!!";
             }
@@ -662,13 +731,13 @@ namespace RNGReporter
                     break;
             }
 
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "");
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "", 0);
         }
         #endregion
 
         #region Second search method
         //Credits to Zari for this
-        private void generateColo2(uint seed)
+        private void generateColo2(uint seed, int num1)
         {
             isSearching = true;
             uint[] seedShort = new uint[6];
@@ -689,7 +758,7 @@ namespace RNGReporter
 
             for (uint z = 0; z < 32; z++)
             {
-                for (uint h = 0; h < 32; h++)
+                for (uint h = 0; h < num1; h++)
                 {
                     for (uint n = 0; n < 1048576; n++, seedShort[j] = rng.GetNext16BitNumber(), seedLong[j] = rng.Seed)
                     {
@@ -731,21 +800,100 @@ namespace RNGReporter
                 method *= temp;
             }
 
-            if (method > 120)
+            switch (cores)
             {
-                searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateChannel2());
-                searchThread[0].Start();
-                var update = new Thread(updateGUI);
-                update.Start();
-            }
-            else
-            {
-                searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateChannel());
-                searchThread[0].Start();
-                var update = new Thread(updateGUI);
-                update.Start();
+                case 1:
+                    if (method > 94)
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateChannel2(0, 64, 0));
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateChannel());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
+                case 2:
+                    if (method > 48)
+                    {
+                        searchThread = new Thread[2];
+                        for (int i = 0; i < 1; i++)
+                        {
+                            searchThread[i] = new Thread(() => generateChannel2((uint)i * 0x40000000, 32, i));
+                            searchThread[i].Start();
+                            Thread.Sleep(200);
+                        }
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateChannel());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
+                case 4:
+                    if (method > 26)
+                    {
+                        searchThread = new Thread[4];
+                        for (int i = 0; i < 4; i++)
+                        {
+                            searchThread[i] = new Thread(() => generateChannel2((uint)i * 0x20000000, 16, i));
+                            searchThread[i].Start();
+                            Thread.Sleep(200);
+                        }
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateChannel());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
+                case 8:
+                    if (method > 22)
+                    {
+                        searchThread = new Thread[8];
+                        for (int i = 0; i < 8; i++)
+                        {
+                            searchThread[i] = new Thread(() => generateChannel2((uint)i * 0x10000000, 8, i));
+                            searchThread[i].Start();
+                            Thread.Sleep(200);
+                        }
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateChannel());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
             }
         }
 
@@ -804,8 +952,8 @@ namespace RNGReporter
                                     if (natureList == null || natureList.Contains(nature))
                                     {
                                         uint seed = rng.GetNext32BitNumber();
-                                        shinyval = (40122 ^ (sid)) >> 3;
-                                        filterSeedChannel(hp, atk, def, spa, spd, spe, seed, pid, nature);
+                                        shinyval[0] = (40122 ^ (sid)) >> 3;
+                                        filterSeedChannel(hp, atk, def, spa, spd, spe, seed, pid, nature, 0);
                                     }
                                 }
                             }
@@ -818,30 +966,38 @@ namespace RNGReporter
 
         #region Search 2
         //Credits to Zari and amab for this
-        private void generateChannel2()
+        private void generateChannel2(uint seed, uint num1, int shinyIndex)
         {
             isSearching = true;
-            uint[] seedShort = { 0x0, 0x0026, 0x1E27, 0xD2F6, 0x0985, 0xA297, 0x2E15, 0x20AD, 0x7E1D, 0xA8D2, 0x7794, 0x96DD, 0xEDC4 };
-            uint[] seedLong = { 0x0,0x00269EC3,0x1E278E7A,0xD2F65B55,0x098520C4,0xA2974C77,0x2E15555E,0x20AD96A9,0x7E1DBEC8,0xA8D2826B,0x77948382,0x96DD9C3D,0xEDC4FE0C };
-            var rng = new XdRng(0xEDC4FE0C);
+            uint[] seedShort = new uint[13];
+            uint[] seedLong = new uint[13];
+            seedShort[0] = seed >> 16;
+            seedLong[0] = seed;
+            var rng = new XdRng(seed);
+
+            for (int i = 0; i < 12; i++)
+            {
+                seedShort[i] = rng.GetNext16BitNumber();
+                seedLong[i] = rng.GetNext32BitNumber();
+            }
 
             uint pid, pid1, pid2, nature, sid;
             uint[] ivs;
-            int seed = 12;
+            int j = 12;
 
             for (uint z = 0; z < 32; z++)
             {
-                for (uint h = 0; h < 64; h++)
+                for (uint h = 0; h < num1; h++)
                 {
-                    for (uint n = 0; n < 1048576; n++, seedShort[seed] = rng.GetNext16BitNumber(), seedLong[seed] = rng.Seed)
+                    for (uint n = 0; n < 1048576; n++, seedShort[j] = rng.GetNext16BitNumber(), seedLong[j] = rng.Seed)
                     {
-                        if (++seed > 12)
-                            seed = 0;
+                        if (++j > 12)
+                            j = 0;
 
-                        pid1 = seedShort[seed >= 11 ? seed - 11 : seed + 2];
-                        pid2 = seedShort[seed >= 10 ? seed - 10 : seed + 3];
+                        pid1 = seedShort[j >= 11 ? j - 11 : j + 2];
+                        pid2 = seedShort[j >= 10 ? j - 10 : j + 3];
                         pid = (pid1 << 16) | pid2;
-                        sid = seedShort[seed >= 12 ? seed - 12 : seed + 1];
+                        sid = seedShort[j >= 12 ? j - 12 : j + 1];
                         if ((pid2 > 7 ? 0 : 1) != (pid1 ^ sid ^ 40122))
                             pid ^= 0x80000000;
                         nature = pid - 25 * (pid / 25);
@@ -849,16 +1005,16 @@ namespace RNGReporter
                         if (natureList == null || natureList.Contains(nature))
                         {
                             
-                            ivs = createIVsChannel(new uint[] { seedShort[seed >= 6 ? seed - 6 : seed + 7] >> 11,
-                                                            seedShort[seed >= 5 ? seed - 5 : seed + 8] >> 11,
-                                                            seedShort[seed >= 4 ? seed - 4 : seed + 9] >> 11,
-                                                            seedShort[seed >= 2 ? seed - 2 : seed + 11] >> 11,
-                                                            seedShort[seed >= 1 ? seed - 1 : seed + 12] >> 11,
-                                                            seedShort[seed >= 3 ? seed - 3 : seed + 10] >> 11 });
+                            ivs = createIVsChannel(new uint[] { seedShort[j >= 6 ? j - 6 : j + 7] >> 11,
+                                                            seedShort[j >= 5 ? j - 5 : j + 8] >> 11,
+                                                            seedShort[j >= 4 ? j - 4 : j + 9] >> 11,
+                                                            seedShort[j >= 2 ? j - 2 : j + 11] >> 11,
+                                                            seedShort[j >= 1 ? j - 1 : j + 12] >> 11,
+                                                            seedShort[j >= 3 ? j - 3 : j + 10] >> 11 });
                             if (ivs != null)
                             {
-                                shinyval = (40122 ^ sid) >> 3;
-                                filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], seedLong[seed], pid, nature);
+                                shinyval[shinyIndex] = (40122 ^ sid) >> 3;
+                                filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], seedLong[j], pid, nature, shinyIndex);
                             }
                         }
 
@@ -867,16 +1023,16 @@ namespace RNGReporter
 
                         if (natureList == null || natureList.Contains(nature))
                         {
-                            ivs = createIVsChannel(new uint[] { (seedShort[seed >= 6 ? seed - 6 : seed + 7] ^ 0x8000) >> 11,
-                                                            (seedShort[seed >= 5 ? seed - 5 : seed + 8] ^ 0x8000) >> 11,
-                                                            (seedShort[seed >= 4 ? seed - 4 : seed + 9] ^ 0x8000) >> 11,
-                                                            (seedShort[seed >= 2 ? seed - 2 : seed + 11] ^ 0x8000) >> 11,
-                                                            (seedShort[seed >= 1 ? seed - 1 : seed + 12] ^ 0x8000) >> 11,
-                                                            (seedShort[seed >= 3 ? seed - 3 : seed + 10] ^ 0x8000) >> 11 });
+                            ivs = createIVsChannel(new uint[] { (seedShort[j >= 6 ? j - 6 : j + 7] ^ 0x8000) >> 11,
+                                                            (seedShort[j >= 5 ? j - 5 : j + 8] ^ 0x8000) >> 11,
+                                                            (seedShort[j >= 4 ? j - 4 : j + 9] ^ 0x8000) >> 11,
+                                                            (seedShort[j >= 2 ? j - 2 : j + 11] ^ 0x8000) >> 11,
+                                                            (seedShort[j >= 1 ? j - 1 : j + 12] ^ 0x8000) >> 11,
+                                                            (seedShort[j >= 3 ? j - 3 : j + 10] ^ 0x8000) >> 11 });
                             if (ivs != null)
                             {
-                                shinyval = (40122 ^ (sid ^ 0x8000)) >> 3;
-                                filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], seedLong[seed] ^ 0x80000000, pid, nature);
+                                shinyval[shinyIndex] = (40122 ^ (sid ^ 0x8000)) >> 3;
+                                filterSeedChannel(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], seedLong[j] ^ 0x80000000, pid, nature, shinyIndex);
                             }
                         }
                     }
@@ -897,12 +1053,12 @@ namespace RNGReporter
             return iv;
         }
 
-        private void filterSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint seed, uint pid, uint nature)
+        private void filterSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint seed, uint pid, uint nature, int shinyIndex)
         {
             String shiny = "";
             if (Shiny_Check.Checked == true)
             {
-                if (!isShiny(pid))
+                if (!isShiny(pid, shinyIndex))
                     return;
                 shiny = "!!!";
             }
@@ -954,7 +1110,7 @@ namespace RNGReporter
                     break;
             }
 
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "");
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "", shinyIndex);
         }
         #endregion
         #endregion
@@ -970,25 +1126,101 @@ namespace RNGReporter
                 method *= temp;
             }
 
-            if (method > 76871)
+            switch (cores)
             {
-                searchThread = new Thread[2];
-                searchThread[0] = new Thread(() => generateR2(0));
-                searchThread[0].Start();
-                Thread.Sleep(200);
-                searchThread[1] = new Thread(() => generateR2(0x40000000));
-                searchThread[1].Start();
-                Thread.Sleep(200);
-                var update = new Thread(updateGUI);
-                update.Start();
-            }
-            else
-            {
-                searchThread = new Thread[1];
-                searchThread[0] = new Thread(() => generateR());
-                searchThread[0].Start();
-                var update = new Thread(updateGUI);
-                update.Start();
+                case 1:
+                    if (method > 162268)
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateR2(0, 64));
+                        searchThread[0].Start();
+                        Thread.Sleep(200);
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateR());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
+                case 2:
+                    if (method > 83720)
+                    {
+                        searchThread = new Thread[2];
+                        for (int i = 0; i < 2; i++)
+                        {
+                            searchThread[i] = new Thread(() => generateR2((uint)(i * 0x40000000), 32));
+                            searchThread[i].Start();
+                            Thread.Sleep(200);
+                        }
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateR());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
+                case 4:
+                    if (method > 45918)
+                    {
+                        searchThread = new Thread[4];
+                        for (int i = 0; i < 4; i++)
+                        {
+                            searchThread[i] = new Thread(() => generateR2((uint)(i * 0x20000000), 16));
+                            searchThread[i].Start();
+                            Thread.Sleep(200);
+                        }
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateR());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
+                case 8:
+                    if (method > 34970)
+                    {
+                        searchThread = new Thread[8];
+                        for (int i = 0; i < 8; i++)
+                        {
+                            searchThread[i] = new Thread(() => generateR2((uint)(i * 0x10000000), 8));
+                            searchThread[i].Start();
+                            Thread.Sleep(200);
+                        }
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    else
+                    {
+                        searchThread = new Thread[1];
+                        searchThread[0] = new Thread(() => generateR());
+                        searchThread[0].Start();
+                        var update = new Thread(updateGUI);
+                        update.Start();
+                        update.Priority = ThreadPriority.Lowest;
+                    }
+                    break;
             }
         }
 
@@ -1050,7 +1282,7 @@ namespace RNGReporter
         #endregion
 
         #region Search 2
-        private void generateR2(uint seed)
+        private void generateR2(uint seed, int num1)
         {
             isSearching = true;
             uint[] seedLong = new uint[5];
@@ -1071,7 +1303,7 @@ namespace RNGReporter
 
             for (uint z = 0; z < 32; z++)
             {
-                for (uint h = 0; h < 32; h++)
+                for (uint h = 0; h < num1; h++)
                 {
                     for (uint n = 0; n < 1048576; n++, seedShort[j] = rng.GetNext16BitNumber(), seedLong[j] = rng.Seed)
                     {
@@ -1105,7 +1337,7 @@ namespace RNGReporter
         private void generateWishmkr()
         {
             isSearching = true;
-            shinyval = 2505;
+            shinyval[0] = 2505;
 
             for (uint x = 0; x <= 0xFFFF; x++)
             {
@@ -1130,7 +1362,7 @@ namespace RNGReporter
         }
         #endregion
 
-        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, String output)
+        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, String output, int shinyIndex)
         {
             String stringNature = Natures[nature];
             String hPString = hiddenPowers[calcHP(hp, atk, def, spa, spd, spe)];
@@ -1143,7 +1375,7 @@ namespace RNGReporter
 
             if (!galesFlag)
                 if (shiny == "")
-                    if (isShiny(pid))
+                    if (isShiny(pid, shinyIndex))
                         shiny = "!!!";
 
             gender1 = gender < 31 ? 'F' : 'M';
@@ -1578,9 +1810,9 @@ namespace RNGReporter
             return (int)(30 + ((((hp >> 1) & 1) + 2 * ((atk >> 1) & 1) + 4 * ((def >> 1) & 1) + 8 * ((spe >> 1) & 1) + 16 * ((spa >> 1) & 1) + 32 * ((spd >> 1) & 1)) * 40 / 63));
         }
 
-        private bool isShiny(uint PID)
+        private bool isShiny(uint PID, int shinyIndex)
         {
-            return (((PID >> 16) ^ (PID & 0xffff)) >> 3) == shinyval;
+            return (((PID >> 16) ^ (PID & 0xffff)) >> 3) == shinyval[shinyIndex];
         }
 
         private uint calcHP(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
@@ -1627,7 +1859,7 @@ namespace RNGReporter
 
         private void dataGridUpdate()
         {
-            binding.ResetBindings(true);
+            binding.ResetBindings(false);
         }
 
         private String[] addHP()

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label12 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.buttonGenerate = new RNGReporter.GlassButton();
             this.dataGridViewValues = new RNGReporter.DoubleBufferedDataGridView();
             this.textBoxSeed = new RNGReporter.Controls.MaskedTextBox2();
@@ -45,16 +44,6 @@
             this.label12.Size = new System.Drawing.Size(60, 13);
             this.label12.TabIndex = 9;
             this.label12.Text = "Seed (Hex)";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(12, 62);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 13);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Credits to amab for this";
             // 
             // buttonGenerate
             // 
@@ -109,7 +98,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 164);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.dataGridViewValues);
             this.Controls.Add(this.label12);
@@ -130,6 +118,5 @@
         private System.Windows.Forms.Label label12;
         private DoubleBufferedDataGridView dataGridViewValues;
         private GlassButton buttonGenerate;
-        private System.Windows.Forms.Label label1;
     }
 }

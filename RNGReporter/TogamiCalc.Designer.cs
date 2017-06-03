@@ -37,7 +37,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.searchText = new System.Windows.Forms.Label();
             this.cancel = new RNGReporter.GlassButton();
             this.buttonSearch = new RNGReporter.GlassButton();
@@ -100,17 +99,6 @@
             this.label4.Size = new System.Drawing.Size(56, 13);
             this.label4.TabIndex = 30;
             this.label4.Text = "Max frame";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label5.Location = new System.Drawing.Point(241, 337);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(164, 13);
-            this.label5.TabIndex = 47;
-            this.label5.Text = "Credits to CollectorTogami for this";
             // 
             // searchText
             // 
@@ -267,7 +255,6 @@
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.searchText);
             this.Controls.Add(this.buttonSearch);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.dataGridViewValues);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -301,7 +288,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private DoubleBufferedDataGridView dataGridViewValues;
-        private System.Windows.Forms.Label label5;
         private GlassButton buttonSearch;
         private System.Windows.Forms.Label searchText;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;

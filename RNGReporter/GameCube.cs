@@ -241,7 +241,6 @@ namespace RNGReporter
         private void checkSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             uint x8 = hp | (atk << 5) | (def << 10);
-            uint x8_2 = x8 ^ 0x8000;
             uint ex8 = spe | (spa << 5) | (spd << 10);
             uint ex8_2 = ex8 ^ 0x8000;
             uint ivs_1b = x8 << 16;
@@ -257,12 +256,12 @@ namespace RNGReporter
                     uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                     uint nature = pid - 25 * (pid / 25);
                     uint galesSeed = reverseXD(seedb);
-                    bool pass = (natureList == null || natureList.Contains(nature)) ? true : false;
+                    bool pass = (natureList == null || natureList.Contains(nature));
 
                     uint xorSeed = galesSeed ^ 0x80000000;
                     uint xorPID = pid ^= 0x80008000;
                     uint xorNature = xorPID - 25 * (xorPID / 25);
-                    bool xorPass = (natureList == null || natureList.Contains(xorNature)) ? true : false;
+                    bool xorPass = (natureList == null || natureList.Contains(xorNature));
 
                     switch (shadow)
                     {
@@ -641,7 +640,6 @@ namespace RNGReporter
         private void checkSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             uint x8 = hp + (atk << 5) + (def << 10);
-            uint x8_2 = x8 ^ 0x8000;
             uint ex8 = spe + (spa << 5) + (spd << 10);
             uint ex8_2 = ex8 ^ 0x8000;
             uint ivs_1b = x8 << 16;
@@ -1248,7 +1246,6 @@ namespace RNGReporter
         private void checkSeedR(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             uint x4 = hp | (atk << 5) | (def << 10);
-            uint x4_2 = x4 ^ 0x8000;
             uint ex4 = spe | (spa << 5) | (spd << 10);
             uint ex4_2 = ex4 ^ 0x8000;
             uint ivs_1b = x4 << 16;

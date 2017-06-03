@@ -87,6 +87,7 @@ namespace RNGReporter
             this.bitSeedToTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jirachiGenerationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pIDToIVsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iVsToFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.togamiCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokespotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -216,7 +217,6 @@ namespace RNGReporter
             this.maskedTextBoxMaxFrames = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxMethod = new RNGReporter.GlassComboBox();
             this.checkBoxMemoryLink = new System.Windows.Forms.CheckBox();
-            this.iVsToFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripGrid.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripTimeFinder.SuspendLayout();
@@ -702,6 +702,13 @@ namespace RNGReporter
             this.pIDToIVsToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
             this.pIDToIVsToolStripMenuItem.Text = "PID to IVs";
             this.pIDToIVsToolStripMenuItem.Click += new System.EventHandler(this.pIDToIVsToolStripMenuItem_Click);
+            // 
+            // iVsToFrameToolStripMenuItem
+            // 
+            this.iVsToFrameToolStripMenuItem.Name = "iVsToFrameToolStripMenuItem";
+            this.iVsToFrameToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
+            this.iVsToFrameToolStripMenuItem.Text = "IVs to Frame";
+            this.iVsToFrameToolStripMenuItem.Click += new System.EventHandler(this.iVsToFrameToolStripMenuItem_Click);
             // 
             // togamiCalcToolStripMenuItem
             // 
@@ -1979,13 +1986,6 @@ namespace RNGReporter
             this.checkBoxMemoryLink.UseVisualStyleBackColor = true;
             this.checkBoxMemoryLink.Visible = false;
             // 
-            // iVsToFrameToolStripMenuItem
-            // 
-            this.iVsToFrameToolStripMenuItem.Name = "iVsToFrameToolStripMenuItem";
-            this.iVsToFrameToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
-            this.iVsToFrameToolStripMenuItem.Text = "IVs to Frame";
-            this.iVsToFrameToolStripMenuItem.Click += new System.EventHandler(this.iVsToFrameToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2054,7 +2054,7 @@ namespace RNGReporter
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = " RNG Reporter 10.1.9 T4";
+            this.Text = " RNG Reporter 10.1.9";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.contextMenuStripGrid.ResumeLayout(false);

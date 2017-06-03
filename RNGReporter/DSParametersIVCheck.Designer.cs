@@ -231,6 +231,7 @@ namespace RNGReporter
             this.maskedTextBoxLevel.Name = "maskedTextBoxLevel";
             this.maskedTextBoxLevel.Size = new System.Drawing.Size(36, 20);
             this.maskedTextBoxLevel.TabIndex = 7;
+            this.maskedTextBoxLevel.Tag = "level";
             this.maskedTextBoxLevel.ValidatingType = typeof(int);
             // 
             // maskedTextBoxDef

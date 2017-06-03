@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RNGReporter.Objects;
 using System.Globalization;
 
 namespace RNGReporter.Objects
@@ -16,17 +10,12 @@ namespace RNGReporter.Objects
     public partial class PokeSpot : Form
     {
         private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
-        private Thread searchThread;
-        private bool refresh;
         private List<PokeSpotDisplay> displayList;
-        private ThreadDelegate gridUpdate;
-        private BindingSource binding = new BindingSource();
-        private bool isSearching = false;
-        private uint shinyval;
-        private bool abort = false;
-        private List<uint> natureList;
-        private List<uint> spotList;
-        private List<uint> rngList;
+        private List<uint> natureList, spotList;
+        private uint[] rngList;
+        private uint genderFilter, abilityFilter, shinyNum, shinyval;
+        private int j;
+        private bool shinyCheck;
 
         public PokeSpot()
         {
@@ -41,7 +30,7 @@ namespace RNGReporter.Objects
             id.Text = TID.ToString();
             sid.Text = SID.ToString();
             dataGridViewResult.AutoGenerateColumns = false;
-            abort = false;
+            rngList = new uint[6];
         }
 
         private void PokeSpot_Load(object sender, EventArgs e)
@@ -59,28 +48,9 @@ namespace RNGReporter.Objects
             comboBoxSpotType.CheckBoxItems[0].Checked = false;
         }
 
-        private void PokeSpot_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (searchThread != null)
-                searchThread.Abort();
-            abort = true;
-        }
-
         private void search_Click(object sender, EventArgs e)
         {
-            if (isSearching)
-            {
-                status.Text = "Previous search is still running";
-                return;
-            }
-
-            dataGridViewResult.Rows.Clear();
-
-            isSearching = true;
             displayList = new List<PokeSpotDisplay>();
-            binding = new BindingSource { DataSource = displayList };
-            dataGridViewResult.DataSource = binding;
-            status.Text = "Searching";
             try
             {
                 shinyval = (uint.Parse(id.Text) ^ uint.Parse(sid.Text)) >> 3;
@@ -108,115 +78,112 @@ namespace RNGReporter.Objects
             if (temp.Count != 0)
                 spotList = temp;
 
-            uint gender = (uint)genderType.SelectedIndex;
-            uint ability = (uint)abilityType.SelectedIndex;
-            bool shinyCheck = Shiny_Check.Checked;
-            rngList = new List<uint>();
+            genderFilter = (uint)genderType.SelectedIndex;
+            abilityFilter = (uint)abilityType.SelectedIndex;
+            shinyCheck = Shiny_Check.Checked;
 
-            searchThread = new Thread(() => searchPokeSpot(seed, frame, gender, ability, shinyCheck));
-            searchThread.Start();
-
-            var update = new Thread(updateGUI);
-            update.Start();
+            searchPokeSpot(seed, frame);
+            dataGridViewResult.DataSource = displayList;
+            dataGridViewResult.AutoResizeColumns();
         }
 
-        private void searchPokeSpot(uint seed, uint frame, uint gender, uint ability, bool shinyCheck)
+        private void searchPokeSpot(uint seed, uint frame)
         {
             var rng = new XdRng(seed);
-            rngList.Add(seed);
+            rngList[0] = seed;
 
-            for (int x = 0; x < 5; x++)
-                rngList.Add(rng.GetNext32BitNumber());
+            for (int x = 1; x < 6; x++)
+                rngList[x] = rng.GetNext32BitNumber();
 
-            for (uint x = 1; x < frame + 1; x++, rngList.RemoveAt(0), rngList.Add(rng.GetNext32BitNumber()))
+            j = 5;
+
+            for (uint x = 1; x < frame + 1; x++, rngList[j] = rng.GetNext32BitNumber())
             {
-                filterPokeSpot(rngList[0], x, gender, ability, shinyCheck);
-                if ((x & 0xFF) == 0)
-                    refresh = true;
+                if (++j > 5)
+                    j = 0;
+                filterPokeSpot(x);
             }
-            isSearching = false;
-            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
-        private void filterPokeSpot(uint seed, uint frame, uint gender, uint ability, bool shinyCheck)
+        private void filterPokeSpot(uint frame)
         {
-            uint pid1 = rngList[4] >> 16;
-            uint pid2 = rngList[5] >> 16;
+            uint pid1 = rngList[j >= 2 ? j - 2 : j + 4] >> 16;
+            uint pid2 = rngList[j >= 1 ? j - 1 : j + 5] >> 16;
             uint pid = (pid1 << 16) | pid2;
 
             uint nature = pid - 25 * (pid / 25);
             if (natureList != null && !natureList.Contains(nature))
                 return;
 
+            shinyNum = (pid1 ^ pid2) >> 3;
             String shiny = "";
             if (shinyCheck)
             {
-                uint shinyNum = (pid1 ^ pid2) >> 3;
                 if (shinyNum != shinyval)
                     return;
                 shiny = "!!!";
             }
 
-            if (ability != 0)
+            uint ability = pid & 1;
+            if (abilityFilter != 0)
             {
-                uint actualAbility = pid & 1;
-                if (actualAbility != (ability - 1))
+                if (ability != (abilityFilter - 1))
                     return;
             }
 
-            switch (gender)
+            uint gender = pid & 255;
+            switch (genderFilter)
             {
                 case 1:
-                    if ((pid & 255) < 127)
+                    if (gender < 127)
                         return;
                     break;
                 case 2:
-                    if ((pid & 255) > 126)
+                    if (gender > 126)
                         return;
                     break;
                 case 3:
-                    if ((pid & 255) < 191)
+                    if (gender < 191)
                         return;
                     break;
                 case 4:
-                    if ((pid & 255) > 190)
+                    if (gender > 190)
                         return;
                     break;
                 case 5:
-                    if ((pid & 255) < 64)
+                    if (gender < 64)
                         return;
                     break;
                 case 6:
-                    if ((pid & 255) > 63)
+                    if (gender > 63)
                         return;
                     break;
                 case 7:
-                    if ((pid & 255) < 31)
+                    if (gender < 31)
                         return;
                     break;
                 case 8:
-                    if ((pid & 255) > 30)
+                    if (gender > 30)
                         return;
                     break;
             }
 
-            calcPokeSpot(seed, pid, frame, nature, gender, ability, shiny);
+            calcPokeSpot(pid, frame, nature, gender, ability, shiny);
         }
 
-        private void calcPokeSpot(uint seed, uint pid, uint frame, uint nature, uint gender, uint ability, String shiny)
+        private void calcPokeSpot(uint pid, uint frame, uint nature, uint gender, uint ability, String shiny)
         {
-            uint call1 = rngList[1] >> 16;
+            uint call1 = rngList[j >= 5 ? j -5 : j + 1] >> 16;
             uint currentCall = call1 - 3 * (call1 / 3);
 
             if (currentCall == 0)
             {
                 String spotType = "";
-                uint call2 = rngList[3] >> 16;
-                uint call3 = rngList[4] >> 16;
+                uint call2 = rngList[j >= 3 ? j - 3 : j + 3] >> 16;
+                uint call3 = rngList[j >= 2 ? j - 2 : j + 4] >> 16;
 
                 if (shiny == "")
                 {
-                    uint shinyNum = ((pid >> 16) ^ (pid & 0xFFFF)) >> 3;
                     if (shinyNum == shinyval)
                         shiny = "!!!";
                 }
@@ -267,12 +234,10 @@ namespace RNGReporter.Objects
                 }
 
                 String stringNature = Natures[nature];
-                gender = pid & 255;
                 char gender1;
                 char gender2;
                 char gender3;
                 char gender4;
-                ability = pid & 1;
 
                 gender1 = gender < 31 ? 'F' : 'M';
                 gender2 = gender < 64 ? 'F' : 'M';
@@ -281,7 +246,7 @@ namespace RNGReporter.Objects
 
                 displayList.Add(new PokeSpotDisplay
                 {
-                    Seed = seed.ToString("x").ToUpper(),
+                    Seed = rngList[j].ToString("x").ToUpper(),
                     Frame = (int)frame,
                     PID = pid.ToString("x").ToUpper(),
                     Shiny = shiny,
@@ -295,60 +260,6 @@ namespace RNGReporter.Objects
                 });
 
             }
-        }
-
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            if (isSearching)
-            {
-                isSearching = false;
-                status.Text = "Cancelled. - Awaiting Command";
-                searchThread.Abort();
-            }
-        }
-
-        private void updateGUI()
-        {
-            gridUpdate = dataGridUpdate;
-            ThreadDelegate resizeGrid = dataGridViewResult.AutoResizeColumns;
-            try
-            {
-                bool alive = true;
-                while (alive)
-                {
-                    if (refresh)
-                    {
-                        Invoke(gridUpdate);
-                        refresh = false;
-                    }
-                    if (searchThread == null || !searchThread.IsAlive)
-                    {
-                        alive = false;
-                    }
-
-                    Thread.Sleep(500);
-                }
-            }
-            finally
-            {
-                if (!abort)
-                {
-                    Invoke(gridUpdate);
-                    Invoke(resizeGrid);
-                }
-            }
-        }
-
-
-        #region Nested type: ThreadDelegate
-
-        private delegate void ThreadDelegate();
-
-        #endregion
-
-        private void dataGridUpdate()
-        {
-            binding.ResetBindings(true);
         }
 
         private void anyPokeSpot_Click(object sender, EventArgs e)

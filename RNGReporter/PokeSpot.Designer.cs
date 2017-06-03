@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
             this.L_mezapa = new System.Windows.Forms.Label();
             this.genderType = new System.Windows.Forms.ComboBox();
             this.L_sex = new System.Windows.Forms.Label();
@@ -40,7 +40,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.status = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxSeed = new RNGReporter.Controls.MaskedTextBox2();
@@ -61,7 +60,6 @@
             this.anyGender = new RNGReporter.GlassButton();
             this.anyAbility = new RNGReporter.GlassButton();
             this.search = new RNGReporter.GlassButton();
-            this.cancel = new RNGReporter.GlassButton();
             this.id = new RNGReporter.Controls.MaskedTextBox2();
             this.sid = new RNGReporter.Controls.MaskedTextBox2();
             this.maxFrame = new RNGReporter.Controls.MaskedTextBox2();
@@ -168,16 +166,6 @@
             this.label3.Text = "PokeSpot Type";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // status
-            // 
-            this.status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.status.Location = new System.Drawing.Point(9, 472);
-            this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(279, 20);
-            this.status.TabIndex = 299;
-            this.status.Text = "Awaiting command";
-            this.status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label5
             // 
             this.label5.Location = new System.Drawing.Point(27, 156);
@@ -239,7 +227,7 @@
             this.dataGridViewResult.ShowCellToolTips = false;
             this.dataGridViewResult.ShowEditingIcon = false;
             this.dataGridViewResult.ShowRowErrors = false;
-            this.dataGridViewResult.Size = new System.Drawing.Size(734, 207);
+            this.dataGridViewResult.Size = new System.Drawing.Size(734, 227);
             this.dataGridViewResult.TabIndex = 318;
             // 
             // dataGridViewTextBoxColumn0
@@ -259,8 +247,8 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "PID";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn1.HeaderText = "PID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -385,27 +373,14 @@
             // 
             this.search.BackColor = System.Drawing.Color.AntiqueWhite;
             this.search.ForeColor = System.Drawing.Color.Black;
-            this.search.Location = new System.Drawing.Point(590, 231);
+            this.search.Location = new System.Drawing.Point(671, 233);
             this.search.Name = "search";
             this.search.OuterBorderColor = System.Drawing.Color.Transparent;
             this.search.ShineColor = System.Drawing.SystemColors.Window;
             this.search.Size = new System.Drawing.Size(75, 23);
             this.search.TabIndex = 328;
-            this.search.Text = "Search";
+            this.search.Text = "Generate";
             this.search.Click += new System.EventHandler(this.search_Click);
-            // 
-            // cancel
-            // 
-            this.cancel.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.cancel.ForeColor = System.Drawing.Color.Black;
-            this.cancel.Location = new System.Drawing.Point(671, 231);
-            this.cancel.Name = "cancel";
-            this.cancel.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.cancel.ShineColor = System.Drawing.SystemColors.Window;
-            this.cancel.Size = new System.Drawing.Size(75, 23);
-            this.cancel.TabIndex = 330;
-            this.cancel.Text = "Cancel";
-            this.cancel.Click += new System.EventHandler(this.cancel_Click);
             // 
             // id
             // 
@@ -443,8 +418,8 @@
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties3;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties1;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -457,8 +432,8 @@
             // comboBoxSpotType
             // 
             this.comboBoxSpotType.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxSpotType.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxSpotType.CheckBoxProperties = checkBoxProperties2;
             this.comboBoxSpotType.DisplayMemberSingleItem = "";
             this.comboBoxSpotType.DropDownHeight = 110;
             this.comboBoxSpotType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -478,7 +453,6 @@
             this.Controls.Add(this.maxFrame);
             this.Controls.Add(this.sid);
             this.Controls.Add(this.id);
-            this.Controls.Add(this.cancel);
             this.Controls.Add(this.search);
             this.Controls.Add(this.anyAbility);
             this.Controls.Add(this.anyGender);
@@ -488,7 +462,6 @@
             this.Controls.Add(this.textBoxSeed);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.status);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -500,7 +473,6 @@
             this.Controls.Add(this.abilityType);
             this.Name = "PokeSpot";
             this.Text = "PokeSpot";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PokeSpot_FormClosing);
             this.Load += new System.EventHandler(this.PokeSpot_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).EndInit();
             this.ResumeLayout(false);
@@ -518,7 +490,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox Shiny_Check;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label status;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private Controls.MaskedTextBox2 textBoxSeed;
@@ -539,7 +510,6 @@
         private GlassButton anyGender;
         private GlassButton anyAbility;
         private GlassButton search;
-        private GlassButton cancel;
         private Controls.MaskedTextBox2 id;
         private Controls.MaskedTextBox2 sid;
         private Controls.MaskedTextBox2 maxFrame;

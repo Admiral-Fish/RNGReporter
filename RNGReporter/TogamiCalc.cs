@@ -16,28 +16,21 @@ namespace RNGReporter
     public partial class TogamiCalc : Form
     {
         private Thread searchThread;
-        private bool refresh;
-        private ThreadDelegate gridUpdate;
-        private BindingSource binding = new BindingSource();
         private List<RTCTime> seedTime;
         DateTime date = new DateTime(2000, 1, 1, 0, 0, 0);
         TimeSpan addTime;
-        private bool isSearching = false;
-        private bool abort = false;
+        private bool isSearching;
 
         public TogamiCalc()
         {
             InitializeComponent();
-            dataGridViewValues.DataSource = binding;
             dataGridViewValues.AutoGenerateColumns = false;
-            abort = false;
         }
 
         private void TogamiCalc_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (searchThread != null)
                 searchThread.Abort();
-            abort = true;
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -74,17 +67,9 @@ namespace RNGReporter
             int max = int.Parse(maxFrame.Text);
 
             seedTime = new List<RTCTime>();
-            binding = new BindingSource { DataSource = seedTime };
-            dataGridViewValues.DataSource = binding;
 
-            searchThread =
-                new Thread(
-                    () =>
-                    calcRTC(initial, target, min, max));
+            searchThread = new Thread(() => calcRTC(initial, target, min, max));
             searchThread.Start();
-
-            var update = new Thread(updateGUI);
-            update.Start();
         }
 
         private void calcRTC(uint initialSeed, uint targetSeed, int minFrame, int maxFrame)
@@ -121,6 +106,8 @@ namespace RNGReporter
                         seedTime.Add(new RTCTime { Time = result, Frame = framesAway + 1 + minFrame});
                         isSearching = false;
                         searchText.Invoke((MethodInvoker)(() => searchText.Text = "Finish. Awaiting command"));
+                        dataGridViewValues.Invoke((MethodInvoker)(() => dataGridViewValues.DataSource = seedTime));
+                        dataGridViewValues.Invoke((MethodInvoker)(() => dataGridViewValues.AutoResizeColumns()));
                         return;
                     }
                 }
@@ -139,64 +126,17 @@ namespace RNGReporter
 
         private uint forward(uint seed)
         {
-            return ((seed * 0x000343FD + 0x00269EC3) & 0xFFFFFFFF);
+            return seed * 0x000343FD + 0x00269EC3;
         }
 
         private uint reverse(uint seed)
         {
-            return ((seed * 0xB9B33155 + 0xA170F641) & 0xFFFFFFFF);
+            return seed * 0xB9B33155 + 0xA170F641;
         }
 
         private uint nextSeed(uint seed)
         {
-            seed += 40500000;
-            if (seed > 0xFFFFFFFF)
-                seed &= 0xFFFFFFFF;
-            return seed;
-        }
-
-        private void updateGUI()
-        {
-            gridUpdate = dataGridUpdate;
-            ThreadDelegate resizeGrid = dataGridViewValues.AutoResizeColumns;
-            try
-            {
-                bool alive = true;
-                while (alive)
-                {
-                    if (refresh)
-                    {
-                        Invoke(gridUpdate);
-                        refresh = false;
-                    }
-                    if (searchThread == null || !searchThread.IsAlive)
-                    {
-                        alive = false;
-                    }
-
-                    Thread.Sleep(500);
-                }
-            }
-            finally
-            {
-                if (!abort)
-                {
-                    Invoke(gridUpdate);
-                    Invoke(resizeGrid);
-                }
-            }
-        }
-
-
-        #region Nested type: ThreadDelegate
-
-        private delegate void ThreadDelegate();
-
-        #endregion
-
-        private void dataGridUpdate()
-        {
-            binding.ResetBindings(false);
+            return seed + 40500000;
         }
 
         private void cancel_Click(object sender, EventArgs e)

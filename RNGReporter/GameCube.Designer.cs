@@ -31,11 +31,10 @@
             this.components = new System.ComponentModel.Container();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties4 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.L_ball = new System.Windows.Forms.Label();
             this.genderType = new System.Windows.Forms.ComboBox();
@@ -66,9 +65,6 @@
             this.spaLogic = new System.Windows.Forms.ComboBox();
             this.spdLogic = new System.Windows.Forms.ComboBox();
             this.speLogic = new System.Windows.Forms.ComboBox();
-            this.shadowMethodLabel = new System.Windows.Forms.Label();
-            this.anyShadowMethod = new RNGReporter.GlassButton();
-            this.comboBoxShadowMethod = new RNGReporter.Controls.CheckBoxComboBox();
             this.comboBoxHiddenPower = new RNGReporter.Controls.CheckBoxComboBox();
             this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
             this.dataGridViewResult = new RNGReporter.DoubleBufferedDataGridView();
@@ -637,47 +633,11 @@
             this.speLogic.Size = new System.Drawing.Size(41, 21);
             this.speLogic.TabIndex = 313;
             // 
-            // shadowMethodLabel
-            // 
-            this.shadowMethodLabel.Location = new System.Drawing.Point(719, 107);
-            this.shadowMethodLabel.Name = "shadowMethodLabel";
-            this.shadowMethodLabel.Size = new System.Drawing.Size(87, 20);
-            this.shadowMethodLabel.TabIndex = 321;
-            this.shadowMethodLabel.Text = "Method";
-            this.shadowMethodLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // anyShadowMethod
-            // 
-            this.anyShadowMethod.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.anyShadowMethod.ForeColor = System.Drawing.Color.Black;
-            this.anyShadowMethod.Location = new System.Drawing.Point(989, 106);
-            this.anyShadowMethod.Name = "anyShadowMethod";
-            this.anyShadowMethod.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.anyShadowMethod.ShineColor = System.Drawing.SystemColors.Window;
-            this.anyShadowMethod.Size = new System.Drawing.Size(33, 23);
-            this.anyShadowMethod.TabIndex = 323;
-            this.anyShadowMethod.Text = "Any";
-            this.anyShadowMethod.Click += new System.EventHandler(this.anyShadowMethod_Click);
-            // 
-            // comboBoxShadowMethod
-            // 
-            this.comboBoxShadowMethod.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxShadowMethod.CheckBoxProperties = checkBoxProperties1;
-            this.comboBoxShadowMethod.DisplayMemberSingleItem = "";
-            this.comboBoxShadowMethod.DropDownHeight = 90;
-            this.comboBoxShadowMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxShadowMethod.FormattingEnabled = true;
-            this.comboBoxShadowMethod.Location = new System.Drawing.Point(812, 107);
-            this.comboBoxShadowMethod.Name = "comboBoxShadowMethod";
-            this.comboBoxShadowMethod.Size = new System.Drawing.Size(171, 21);
-            this.comboBoxShadowMethod.TabIndex = 322;
-            // 
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties1;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -690,8 +650,8 @@
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties3;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1427,11 +1387,8 @@
             this.tabPage1.Controls.Add(this.galesCheck);
             this.tabPage1.Controls.Add(this.hpValue);
             this.tabPage1.Controls.Add(this.hpLogic);
-            this.tabPage1.Controls.Add(this.anyShadowMethod);
             this.tabPage1.Controls.Add(this.anyHiddenPower);
-            this.tabPage1.Controls.Add(this.comboBoxShadowMethod);
             this.tabPage1.Controls.Add(this.anyAbility);
-            this.tabPage1.Controls.Add(this.shadowMethodLabel);
             this.tabPage1.Controls.Add(this.anyGender);
             this.tabPage1.Controls.Add(this.anyNature);
             this.tabPage1.Controls.Add(this.comboBoxNature);
@@ -1948,8 +1905,8 @@
             // checkBoxHPShadow
             // 
             this.checkBoxHPShadow.BlankText = "Any";
-            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBoxHPShadow.CheckBoxProperties = checkBoxProperties4;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBoxHPShadow.CheckBoxProperties = checkBoxProperties3;
             this.checkBoxHPShadow.DisplayMemberSingleItem = "";
             this.checkBoxHPShadow.DropDownHeight = 300;
             this.checkBoxHPShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2084,8 +2041,8 @@
             // checkBoxNatureShadow
             // 
             this.checkBoxNatureShadow.BlankText = "Any";
-            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBoxNatureShadow.CheckBoxProperties = checkBoxProperties5;
+            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBoxNatureShadow.CheckBoxProperties = checkBoxProperties4;
             this.checkBoxNatureShadow.DisplayMemberSingleItem = "";
             this.checkBoxNatureShadow.DropDownHeight = 300;
             this.checkBoxNatureShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2712,9 +2669,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Reason;
         private Controls.CheckBoxComboBox comboBoxNature;
         private Controls.CheckBoxComboBox comboBoxHiddenPower;
-        private System.Windows.Forms.Label shadowMethodLabel;
-        private Controls.CheckBoxComboBox comboBoxShadowMethod;
-        private GlassButton anyShadowMethod;
         private Controls.MaskedTextBox2 hpValue;
         private Controls.MaskedTextBox2 atkValue;
         private Controls.MaskedTextBox2 defValue;

@@ -173,7 +173,7 @@ namespace RNGReporter.Objects
 
             //  Now we want to start with IV2 and call the RNG for
             //  values between 0 and FFFF in the low order bits.
-            for (uint cnt = 0; cnt <= 0xFFFE; cnt++)
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
             {
                 uint x_test;
                 uint x_testXD;
@@ -239,6 +239,23 @@ namespace RNGReporter.Objects
                     seeds.Add(newSeed);
                 }
 
+                //  Check Reverse Method 1
+                // [PID] [PID] [IVs] [IVs]
+                // [rng2] [rng3] [rng1] [START]
+                if (Check(rng1, rng3, rng2, hp, atk, def, nature))
+                {
+                    //  Build a seed to add to our collection
+                    var newSeed = new Seed
+                    {
+                        Method = "Reverse Method 1",
+                        Pid = ((uint)rng3 << 16) + rng2,
+                        MonsterSeed = method1Seed,
+                        Sid = (rng2 ^ (uint)rng3 ^ id) & 0xFFF8
+                    };
+
+                    seeds.Add(newSeed);
+                }
+
                 //  Check Wishmkr
                 // [PID] [PID] [IVs] [IVs]
                 // [rng3] [rng2] [rng1] [START]
@@ -247,18 +264,17 @@ namespace RNGReporter.Objects
                     if (method1Seed < 0x10000)
                     {
                         //  Build a seed to add to our collection
-                        var newSeed = new Seed();
-                        newSeed.Pid = ((uint)rng3 << 16) + rng2;
-                        newSeed.MonsterSeed = method1Seed;
-                        newSeed.Sid = (rng2 ^ (uint)rng3 ^ id) & 0xFFF8;
+                        var newSeed = new Seed
+                        {
+                            Pid = ((uint)rng3 << 16) + rng2,
+                            MonsterSeed = method1Seed,
+                            Sid = (rng2 ^ (uint)rng3 ^ id) & 0xFFF8
+                        };
                         if (Functions.Shiny(newSeed.Pid, 20043, 0))
-                        {
                             newSeed.Method = "Wishmkr Shiny"; 
-                        }
                         else
-                        {
                             newSeed.Method = "Wishmkr";
-                        }
+
                         seeds.Add(newSeed);
                     }
                 }
@@ -1095,7 +1111,7 @@ namespace RNGReporter.Objects
 
                 uint pid = ((uint) pid2 << 16) | pid1;
 
-                uint pidNature = pid%25;
+                uint pidNature = pid - 25 * (pid / 25);
 
                 //  Do a nature comparison with what we have selected
                 //  in the dropdown and if we have a good match we can

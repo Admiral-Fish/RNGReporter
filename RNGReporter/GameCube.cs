@@ -66,12 +66,8 @@ namespace RNGReporter
             comboBoxHiddenPower.Items.AddRange(addHP());
             checkBoxNatureShadow.Items.AddRange(Nature.NatureDropDownCollectionSearchNatures());
             checkBoxHPShadow.Items.AddRange(addHP());
-            comboBoxShadowMethod.Items.AddRange(addShadowMethod());
             setComboBox();
             wshMkr.Visible = true;
-            shadowMethodLabel.Visible = false;
-            comboBoxShadowMethod.Visible = false;
-            anyShadowMethod.Visible = false;
             shadowPokemon.Visible = false;
             galesCheck.Visible = false;
         }
@@ -1881,16 +1877,6 @@ namespace RNGReporter
                     "Dark"
                 };
         }
-
-        private String[] addShadowMethod()
-        {
-            return new String[]
-                {
-                    "Set",
-                    "Unset",
-                    "Shiny Skip"
-                };
-        }
         #endregion
 
         #region Quick search settings
@@ -2070,11 +2056,6 @@ namespace RNGReporter
             comboBoxHiddenPower.ClearSelection();
         }
 
-        private void anyShadowMethod_Click(object sender, EventArgs e)
-        {
-            comboBoxShadowMethod.ClearSelection();
-        }
-
         private void hpMaxShadow_Click(object sender, EventArgs e)
         {
             hpShadow.Text = "31";
@@ -2247,8 +2228,6 @@ namespace RNGReporter
             comboBoxNature.CheckBoxItems[0].Checked = false;
             comboBoxHiddenPower.CheckBoxItems[0].Checked = true;
             comboBoxHiddenPower.CheckBoxItems[0].Checked = false;
-            comboBoxShadowMethod.CheckBoxItems[0].Checked = true;
-            comboBoxShadowMethod.CheckBoxItems[0].Checked = false;
             checkBoxNatureShadow.CheckBoxItems[0].Checked = true;
             checkBoxNatureShadow.CheckBoxItems[0].Checked = false;
             checkBoxHPShadow.CheckBoxItems[0].Checked = true;
@@ -2259,62 +2238,23 @@ namespace RNGReporter
         {
             if (galesCheck.Checked == true)
             {
-                List<int> secondShadows = new List<int> { 0, 6, 8, 10, 21, 30, 32, 37, 50, 57, 66, 67, 75, 93 };
-                if (secondShadows.Contains(shadowPokemon.SelectedIndex))
-                {
-                    //shadowMethodLabel.Visible = true;
-                    //comboBoxShadowMethod.Visible = true;
-                    //anyShadowMethod.Visible = true;
-                }
-                else if (shadowPokemon.SelectedIndex == 41)
-                {
-                    shadowMethodLabel.Visible = false;
-                    comboBoxShadowMethod.Visible = false;
-                    anyShadowMethod.Visible = false;
+                if (shadowPokemon.SelectedIndex == 41)
                     Shiny_Check.Visible = true;
-                }
                 else
-                {
-                    shadowMethodLabel.Visible = false;
-                    comboBoxShadowMethod.Visible = false;
-                    anyShadowMethod.Visible = false;
                     Shiny_Check.Visible = false;
-                }
             }
             else
-            {
-                shadowMethodLabel.Visible = false;
-                comboBoxShadowMethod.Visible = false;
-                anyShadowMethod.Visible = false;
                 Shiny_Check.Visible = true;
-            }
         }
 
         private void shadowPokemon_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (galesCheck.Checked)
             {
-                List<int> secondShadows = new List<int> { 0, 6, 8, 10, 21, 30, 32, 37, 50, 57, 66, 67, 75, 93 };
-                if (secondShadows.Contains(shadowPokemon.SelectedIndex))
-                {
-                    //shadowMethodLabel.Visible = true;
-                    //comboBoxShadowMethod.Visible = true;
-                    //anyShadowMethod.Visible = true;
-                }
-                else if (shadowPokemon.SelectedIndex == 41)
-                {
-                    shadowMethodLabel.Visible = false;
-                    comboBoxShadowMethod.Visible = false;
-                    anyShadowMethod.Visible = false;
+                if (shadowPokemon.SelectedIndex == 41)
                     Shiny_Check.Visible = true;
-                }
                 else
-                {
-                    shadowMethodLabel.Visible = false;
-                    comboBoxShadowMethod.Visible = false;
-                    anyShadowMethod.Visible = false;
                     Shiny_Check.Visible = false;
-                }
             }
         }
 
@@ -2325,9 +2265,6 @@ namespace RNGReporter
             {
                 wshMkr.Visible = true;
                 Shiny_Check.Visible = true;
-                shadowMethodLabel.Visible = false;
-                comboBoxShadowMethod.Visible = false;
-                anyShadowMethod.Visible = false;
                 shadowPokemon.Visible = false;
                 galesCheck.Visible = false;
             }
@@ -2337,28 +2274,10 @@ namespace RNGReporter
                 Shiny_Check.Visible = true;
                 if (galesCheck.Checked)
                 {
-                    List<int> secondShadows = new List<int> { 0, 6, 8, 10, 21, 30, 32, 37, 50, 57, 66, 67, 75, 93 };
-                    Shiny_Check.Visible = false;
-                    if (secondShadows.Contains(shadowPokemon.SelectedIndex))
-                    {
-                        //shadowMethodLabel.Visible = true;
-                        //comboBoxShadowMethod.Visible = true;
-                        //anyShadowMethod.Visible = true;
-                    }
-                    else if (shadowPokemon.SelectedIndex == 41)
-                    {
-                        shadowMethodLabel.Visible = false;
-                        comboBoxShadowMethod.Visible = false;
-                        anyShadowMethod.Visible = false;
+                    if (shadowPokemon.SelectedIndex == 41)
                         Shiny_Check.Visible = true;
-                    }
                     else
-                    {
-                        shadowMethodLabel.Visible = false;
-                        comboBoxShadowMethod.Visible = false;
-                        anyShadowMethod.Visible = false;
                         Shiny_Check.Visible = false;
-                    }
                 }
                 shadowPokemon.Visible = true;
                 galesCheck.Visible = true;
@@ -2367,9 +2286,6 @@ namespace RNGReporter
             {
                 wshMkr.Visible = false;
                 Shiny_Check.Visible = true;
-                shadowMethodLabel.Visible = false;
-                comboBoxShadowMethod.Visible = false;
-                anyShadowMethod.Visible = false;
                 shadowPokemon.Visible = false;
                 galesCheck.Visible = false;
             }

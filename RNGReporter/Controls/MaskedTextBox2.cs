@@ -20,6 +20,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace RNGReporter.Controls
@@ -73,6 +74,33 @@ namespace RNGReporter.Controls
 
             base.OnKeyPress(e);
         }
+        
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x302)  //PasteEvent
+            {
+                string NewText = "";
+
+                foreach (char a in Clipboard.GetText())
+                {
+                    if ((a >= 'a' && a <= 'f') || (a >= 'A' && a <= 'F') || (a >= '0' && a <= '9'))
+                    {
+                        NewText = NewText + char.ToUpper(a);
+                    }
+                }
+
+                if (NewText != "")
+                {
+                    if (SelectionStart > Text.Length)
+                    SelectionStart = Text.Length;
+                
+                    Clipboard.SetText(NewText);
+                    base.WndProc(ref m);
+                }
+            }
+            else
+            { base.WndProc(ref m); }
+        }
 
         protected override void OnTextChanged(EventArgs e)
         {
@@ -85,28 +113,6 @@ namespace RNGReporter.Controls
             {
                 //change the tags of all the maskedTextBoxes that accept a maximum number of 100 to "level"
                 Text = "100";
-            }
-
-            if (Hex)
-            {
-                string replace = "";
-                for (int charPos = 0; charPos < Text.Length; charPos++)
-                {
-                    if (Mask[charPos].Equals('A'))
-                    {
-                        if ((Text[charPos] >= 'a') && (Text[charPos] <= 'f'))
-                        {
-                            char charText = char.ToUpper(Text[charPos]);
-                            replace = replace + charText;
-                        }
-                        else if (((Text[charPos] >= 'A') && (Text[charPos] <= 'F')) ||
-                            ((Text[charPos] >= '0') && (Text[charPos] <= '9')))
-                        {
-                            replace = replace + Text[charPos];
-                        }
-                    }
-                }
-                Text = replace;
             }
             base.OnTextChanged(e);
         }

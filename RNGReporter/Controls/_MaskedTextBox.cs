@@ -10,7 +10,7 @@ namespace RNGReporter
         int pos1;
         int start;
         bool select = false;
-        bool Check = false;
+        bool moving = false;
 
         public _MaskedTextBox()
         {
@@ -24,42 +24,6 @@ namespace RNGReporter
             InitializeComponent();
         }
 
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            pos1 = MousePosition.X;          
-            
-            if (e.Button == MouseButtons.Right)
-            {
-                select = true;
-            }
-            base.OnMouseDown(e);
-        }
-
-        protected override void OnMouseUp(MouseEventArgs mevent)
-        {
-            if (SelectionStart > Text.Length)
-            {
-                Select(Text.Length, 0);
-            }
-            else if (SelectedText == Text)
-            {
-                Select(0, Text.Length);
-            }
-            else
-            { Select(SelectionStart, SelectedText.Length); }
-
-
-            if (pos1 > MousePosition.X && SelectedText != "")
-            {
-                start = SelectionStart + SelectedText.Length;
-            }
-            else if (pos1 < MousePosition.X && SelectedText != "")
-            {
-                start = SelectionStart;
-            }
-            base.OnMouseUp(mevent);
-        }
-
         protected override void OnEnter(EventArgs e)
         {
             Focus();
@@ -67,6 +31,7 @@ namespace RNGReporter
             if (Text != "" || select == true)
             {
                 Select(0, Text.Length);
+                start = SelectionStart;
                 select = false;
             }
             else
@@ -248,12 +213,82 @@ namespace RNGReporter
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == (Keys.Control | Keys.A))
+            if (keyData == (Keys.Control | Keys.A))  //Ctrl + A
             {
                 Select(0, Text.Length);
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+        
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x302)  //PasteEvent
+            {
+                string NewText = "";
+
+                foreach (char a in Clipboard.GetText())
+                {
+                    if ((a >= 'a' && a <= 'f') || (a >= 'A' && a <= 'F') || (a >= '0' && a <= '9'))
+                    {
+                        NewText = NewText + char.ToUpper(a);
+                    }
+                }
+
+                if (NewText != "")
+                {
+                    Clipboard.SetText(NewText);
+                    base.WndProc(ref m);
+                }
+            }
+            else if (m.Msg == 0x203)  //DoubleClick
+            {
+                Select(0, Text.Length);
+                start = SelectionStart;
+            }
+            else if (m.Msg == 0x201)  //LeftMouseButtonDown
+            {
+                pos1 = MousePosition.X;
+                moving = true;
+
+                base.WndProc(ref m);
+
+                if (SelectionStart > Text.Length)
+                {
+                    Select(Text.Length, 0);
+                }
+            }
+            else if (m.Msg == 0x204)  //RightMouseButtonDown
+            {
+                select = true;
+                base.WndProc(ref m);
+            }
+            else if (m.Msg == 0x200)  //MouseMove
+            {
+                base.WndProc(ref m);
+
+                if (moving == true && pos1 > MousePosition.X)
+                {
+                    start = SelectionStart + SelectedText.Length;
+                }
+                else if (moving == true && pos1 < MousePosition.X)
+                {
+                    start = SelectionStart;
+                    Select(SelectionStart, SelectedText.Length);
+                }
+
+                if (moving == true && SelectionStart == Text.Length)
+                {
+                    Select(Text.Length, 0);
+                }
+            }
+            else if (m.Msg == 0x202)  //MouseUp
+            {
+                moving = false;
+                base.WndProc(ref m);
+            }
+            else
+            { base.WndProc(ref m); }
         }
 
         protected override void OnKeyPress(KeyPressEventArgs e)
@@ -264,9 +299,9 @@ namespace RNGReporter
                 {
                     int HexTest = int.Parse(e.KeyChar.ToString(), NumberStyles.HexNumber);
                     e.KeyChar = char.ToUpper(e.KeyChar);
-                    Check = true;
                 }
-                catch { e.KeyChar = (char)0; }
+                catch 
+                { e.KeyChar = (char)0; }
             }
             base.OnKeyPress(e);
         }
@@ -281,35 +316,7 @@ namespace RNGReporter
             {
                 Text = "4294967295";
             }
-
-            if (Check == false)
-            {
-                string NewText = "";
-                string ReplacedText = Text.Replace("_", "");
-
-                foreach (char a in ReplacedText)
-                {
-                    try
-                    {
-                        int HexTest = int.Parse(a.ToString(), NumberStyles.HexNumber);
-                        NewText = NewText + char.ToUpper(a);
-                    }
-                    catch { }
-                }
-                Text = NewText;
-            }
-            else { Check = false; }
-            
             base.OnTextChanged(e);
-        }
-        
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            if (SelectionStart > Text.Length)
-            {
-                SelectionStart = Text.Length;
-            }
-            base.OnKeyUp(e);
         }
     }
 }

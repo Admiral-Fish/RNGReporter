@@ -4327,8 +4327,8 @@ namespace RNGReporter.Objects
                         }
                         Frame frame = Frame.GenerateFrame(
                             FrameType.Wondercard5thGenFixed,
-                            cnt + InitialFrame,
                             id, sid,
+                            cnt + InitialFrame,
                             rngList[0],
                             rngList[24] >> 27,
                             rngList[25] >> 27,

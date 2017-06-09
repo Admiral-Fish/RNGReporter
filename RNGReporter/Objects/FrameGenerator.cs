@@ -4305,15 +4305,13 @@ namespace RNGReporter.Objects
 
                 if (maxResults < 1000)
                 {
+                    rngList = new List<uint>();
+
                     for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                    {
                         rng64.GetNext64BitNumber();
-                    }
 
                     for (int cnt = 0; cnt < maxResults + 36; cnt++)
-                    {
                         rngList.Add(rng64.GetNext32BitNumber());
-                    }
 
                     for (uint cnt = 0; cnt < maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
                     {
@@ -4350,6 +4348,8 @@ namespace RNGReporter.Objects
                 }
                 else
                 {
+                    rngList = new List<uint>();
+
                     for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
                         rng64.GetNext64BitNumber();
 

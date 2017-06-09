@@ -59,6 +59,7 @@ namespace RNGReporter
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setSeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setSIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyPIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.labelSeed = new System.Windows.Forms.Label();
@@ -305,7 +306,8 @@ namespace RNGReporter
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setSeedToolStripMenuItem,
-            this.setSIDToolStripMenuItem});
+            this.setSIDToolStripMenuItem,
+            this.copyPIDToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip1";
             this.contextMenuStrip.Size = new System.Drawing.Size(119, 48);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
@@ -324,6 +326,13 @@ namespace RNGReporter
             this.setSIDToolStripMenuItem.Text = "Set SID";
             this.setSIDToolStripMenuItem.Click += new System.EventHandler(this.setSIDToolStripMenuItem_Click);
             // 
+            // copyPIDToolStripMenuItem
+            //
+            this.copyPIDToolStripMenuItem.Name = "copyPIDToolStripMenuItem";
+            this.copyPIDToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.copyPIDToolStripMenuItem.Text = "Copy PID";
+            this.copyPIDToolStripMenuItem.Click += new System.EventHandler(this.copyPIDToolStripMenuItem_Click);
+            //
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(7, 52);
@@ -572,6 +581,7 @@ namespace RNGReporter
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem setSeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setSIDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyPIDToolStripMenuItem;
         private System.Windows.Forms.Label labelSid;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

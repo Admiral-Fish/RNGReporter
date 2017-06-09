@@ -124,6 +124,7 @@ namespace RNGReporter
                 SeedSet = true;
 
                 labelSeed.Text = seed.MonsterSeed.ToString("X");
+                Clipboard.SetText(ReturnSeed.ToString("X"));
             }
         }
 
@@ -138,6 +139,17 @@ namespace RNGReporter
                 sidSet = true;
 
                 labelSid.Text = seed.Sid.ToString();
+                Clipboard.SetText(ReturnSid.ToString());
+            }
+        }
+
+        private void copyPIDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //  Get currently selected item
+            if (dataGridViewValues.SelectedRows.Count > 0)
+            {
+                var seed = (Seed)dataGridViewValues.SelectedRows[0].DataBoundItem;
+                Clipboard.SetText(seed.Pid.ToString("X"));
             }
         }
 

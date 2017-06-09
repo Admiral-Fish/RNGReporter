@@ -4207,187 +4207,85 @@ namespace RNGReporter.Objects
             {
                 rng64.Seed = InitialSeed;
 
-                if (maxResults < 1000)
+                for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
+                    rng64.GetNext64BitNumber();
+
+                for (int cnt = 0; cnt < 33; cnt++)
+                    rngList.Add(rng64.GetNext32BitNumber());
+
+                for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
                 {
-                    for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
+                    uint pid = rngList[30];
+                    switch (shiny)
                     {
-                        rng64.GetNext64BitNumber();
+                        case 0:
+                            pid = ForceNonShiny(pid, id, sid);
+                            break;
+                        case 2:
+                            pid = ForceShiny(pid, id, sid);
+                            break;
                     }
 
-                    for (int cnt = 0; cnt < 33; cnt++)
-                    {
-                        rngList.Add(rng64.GetNext32BitNumber());
-                    }
-
-                    for (uint cnt = 0; cnt < maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
-                    {
-                        uint pid = rngList[30];
-                        switch (shiny)
-                        {
-                            case 0:
-                                pid = ForceNonShiny(pid, id, sid);
-                                break;
-                            case 2:
-                                pid = ForceShiny(pid, id, sid);
-                                break;
-                        }
-                        Frame frame = Frame.GenerateFrame(
-                            FrameType.Wondercard5thGen,
-                            id, sid,
-                            cnt + InitialFrame,
-                            rngList[0],
-                            rngList[22] >> 27,
-                            rngList[23] >> 27,
-                            rngList[24] >> 27,
-                            rngList[25] >> 27,
-                            rngList[26] >> 27,
-                            rngList[27] >> 27,
-                            rngList[32],
-                            pid);
+                    Frame frame = Frame.GenerateFrame(
+                        FrameType.Wondercard5thGen,
+                        id, sid,
+                        cnt,
+                        rngList[0],
+                        rngList[22] >> 27,
+                        rngList[23] >> 27,
+                        rngList[24] >> 27,
+                        rngList[25] >> 27,
+                        rngList[26] >> 27,
+                        rngList[27] >> 27,
+                        rngList[32],
+                        pid);
 
 
-                        if (frameCompare.Compare(frame))
-                        {
-                            frames.Add(frame);
-                        }
-                    }
-                }
-                else
-                {
-                    for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                    {
-                        rng64.GetNext64BitNumber();
-                    }
-
-                    for (int cnt = 0; cnt < 33; cnt++)
-                    {
-                        rngList.Add(rng64.GetNext32BitNumber());
-                    }
-
-                    for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
-                    {
-                        uint pid = rngList[30];
-                        switch (shiny)
-                        {
-                            case 0:
-                                pid = ForceNonShiny(pid, id, sid);
-                                break;
-                            case 2:
-                                pid = ForceShiny(pid, id, sid);
-                                break;
-                        }
-
-                        Frame frame = Frame.GenerateFrame(
-                            FrameType.Wondercard5thGen,
-                            id, sid,
-                            cnt,
-                            rngList[0],
-                            rngList[22] >> 27,
-                            rngList[23] >> 27,
-                            rngList[24] >> 27,
-                            rngList[25] >> 27,
-                            rngList[26] >> 27,
-                            rngList[27] >> 27,
-                            rngList[32],
-                            pid);
-
-
-                        if (frameCompare.Compare(frame))
-                        {
-                            frames.Add(frame);
-                        }
-                    }
+                    if (frameCompare.Compare(frame))
+                        frames.Add(frame);
                 }
             }
             else if (frameType == FrameType.Wondercard5thGenFixed)
             {
                 rng64.Seed = InitialSeed;
 
-                if (maxResults < 1000)
+                rngList = new List<uint>();
+
+                for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
+                    rng64.GetNext64BitNumber();
+
+                for (int cnt = 0; cnt < 36; cnt++)
+                    rngList.Add(rng64.GetNext32BitNumber());
+
+                for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
                 {
-                    rngList = new List<uint>();
-
-                    for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                        rng64.GetNext64BitNumber();
-
-                    for (int cnt = 0; cnt < maxResults + 36; cnt++)
-                        rngList.Add(rng64.GetNext32BitNumber());
-
-                    for (uint cnt = 0; cnt < maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
+                    uint pid = Functions.GenderModPID(rngList[30], rngList[31], 0);
+                    switch (shiny)
                     {
-                        uint pid = Functions.GenderModPID(rngList[30], rngList[31], 0);
-                        switch (shiny)
-                        {
-                            case 0:
-                                pid = ForceNonShiny(pid, id, sid);
-                                break;
-                            case 2:
-                                pid = ForceShiny(pid, id, sid);
-                                break;
-                        }
-                        Frame frame = Frame.GenerateFrame(
-                            FrameType.Wondercard5thGenFixed,
-                            id, sid,
-                            cnt + InitialFrame,
-                            rngList[0],
-                            rngList[24] >> 27,
-                            rngList[25] >> 27,
-                            rngList[26] >> 27,
-                            rngList[27] >> 27,
-                            rngList[28] >> 27,
-                            rngList[29] >> 27,
-                            rngList[35],
-                            pid);
-
-
-                        if (frameCompare.Compare(frame))
-                        {
-                            frames.Add(frame);
-                        }
+                        case 0:
+                            pid = ForceNonShiny(pid, id, sid);
+                            break;
+                        case 2:
+                            pid = ForceShiny(pid, id, sid);
+                            break;
                     }
-                }
-                else
-                {
-                    rngList = new List<uint>();
 
-                    for (uint cnt = 0; cnt < InitialFrame - 1; cnt++)
-                        rng64.GetNext64BitNumber();
+                    frame = Frame.GenerateFrame(
+                        FrameType.Wondercard5thGenFixed,
+                        id, sid,
+                        cnt,
+                        rngList[0],
+                        rngList[24] >> 27,
+                        rngList[25] >> 27,
+                        rngList[26] >> 27,
+                        rngList[27] >> 27,
+                        rngList[28] >> 27,
+                        rngList[29] >> 27,
+                        rngList[35],
+                        pid);
 
-                    for (int cnt = 0; cnt < 36; cnt++)
-                        rngList.Add(rng64.GetNext32BitNumber());
-
-                    for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
-                    {
-                        uint pid = Functions.GenderModPID(rngList[30], rngList[31], 0);
-                        switch (shiny)
-                        {
-                            case 0:
-                                pid = ForceNonShiny(pid, id, sid);
-                                break;
-                            case 2:
-                                pid = ForceShiny(pid, id, sid);
-                                break;
-                        }
-
-                        frame = Frame.GenerateFrame(
-                            FrameType.Wondercard5thGenFixed,
-                            id, sid,
-                            cnt,
-                            rngList[0],
-                            rngList[24] >> 27,
-                            rngList[25] >> 27,
-                            rngList[26] >> 27,
-                            rngList[27] >> 27,
-                            rngList[28] >> 27,
-                            rngList[29] >> 27,
-                            rngList[35],
-                            pid);
-
-                        if (frameCompare.Compare(frame))
-                        {
-                            frames.Add(frame);
-                        }
-                    }
+                    if (frameCompare.Compare(frame))
+                        frames.Add(frame);
                 }
             }
             return frames;

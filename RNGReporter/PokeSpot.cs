@@ -17,11 +17,6 @@ namespace RNGReporter.Objects
         private int j;
         private bool shinyCheck;
 
-        public PokeSpot()
-        {
-            InitializeComponent();
-        }
-
         public PokeSpot(int TID, int SID)
         {
             InitializeComponent();
@@ -77,6 +72,8 @@ namespace RNGReporter.Objects
 
             if (temp.Count != 0)
                 spotList = temp;
+            else
+                spotList = new List<uint> { 0, 1, 2, 3 };
 
             genderFilter = (uint)genderType.SelectedIndex;
             abilityFilter = (uint)abilityType.SelectedIndex;
@@ -179,8 +176,8 @@ namespace RNGReporter.Objects
             if (currentCall == 0)
             {
                 String spotType = "";
-                uint call2 = rngList[j >= 3 ? j - 3 : j + 3] >> 16;
-                uint call3 = rngList[j >= 2 ? j - 2 : j + 4] >> 16;
+                uint call2 = rngList[j >= 4 ? j - 4 : j + 2] >> 16;
+                uint call3 = rngList[j >= 3 ? j - 3 : j + 3] >> 16;
 
                 if (shiny == "")
                 {
@@ -190,48 +187,35 @@ namespace RNGReporter.Objects
 
                 currentCall = call3 - 100 * (call3 / 100);
 
-                if (spotList != null)
+                foreach (uint x in spotList)
                 {
-                    foreach (uint x in spotList)
+                    if (x == 0)
                     {
-                        if (x == 0)
-                        {
-                            if ((call2 - 100 * (call2 / 100)) > 9)
-                                if (currentCall < 50)
-                                    spotType = "Common";
-                        }
-                        else if (x == 1)
-                        {
-                            if ((call2 - 100 * (call2 / 100)) > 9)
-                                if (currentCall > 49 && currentCall < 85)
-                                    spotType = "Uncommon";
-                        }
-                        else if (x == 2)
-                        {
-                            if ((call2 - 100 * (call2 / 100)) > 9)
-                                if (currentCall > 84)
-                                    spotType = "Rare";
-                        }
-                        else
-                        { 
+                        if ((call2 - 100 * (call2 / 100)) > 9)
+                            if (currentCall < 50)
+                                spotType = "Common";
+                    }
+                    else if (x == 1)
+                    {
+                        if ((call2 - 100 * (call2 / 100)) > 9)
+                            if (currentCall > 49 && currentCall < 85)
+                                spotType = "Uncommon";
+                    }
+                    else if (x == 2)
+                    {
+                        if ((call2 - 100 * (call2 / 100)) > 9)
+                            if (currentCall > 84)
+                                spotType = "Rare";
+                    }
+                    else
+                    { 
                         if ((call2 - 100 * (call2 / 100)) < 10)
                             spotType = "Munchlax";
-                        }
                     }
-                    if (spotType.Equals(""))
-                        return;
                 }
-                else
-                {
-                    if ((call2 - 100 * (call2 / 100)) < 10)
-                        spotType = "Munchlax";
-                    else if (currentCall < 50)
-                        spotType = "Common";
-                    else if (currentCall > 49 && currentCall < 85)
-                        spotType = "Uncommon";
-                    else
-                        spotType = "Rare";
-                }
+
+                if (spotType.Equals(""))
+                    return;
 
                 String stringNature = Natures[nature];
                 char gender1;

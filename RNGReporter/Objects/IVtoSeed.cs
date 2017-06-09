@@ -173,7 +173,7 @@ namespace RNGReporter.Objects
 
             //  Now we want to start with IV2 and call the RNG for
             //  values between 0 and FFFF in the low order bits.
-            for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
+            for (uint cnt = 0; cnt <= 0xFFFE; cnt++)
             {
                 uint x_test;
                 uint x_testXD;

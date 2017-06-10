@@ -1,47 +1,28 @@
 using RNGReporter.Objects;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RNGReporter
 {
     public partial class JirachiGeneration : Form
     {
-        private Thread searchThread;
-        private bool refresh;
-        private ThreadDelegate gridUpdate;
-        private BindingSource binding = new BindingSource();
         private List<ProbableGeneration> generation;
 
         public JirachiGeneration()
         {
             InitializeComponent();
-            dataGridViewValues.DataSource = binding;
             dataGridViewValues.AutoGenerateColumns = true;
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            uint seed = 0;
-            uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out seed);
-
+            uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint seed);
             generation = new List<ProbableGeneration>();
-            binding = new BindingSource { DataSource = generation };
-            dataGridViewValues.DataSource = binding;
-
-            searchThread = new Thread(() => genListOut(seed));
-            searchThread.Start();
-
-            var update = new Thread(updateGUI);
-            update.Start();
+            genListOut(seed);
+            dataGridViewValues.DataSource = generation;
+            dataGridViewValues.AutoResizeColumns();
         }
 
         private void genListOut(uint seed)
@@ -58,7 +39,6 @@ namespace RNGReporter
         //Credits to amab for this
         private String calcProbable(uint seed)
         {
-            uint m = 0;
             String genlistout = (seed >> 30).ToString();
             uint f = seed >> 30;
             uint[] checker = { 0, 0, 0, 0 };
@@ -68,7 +48,7 @@ namespace RNGReporter
             uint advance = 8;
             bool xCheck = false;
 
-            while (m < 35)
+            for (uint m = 0; m < 35; m++)
             {
                 backseed = rng.GetNext32BitNumber();
                 genlistout = (backseed >> 30).ToString() + "|" + genlistout;
@@ -78,8 +58,6 @@ namespace RNGReporter
                     f = backseed >> 30;
                     genlistout = " M: " + genlistout;
                 }
-
-                m += 1;
             }
 
             String genlistend = genlistout.Substring(genlistout.Length - 7);
@@ -132,57 +110,12 @@ namespace RNGReporter
             return genlistout;
         }
 
-        //Credits to here http://stackoverflow.com/questions/228038/best-way-to-reverse-a-string
         public string flip(string text)
         {
-            char[] cArray = text.ToCharArray();
-            string reverse = String.Empty;
-            for (int i = cArray.Length - 1; i > -1; i--)
-            {
-                reverse += cArray[i];
-            }
+            string reverse = "";
+            for (int i = text.Length - 1; i >= 0; i--)
+                reverse += text.Substring(i, 1);
             return reverse;
-        }
-
-        private void updateGUI()
-        {
-            gridUpdate = dataGridUpdate;
-            ThreadDelegate resizeGrid = dataGridViewValues.AutoResizeColumns;
-            try
-            {
-                bool alive = true;
-                while (alive)
-                {
-                    if (refresh)
-                    {
-                        Invoke(gridUpdate);
-                        refresh = false;
-                    }
-                    if (searchThread == null || !searchThread.IsAlive)
-                    {
-                        alive = false;
-                    }
-
-                    Thread.Sleep(500);
-                }
-            }
-            finally
-            {
-                Invoke(gridUpdate);
-                Invoke(resizeGrid);
-            }
-        }
-
-
-        #region Nested type: ThreadDelegate
-
-        private delegate void ThreadDelegate();
-
-        #endregion
-
-        private void dataGridUpdate()
-        {
-            binding.ResetBindings(false);
         }
     }
 }

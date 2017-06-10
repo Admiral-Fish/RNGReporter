@@ -16,11 +16,7 @@ Credits to CollectorTogami for TogamiCalc.
 
 Credits to Signum21 for IVs to Frame
 
-Credits for string flipping here http://stackoverflow.com/questions/228038/best-way-to-reverse-a-string
-
 # Planned Features 
-Gales of Darkness Time Finder
- 
 Poke Walker Time Finder
  
 Will update list with other things
@@ -41,3 +37,7 @@ Wshmkr Time Finder
 PID to IVs
 
 Pokespot RNG
+
+Gales of Darkness Time Finder
+
+IVs to Frame

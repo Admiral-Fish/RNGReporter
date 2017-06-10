@@ -186,6 +186,10 @@
     <Compile Include="Controls\SetIVs.Designer.cs">
       <DependentUpon>SetIVs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\_ComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\_ComboBox.Designer.cs" />
     <Compile Include="Controls\_DataGridView.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -1,6 +1,5 @@
 ﻿using RNGReporter.Objects;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -8,11 +7,10 @@ namespace RNGReporter
 {
     public partial class IVstoFrame : Form
     {
-        uint hp, atk, def, spe, spa, spd, minframes, maxframes, initseed;
-
         public IVstoFrame()
         {
             InitializeComponent();
+
             comboBox1.SelectedIndex = 0;
         }
 
@@ -23,6 +21,8 @@ namespace RNGReporter
 
         private void _Search()
         {
+            label1.Focus();
+
             if (maskedTextBox1.Text == "" || maskedTextBox3.Text == "" || maskedTextBox4.Text == ""
                 || maskedTextBox2.Text == "" || setIVs1._MaskedTextBox1.Text == "" || setIVs2._MaskedTextBox1.Text == ""
                 || setIVs3._MaskedTextBox1.Text == "" || setIVs4._MaskedTextBox1.Text == "" || setIVs5._MaskedTextBox1.Text == ""
@@ -32,17 +32,17 @@ namespace RNGReporter
             }
             else
             {
-                hp = uint.Parse(setIVs1._MaskedTextBox1.Text);
-                atk = uint.Parse(setIVs2._MaskedTextBox1.Text);
-                def = uint.Parse(setIVs3._MaskedTextBox1.Text);
-                spa = uint.Parse(setIVs4._MaskedTextBox1.Text);
-                spd = uint.Parse(setIVs5._MaskedTextBox1.Text);
-                spe = uint.Parse(_MaskedTextBox1.Text);
+                uint hp = uint.Parse(setIVs1._MaskedTextBox1.Text);
+                uint atk = uint.Parse(setIVs2._MaskedTextBox1.Text);
+                uint def = uint.Parse(setIVs3._MaskedTextBox1.Text);
+                uint spa = uint.Parse(setIVs4._MaskedTextBox1.Text);
+                uint spd = uint.Parse(setIVs5._MaskedTextBox1.Text);
+                uint spe = uint.Parse(_MaskedTextBox1.Text);
 
-                initseed = uint.Parse(maskedTextBox1.Text, NumberStyles.HexNumber);
+                uint initseed = uint.Parse(maskedTextBox1.Text, NumberStyles.HexNumber);
                 uint pid = Convert.ToUInt32(maskedTextBox2.Text, 16);
-                minframes = uint.Parse(maskedTextBox3.Text);
-                maxframes = uint.Parse(maskedTextBox4.Text);
+                uint minframes = uint.Parse(maskedTextBox3.Text);
+                uint maxframes = uint.Parse(maskedTextBox4.Text);
 
                 uint ivs = hp + (atk << 5) + (def << 10) + (spe << 16) + (spa << 21) + (spd << 26);
 
@@ -51,17 +51,23 @@ namespace RNGReporter
                 int method = comboBox1.SelectedIndex;
 
                 if (method == 0)
-                    Search(pid, ivs,  2, 3);
+                {
+                    Search(pid, ivs, 2, 3, initseed, minframes, maxframes);
+                }
                 else if (method == 1)
-                    Search(pid, ivs, 3, 4);
+                {
+                    Search(pid, ivs, 3, 4, initseed, minframes, maxframes);
+                }
                 else if (method == 2)
-                    Search(pid, ivs,  2, 4);
+                {
+                    Search(pid, ivs, 2, 4, initseed, minframes, maxframes);
+                }
                 else
-                    SearchGales(pid, ivs);
+                { SearchGales(pid, ivs, initseed, minframes, maxframes); }
             }
         }
 
-        private void Search(uint pid, uint ivs, int num1, int num2)
+        private void Search(uint pid, uint ivs, int num1, int num2, uint initseed, uint minframes, uint maxframes)
         {
             uint pidl = pid & 0xFFFF;
             uint pidh = pid >> 16;
@@ -110,7 +116,7 @@ namespace RNGReporter
             }
         }
 
-        private void SearchGales(uint pid, uint ivs)
+        private void SearchGales(uint pid, uint ivs, uint initseed, uint minframes, uint maxframes)
         {
             uint pidl = pid & 0xFFFF;
             uint pidh = pid >> 16;
@@ -162,30 +168,42 @@ namespace RNGReporter
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dataGridView1.GetCellCount(DataGridViewElementStates.Selected) > 0)
+            {
                 Clipboard.SetDataObject(dataGridView1.GetClipboardContent());
+            }
             else
+            {
                 MessageBox.Show("Please select the frame", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button1_1_Click(object sender, EventArgs e)
         {
+            label8.Focus();  //It's needed to be able to switch to the search button with the TAB key
+
             _MaskedTextBox1.Text = "31";
         }
 
         private void button1_2_Click(object sender, EventArgs e)
         {
+            label8.Focus();
+
             _MaskedTextBox1.Text = "30";
         }
 
         private void button1_3_Click(object sender, EventArgs e)
         {
+            label8.Focus();
+
             _MaskedTextBox1.Text = "";
         }
 
         private void _MaskedTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
+            {
                 _Search();
+            }
         }
     }
 }

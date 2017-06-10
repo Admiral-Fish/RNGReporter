@@ -325,7 +325,7 @@ namespace RNGReporter.Objects
 
                             uint chainedPIDUpper = Functions.ChainedPIDUpper(rngCalls[13], chainedPIDLower, id, sid);
 
-                            if (IVtoSeed.CheckPID(chainedPIDUpper, chainedPIDLower, nature))
+                            if (((chainedPIDUpper << 16) | chainedPIDLower) % 25 == nature)
                             {
                                 frame = Frame.GenerateFrame(testRng.Seed,
                                                             frameType, EncounterType,
@@ -346,7 +346,7 @@ namespace RNGReporter.Objects
                             // [PID] [PID] [IVs] [IVs]
                             // [rng3] [rng2] [rng1] [START]
 
-                            if (IVtoSeed.CheckPID(rng2, rng3, nature))
+                            if (((rng2 << 16) | rng3) % 25 == nature)
                             {
                                 frame = Frame.GenerateFrame(method1Seed,
                                                             frameType, EncounterType,
@@ -364,7 +364,7 @@ namespace RNGReporter.Objects
                         if (frameType == FrameType.MethodJ)
                         {
                             //  Check Method 1, then roll back to see if it is a hittable frame
-                            if (IVtoSeed.CheckPID(rng2, rng3, nature))
+                            if (((rng2 << 16) | rng3) % 25 == nature)
                             {
                                 var testRng = new PokeRngR(rng.Seed);
 
@@ -657,7 +657,7 @@ namespace RNGReporter.Objects
                                 // unbiased (non-nature-affective) number that is
                                 // added to the PID
                                 var choppedPID = (ushort) (rng2/0xA3E);
-                                if (!skipFrame && IVtoSeed.CheckPID(0, choppedPID, nature))
+                                if (!skipFrame && choppedPID % 25 == nature)
                                 {
                                     foreach (uint buffer in Functions.UnbiasedBuffer)
                                     {
@@ -700,7 +700,7 @@ namespace RNGReporter.Objects
                         else if (frameType == FrameType.MethodK)
                         {
                             //  Check Method 1, then roll back to see if it is a hittable frame
-                            if (IVtoSeed.CheckPID(rng2, rng3, nature))
+                            if (((rng2 << 16) | rng3) % 25 == nature)
                             {
                                 var testRng = new PokeRngR(rng.Seed);
 
@@ -997,7 +997,7 @@ namespace RNGReporter.Objects
                                 // unbiased (non-nature-affective) number that is
                                 // added to the PID
                                 var choppedPID = (ushort) (rng2%25);
-                                if (!skipFrame && IVtoSeed.CheckPID(0, choppedPID, nature))
+                                if (!skipFrame && choppedPID == nature)
                                 {
                                     foreach (uint buffer in Functions.UnbiasedBuffer)
                                     {
@@ -1129,7 +1129,7 @@ namespace RNGReporter.Objects
 
                                     //  Now we want to start with IV2 and call the RNG for
                                     //  values between 0 and FFFF in the low order bits.
-                                    for (uint cnt = 0; cnt <= 0xFFFE; cnt++)
+                                    for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
                                     {
                                         //  Set our test seed here so we can start
                                         //  working backwards to see if the rest
@@ -1143,14 +1143,14 @@ namespace RNGReporter.Objects
                                         //  We have a max of 5 total RNG calls
                                         //  to make a pokemon and we already have
                                         //  one so lets go ahead and get 4 more.
-                                        ushort rng1XD = rngXD.GetNext16BitNumber();
+                                        uint rng1XD = rngXD.GetNext16BitNumber();
                                         if ((rng1XD & 0x7FFF) != y_test)
                                             continue;
 
                                         // this second call isn't used for anything we know of
-                                        ushort rng2XD = rngXD.GetNext16BitNumber();
-                                        ushort rng3XD = rngXD.GetNext16BitNumber();
-                                        ushort rng4XD = rngXD.GetNext16BitNumber();
+                                        uint rng2XD = rngXD.GetNext16BitNumber();
+                                        uint rng3XD = rngXD.GetNext16BitNumber();
+                                        uint rng4XD = rngXD.GetNext16BitNumber();
 
                                         uint XDColoSeed = seed*0xB9B33155 + 0xA170F641;
 
@@ -1161,10 +1161,10 @@ namespace RNGReporter.Objects
                                         for (int highBit = 0; highBit < 2; highBit++)
                                         {
                                             XDColoSeed = XDColoSeed ^ 0x80000000;
-                                            rng3XD = (ushort) (rng3XD ^ 0x8000);
-                                            rng4XD = (ushort) (rng4XD ^ 0x8000);
+                                            rng3XD = rng3XD ^ 0x8000;
+                                            rng4XD = rng4XD ^ 0x8000;
 
-                                            if (IVtoSeed.Check(rng1XD, rng3XD, rng4XD, spe, spa, spd, nature))
+                                            if (((rng3XD << 16) | rng4XD) % 25 == nature)
                                             {
                                                 frame = Frame.GenerateFrame
                                                     (XDColoSeed,

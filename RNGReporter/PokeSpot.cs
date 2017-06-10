@@ -13,7 +13,7 @@ namespace RNGReporter.Objects
         private List<PokeSpotDisplay> displayList;
         private List<uint> natureList, spotList;
         private uint[] rngList;
-        private uint genderFilter, abilityFilter, shinyNum, shinyval;
+        private uint genderFilter, abilityFilter, shinyNum, shinyval, currentCall, call1, call2, call3, call2Calc;
         private int j;
         private bool shinyCheck;
 
@@ -108,7 +108,7 @@ namespace RNGReporter.Objects
             uint pid2 = rngList[j >= 1 ? j - 1 : j + 5] >> 16;
             uint pid = (pid1 << 16) | pid2;
 
-            uint nature = pid - 25 * (pid / 25);
+            uint nature = pid % 25;
             if (natureList != null && !natureList.Contains(nature))
                 return;
 
@@ -170,14 +170,14 @@ namespace RNGReporter.Objects
 
         private void calcPokeSpot(uint pid, uint frame, uint nature, uint gender, uint ability, String shiny)
         {
-            uint call1 = rngList[j >= 5 ? j -5 : j + 1] >> 16;
-            uint currentCall = call1 - 3 * (call1 / 3);
+            call1 = rngList[j >= 5 ? j -5 : j + 1] >> 16;
+            currentCall = call1 % 3;
 
             if (currentCall == 0)
             {
                 String spotType = "";
-                uint call2 = rngList[j >= 4 ? j - 4 : j + 2] >> 16;
-                uint call3 = rngList[j >= 3 ? j - 3 : j + 3] >> 16;
+                call2 = rngList[j >= 4 ? j - 4 : j + 2] >> 16;
+                call3 = rngList[j >= 3 ? j - 3 : j + 3] >> 16;
 
                 if (shiny == "")
                 {
@@ -185,31 +185,32 @@ namespace RNGReporter.Objects
                         shiny = "!!!";
                 }
 
-                currentCall = call3 - 100 * (call3 / 100);
+                currentCall = call3 % 100;
+                call2Calc = call2 % 100;
 
                 foreach (uint x in spotList)
                 {
                     if (x == 0)
                     {
-                        if ((call2 - 100 * (call2 / 100)) > 9)
+                        if (call2Calc > 9)
                             if (currentCall < 50)
                                 spotType = "Common";
                     }
                     else if (x == 1)
                     {
-                        if ((call2 - 100 * (call2 / 100)) > 9)
+                        if (call2Calc > 9)
                             if (currentCall > 49 && currentCall < 85)
                                 spotType = "Uncommon";
                     }
                     else if (x == 2)
                     {
-                        if ((call2 - 100 * (call2 / 100)) > 9)
+                        if (call2Calc > 9)
                             if (currentCall > 84)
                                 spotType = "Rare";
                     }
                     else
                     { 
-                        if ((call2 - 100 * (call2 / 100)) < 10)
+                        if (call2Calc < 10)
                             spotType = "Munchlax";
                     }
                 }
@@ -242,7 +243,6 @@ namespace RNGReporter.Objects
                     Half = gender3,
                     Three_Fourths = gender4
                 });
-
             }
         }
 

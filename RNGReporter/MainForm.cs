@@ -2047,11 +2047,8 @@ namespace RNGReporter
         {
             if (timeFinder5th == null)
             {
-                ushort id;
-                ushort sid;
-
-                ushort.TryParse(maskedTextBoxID.Text, out id);
-                ushort.TryParse(maskedTextBoxSID.Text, out sid);
+                ushort.TryParse(maskedTextBoxID.Text, out ushort id);
+                ushort.TryParse(maskedTextBoxSID.Text, out ushort sid);
 
                 timeFinder5th = new TimeFinder5th(maskedTextBoxID, maskedTextBoxSID);
             }
@@ -2059,57 +2056,52 @@ namespace RNGReporter
             timeFinder5th.Show();
             timeFinder5th.RefreshParameters();
             timeFinder5th.Focus();
+            timeFinder5th.BringToFront();
         }
 
         private void buttonFindTime4thGen_Click(object sender, EventArgs e)
         {
             if (timeFinder4th == null)
             {
-                ushort id;
-                ushort sid;
-
-                ushort.TryParse(maskedTextBoxID.Text, out id);
-                ushort.TryParse(maskedTextBoxSID.Text, out sid);
+                ushort.TryParse(maskedTextBoxID.Text, out ushort id);
+                ushort.TryParse(maskedTextBoxSID.Text, out ushort sid);
 
                 timeFinder4th = new TimeFinder4th(id, sid);
             }
 
             timeFinder4th.Show();
             timeFinder4th.Focus();
+            timeFinder4th.BringToFront();
         }
 
         private void buttonFindTime3rdGen_Click(object sender, EventArgs e)
         {
             if (timeFinder3rd == null)
             {
-                ushort id;
-                ushort sid;
-
-                ushort.TryParse(maskedTextBoxID.Text, out id);
-                ushort.TryParse(maskedTextBoxSID.Text, out sid);
+                ushort.TryParse(maskedTextBoxID.Text, out ushort id);
+                ushort.TryParse(maskedTextBoxSID.Text, out ushort sid);
 
                 timeFinder3rd = new TimeFinder3rd(id, sid);
             }
 
             timeFinder3rd.Show();
             timeFinder3rd.Focus();
+            timeFinder3rd.BringToFront();
         }
 
         private void buttonFindTimeGameCube_Click(object sender, EventArgs e)
         {
             if (timeFinderGameCube == null)
             {
-                int id;
-                int sid;
-
-                int.TryParse(maskedTextBoxID.Text, out id);
-                int.TryParse(maskedTextBoxSID.Text, out sid);
+                int.TryParse(maskedTextBoxID.Text, out int id);
+                int.TryParse(maskedTextBoxSID.Text, out int sid);
 
                 timeFinderGameCube = new GameCube(id, sid);
             }
 
             timeFinderGameCube.Show();
             timeFinderGameCube.Focus();
+            timeFinderGameCube.BringToFront();
         }
 
         private void comboBoxMethod_SelectedIndexChanged(object sender, EventArgs e)
@@ -3158,15 +3150,13 @@ namespace RNGReporter
             if (pidToIVs == null)
                 pidToIVs = new PIDToIVs(this);
             pidToIVs.Show();
+            pidToIVs.BringToFront();
         }
 
         private void pokespotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id;
-            int sid;
-
-            int.TryParse(maskedTextBoxID.Text, out id);
-            int.TryParse(maskedTextBoxSID.Text, out sid);
+            int.TryParse(maskedTextBoxID.Text, out int id);
+            int.TryParse(maskedTextBoxSID.Text, out int sid);
 
             var pokespot = new PokeSpot(id, sid);
             pokespot.Show();

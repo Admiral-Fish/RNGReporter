@@ -517,7 +517,7 @@ namespace RNGReporter
             switch (cores)
             {
                 case 1:
-                    if (method > 162268)
+                    if (method >= 1073741824)
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateColo2(0, 64));
@@ -538,7 +538,7 @@ namespace RNGReporter
                     }
                     break;
                 case 2:
-                    if (method > 83720)
+                    if (method >= 1073741824)
                     {
                         searchThread = new Thread[2];
                         for (int i = 0; i < 2; i++)
@@ -562,7 +562,7 @@ namespace RNGReporter
                     }
                     break;
                 case 4:
-                    if (method > 45918)
+                    if (method >= 1073741824)
                     {
                         searchThread = new Thread[4];
                         for (int i = 0; i < 4; i++)
@@ -586,7 +586,7 @@ namespace RNGReporter
                     }
                     break;
                 case 8:
-                    if (method > 34970)
+                    if (method >= 1073741824)
                     {
                         searchThread = new Thread[8];
                         for (int i = 0; i < 8; i++)
@@ -671,6 +671,9 @@ namespace RNGReporter
         private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed)
         {
             String shiny = "";
+            uint id = reverseXD(reverseXD(seed));
+            uint sid = reverseXD(id);
+            shinyval[0] = ((id >> 16) ^ (sid >> 16)) >> 3;
             if (Shiny_Check.Checked)
             {
                 if (!isShiny(pid, 0))

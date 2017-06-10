@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using RNGReporter.Objects;
-using Version = RNGReporter.Objects.Version;
 
 //Author: Admiral_Fish
 

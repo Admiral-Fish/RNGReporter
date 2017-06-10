@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using RNGReporter.Objects;
 using RNGReporter.Objects.Searchers;
 using RNGReporter.Properties;
-using Microsoft.Win32;
 using System.Linq;
 
 namespace RNGReporter

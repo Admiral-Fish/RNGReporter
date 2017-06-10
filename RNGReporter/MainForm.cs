@@ -29,7 +29,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using RNGReporter.Objects;

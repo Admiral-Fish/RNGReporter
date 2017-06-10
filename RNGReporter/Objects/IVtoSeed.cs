@@ -783,6 +783,7 @@ namespace RNGReporter.Objects
             return seeds;
         }
 
+
         // Overloaded method for SeedFinder's Open Search
         public static List<Seed> GetSeeds(
             uint hp,
@@ -868,6 +869,14 @@ namespace RNGReporter.Objects
                 }
             }
             return seeds;
+        }
+
+        public static bool CheckPID(uint pid2, uint pid1, uint nature)
+        {
+            //  Do a nature comparison with what we have selected
+            //  in the dropdown and if we have a good match we can
+            //  go ahead and add this to our starting seeds.
+            return nature == ((pid2 << 16) | pid1) % 25;
         }
     }
 }

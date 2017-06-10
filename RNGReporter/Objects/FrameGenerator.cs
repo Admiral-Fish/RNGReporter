@@ -325,7 +325,7 @@ namespace RNGReporter.Objects
 
                             uint chainedPIDUpper = Functions.ChainedPIDUpper(rngCalls[13], chainedPIDLower, id, sid);
 
-                            if (((chainedPIDUpper << 16) | chainedPIDLower) % 25 == nature)
+                            if (IVtoSeed.CheckPID(chainedPIDUpper, chainedPIDLower, nature))
                             {
                                 frame = Frame.GenerateFrame(testRng.Seed,
                                                             frameType, EncounterType,
@@ -346,7 +346,7 @@ namespace RNGReporter.Objects
                             // [PID] [PID] [IVs] [IVs]
                             // [rng3] [rng2] [rng1] [START]
 
-                            if (((rng2 << 16) | rng3) % 25 == nature)
+                            if (IVtoSeed.CheckPID(rng2, rng3, nature))
                             {
                                 frame = Frame.GenerateFrame(method1Seed,
                                                             frameType, EncounterType,
@@ -364,7 +364,7 @@ namespace RNGReporter.Objects
                         if (frameType == FrameType.MethodJ)
                         {
                             //  Check Method 1, then roll back to see if it is a hittable frame
-                            if (((rng2 << 16) | rng3) % 25 == nature)
+                            if (IVtoSeed.CheckPID(rng2, rng3, nature))
                             {
                                 var testRng = new PokeRngR(rng.Seed);
 
@@ -700,7 +700,7 @@ namespace RNGReporter.Objects
                         else if (frameType == FrameType.MethodK)
                         {
                             //  Check Method 1, then roll back to see if it is a hittable frame
-                            if (((rng2 << 16) | rng3) % 25 == nature)
+                            if (IVtoSeed.CheckPID(rng2, rng3, nature))
                             {
                                 var testRng = new PokeRngR(rng.Seed);
 

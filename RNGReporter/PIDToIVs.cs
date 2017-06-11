@@ -10,56 +10,34 @@ namespace RNGReporter
 {
     public partial class PIDToIVs : Form
     {
-        private Thread searchThread;
-        private bool refresh;
-        private ThreadDelegate gridUpdate;
-        private BindingSource binding = new BindingSource();
         private List<PIDIVS> results;
         private MainForm mainForm;
-        private readonly String[] Method = { "Method 1", "Method 2", "Method 4", "XD/Colo", "Channel" };
+        private readonly String[] Method = { "XD/Colo", "Channel" };
 
         public PIDToIVs(MainForm mainForm)
         {
             InitializeComponent();
-            dataGridViewValues.DataSource = binding;
             dataGridViewValues.AutoGenerateColumns = true;
             this.mainForm = mainForm;
         }
 
-        private void PIDToIVs_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = true;
-            if (searchThread != null)
-                searchThread.Abort();
-            Hide();
-        }
-
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            uint pid = 0;
-            uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out pid);
-
+            uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint pid);
             results = new List<PIDIVS>();
-            binding = new BindingSource { DataSource = results };
-            dataGridViewValues.DataSource = binding;
-
-            searchThread = new Thread(() => calcFromPID(pid));
-            searchThread.Start();
-
-            var update = new Thread(updateGUI);
-            update.Start();
+            calcFromPID(pid);
+            dataGridViewValues.DataSource = results;
+            dataGridViewValues.AutoResizeColumns();
         }
 
         private void calcFromPID(uint pid)
         {
-            calcMethod1(pid);
-            calcMethod2(pid);
-            calcMethod4(pid);
+            calcMethod124(pid);
             calcMethodXD(pid);
             calcMethodChannel(pid);
         }
 
-        private void calcMethod1(uint pid)
+        private void calcMethod124(uint pid)
         {
             uint pidl = pid & 0xFFFF;
             uint pidh = pid >> 16;
@@ -67,43 +45,11 @@ namespace RNGReporter
             uint test = pidh << 16;
             for (uint x = 0; x <= 0xFFFF; x++)
             {
-                uint testseed = test + x;
+                uint testseed = test | x;
                 uint prevseed = reverse(testseed);
                 uint temp = prevseed >> 16;
                 if (temp == pidl)
-                    addSeed(reverse(prevseed),0);
-            }
-        }
-
-        private void calcMethod2(uint pid)
-        {
-            uint pidl = pid & 0xFFFF;
-            uint pidh = pid >> 16;
-
-            uint test = pidh << 16;
-            for (uint x = 0; x <= 0xFFFF; x++)
-            {
-                uint testseed = test + x;
-                uint prevseed = reverse(testseed);
-                uint temp = prevseed >> 16;
-                if (temp == pidl)
-                    addSeed(reverse(prevseed), 1);
-            }
-        }
-
-        private void calcMethod4(uint pid)
-        {
-            uint pidl = pid & 0xFFFF;
-            uint pidh = pid >> 16;
-
-            uint test = pidh * 0x10000;
-            for (uint x = 0; x <= 0xFFFF; x++)
-            {
-                uint testseed = test + x;
-                uint prevseed = reverse(testseed);
-                uint temp = prevseed >> 16;
-                if (temp == pidl)
-                    addSeed(reverse(prevseed), 2);
+                    addSeed(reverse(prevseed), forward(testseed));
             }
         }
 
@@ -112,14 +58,18 @@ namespace RNGReporter
             uint pidl = pid & 0xFFFF;
             uint pidh = pid >> 16;
 
-            uint test = pidl * 0x10000;
+            uint test = pidl << 16;
             for (uint x = 0; x <= 0xFFFF; x++)
             {
-                uint testseed = test + x;
+                uint testseed = test | x;
                 uint prevseed = reverseXD(testseed);
                 uint temp = prevseed >> 16;
                 if (temp == pidh)
-                    addSeed(reverseXD(reverseXD(reverseXD(reverseXD(prevseed)))), 3);
+                {
+                    uint iv2 = reverseXD(reverseXD(prevseed));
+                    uint iv1 = reverseXD(iv2);
+                    addSeedGC(reverseXD(iv1), iv1, iv2, 0);
+                }
             }
         }
 
@@ -128,43 +78,127 @@ namespace RNGReporter
             uint pidl = pid & 0xFFFF;
             uint pidh = (pid >> 16) ^ 0x8000;
 
-            uint test = pidl * 0x10000;
+            uint test = pidl << 16;
             for (uint x = 0; x <= 0xFFFF; x++)
             {
-                uint testseed = test + x;
+                uint testseed = test | x;
                 uint prevseed = reverseXD(testseed);
                 uint temp = prevseed >> 16;
                 if (temp == pidh)
-                    addSeed(reverseXD(reverseXD(prevseed)), 4);
+                {
+                    uint seed = reverseXD(reverseXD(prevseed));
+                    addSeedGC(seed, forwardXD(forwardXD(forwardXD(forwardXD(testseed)))), 0, 1);
+                }
             }
         }
 
-        private void addSeed(uint seed, int method)
+        private void addSeed(uint seed, uint iv1)
         {
-            String methodType = Method[method];
-            uint actualSeed = Convert.ToUInt32(seed);
-            String MonsterSeed = actualSeed.ToString("x").ToUpper();
+            String MonsterSeed = seed.ToString("X");
+            results.Add(new PIDIVS { Seed = MonsterSeed, Method = "Method 1", IVs = calcIVs1(iv1) });
+            results.Add(new PIDIVS { Seed = MonsterSeed, Method = "Method 2", IVs = calcIVs2(forward(iv1)) });
+            results.Add(new PIDIVS { Seed = MonsterSeed, Method = "Method 4", IVs = calcIVs4(iv1) });
+        }
+
+        private void addSeedGC(uint seed, uint iv1, uint iv2, int method)
+        {
             String IVs;
 
             if (method == 0)
-                IVs = calcIVs1(seed);
-            else if (method == 1)
-                IVs = calcIVs2(seed);
-            else if (method == 2)
-                IVs = calcIVs4(seed);
-            else if (method == 3)
-                IVs = calcIVsXD(seed);
+                IVs = calcIVsXD(iv1, iv2);
             else
-                IVs = calcIVsChannel(seed);
+                IVs = calcIVsChannel(iv1);
 
-            results.Add(new PIDIVS { Seed = MonsterSeed, Method = methodType, IVs = IVs});
+            results.Add(new PIDIVS { Seed = seed.ToString("X"), Method = Method[method], IVs = IVs });
         }
 
-        private String calcIVs1(uint seed)
+        private String calcIVs1(uint iv1)
         {
             String ivs = "";
-            uint iv1 = forward(forward(forward(seed)));
-            uint iv2 = forward(iv1);
+            uint iv2 = forward(iv1) >> 16;
+            iv1 >>= 16;
+
+            for (int x = 0; x < 3; x++)
+            {
+                int q = x * 5;
+                uint iv = (iv1 >> q) & 31;
+                ivs += iv.ToString();
+                ivs += ".";
+            }
+
+            uint iV = (iv2 >> 5) & 31;
+            ivs += iV.ToString();
+            ivs += ".";
+
+            iV = (iv2 >> 10) & 31;
+            ivs += iV.ToString();
+            ivs += ".";
+
+            iV = iv2 & 31;
+            ivs += iV.ToString();
+
+            return ivs;
+        }
+
+        private String calcIVs2(uint iv1)
+        {
+            String ivs = "";
+            uint iv2 = forward(iv1) >> 16;
+            iv1 >>= 16;
+
+            for (int x = 0; x < 3; x++)
+            {
+                int q = x * 5;
+                uint iv = (iv1 >> q) & 31;
+                ivs += iv.ToString();
+                ivs += ".";
+            }
+
+            uint iV = (iv2 >> 5) & 31;
+            ivs += iV.ToString();
+            ivs += ".";
+
+            iV = (iv2 >> 10) & 31;
+            ivs += iV.ToString();
+            ivs += ".";
+
+            iV = iv2 & 31;
+            ivs += iV.ToString();
+
+            return ivs;
+        }
+
+        private String calcIVs4(uint iv1)
+        {
+            String ivs = "";
+            uint iv2 = forward(forward(iv1)) >> 16;
+            iv1 >>= 16;
+
+            for (int x = 0; x < 3; x++)
+            {
+                int q = x * 5;
+                uint iv = (iv1 >> q) & 31;
+                ivs += iv.ToString();
+                ivs += ".";
+            }
+
+            uint iV = (iv2 >> 5) & 31;
+            ivs += iV.ToString();
+            ivs += ".";
+
+            iV = (iv2 >> 10) & 31;
+            ivs += iV.ToString();
+            ivs += ".";
+
+            iV = iv2 & 31;
+            ivs += iV.ToString();
+
+            return ivs;
+        }
+
+        private String calcIVsXD(uint iv1, uint iv2)
+        {
+            String ivs = "";
             iv1 >>= 16;
             iv2 >>= 16;
 
@@ -190,101 +224,10 @@ namespace RNGReporter
             return ivs;
         }
 
-        private String calcIVs2(uint seed)
-        {
-            String ivs = "";
-            uint iv1 = forward(forward(forward(forward(seed))));
-            uint iv2 = forward(iv1);
-            iv1 >>= 16;
-            iv2 >>= 16;
-
-            for (int x = 0; x < 3; x++)
-            {
-                int q = x * 5;
-                uint iv = (iv1 >> q) & 31;
-                ivs += iv.ToString();
-                ivs += ".";
-            }
-
-            uint iV = (iv2 >> 5) & 31;
-            ivs += iV.ToString();
-            ivs += ".";
-
-            iV = (iv2 >> 10) & 31;
-            ivs += iV.ToString();
-            ivs += ".";
-
-            iV = iv2 & 31;
-            ivs += iV.ToString();
-
-            return ivs;
-        }
-
-        private String calcIVs4(uint seed)
-        {
-            String ivs = "";
-            uint iv1 = forward(forward(forward(seed)));
-            uint iv2 = forward(forward(iv1));
-            iv1 >>= 16;
-            iv2 >>= 16;
-
-            for (int x = 0; x < 3; x++)
-            {
-                int q = x * 5;
-                uint iv = (iv1 >> q) & 31;
-                ivs += iv.ToString();
-                ivs += ".";
-            }
-
-            uint iV = (iv2 >> 5) & 31;
-            ivs += iV.ToString();
-            ivs += ".";
-
-            iV = (iv2 >> 10) & 31;
-            ivs += iV.ToString();
-            ivs += ".";
-
-            iV = iv2 & 31;
-            ivs += iV.ToString();
-
-            return ivs;
-        }
-
-        private String calcIVsXD(uint seed)
-        {
-            String ivs = "";
-            uint iv1 = forwardXD(seed);
-            uint iv2 = forwardXD(iv1);
-            iv1 >>= 16;
-            iv2 >>= 16;
-
-            for (int x = 0; x < 3; x++)
-            {
-                int q = x * 5;
-                uint iv = (iv1 >> q) & 31;
-                ivs += iv.ToString();
-                ivs += ".";
-            }
-
-            uint iV = (iv2 >> 5) & 31;
-            ivs += iV.ToString();
-            ivs += ".";
-
-            iV = (iv2 >> 10) & 31;
-            ivs += iV.ToString();
-            ivs += ".";
-
-            iV = iv2 & 31;
-            ivs += iV.ToString();
-
-            return ivs;
-        }
-
-        private String calcIVsChannel(uint seed)
+        private String calcIVsChannel(uint iv1)
         {
             String ivs = "";
 
-            uint iv1 = forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(forwardXD(seed)))))));
             uint iv2 = forwardXD(iv1);
             uint iv3 = forwardXD(iv2);
             uint iv4 = forwardXD(iv3);
@@ -320,47 +263,6 @@ namespace RNGReporter
         private uint reverseXD(uint seed)
         {
             return seed * 0xB9B33155 + 0xA170F641;
-        }
-
-        private void updateGUI()
-        {
-            gridUpdate = dataGridUpdate;
-            ThreadDelegate resizeGrid = dataGridViewValues.AutoResizeColumns;
-            try
-            {
-                bool alive = true;
-                while (alive)
-                {
-                    if (refresh)
-                    {
-                        Invoke(gridUpdate);
-                        refresh = false;
-                    }
-                    if (searchThread == null || !searchThread.IsAlive)
-                    {
-                        alive = false;
-                    }
-
-                    Thread.Sleep(500);
-                }
-            }
-            finally
-            {
-                Invoke(gridUpdate);
-                Invoke(resizeGrid);
-            }
-        }
-
-
-        #region Nested type: ThreadDelegate
-
-        private delegate void ThreadDelegate();
-
-        #endregion
-
-        private void dataGridUpdate()
-        {
-            binding.ResetBindings(false);
         }
 
         private void contextMenuStripGrid_Opening(object sender, CancelEventArgs e)

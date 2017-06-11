@@ -250,13 +250,13 @@ namespace RNGReporter
                     uint pid1 = forwardXD(forwardXD(forwardXD(seedb)));
                     uint pid2 = forwardXD(pid1);
                     uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                    uint nature = pid - 25 * (pid / 25);
+                    uint nature = pid % 25;
                     uint galesSeed = reverseXD(seedb);
                     bool pass = (natureList == null || natureList.Contains(nature));
 
                     uint xorSeed = galesSeed ^ 0x80000000;
                     uint xorPID = pid ^= 0x80008000;
-                    uint xorNature = xorPID - 25 * (xorPID / 25);
+                    uint xorNature = xorPID % 25;
                     bool xorPass = (natureList == null || natureList.Contains(xorNature));
 
                     switch (shadow)
@@ -419,7 +419,7 @@ namespace RNGReporter
                                     if (ivs != null)
                                     {
                                         uint pid = pidChk((uint)(n + forward), sisterSeed);
-                                        uint nature = pid - 25 * (pid / 25);
+                                        uint nature = pid % 25;
                                         if (natureList == null || natureList.Contains(nature))
                                             filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, tempSeed, 0);
                                     }
@@ -438,7 +438,7 @@ namespace RNGReporter
                                         if (ivs != null)
                                         {
                                             uint pid = pidChk((uint)(n + forward), sisterSeed);
-                                            uint nature = pid - 25 * (pid / 25);
+                                            uint nature = pid % 25;
                                             if (natureList == null || natureList.Contains(nature))
                                                 filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, tempSeed, 0);
                                         }
@@ -484,7 +484,7 @@ namespace RNGReporter
                                             uint[] ivs = calcIVs((uint)(n + forward + shinySkipCount));
                                             if (ivs != null)
                                             {
-                                                uint nature = pid == 0 ? 0 : pid - 25 * (pid / 25);
+                                                uint nature = pid % 25;
                                                 if (natureList == null || natureList.Contains(nature))
                                                     filterSeedGales(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, tempSeed, secondShadowNum);
                                             }
@@ -649,7 +649,7 @@ namespace RNGReporter
                     uint pid1 = forwardXD(forwardXD(forwardXD(seedb)));
                     uint pid2 = forwardXD(pid1);
                     uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                    uint nature = pid - 25 * (pid / 25);
+                    uint nature = pid % 25;
                     if (natureList == null || natureList.Contains(nature))
                     {
                         uint coloSeed = reverseXD(seedb);
@@ -657,7 +657,7 @@ namespace RNGReporter
                     }
 
                     pid ^= 0x80008000;
-                    nature = pid - 25 * (pid / 25);
+                    nature = pid % 25;
                     if (natureList == null || natureList.Contains(nature))
                     {
                         uint coloSeed = reverseXD(seedb) ^ 0x80000000;
@@ -763,12 +763,12 @@ namespace RNGReporter
                         if (ivs != null)
                         {
                             pid = seedLong[j >= 2 ? j - 2 : j + 4] & 0xFFFF0000 | seedShort[j >= 1 ? j - 1 : j + 5];
-                            nature = pid - 25 * (pid / 25);
+                            nature = pid % 25;
                             if (natureList == null || natureList.Contains(nature))
                                 filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j]);
 
                             pid ^= 0x80008000;
-                            nature = pid - 25 * (pid / 25);
+                            nature = pid % 25;
                             if (natureList == null || natureList.Contains(nature))
                                 filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j] ^ 0x80000000);
                         }
@@ -942,7 +942,7 @@ namespace RNGReporter
                                     uint pid = (pid1 << 16) | pid2;
                                     if ((pid2 > 7 ? 0 : 1) != (pid1 ^ sid ^ 40122))
                                         pid ^= 0x80000000;
-                                    uint nature = pid - 25 * (pid / 25);
+                                    uint nature = pid % 25;
                                     if (natureList == null || natureList.Contains(nature))
                                     {
                                         uint seed = rng.GetNext32BitNumber();
@@ -994,7 +994,7 @@ namespace RNGReporter
                         sid = seedShort[j >= 12 ? j - 12 : j + 1];
                         if ((pid2 > 7 ? 0 : 1) != (pid1 ^ sid ^ 40122))
                             pid ^= 0x80000000;
-                        nature = pid - 25 * (pid / 25);
+                        nature = pid % 25;
 
                         if (natureList == null || natureList.Contains(nature))
                         {
@@ -1013,7 +1013,7 @@ namespace RNGReporter
                         }
 
                         pid ^= 0x80008000;
-                        nature = pid - 25 * (pid / 25);
+                        nature = pid % 25;
 
                         if (natureList == null || natureList.Contains(nature))
                         {
@@ -1255,7 +1255,7 @@ namespace RNGReporter
                     uint pid2 = reverse(seedb);
                     uint pid1 = reverse(pid2);
                     uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                    uint nature = pid - 25 * (pid / 25);
+                    uint nature = pid % 25;
                     uint seed = reverse(pid1);
                     if (natureList == null || natureList.Contains(nature))
                     {
@@ -1263,7 +1263,7 @@ namespace RNGReporter
                     }
 
                     pid ^= 0x80008000;
-                    nature = pid - 25 * (pid / 25);
+                    nature = pid % 25;
                     if (natureList == null || natureList.Contains(nature))
                     {
                         seed ^= 0x80000000;
@@ -1307,12 +1307,12 @@ namespace RNGReporter
                         if (ivs != null)
                         {
                             pid = seedLong[j >= 4 ? j - 4 : j + 1] & 0xFFFF0000 | seedShort[j >= 3 ? j - 3 : j + 2];
-                            nature = pid - 25 * (pid / 25);
+                            nature = pid % 25;
                             if (natureList == null || natureList.Contains(nature))
                                 filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j]);
 
                             pid ^= 0x80008000;
-                            nature = pid - 25 * (pid / 25);
+                            nature = pid % 25;
                             if (natureList == null || natureList.Contains(nature))
                                 filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j] ^ 0x80000000);
                         }
@@ -1337,7 +1337,7 @@ namespace RNGReporter
                 uint pid1 = forward(x);
                 uint pid2 = forward(pid1);
                 uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                uint nature = pid - 25 * (pid / 25);
+                uint nature = pid % 25;
 
                 if (natureList == null || natureList.Contains(nature))
                 {
@@ -1480,7 +1480,7 @@ namespace RNGReporter
                     for (uint cnt = 0; cnt < maxFrame; cnt++, rand.RemoveAt(0), rand.Add(rng.GetNext16BitNumber()))
                     {
                         pid = (rand[3] << 16) | rand[4];
-                        nature = pid - 25 * (pid / 25);
+                        nature = pid % 25;
                         if (natureList == null || natureList.Contains(nature))
                         {
                             ivs = createIVs(rand[0], rand[1]);
@@ -1500,7 +1500,7 @@ namespace RNGReporter
                     {
                         natureLock.method2FirstShadow(out pid, out iv1, out iv2);
 
-                        nature = pid - 25 * (pid / 25);
+                        nature = pid % 25;
                         if (natureList == null || natureList.Contains(nature))
                         {
                             ivs = createIVs(iv1, iv2);
@@ -1523,7 +1523,7 @@ namespace RNGReporter
                             {
                                 natureLock.method2SecondShadowSet(out pid, out iv1, out iv2);
 
-                                nature = pid - 25 * (pid / 25);
+                                nature = pid % 25;
                                 if (natureList == null || natureList.Contains(nature))
                                 {
                                     ivs = createIVs(iv1, iv2);
@@ -1542,7 +1542,7 @@ namespace RNGReporter
                             {
                                 natureLock.method2SecondShadowUnset(out pid, out iv1, out iv2);
 
-                                nature = pid - 25 * (pid / 25);
+                                nature = pid % 25;
                                 if (natureList == null || natureList.Contains(nature))
                                 {
                                     ivs = createIVs(iv1, iv2);
@@ -1561,7 +1561,7 @@ namespace RNGReporter
                             {
                                 natureLock.method2SecondShinySkip(out pid, out iv1, out iv2);
 
-                                nature = pid - 25 * (pid / 25);
+                                nature = pid % 25;
                                 if (natureList == null || natureList.Contains(nature))
                                 {
                                     ivs = createIVs(iv1, iv2);

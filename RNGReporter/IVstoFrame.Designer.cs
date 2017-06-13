@@ -310,7 +310,7 @@
             this.glassButton2_1.Name = "glassButton2_1";
             this.glassButton2_1.OuterBorderColor = System.Drawing.Color.Transparent;
             this.glassButton2_1.ShineColor = System.Drawing.SystemColors.Window;
-            this.glassButton2_1.Size = new System.Drawing.Size(46, 21);
+            this.glassButton2_1.Size = new System.Drawing.Size(42, 21);
             this.glassButton2_1.TabIndex = 136;
             this.glassButton2_1.TabStop = false;
             this.glassButton2_1.Text = "==31";

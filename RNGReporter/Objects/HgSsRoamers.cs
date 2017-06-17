@@ -41,7 +41,7 @@ namespace RNGReporter.Objects
                 while (true)
                 {
                     rngCalls++;
-                    ushort rngReturn = rng.GetNext16BitNumber();
+                    uint rngReturn = rng.GetNext16BitNumber();
                     uint route = RouteFromRngJ(rngReturn);
 
                     if (rPreviousRoute != route)
@@ -57,7 +57,7 @@ namespace RNGReporter.Objects
                 while (true)
                 {
                     rngCalls++;
-                    ushort rngReturn = rng.GetNext16BitNumber();
+                    uint rngReturn = rng.GetNext16BitNumber();
                     uint route = RouteFromRngJ(rngReturn);
 
                     if (ePreviousRoute != route)
@@ -73,7 +73,7 @@ namespace RNGReporter.Objects
                 while (true)
                 {
                     rngCalls++;
-                    ushort rngReturn = rng.GetNext16BitNumber();
+                    uint rngReturn = rng.GetNext16BitNumber();
                     uint route = RouteFromRngK(rngReturn);
 
                     if (lPreviousRoute != route)
@@ -89,11 +89,11 @@ namespace RNGReporter.Objects
             return information;
         }
 
-        public static uint RouteFromRngJ(ushort rng)
+        public static uint RouteFromRngJ(uint rng)
         {
             uint route = 0;
 
-            uint rngmod = (ushort) (rng&15);
+            uint rngmod = rng & 15;
 
             if (rngmod < 11)
                 route = rngmod + 29;
@@ -103,11 +103,11 @@ namespace RNGReporter.Objects
             return route;
         }
 
-        public static uint RouteFromRngK(ushort rng)
+        public static uint RouteFromRngK(uint rng)
         {
             uint route = 0;
 
-            uint rngmod = (ushort) (rng%25);
+            uint rngmod = rng % 25;
 
             if (rngmod < 22)
                 route = rngmod + 1;

@@ -15,11 +15,10 @@ namespace RNGReporter
         private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
         private readonly String[] hiddenPowers = { "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark" };
         private Thread[] searchThread;
-        private ThreadDelegate gridUpdate;
-        private BindingSource binding = new BindingSource();
+        private BindingSource binding;
         private List<DisplayList> displayList;
         private List<ShadowDisplay> shadowDisplay;
-        private bool isSearching, galesFlag, refresh;
+        private bool isSearching, galesFlag;
         private uint searchNumber, shadow, genderFilter, abilityFilter;
         private NatureLock natureLock;
         private List<uint> natureList, seedList, hiddenPowerList;
@@ -32,6 +31,9 @@ namespace RNGReporter
             id.Text = TID.ToString();
             sid.Text = SID.ToString();
             Reason.Visible = false;
+            displayList = new List<DisplayList>();
+            shadowDisplay = new List<ShadowDisplay>();
+            binding = new BindingSource { DataSource = displayList };
             abilityType.SelectedIndex = 0;
             genderType.SelectedIndex = 0;
             searchMethod.SelectedIndex = 0;
@@ -130,9 +132,8 @@ namespace RNGReporter
                 abilityFilter = (uint)abilityType.SelectedIndex;
                 genderFilter = (uint)genderType.SelectedIndex;
 
-                displayList = new List<DisplayList>();
-                binding = new BindingSource { DataSource = displayList };
-                dataGridViewResult.DataSource = binding;
+                displayList.Clear();
+                binding.ResetBindings(false);
                 status.Text = "Searching";
                 try
                 {
@@ -144,10 +145,7 @@ namespace RNGReporter
                 }
                 searchNumber = (uint)searchMethod.SelectedIndex;
 
-                if (galesCheck.Checked)
-                    Reason.Visible = true;
-                else
-                    Reason.Visible = false;
+                dataGridViewResult.Columns[17].Visible = galesCheck.Checked;
 
                 getSearch();
             }
@@ -162,8 +160,6 @@ namespace RNGReporter
                     searchThread = new Thread[1];
                     searchThread[0] = new Thread(() => generateWishmkr());
                     searchThread[0].Start();
-                    var update = new Thread(updateGUI);
-                    update.Start();
                 }
                 else
                     getRMethod();
@@ -201,16 +197,12 @@ namespace RNGReporter
                 searchThread = new Thread[1];
                 searchThread[0] = new Thread(() => generateGales());
                 searchThread[0].Start();
-                var update = new Thread(updateGUI);
-                update.Start();
             }
             else
             {
                 searchThread = new Thread[1];
                 searchThread[0] = new Thread(() => generateGales());
                 searchThread[0].Start();
-                var update = new Thread(updateGUI);
-                update.Start();
             }
             
         }
@@ -224,13 +216,14 @@ namespace RNGReporter
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
+                        {
+                            Invoke(new Action(() => { binding.ResetBindings(false); }));
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
-                            {
-                                refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeedGales(a, b, c, d, e, f);
-                            }
+                        }
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -383,13 +376,25 @@ namespace RNGReporter
             else
             {
                 reason = "Shiny skip";
-                uint pid2 = forwardXD(forwardXD(seed));
-                uint pid1 = forwardXD(pid2);
-                int tsv = (int)((pid2 >> 16) ^ (pid1 >> 16)) >> 3;
-                reason = reason + " (TSV: " + tsv + ")";
+                var reverse = new XdRngR(seed);
+                bool shinyCheck = true;
+                reverse.GetNext32BitNumber();
+                uint tsv = ((uint)reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
+                uint tsvtemp = ((uint)reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
+                while (shinyCheck)
+                {
+                    if (tsv == tsvtemp)
+                    {
+                        tsv = tsvtemp;
+                        tsvtemp = ((uint)reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
+                    }
+                    else
+                        shinyCheck = false;
+                }
+                reason = reason + " (TSV: " + tsvtemp + ")";
             }
-            if (seedList != null)
-                seedList.Add(seed);
+            //if (seedList != null)
+                //seedList.Add(seed);
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, reason, 0);
         }
         #endregion
@@ -494,7 +499,6 @@ namespace RNGReporter
                             }*/
                         }
                     }
-                    refresh = true;
                 }
             }
             isSearching = false;
@@ -522,19 +526,12 @@ namespace RNGReporter
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateColo2(0, 64));
                         searchThread[0].Start();
-                        Thread.Sleep(200);
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateColo());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
                 case 2:
@@ -547,18 +544,12 @@ namespace RNGReporter
                             searchThread[i].Start();
                             Thread.Sleep(200);
                         }
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateColo());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
                 case 4:
@@ -571,18 +562,12 @@ namespace RNGReporter
                             searchThread[i].Start();
                             Thread.Sleep(200);
                         }
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateColo());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
                 case 8:
@@ -595,18 +580,12 @@ namespace RNGReporter
                             searchThread[i].Start();
                             Thread.Sleep(200);
                         }
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateColo());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
             }
@@ -616,19 +595,20 @@ namespace RNGReporter
         private void generateColo()
         {
             isSearching = true;
-            
+
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
+                        {
+                            Invoke(new Action(() => { binding.ResetBindings(false); }));
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
-                            {
-                                refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeed(a, b, c, d, e, f);
-                            }
+                        }
             
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -773,10 +753,11 @@ namespace RNGReporter
                                 filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j] ^ 0x80000000);
                         }
                     }
-                    refresh = true;
+                    Invoke(new Action(() => { binding.ResetBindings(false); }));
                 }
             }
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
         #endregion
@@ -802,18 +783,12 @@ namespace RNGReporter
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateChannel2(0, 64, 0));
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateChannel());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
                 case 2:
@@ -826,18 +801,12 @@ namespace RNGReporter
                             searchThread[i].Start();
                             Thread.Sleep(200);
                         }
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateChannel());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
                 case 4:
@@ -850,18 +819,12 @@ namespace RNGReporter
                             searchThread[i].Start();
                             Thread.Sleep(200);
                         }
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateChannel());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
                 case 8:
@@ -874,18 +837,12 @@ namespace RNGReporter
                             searchThread[i].Start();
                             Thread.Sleep(200);
                         }
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateChannel());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
             }
@@ -900,14 +857,15 @@ namespace RNGReporter
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
+                        {
+                            Invoke(new Action(() => { binding.ResetBindings(false); }));
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
-                            {
-                                refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeedChannel(a, b, c, d, e, f);
-                            }
+                        }
 
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -920,20 +878,15 @@ namespace RNGReporter
             while (x16 < upper)
             {
                 rng.Seed = ++x16;
-                uint temp = rng.GetNext32BitNumber() >> 27;
-                if (temp == spa)
+                if (rng.GetNext16BitNumber() >> 11 == spa)
                 {
-                    temp = rng.GetNext32BitNumber() >> 27;
-                    if (temp == spe)
+                    if (rng.GetNext16BitNumber() >> 11 == spe)
                     {
-                        temp = rng.GetNext32BitNumber() >> 27;
-                        if (temp == def)
+                        if (rng.GetNext16BitNumber() >> 11 == def)
                         {
-                            temp = rng.GetNext32BitNumber() >> 27;
-                            if (temp == atk)
+                            if (rng.GetNext16BitNumber() >> 11 == atk)
                             {
-                                temp = rng.GetNext32BitNumber() >> 27;
-                                if (temp == hp)
+                                if (rng.GetNext16BitNumber() >> 11 == hp)
                                 {
                                     rng.GetNext32BitNumber(3);
                                     uint pid2 = rng.GetNext16BitNumber();
@@ -1030,10 +983,11 @@ namespace RNGReporter
                             }
                         }
                     }
-                    refresh = true;
+                    Invoke(new Action(() => { binding.ResetBindings(false); }));
                 }
             }
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -1129,18 +1083,12 @@ namespace RNGReporter
                         searchThread[0] = new Thread(() => generateR2(0, 64));
                         searchThread[0].Start();
                         Thread.Sleep(200);
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateR());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
                 case 2:
@@ -1153,18 +1101,12 @@ namespace RNGReporter
                             searchThread[i].Start();
                             Thread.Sleep(200);
                         }
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateR());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
                 case 4:
@@ -1177,18 +1119,12 @@ namespace RNGReporter
                             searchThread[i].Start();
                             Thread.Sleep(200);
                         }
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateR());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
                 case 8:
@@ -1201,18 +1137,12 @@ namespace RNGReporter
                             searchThread[i].Start();
                             Thread.Sleep(200);
                         }
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     else
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateR());
                         searchThread[0].Start();
-                        var update = new Thread(updateGUI);
-                        update.Start();
-                        update.Priority = ThreadPriority.Lowest;
                     }
                     break;
             }
@@ -1227,14 +1157,15 @@ namespace RNGReporter
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
                         for (uint d = ivsLower[3]; d <= ivsUpper[3]; d++)
+                        {
+                            Invoke(new Action(() => { binding.ResetBindings(false); }));
                             for (uint e = ivsLower[4]; e <= ivsUpper[4]; e++)
-                            {
-                                refresh = true;
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeedR(a, b, c, d, e, f);
-                            }
+                        }
 
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -1317,10 +1248,11 @@ namespace RNGReporter
                                 filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seedLong[j] ^ 0x80000000);
                         }
                     }
-                    refresh = true;
+                    Invoke(new Action(() => { binding.ResetBindings(false); }));
                 }
             }
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
         #endregion
@@ -1351,6 +1283,7 @@ namespace RNGReporter
                 }
             }
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
         #endregion
@@ -1448,7 +1381,7 @@ namespace RNGReporter
                 natureLock = new NatureLock(comboBoxShadow.SelectedIndex);
                 shadow = natureLock.getType();
 
-                shadowDisplay = new List<ShadowDisplay>();
+                shadowDisplay.Clear();
                 status.Text = "Searching";
 
                 searchThread = new Thread[1];
@@ -1814,71 +1747,6 @@ namespace RNGReporter
         }
         #endregion
 
-        #region GUI code
-        private void updateGUI()
-        {
-            gridUpdate = dataGridUpdate;
-            ThreadDelegate resizeGrid = dataGridViewResult.AutoResizeColumns;
-            try
-            {
-                bool alive = true;
-                while (alive)
-                {
-                    if (refresh)
-                    {
-                        Invoke(gridUpdate);
-                        refresh = false;
-                    }
-                    if (searchThread == null || !searchThread[0].IsAlive)
-                    {
-                        alive = false;
-                    }
-
-                    Thread.Sleep(500);
-                }
-            }
-            finally
-            {
-                Invoke(gridUpdate);
-                Invoke(resizeGrid);
-            }
-        }
-
-        #region Nested type: ThreadDelegate
-
-        private delegate void ThreadDelegate();
-
-        #endregion
-
-        private void dataGridUpdate()
-        {
-            binding.ResetBindings(false);
-        }
-
-        private String[] addHP()
-        {
-            return new String[]
-                {
-                    "Fighting",
-                    "Flying",
-                    "Poison",
-                    "Ground",
-                    "Rock",
-                    "Bug",
-                    "Ghost",
-                    "Steel",
-                    "Fire",
-                    "Water",
-                    "Grass",
-                    "Electric",
-                    "Psychic",
-                    "Ice",
-                    "Dragon",
-                    "Dark"
-                };
-        }
-        #endregion
-
         #region Quick search settings
 
         private void hpClear_Click(object sender, EventArgs e)
@@ -2222,6 +2090,29 @@ namespace RNGReporter
         #endregion
 
         #region ComboBox
+        private String[] addHP()
+        {
+            return new String[]
+                {
+                    "Fighting",
+                    "Flying",
+                    "Poison",
+                    "Ground",
+                    "Rock",
+                    "Bug",
+                    "Ghost",
+                    "Steel",
+                    "Fire",
+                    "Water",
+                    "Grass",
+                    "Electric",
+                    "Psychic",
+                    "Ice",
+                    "Dragon",
+                    "Dark"
+                };
+        }
+
         private void setComboBox()
         {
             comboBoxNature.CheckBoxItems[0].Checked = true;

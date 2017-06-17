@@ -1413,7 +1413,7 @@ namespace RNGReporter
                                     if ((!useID || (tid == id)) && (!useSID || (tsid == sid)))
                                     {
                                         if (useSeed && (tid ^ tsid ^ pid) >= 8) continue;
-                                        if (usePID && !Functions.Shiny(pid, (ushort) tid, (ushort) tsid)) continue;
+                                        if (usePID && !Functions.Shiny(pid, tid, tsid)) continue;
                                         var iDSeed = new IDListBW
                                             {
                                                 Seed = oSeed,
@@ -1777,7 +1777,7 @@ namespace RNGReporter
         {
             formatGridIII();
 
-            ushort id, sid;
+            uint id, sid;
             uint pid;
             int hour, minute;
 
@@ -1799,17 +1799,14 @@ namespace RNGReporter
             binding = new BindingSource {DataSource = resultsListIII};
             dgvResults.DataSource = binding;
 
-            searchThread =
-                new Thread(
-                    () =>
-                    searchGenIII(seedTime, checkIIIPID.Checked, pid, checkIIITID.Checked, id, checkIIISID.Checked, sid));
+            searchThread = new Thread(() => searchGenIII(seedTime, checkIIIPID.Checked, pid, checkIIITID.Checked, id, checkIIISID.Checked, sid));
             searchThread.Start();
 
             var update = new Thread(updateGUI);
             update.Start();
         }
 
-        private bool CheckParameters(out uint pid, out ushort id, out ushort sid, out int hour, out int minute)
+        private bool CheckParameters(out uint pid, out uint id, out uint sid, out int hour, out int minute)
         {
             pid = 0;
             id = 0;
@@ -1823,13 +1820,13 @@ namespace RNGReporter
                 return false;
             }
 
-            if (checkIIITID.Checked && !ushort.TryParse(textIIITID.Text, out id))
+            if (checkIIITID.Checked && !uint.TryParse(textIIITID.Text, out id))
             {
                 textIIITID.Focus();
                 return false;
             }
 
-            if (checkIIISID.Checked && !ushort.TryParse(textIIISID.Text, out sid))
+            if (checkIIISID.Checked && !uint.TryParse(textIIISID.Text, out sid))
             {
                 textIIISID.Focus();
                 return false;
@@ -1862,8 +1859,7 @@ namespace RNGReporter
             return true;
         }
 
-        private void searchGenIII(DateTime seedTime, bool usePID, uint pid, bool useID, ushort searchID, bool useSID,
-                                  ushort searchSID)
+        private void searchGenIII(DateTime seedTime, bool usePID, uint pid, bool useID, uint searchID, bool useSID, uint searchSID)
         {
             //empty should be 0x000005A0
             uint seed = Functions.CalculateSeedGen3(seedTime);
@@ -1875,12 +1871,12 @@ namespace RNGReporter
             //get to the proper starting frame and throw out the first call at that frame (generation takes 3 calls)
             for (int i = 0; i < minFrame; ++i) rng.GetNext32BitNumber();
             //prepare for the first sid call by setting the is now
-            ushort id = rng.GetNext16BitNumber();
+            uint id = rng.GetNext16BitNumber();
 
             for (int frame = minFrame; frame <= maxFrame; ++frame)
             {
                 //sid is always the id of the previous frame
-                ushort sid = id;
+                uint sid = id;
                 id = rng.GetNext16BitNumber();
 
                 //check criteria
@@ -1897,7 +1893,7 @@ namespace RNGReporter
             lblAction.Text = "Done. - Awaiting Command";
         }
 
-        private void searchGenFRLGE(ushort id,uint pid)
+        private void searchGenFRLGE(uint id,uint pid)
         {
             //FireRed,LeafGreen,Emerald all use the TID as the base seed when determining SID
             uint seed = id;
@@ -1912,7 +1908,7 @@ namespace RNGReporter
             //get to the proper starting frame and throw out the first call at that frame (generation takes 3 calls)
             for (int i = 1; i < minFrame; ++i) rng.GetNext32BitNumber();
             //prepare for the first sid call by setting the is now
-            ushort sid = rng.GetNext16BitNumber();
+            uint sid = rng.GetNext16BitNumber();
 
             for (int frame = minFrame; frame <= maxFrame; ++frame)
             {
@@ -2018,8 +2014,8 @@ namespace RNGReporter
 
             formatGridIII();
 
-            ushort id;
-            ushort.TryParse(genFRLGETID.Text, out id);
+            uint id;
+            uint.TryParse(genFRLGETID.Text, out id);
             uint pid;
             uint.TryParse(genFRLGEPID.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out pid);            
 
@@ -2087,12 +2083,12 @@ namespace RNGReporter
             //get to the proper starting frame and throw out the first call at that frame (generation takes 3 calls)
             for (int i = 0; i < minFrame+1; ++i) rng.GetNext32BitNumber();
             //prepare for the first sid call by setting the is now
-            ushort sid = rng.GetNext16BitNumber();
+            uint sid = rng.GetNext16BitNumber();
 
             for (int frame = minFrame; frame <= maxFrame; ++frame)
             {
                 //sid is always the id of the previous frame
-                ushort id = sid;
+                uint id = sid;
                 sid = rng.GetNext16BitNumber();
 
                 //check criteria

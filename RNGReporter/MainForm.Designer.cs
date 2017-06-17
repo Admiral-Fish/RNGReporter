@@ -2054,7 +2054,7 @@ namespace RNGReporter
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = " RNG Reporter 10.1.9.2";
+            this.Text = " RNG Reporter 10.1.9.3";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.contextMenuStripGrid.ResumeLayout(false);

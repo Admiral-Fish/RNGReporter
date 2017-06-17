@@ -58,9 +58,9 @@ namespace RNGReporter.Objects
 
         #endregion
 
-        public ushort GetNext16BitNumber()
+        public uint GetNext16BitNumber()
         {
-            return (ushort) (GetNext32BitNumber() >> 16);
+            return GetNext32BitNumber() >> 16;
         }
 
         public virtual uint GetNext32BitNumber()
@@ -73,7 +73,7 @@ namespace RNGReporter.Objects
         public void GetNext32BitNumber(int num)
         {
             for (int i = 0; i < num; i++)
-                GetNext32BitNumber();
+                Seed = Seed * mult + add;
         }
     }
 

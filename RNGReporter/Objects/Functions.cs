@@ -475,7 +475,7 @@ namespace RNGReporter.Objects
 
         //----------------------------------------------------------------------------------------------------------------------
 
-        public static bool Shiny(uint PID, ushort TID, ushort SID)
+        public static bool Shiny(uint PID, uint TID, uint SID)
         {
             return ((((PID & 0xFFFF) ^ (PID >> 16) ^ TID ^ SID) & 0xFFF8) == 0);
         }

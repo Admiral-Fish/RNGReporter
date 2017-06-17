@@ -208,7 +208,7 @@ namespace RNGReporter.Objects
                 // calculate them directly.
 
                 rng.Seed = seed;
-                ushort rng1 = rng.GetNext16BitNumber();
+                uint rng1 = rng.GetNext16BitNumber();
 
                 // We don't have to worry about unsigned overflow
                 // because y_test is never more than 0x7FFF
@@ -245,7 +245,7 @@ namespace RNGReporter.Objects
                 uint seed = (x_test << 16) | cnt;
 
                 rng.Seed = seed;
-                ushort rng1 = rng.GetNext16BitNumber();
+                uint rng1 = rng.GetNext16BitNumber();
                 // Check to see if the next frame yields
                 // the HP, Attack, and Defense IVs we're searching for
                 // If not, skip 'em.
@@ -256,9 +256,9 @@ namespace RNGReporter.Objects
                 //  to make a pokemon and we already have
                 //  one so lets go ahead and get 4 more.
                 uint seedWondercard = rng.GetNext32BitNumber();
-                var rng2 = (ushort) (seedWondercard >> 16);
-                ushort rng3 = rng.GetNext16BitNumber();
-                ushort rng4 = rng.GetNext16BitNumber();
+                var rng2 = seedWondercard >> 16;
+                uint rng3 = rng.GetNext16BitNumber();
+                uint rng4 = rng.GetNext16BitNumber();
 
                 uint method1Seed = rng.Seed;
 

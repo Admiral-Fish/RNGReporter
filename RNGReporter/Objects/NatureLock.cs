@@ -5,12 +5,8 @@ namespace RNGReporter.Objects
     public class NatureLock
     {
         private uint[] lockInfo;
-        private int forwardCounter;
-        private int backwardCounter;
-        private int count;
-        private int count2;
-        private int lastIndex;
-        private int lastIndex2;
+        private int forwardCounter, count, count2, lastIndex, lastIndex2;
+        private uint pid, genderval;
         public List<uint> rand;
         private XdRngR reverse;
         private XdRng forward;
@@ -228,22 +224,19 @@ namespace RNGReporter.Objects
 
         public bool method1FirstShadow(uint seed)
         {
-            backwardCounter = 7;
-            forwardCounter = 7;
             reverse.Seed = seed;
             reverse.GetNext32BitNumber();
 
             //Build temp pid first to not waste time populating if first backwards nl fails
-            uint pid = getPIDReverse();
+            uint pidOriginal = getPIDReverse();
 
             //Backwards nature lock check
-            uint genderval = pid & 255;
-            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pid % 25 != lockInfo[4])
+            uint genderval = pidOriginal & 255;
+            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pidOriginal % 25 != lockInfo[4])
                 return false;
 
             for (int x = 1; x <= count; x++)
             {
-                backwardCounter += 5;
                 reverse.GetNext32BitNumber(3);
                 pid = getPIDReverse();
                 if (lockInfo[2 + 3 * x] != 500)
@@ -260,7 +253,6 @@ namespace RNGReporter.Objects
             //Forwards nature lock check
             for (int x = 1; x <= count; x++)
             {
-                forwardCounter += 5;
                 forward.GetNext32BitNumber(3);
                 pid = getPIDForward();
                 if (lockInfo[lastIndex + 1 - 3 * x] != 500)
@@ -271,27 +263,24 @@ namespace RNGReporter.Objects
                 }
             }
 
-            return forwardCounter == backwardCounter;
+            return pidOriginal == pid;
         }
 
         public bool method1SecondShadowUnset(uint seed)
         {
-            backwardCounter = 14;
-            forwardCounter = 14;
             reverse.Seed = seed;
             reverse.GetNext32BitNumber(8);
 
             //Build temp pid first to not waste time populating if first nl fails
-            uint pid = getPIDReverse();
+            uint pidOriginal = getPIDReverse();
 
             //Backwards nature lock check
-            uint genderval = pid & 255;
-            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pid % 25 != lockInfo[4])
+            genderval = pidOriginal & 255;
+            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pidOriginal % 25 != lockInfo[4])
                 return false;
 
             for (int x = 1; x <= count; x++)
             {
-                backwardCounter += 5;
                 reverse.GetNext32BitNumber(3);
                 pid = getPIDReverse();
                 if (lockInfo[2 + 3 * x] != 500)
@@ -308,7 +297,6 @@ namespace RNGReporter.Objects
             //Forwards nature lock check
             for (int x = 1; x <= count; x++)
             {
-                forwardCounter += 5;
                 forward.GetNext32BitNumber(3);
                 pid = getPIDForward();
                 if (lockInfo[lastIndex + 1 - 3 * x] != 500)
@@ -319,27 +307,24 @@ namespace RNGReporter.Objects
                 }
             }
 
-            return forwardCounter == backwardCounter;
+            return pidOriginal == pid;
         }
 
         public bool method1SecondShadowSet(uint seed)
         {
-            backwardCounter = 12;
-            forwardCounter = 12;
             reverse.Seed = seed;
             reverse.GetNext32BitNumber(6);
 
             //Build temp pid first to not waste time populating if first nl fails
-            uint pid = getPIDReverse();
+            uint pidOriginal = getPIDReverse();
 
             //Backwards nature lock check
-            uint genderval = pid & 255;
-            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pid % 25 != lockInfo[4])
+            genderval = pidOriginal & 255;
+            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pidOriginal % 25 != lockInfo[4])
                 return false;
 
             for (int x = 1; x <= count; x++)
             {
-                backwardCounter += 5;
                 reverse.GetNext32BitNumber(3);
                 pid = getPIDReverse();
                 if (lockInfo[2 + 3 * x] != 500)
@@ -356,7 +341,6 @@ namespace RNGReporter.Objects
             //Forwards nature lock check
             for (int x = 1; x <= count; x++)
             {
-                forwardCounter += 5;
                 forward.GetNext32BitNumber(3);
                 pid = getPIDForward();
                 if (lockInfo[lastIndex + 1 - 3 * x] != 500)
@@ -367,27 +351,24 @@ namespace RNGReporter.Objects
                 }
             }
 
-            return forwardCounter == backwardCounter;
+            return pidOriginal == pid;
         }
 
         public bool method1SecondShadowShinySkip(uint seed)
         {
-            backwardCounter = 14;
-            forwardCounter = 14;
             reverse.Seed = seed;
             reverse.GetNext32BitNumber(8);
 
-            uint pid, psv, psvtemp;
+            uint pidOriginal, psv, psvtemp;
             bool shinyFlag = true;
 
             //Check how many advances from shiny skip and build initial pid for first nl
-            pid = getPIDReverse();
-            psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
+            pidOriginal = getPIDReverse();
+            psv = ((pidOriginal & 0xFFFF) ^ (pidOriginal >> 16)) >> 3;
             while (shinyFlag)
             {
-                backwardCounter += 2;
-                pid = getPIDReverse();
-                psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
+                pidOriginal = getPIDReverse();
+                psvtemp = ((pidOriginal & 0xFFFF) ^ (pidOriginal >> 16)) >> 3;
                 if (psvtemp != psv)
                     shinyFlag = false;
                 else
@@ -395,13 +376,12 @@ namespace RNGReporter.Objects
             }
 
             //Backwards nature lock check
-            uint genderval = pid & 255;
-            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pid % 25 != lockInfo[4])
+            genderval = pidOriginal & 255;
+            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pidOriginal % 25 != lockInfo[4])
                 return false;
 
             for (int x = 1; x <= count; x++)
             {
-                backwardCounter += 5;
                 reverse.GetNext32BitNumber(3);
                 pid = getPIDReverse();
                 if (lockInfo[2 + 3 * x] != 500)
@@ -418,7 +398,6 @@ namespace RNGReporter.Objects
             //Forwards nature lock check
             for (int x = 1; x <= count; x++)
             {
-                forwardCounter += 5;
                 forward.GetNext32BitNumber(3);
                 pid = getPIDForward();
                 if (lockInfo[lastIndex + 1 - 3 * x] != 500)
@@ -429,28 +408,11 @@ namespace RNGReporter.Objects
                 }
             }
 
-            forward.GetNext32BitNumber(12);
-
-            pid = getPIDForward();
-            psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
-            shinyFlag = true;
-            while (shinyFlag)
-            {
-                forwardCounter += 2;
-                pid = getPIDForward();
-                psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
-                if (psvtemp != psv)
-                    shinyFlag = false;
-                else
-                    psv = psvtemp;
-            }
-
-            return forwardCounter == backwardCounter;
+            return pidOriginal == pid;
         }
 
         public void method2FirstShadow(out uint pid, out uint iv1, out uint iv2)
         {
-            uint genderval;
             pid = 0;
             forwardCounter = 5;
 
@@ -475,7 +437,6 @@ namespace RNGReporter.Objects
 
         public void method2SecondShadowSet(out uint pid, out uint iv1, out uint iv2)
         {
-            uint genderval;
             pid = 0;
             forwardCounter = 5;
 
@@ -500,7 +461,6 @@ namespace RNGReporter.Objects
 
         public void method2SecondShadowUnset(out uint pid, out uint iv1, out uint iv2)
         {
-            uint genderval;
             pid = 0;
             forwardCounter = 5;
 
@@ -525,7 +485,6 @@ namespace RNGReporter.Objects
 
         public void method2SecondShinySkip(out uint pid, out uint iv1, out uint iv2)
         {
-            uint genderval;
             pid = 0;
             forwardCounter = 5;
 
@@ -586,12 +545,10 @@ namespace RNGReporter.Objects
 
         private void countBackTwo(int x)
         {
-            backwardCounter += 2;
-            uint pid = getPIDReverse();
-            uint genderval = pid & 255;
+            pid = getPIDReverse();
+            genderval = pid & 255;
             while (genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x] || pid % 25 != lockInfo[4 + 3 * x])
             {
-                backwardCounter += 2;
                 pid = getPIDReverse();
                 genderval = pid & 255;
             }
@@ -599,12 +556,10 @@ namespace RNGReporter.Objects
 
         private void countForwardTwo(int x)
         {
-            forwardCounter += 2;
-            uint pid = getPIDForward();
-            uint genderval = pid & 255;
+            pid = getPIDForward();
+            genderval = pid & 255;
             while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
             {
-                forwardCounter += 2;
                 pid = getPIDForward();
                 genderval = pid & 255;
             }
@@ -613,8 +568,8 @@ namespace RNGReporter.Objects
         private void countForwardTwoShadow(int x)
         {
             forwardCounter += 2;
-            uint pid = getPIDShadow();
-            uint genderval = pid & 255;
+            pid = getPIDShadow();
+            genderval = pid & 255;
             while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
             {
                 forwardCounter += 2;

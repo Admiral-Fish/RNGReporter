@@ -68,9 +68,9 @@ namespace RNGReporter.Objects
 
     internal class IDListIII
     {
-        public ushort ID { get; set; }
+        public uint ID { get; set; }
 
-        public ushort SID { get; set; }
+        public uint SID { get; set; }
 
         public int Frame { get; set; }
     }

@@ -36,7 +36,7 @@ namespace RNGReporter.Objects
 
             for (int n = 0; n < rngCalls; n++)
             {
-                ushort response = rng.GetNext16BitNumber();
+                uint response = rng.GetNext16BitNumber();
 
                 response %= 3;
 

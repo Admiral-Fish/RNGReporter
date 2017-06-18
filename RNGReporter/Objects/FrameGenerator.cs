@@ -3118,7 +3118,7 @@ namespace RNGReporter.Objects
                             //  Ok, we wanted to synch, but missed it so lets
                             //  get the next RNG call and then go ahead and
                             //  use that for the nature.
-                            nature = (uint) rng2.GetNext16BitNumber()%25;
+                            nature = rng2.GetNext16BitNumber()%25;
                             offset++;
                         }
                     }
@@ -3159,7 +3159,7 @@ namespace RNGReporter.Objects
                             }
                         }
                         // either way, eat up a frame for the Cute Charm check and determine nature
-                        nature = (uint) rng2.GetNext16BitNumber()%25;
+                        nature = rng2.GetNext16BitNumber()%25;
                         offset++;
                     }
 
@@ -3319,13 +3319,13 @@ namespace RNGReporter.Objects
                             //  Ok, we wanted to synch, but missed it so lets
                             //  get the next RNG call and then go ahead and
                             //  use that for the nature.
-                            nature = (uint) rng2.GetNext16BitNumber()/0xA3E;
+                            nature = rng2.GetNext16BitNumber()/0xA3E;
                             offset++;
                         }
                     }
                     else if (EncounterMod == EncounterMod.CuteCharm)
                     {
-                        nature = (uint) rng2.GetNext16BitNumber()/0xA3E;
+                        nature = rng2.GetNext16BitNumber() / 0xA3E;
                     }
                     else
                     {
@@ -3518,13 +3518,13 @@ namespace RNGReporter.Objects
                             //  Ok, we wanted to synch, but missed it so lets
                             //  get the next RNG call and then go ahead and
                             //  use that for the nature.
-                            nature = (uint) rng2.GetNext16BitNumber()%25;
+                            nature = rng2.GetNext16BitNumber() % 25;
                             offset++;
                         }
                     }
                     else if (EncounterMod == EncounterMod.CuteCharm)
                     {
-                        nature = (uint) rng2.GetNext16BitNumber()%25;
+                        nature = rng2.GetNext16BitNumber() % 25;
                     }
                     else
                     {
@@ -3827,7 +3827,7 @@ namespace RNGReporter.Objects
                                 id, sid, cnt);
                             break;
                         case FrameType.EBredPID:
-                            uint pid = GetEPid(0, out uint total);
+                            uint pid = GetEPid(cnt, out uint total);
                             if (pid == 0)
                             {
                                 continue;
@@ -4127,27 +4127,22 @@ namespace RNGReporter.Objects
             return frames;
         }
 
-        private uint GetEPid(int cnt, out uint total)
+        private uint GetEPid(uint cnt, out uint total)
         {
             total = 0;
-            int i = cnt;
+            int i = 0;
             uint pid;
             // check for compatibility
             if ((rngList[i++]*100)/0xFFFF >= Compatibility) return 0;
 
             //check the everstone
-            bool useEverstone = false;
-            if (Everstone) useEverstone = (rngList[i++] >> 15) == 0;
+            bool useEverstone = Everstone ? (rngList[i++] >> 15) == 0 : false;
 
             // set up the TRNG
-            var trng = new PokeRng((uint)(cnt + InitialFrame - Calibration) & 0xFFFF);
+            var trng = new PokeRng((cnt + InitialFrame - Calibration) & 0xFFFF);
 
             if (!useEverstone)
             {
-                if (i >= rngList.Count)
-                {
-                    AddToRngArray();
-                }
                 // generate lower
                 if (rngList[i] > 0xFFFD)
                     pid = (rngList[i] + 3)%0xFFFF;
@@ -4155,7 +4150,7 @@ namespace RNGReporter.Objects
                     pid = (rngList[i] & 0xFFFF) + 1;
 
                 // generate upper
-                pid += (uint) trng.GetNext16BitNumber()*0x10000;
+                pid += trng.GetNext16BitNumber()*0x10000;
 
                 return pid;
             }
@@ -4165,31 +4160,31 @@ namespace RNGReporter.Objects
                 //always appears to vblank at 17
                 if (total == 17)
                     ++i;
+
                 // check if we need to add to the rngArray
-                // if we do add another 200 elements
+                // if we do add another 20 elements
                 if (i >= rngList.Count)
-                {
-                    AddToRngArray();
-                }
+                    AddToRngList();
+
                 // generate lower
                 pid = (rngList[i++] & 0xFFFF);
 
                 // generate upper
-                pid += (uint) trng.GetNext16BitNumber()*0x10000;
+                pid += trng.GetNext16BitNumber()*0x10000;
                 ++total;
             } while (pid%0x19 != SynchNature);
 
             return pid;
         }
 
-        private void AddToRngArray()
+        private void AddToRngList()
         {
             int i = rngList.Count;
 
             // seed the new RNG with the last seed
             var rng = new PokeRng(lastseed);
             // add in the new elements
-            for (; i < rngList.Count + 200; ++i)
+            for (; i < rngList.Count + 20; ++i)
                 rngList.Add(rng.GetNext16BitNumber());
 
             lastseed = rng.Seed;

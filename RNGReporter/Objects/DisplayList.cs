@@ -16,19 +16,19 @@ namespace RNGReporter
 
         public String Nature { get; set; }
 
-        public int Ability { get; set; }
+        public uint Ability { get; set; }
 
-        public int Hp { get; set; }
+        public uint Hp { get; set; }
 
-        public int Atk { get; set; }
+        public uint Atk { get; set; }
 
-        public int Def { get; set; }
+        public uint Def { get; set; }
 
-        public int SpA { get; set; }
+        public uint SpA { get; set; }
 
-        public int SpD { get; set; }
+        public uint SpD { get; set; }
 
-        public int Spe { get; set; }
+        public uint Spe { get; set; }
 
         public String Hidden { get; set; }
 
@@ -53,19 +53,19 @@ namespace RNGReporter
 
         public String Nature { get; set; }
 
-        public int Ability { get; set; }
+        public uint Ability { get; set; }
 
-        public int Hp { get; set; }
+        public uint Hp { get; set; }
 
-        public int Atk { get; set; }
+        public uint Atk { get; set; }
 
-        public int Def { get; set; }
+        public uint Def { get; set; }
 
-        public int SpA { get; set; }
+        public uint SpA { get; set; }
 
-        public int SpD { get; set; }
+        public uint SpD { get; set; }
 
-        public int Spe { get; set; }
+        public uint Spe { get; set; }
 
         public String Hidden { get; set; }
 

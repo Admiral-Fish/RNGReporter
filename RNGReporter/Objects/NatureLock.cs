@@ -5,9 +5,10 @@ namespace RNGReporter.Objects
     public class NatureLock
     {
         private uint[] lockInfo;
-        private int forwardCounter, count, count2, lastIndex, lastIndex2;
-        private uint pid, genderval;
+        private static int forwardCounter, count, count2, lastIndex, lastIndex2;
+        private static uint pid, genderval;
         public List<uint> rand;
+        public int index;
         private XdRngR reverse;
         private XdRng forward;
 
@@ -411,9 +412,132 @@ namespace RNGReporter.Objects
             return pidOriginal == pid;
         }
 
-        public void method2FirstShadow(out uint pid, out uint iv1, out uint iv2)
+        public void method2FirstShadow(bool sister, out uint seed, out uint pid, out uint iv1, out uint iv2)
         {
-            pid = 0;
+            forwardCounter = 5;
+
+            for (int x = 0; x < count2; x++)
+            {
+                forwardCounter += 5;
+                pid = getPIDForward2(sister);
+
+                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                {
+                    genderval = pid & 255;
+                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                        countForwardTwo2(sister, x);
+                }
+            }
+
+            forwardCounter += 2;
+            seed = sister ? rand[forwardCounter] ^ 0x80000000 : rand[forwardCounter];
+            forwardCounter++;
+            iv1 = sister ? (rand[forwardCounter] >> 16) ^ 0x8000 : rand[forwardCounter] >> 16;
+            forwardCounter++;
+            iv2 = sister ? (rand[forwardCounter] >> 16) ^ 0x8000 : rand[forwardCounter] >> 16;
+            forwardCounter += 3;
+            pid = getPIDForward2(sister);
+        }
+
+        public void method2SecondShadowSet(bool sister, out uint seed, out uint pid, out uint iv1, out uint iv2)
+        {
+            forwardCounter = 5;
+
+            for (int x = 0; x < count2; x++)
+            {
+                forwardCounter += 5;
+                pid = getPIDForward2(sister);
+
+                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                {
+                    genderval = pid & 255;
+                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                        countForwardTwo2(sister, x);
+                }
+            }
+
+            forwardCounter += 7;
+            seed = sister ? rand[forwardCounter] ^ 0x80000000 : rand[forwardCounter];
+            forwardCounter++;
+            iv1 = sister ? (rand[forwardCounter] >> 16) ^ 0x8000 : rand[forwardCounter] >> 16;
+            forwardCounter++;
+            iv2 = sister ? (rand[forwardCounter] >> 16) ^ 0x8000 : rand[forwardCounter] >> 16;
+            forwardCounter += 3;
+            pid = getPIDForward2(sister);
+        }
+
+        public void method2SecondShadowUnset(bool sister, out uint seed, out uint pid, out uint iv1, out uint iv2)
+        {
+            forwardCounter = 5;
+
+            for (int x = 0; x < count2; x++)
+            {
+                forwardCounter += 5;
+                pid = getPIDForward2(sister);
+
+                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                {
+                    genderval = pid & 255;
+                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                        countForwardTwo2(sister, x);
+                }
+            }
+
+            forwardCounter += 9;
+            seed = sister ? rand[forwardCounter] ^ 0x80000000 : rand[forwardCounter];
+            forwardCounter++;
+            iv1 = sister ? (rand[forwardCounter] >> 16) ^ 0x8000 : rand[forwardCounter] >> 16;
+            forwardCounter++;
+            iv2 = sister ? (rand[forwardCounter] >> 16) ^ 0x8000 : rand[forwardCounter] >> 16;
+            forwardCounter += 3;
+            pid = getPIDForward2(sister);
+        }
+
+        public void method2SecondShinySkip(bool sister, out uint seed, out uint pid, out uint iv1, out uint iv2)
+        {
+            forwardCounter = 4;
+
+            for (int x = 0; x < count2; x++)
+            {
+                forwardCounter += 5;
+                pid = getPIDForward2(sister);
+
+                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                {
+                    genderval = pid & 255;
+                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                        countForwardTwo2(sister, x);
+                }
+            }
+
+            forwardCounter += 7;
+            pid = getPIDForward2(sister);
+            bool shiny = true;
+            uint psv, psvtemp;
+            psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
+            while (shiny)
+            {
+                forwardCounter += 2;
+                pid = getPIDForward2(sister);
+                psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
+                if (psvtemp != psv)
+                    shiny = false;
+                else
+                    psv = psvtemp;
+            }
+
+            forwardCounter += 2;
+            seed = sister ? rand[forwardCounter] ^ 0x80000000 : rand[forwardCounter];
+            forwardCounter++;
+            iv1 = sister ? (rand[forwardCounter - 4] >> 16) ^ 0x8000 : rand[forwardCounter - 4] >> 16;
+            forwardCounter++;
+            iv2 = sister ? (rand[forwardCounter - 3] >> 16) ^ 0x8000 : rand[forwardCounter - 3] >> 16;
+            forwardCounter += 3;
+            pid = getPIDForward2(sister);
+        }
+
+        public void methodShadowFirstShadow(out uint pid, out uint iv1, out uint iv2)
+        {
             forwardCounter = 5;
 
             for (int x = 0; x < count2; x++)
@@ -435,9 +559,8 @@ namespace RNGReporter.Objects
             iv2 = rand[forwardCounter - 3] >> 16;
         }
 
-        public void method2SecondShadowSet(out uint pid, out uint iv1, out uint iv2)
+        public void methodShadowSecondShadowSet(out uint pid, out uint iv1, out uint iv2)
         {
-            pid = 0;
             forwardCounter = 5;
 
             for (int x = 0; x < count2; x++)
@@ -459,9 +582,8 @@ namespace RNGReporter.Objects
             iv2 = rand[forwardCounter - 3] >> 16;
         }
 
-        public void method2SecondShadowUnset(out uint pid, out uint iv1, out uint iv2)
+        public void methodShadowSecondShadowUnset(out uint pid, out uint iv1, out uint iv2)
         {
-            pid = 0;
             forwardCounter = 5;
 
             for (int x = 0; x < count2; x++)
@@ -483,9 +605,8 @@ namespace RNGReporter.Objects
             iv2 = rand[forwardCounter - 3] >> 16;
         }
 
-        public void method2SecondShinySkip(out uint pid, out uint iv1, out uint iv2)
+        public void methodShadowSecondShinySkip(out uint pid, out uint iv1, out uint iv2)
         {
-            pid = 0;
             forwardCounter = 5;
 
             for (int x = 0; x < count2; x++)
@@ -543,6 +664,11 @@ namespace RNGReporter.Objects
             return (rand[forwardCounter - 1] & 0xFFFF0000) | (rand[forwardCounter] >> 16);
         }
 
+        private uint getPIDForward2(bool sister)
+        {
+            return sister ? ((rand[forwardCounter - 1] & 0xFFFF0000) | (rand[forwardCounter] >> 16)) ^ 0x80008000 : (rand[forwardCounter - 1] & 0xFFFF0000) | (rand[forwardCounter] >> 16);
+        }
+
         private void countBackTwo(int x)
         {
             pid = getPIDReverse();
@@ -561,6 +687,19 @@ namespace RNGReporter.Objects
             while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
             {
                 pid = getPIDForward();
+                genderval = pid & 255;
+            }
+        }
+
+        private void countForwardTwo2(bool sister, int x)
+        {
+            forwardCounter += 2;
+            pid = getPIDForward2(sister);
+            genderval = pid & 255;
+            while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+            {
+                forwardCounter += 2;
+                pid = getPIDForward2(sister);
                 genderval = pid & 255;
             }
         }

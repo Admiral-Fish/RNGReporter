@@ -808,7 +808,7 @@ namespace RNGReporter
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var profile = new ResearcherProfile {MaxResults = 1000, Custom = new CustomResearcher[7]};
-            for (int i = 0; i < 7; ++i)
+            for (int i = 0; i < 9; ++i)
                 profile.Custom[i] = new CustomResearcher();
             SetProfile(profile);
         }
@@ -833,7 +833,7 @@ namespace RNGReporter
 
         private void SetProfile(ResearcherProfile profile)
         {
-            if (profile.Custom.Length != 7)
+            if (profile.Custom.Length != 10)
             {
                 MessageBox.Show("Corrupt profile detected");
                 return;
@@ -895,6 +895,24 @@ namespace RNGReporter
             textBoxRValue7.Text = profile.Custom[6].Operand;
             checkBoxCustom7Hex.Checked = profile.Custom[6].isHex;
             comboBoxRValue7.SelectedIndex = (int) profile.Custom[6].RelOperand;
+
+            comboBoxLValue8.SelectedIndex = (int)profile.Custom[7].Type;
+            comboBoxOperator8.SelectedIndex = (int)profile.Custom[7].Operation;
+            textBoxRValue8.Text = profile.Custom[7].Operand;
+            checkBoxCustom8Hex.Checked = profile.Custom[7].isHex;
+            comboBoxRValue8.SelectedIndex = (int)profile.Custom[7].RelOperand;
+
+            comboBoxLValue9.SelectedIndex = (int)profile.Custom[8].Type;
+            comboBoxOperator9.SelectedIndex = (int)profile.Custom[8].Operation;
+            textBoxRValue9.Text = profile.Custom[8].Operand;
+            checkBoxCustom9Hex.Checked = profile.Custom[8].isHex;
+            comboBoxRValue9.SelectedIndex = (int)profile.Custom[8].RelOperand;
+
+            comboBoxLValue10.SelectedIndex = (int)profile.Custom[9].Type;
+            comboBoxOperator10.SelectedIndex = (int)profile.Custom[9].Operation;
+            textBoxRValue10.Text = profile.Custom[9].Operand;
+            checkBoxCustom10Hex.Checked = profile.Custom[9].isHex;
+            comboBoxRValue10.SelectedIndex = (int)profile.Custom[9].RelOperand;
         }
 
         private ResearcherProfile GetProfile()
@@ -915,8 +933,8 @@ namespace RNGReporter
             profile.MaxResults = Int32.Parse(maskedTextBoxMaxFrames.Text);
             profile.Seed = textBoxSeed.Text;
 
-            profile.Custom = new CustomResearcher[7];
-            for (int i = 0; i < 7; ++i)
+            profile.Custom = new CustomResearcher[9];
+            for (int i = 0; i < 9; ++i)
                 profile.Custom[i] = new CustomResearcher();
             profile.Custom[0].Type = (CustomResearcher.ValueType) comboBoxLValue1.SelectedIndex;
             profile.Custom[0].Operation = (CustomResearcher.Operator) comboBoxOperator1.SelectedIndex;
@@ -958,6 +976,24 @@ namespace RNGReporter
             profile.Custom[6].Operand = textBoxRValue7.Text;
             profile.Custom[6].isHex = checkBoxCustom7Hex.Checked;
             profile.Custom[6].RelOperand = (CustomResearcher.RelativeOperand) comboBoxRValue7.SelectedIndex;
+
+            profile.Custom[7].Type = (CustomResearcher.ValueType)comboBoxLValue8.SelectedIndex;
+            profile.Custom[7].Operation = (CustomResearcher.Operator)comboBoxOperator8.SelectedIndex;
+            profile.Custom[7].Operand = textBoxRValue8.Text;
+            profile.Custom[7].isHex = checkBoxCustom8Hex.Checked;
+            profile.Custom[7].RelOperand = (CustomResearcher.RelativeOperand)comboBoxRValue8.SelectedIndex;
+
+            profile.Custom[8].Type = (CustomResearcher.ValueType)comboBoxLValue9.SelectedIndex;
+            profile.Custom[8].Operation = (CustomResearcher.Operator)comboBoxOperator9.SelectedIndex;
+            profile.Custom[8].Operand = textBoxRValue9.Text;
+            profile.Custom[8].isHex = checkBoxCustom9Hex.Checked;
+            profile.Custom[8].RelOperand = (CustomResearcher.RelativeOperand)comboBoxRValue9.SelectedIndex;
+
+            profile.Custom[9].Type = (CustomResearcher.ValueType)comboBoxLValue10.SelectedIndex;
+            profile.Custom[9].Operation = (CustomResearcher.Operator)comboBoxOperator10.SelectedIndex;
+            profile.Custom[9].Operand = textBoxRValue10.Text;
+            profile.Custom[9].isHex = checkBoxCustom10Hex.Checked;
+            profile.Custom[9].RelOperand = (CustomResearcher.RelativeOperand)comboBoxRValue10.SelectedIndex;
 
             return profile;
         }

@@ -23,6 +23,9 @@ namespace RNGReporter.Objects
     {
         public FrameResearch()
         {
+            Custom10 = 0;
+            Custom9 = 0;
+            Custom8 = 0;
             Custom7 = 0;
             Custom6 = 0;
             Custom5 = 0;
@@ -73,6 +76,12 @@ namespace RNGReporter.Objects
         public ulong Custom6 { get; set; }
 
         public ulong Custom7 { get; set; }
+
+        public ulong Custom8 { get; set; }
+
+        public ulong Custom9 { get; set; }
+
+        public ulong Custom10 { get; set; }
 
         public uint Mod25
         {

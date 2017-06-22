@@ -59,6 +59,9 @@ namespace RNGReporter
             comboBoxLValue5.SelectedIndex = 0;
             comboBoxLValue6.SelectedIndex = 0;
             comboBoxLValue7.SelectedIndex = 0;
+            comboBoxLValue8.SelectedIndex = 0;
+            comboBoxLValue9.SelectedIndex = 0;
+            comboBoxLValue10.SelectedIndex = 0;
 
             comboBoxOperator1.SelectedIndex = 0;
             comboBoxOperator2.SelectedIndex = 0;
@@ -67,6 +70,9 @@ namespace RNGReporter
             comboBoxOperator5.SelectedIndex = 0;
             comboBoxOperator6.SelectedIndex = 0;
             comboBoxOperator7.SelectedIndex = 0;
+            comboBoxOperator8.SelectedIndex = 0;
+            comboBoxOperator9.SelectedIndex = 0;
+            comboBoxOperator10.SelectedIndex = 0;
 
             comboBoxRValue2.SelectedIndex = 0;
             comboBoxRValue3.SelectedIndex = 0;
@@ -74,6 +80,9 @@ namespace RNGReporter
             comboBoxRValue5.SelectedIndex = 0;
             comboBoxRValue6.SelectedIndex = 0;
             comboBoxRValue7.SelectedIndex = 0;
+            comboBoxRValue8.SelectedIndex = 0;
+            comboBoxRValue9.SelectedIndex = 0;
+            comboBoxRValue10.SelectedIndex = 0;
 
             comboBoxRNG.SelectedIndex = 0;
 
@@ -231,6 +240,18 @@ namespace RNGReporter
                 (textBoxRValue7.Text != "" || comboBoxRValue7.SelectedIndex != 0) &&
                 (string) comboBoxOperator7.SelectedItem != null &&
                 (string) comboBoxLValue7.SelectedItem != null;
+            bool calcCustom8 =
+                (textBoxRValue8.Text != "" || comboBoxRValue8.SelectedIndex != 0) &&
+                (string)comboBoxOperator8.SelectedItem != null &&
+                (string)comboBoxLValue8.SelectedItem != null;
+            bool calcCustom9 =
+                (textBoxRValue9.Text != "" || comboBoxRValue9.SelectedIndex != 0) &&
+                (string)comboBoxOperator9.SelectedItem != null &&
+                (string)comboBoxLValue9.SelectedItem != null;
+            bool calcCustom10 =
+                (textBoxRValue10.Text != "" || comboBoxRValue10.SelectedIndex != 0) &&
+                (string)comboBoxOperator10.SelectedItem != null &&
+                (string)comboBoxLValue10.SelectedItem != null;
 
             //  Build our custom item transform classes so that we can use them in
             //  the future without having to do a parse of all of the items.
@@ -242,6 +263,9 @@ namespace RNGReporter
             ulong customRValue5;
             ulong customRValue6;
             ulong customRValue7;
+            ulong customRValue8;
+            ulong customRValue9;
+            ulong customRValue10;
 
             try
             {
@@ -280,6 +304,21 @@ namespace RNGReporter
                                      : (checkBoxCustom7Hex.Checked
                                             ? ulong.Parse(textBoxRValue7.Text, NumberStyles.HexNumber)
                                             : ulong.Parse(textBoxRValue7.Text)));
+                customRValue8 = (textBoxRValue8.Text == ""
+                                     ? 0
+                                     : (checkBoxCustom8Hex.Checked
+                                            ? ulong.Parse(textBoxRValue8.Text, NumberStyles.HexNumber)
+                                            : ulong.Parse(textBoxRValue8.Text)));
+                customRValue9 = (textBoxRValue9.Text == ""
+                                     ? 0
+                                     : (checkBoxCustom9Hex.Checked
+                                            ? ulong.Parse(textBoxRValue9.Text, NumberStyles.HexNumber)
+                                            : ulong.Parse(textBoxRValue9.Text)));
+                customRValue10 = (textBoxRValue10.Text == ""
+                                     ? 0
+                                     : (checkBoxCustom10Hex.Checked
+                                            ? ulong.Parse(textBoxRValue10.Text, NumberStyles.HexNumber)
+                                            : ulong.Parse(textBoxRValue10.Text)));
             }
             catch (Exception ex)
             {
@@ -308,19 +347,28 @@ namespace RNGReporter
             Calculator custom7Calc = ((string) comboBoxOperator7.SelectedItem == null
                                           ? null
                                           : calculators[(string) comboBoxOperator7.SelectedItem]);
+            Calculator custom8Calc = ((string)comboBoxOperator8.SelectedItem == null
+                                          ? null
+                                          : calculators[(string)comboBoxOperator8.SelectedItem]);
+            Calculator custom9Calc = ((string)comboBoxOperator9.SelectedItem == null
+                                          ? null
+                                          : calculators[(string)comboBoxOperator9.SelectedItem]);
+            Calculator custom10Calc = ((string)comboBoxOperator10.SelectedItem == null
+                                          ? null
+                                          : calculators[(string)comboBoxOperator10.SelectedItem]);
 
             //  Decide on whether we are going to display each of these items as
             //  decimal or hex. Can be very useful either way, so it is an option.
             Custom1.DefaultCellStyle.Format = checkBoxCustom1Hex.Checked ? "X8" : "";
-
             Custom2.DefaultCellStyle.Format = checkBoxCustom2Hex.Checked ? "X8" : "";
-
             Custom3.DefaultCellStyle.Format = checkBoxCustom3Hex.Checked ? "X8" : "";
-
             Custom4.DefaultCellStyle.Format = checkBoxCustom4Hex.Checked ? "X8" : "";
             Custom5.DefaultCellStyle.Format = checkBoxCustom5Hex.Checked ? "X8" : "";
             Custom6.DefaultCellStyle.Format = checkBoxCustom6Hex.Checked ? "X8" : "";
             Custom7.DefaultCellStyle.Format = checkBoxCustom7Hex.Checked ? "X8" : "";
+            Custom8.DefaultCellStyle.Format = checkBoxCustom8Hex.Checked ? "X8" : "";
+            Custom9.DefaultCellStyle.Format = checkBoxCustom9Hex.Checked ? "X8" : "";
+            Custom10.DefaultCellStyle.Format = checkBoxCustom10Hex.Checked ? "X8" : "";
 
             var frames = new List<FrameResearch>();
 
@@ -448,6 +496,48 @@ namespace RNGReporter
                         customLValue7 = (uint) customLValue7;
 
                     frame.Custom7 = custom7Calc(customLValue7, customRValue7);
+                }
+                //////////////////////////////////////////////////////////////////////////////////
+
+                //  Call Custom 8 ////////////////////////////////////////////////////////////////
+                if (calcCustom8)
+                {
+                    ulong customLValue8 = CustomCalcs(comboBoxLValue8, frame, frames);
+                    if ((string)comboBoxRValue8.SelectedItem != "None")
+                        customRValue8 = CustomCalcs(comboBoxRValue8, frame, frames);
+
+                    if (!rngIs64Bit)
+                        customLValue8 = (uint)customLValue8;
+
+                    frame.Custom8 = custom8Calc(customLValue8, customRValue8);
+                }
+                //////////////////////////////////////////////////////////////////////////////////
+
+                //  Call Custom 9 ////////////////////////////////////////////////////////////////
+                if (calcCustom9)
+                {
+                    ulong customLValue9 = CustomCalcs(comboBoxLValue9, frame, frames);
+                    if ((string)comboBoxRValue9.SelectedItem != "None")
+                        customRValue9 = CustomCalcs(comboBoxRValue9, frame, frames);
+
+                    if (!rngIs64Bit)
+                        customLValue9 = (uint)customLValue9;
+
+                    frame.Custom9 = custom9Calc(customLValue9, customRValue9);
+                }
+                //////////////////////////////////////////////////////////////////////////////////
+
+                //  Call Custom 7 ////////////////////////////////////////////////////////////////
+                if (calcCustom10)
+                {
+                    ulong customLValue10 = CustomCalcs(comboBoxLValue10, frame, frames);
+                    if ((string)comboBoxRValue10.SelectedItem != "None")
+                        customRValue10 = CustomCalcs(comboBoxRValue10, frame, frames);
+
+                    if (!rngIs64Bit)
+                        customLValue10 = (uint)customLValue10;
+
+                    frame.Custom10 = custom10Calc(customLValue10, customRValue10);
                 }
                 //////////////////////////////////////////////////////////////////////////////////
 

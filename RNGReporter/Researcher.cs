@@ -807,7 +807,7 @@ namespace RNGReporter
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var profile = new ResearcherProfile {MaxResults = 1000, Custom = new CustomResearcher[7]};
+            var profile = new ResearcherProfile {MaxResults = 1000, Custom = new CustomResearcher[10]};
             for (int i = 0; i < 9; ++i)
                 profile.Custom[i] = new CustomResearcher();
             SetProfile(profile);
@@ -933,7 +933,7 @@ namespace RNGReporter
             profile.MaxResults = Int32.Parse(maskedTextBoxMaxFrames.Text);
             profile.Seed = textBoxSeed.Text;
 
-            profile.Custom = new CustomResearcher[9];
+            profile.Custom = new CustomResearcher[10];
             for (int i = 0; i < 9; ++i)
                 profile.Custom[i] = new CustomResearcher();
             profile.Custom[0].Type = (CustomResearcher.ValueType) comboBoxLValue1.SelectedIndex;

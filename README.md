@@ -1,7 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/github/Admiral-Fish/RNGReporter?branch=master&svg=true)](https://ci.appveyor.com/project/Admiral-Fish/rngreporter)
 
 # RNGReporter
-Working on adding more features. No promises on how long it will take or the code being optimized. Also shoutout to the original dev team of RNG Reporter for giving me the starting point I'm working with.
+I will no longer be actively developing RNG Reporter. I will attempt to fix any bugs that are found. Checkout [PokeFinder](https://github.com/Admiral-Fish/PokeFinder) for a WIP cross platform RNG tool.
 
 # Credits
 Original RNGReporter dev team for creating RNGReporter. 

@@ -934,7 +934,7 @@ namespace RNGReporter
             profile.Seed = textBoxSeed.Text;
 
             profile.Custom = new CustomResearcher[10];
-            for (int i = 0; i < 9; ++i)
+            for (int i = 0; i < 10; ++i)
                 profile.Custom[i] = new CustomResearcher();
             profile.Custom[0].Type = (CustomResearcher.ValueType) comboBoxLValue1.SelectedIndex;
             profile.Custom[0].Operation = (CustomResearcher.Operator) comboBoxOperator1.SelectedIndex;

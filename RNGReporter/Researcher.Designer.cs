@@ -1220,12 +1220,14 @@ namespace RNGReporter
             "Custom 4",
             "Custom 5",
             "Custom 6",
+            "Custom 7",
             "Previous 1",
             "Previous 2",
             "Previous 3",
             "Previous 4",
             "Previous 5",
-            "Previous 6"});
+            "Previous 6",
+            "Previous 7"});
             this.comboBoxLValue8.Location = new System.Drawing.Point(449, 215);
             this.comboBoxLValue8.Name = "comboBoxLValue8";
             this.comboBoxLValue8.ShineColor = System.Drawing.SystemColors.Window;
@@ -1334,12 +1336,16 @@ namespace RNGReporter
             "Custom 4",
             "Custom 5",
             "Custom 6",
+            "Custom 7",
+            "Custom 8",
             "Previous 1",
             "Previous 2",
             "Previous 3",
             "Previous 4",
             "Previous 5",
-            "Previous 6"});
+            "Previous 6",
+            "Previous 7",
+            "Previous 8"});
             this.comboBoxLValue9.Location = new System.Drawing.Point(449, 242);
             this.comboBoxLValue9.Name = "comboBoxLValue9";
             this.comboBoxLValue9.ShineColor = System.Drawing.SystemColors.Window;
@@ -1450,12 +1456,18 @@ namespace RNGReporter
             "Custom 4",
             "Custom 5",
             "Custom 6",
+            "Custom 7",
+            "Custom 8",
+            "Custom 9",
             "Previous 1",
             "Previous 2",
             "Previous 3",
             "Previous 4",
             "Previous 5",
-            "Previous 6"});
+            "Previous 6",
+            "Previous 7",
+            "Previous 8",
+            "Previous 9"});
             this.comboBoxLValue10.Location = new System.Drawing.Point(449, 270);
             this.comboBoxLValue10.Name = "comboBoxLValue10";
             this.comboBoxLValue10.ShineColor = System.Drawing.SystemColors.Window;

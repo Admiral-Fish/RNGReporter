@@ -4,8 +4,8 @@ namespace RNGReporter.Objects
 {
     public class NatureLock
     {
-        private uint[] lockInfo;
-        private static int forwardCounter, count, count2, lastIndex, lastIndex2;
+        private LockInfo[] lockInfo;
+        private static int forwardCounter, count, count2;
         private static uint pid, genderval;
         public List<uint> rand;
         public int index;
@@ -16,211 +16,289 @@ namespace RNGReporter.Objects
         {
             lockInfo = natureLockList(lockNum);
             rand = new List<uint>();
-            count = ((lockInfo.Length - 2) / 3) - 1;
-            count2 = count + 1;
-            lastIndex = lockInfo.Length - 4;
-            lastIndex2 = lastIndex + 3;
+            count = lockInfo.Length;
+            count2 = lockNum == 12 || lockNum == 12 || lockNum == 33 || lockNum == 42 || lockNum == 56 || lockNum == 59 || lockNum == 76 ||lockNum == 67 ? 1 : count - 2;
             reverse = new XdRngR(0);
             forward = new XdRng(0);
         }
 
-        private uint[] natureLockList(int natureLockIndex)
+        private LockInfo[] natureLockList(int natureLockIndex)
         {
             switch (natureLockIndex)
             {
                 case 0:
-                    return new uint[] { 3, 6, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Altaria
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 0, 126), new LockInfo(12, 127, 255) }; //Altaria
                 case 1:
-                    return new uint[] { 4, 1, 0, 126, 18, 0, 126, 12, 0, 126, 0, 127, 255, 6 }; //Arbok
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(12, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255) }; //Arbok
                 case 2:
-                    return new uint[] { 0, 0 }; //Articuno 
+                    return null; //Articuno 
                 case 3:
-                    return new uint[] { 0, 0 }; //Baltoy 3
+                    return null; //Baltoy 3
                 case 4:
-                    return new uint[] { 0, 0 }; //Baltoy 1
+                    return null; //Baltoy 1
                 case 5:
-                    return new uint[] { 2, 1, 127, 255, 0, 127, 255, 24 }; //Baltoy 2
+                    return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(24, 127, 255) }; //Baltoy 2
                 case 6:
-                    return new uint[] { 3, 6, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Banette
+                    return new LockInfo[] { new LockInfo(12, 0, 255), new LockInfo(18, 0, 126), new LockInfo(0, 0, 255) }; //Banette
                 case 7:
-                    return new uint[] { 0, 0 }; //Beedrill
+                    return null; //Beedrill
                 case 8:
-                    return new uint[] { 3, 6, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Butterfree
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 190) }; //Butterfree
                 case 9:
-                    return new uint[] { 0, 0 }; //Carvanha
+                    return null; //Carvanha
                 case 10:
-                    return new uint[] { 2, 6, 127, 255, 24, 0, 126, 6 }; //Chansey
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126) }; //Chansey
                 case 11:
-                    return new uint[] { 3, 1, 127, 255, 24, 127, 255, 0, 0, 190, 6 }; //Delcatty
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 127, 255), new LockInfo(6, 0, 190) }; //Delcatty
                 case 12:
-                    return new uint[] { 1, 1, 0, 126, 18 }; //Dodrio
+                    return new LockInfo[] { new LockInfo(18, 0, 126) }; //Dodrio
                 case 13:
-                    return new uint[] { 5, 1, 127, 255, 0, 0, 126, 12, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Dragonite
+                    return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(12, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) }; //Dragonite
                 case 14:
-                    return new uint[] { 4, 1, 127, 255, 12, 0, 126, 6, 127, 255, 18, 127, 255, 0 }; //Dugtrio
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(6, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) }; //Dugtrio
                 case 15:
-                    return new uint[] { 3, 1, 127, 255, 24, 0, 126, 18, 127, 255, 12 }; //Duskull
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(18, 0, 126), new LockInfo(12, 127, 255) }; //Duskull
                 case 16:
-                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Electabuzz
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 63, 255) }; //Electabuzz
                 case 17:
-                    return new uint[] { 0, 0 }; //Exeggutor
+                    return null; //Exeggutor
                 case 18:
-                    return new uint[] { 3, 1, 127, 255, 24, 0, 126, 0, 127, 255, 12 }; //Farfetch'd  
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 0, 126), new LockInfo(12, 127, 255) }; //Farfetch'd  
                 case 19:
-                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Golduck
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Golduck
                 case 20:
-                    return new uint[] { 2, 1, 127, 255, 18, 127, 255, 12 }; //Grimer
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(12, 127, 255) }; //Grimer
                 case 21:
-                    return new uint[] { 2, 6, 0, 126, 6, 127, 255, 24 }; //Growlithe
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Growlithe
                 case 22:
-                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 3
+                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) }; //Gulpin 3
                 case 23:
-                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Gulpin 1
+                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) }; //Gulpin 1
                 case 24:
-                    return new uint[] { 4, 1, 0, 126, 0, 0, 126, 0, 127, 255, 6, 0, 126, 12 }; //Gulpin 2
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) }; //Gulpin 2
                 case 25:
-                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Hitmonchan
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Hitmonchan
                 case 26:
-                    return new uint[] { 4, 1, 0, 126, 24, 0, 255, 6, 0, 126, 12, 127, 255, 18 }; //Hitmonlee
+                    return new LockInfo[] { new LockInfo(24, 0, 126), new LockInfo(6, 0, 255), new LockInfo(12, 0, 126), new LockInfo(18, 127, 255) }; //Hitmonlee
                 case 27:
-                    return new uint[] { 0, 0 }; //Houndour 3
+                    return null; //Houndour 3
                 case 28:
-                    return new uint[] { 0, 0 }; //Houndour 1
+                    return null; //Houndour 1
                 case 29:
-                    return new uint[] { 0, 0 }; //To do houndour 2
+                    return null; //To do houndour 2
                 case 30:
-                    return new uint[] { 4, 6, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Hypno
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 0, 126) }; //Hypno
                 case 31:
-                    return new uint[] { 3, 1, 0, 255, 12, 0, 126, 18, 0, 255, 0 }; //Kangaskhan
+                    return new LockInfo[] { new LockInfo(12, 0, 255), new LockInfo(18, 0, 126), new LockInfo(0, 0, 255) }; //Kangaskhan
                 case 32:
-                    return new uint[] { 4, 6, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Lapras
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(500, 500, 500), new LockInfo(500, 500, 500), new LockInfo(6, 0, 126) }; //Lapras
                 case 33:
-                    return new uint[] { 1, 1, 0, 126, 0 }; //Ledyba
+                    return new LockInfo[] { new LockInfo(0, 0, 126) }; //Ledyba
                 case 34:
-                    return new uint[] { 2, 1, 0, 255, 6, 127, 255, 24 }; //Lickitung
+                    return new LockInfo[] { new LockInfo(6, 0, 255), new LockInfo(24, 127, 255) }; //Lickitung
                 case 35:
-                    return new uint[] { 0, 0 }; //Lugia
+                    return null; //Lugia
                 case 36:
-                    return new uint[] { 2, 1, 127, 255, 18, 0, 126, 0 }; //Lunatone
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(0, 0, 126) }; //Lunatone
                 case 37:
-                    return new uint[] { 3, 6, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Marcargo
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 127, 255) }; //Marcargo
                 case 38:
-                    return new uint[] { 3, 1, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Magmar 
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(18, 191, 255), new LockInfo(18, 127, 255) }; //Magmar 
                 case 39:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 0, 0, 255, 18 }; //Magneton
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(0, 127, 255), new LockInfo(18, 0, 255) }; //Magneton
                 case 40:
-                    return new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Makuhita
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 127, 255) }; //Makuhita
                 case 41:
-                    return new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Makuhita Colo
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) }; //Makuhita Colo
                 case 42:
-                    return new uint[] { 1, 1, 0, 126, 6 }; //Manectric
+                    return new LockInfo[] { new LockInfo(6, 0, 126) }; //Manectric
                 case 43:
-                    return new uint[] { 0, 0 }; //Mareep 3
+                    return null; //Mareep 3
                 case 44:
-                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Mareep 1
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Mareep 1
                 case 45:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Mareep 2
+                    return new LockInfo[] { new LockInfo(0, 0, 255), new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Mareep 2
                 case 46:
-                    return new uint[] { 4, 1, 127, 255, 24, 500, 500, 500, 500, 500, 500, 0, 126, 6 }; //Marowak
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(500, 500, 500), new LockInfo(500, 500, 500), new LockInfo(6, 0, 126) }; //Marowak
                 case 47:
-                    return new uint[] { 2, 1, 0, 126, 18, 127, 255, 6 }; //Mawile
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 127, 255) }; //Mawile
                 case 48:
-                    return new uint[] { 3, 1, 0, 126, 18, 0, 126, 0, 63, 255, 6 }; //Meowth
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 63, 255) }; //Meowth
                 case 49:
-                    return new uint[] { 0, 0 }; //Moltres
+                    return null; //Moltres
                 case 50:
-                    return new uint[] { 4, 6, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Mr. Mime
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255), new LockInfo(18, 127, 255), new LockInfo(18, 127, 255) }; //Mr. Mime
                 case 51:
-                    return new uint[] { 2, 1, 0, 126, 0, 127, 255, 24 }; //Natu
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) }; //Natu
                 case 52:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 18, 127, 255, 0 }; //Nosepass
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) }; //Nosepass
                 case 53:
-                    return new uint[] { 3, 1, 0, 126, 24, 0, 255, 0, 127, 255, 6 }; //Numel
+                    return new LockInfo[] { new LockInfo(24, 0, 126), new LockInfo(0, 0, 255), new LockInfo(6, 127, 255) }; //Numel
                 case 54:
-                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 24 }; //Paras
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Paras
                 case 55:
-                    return new uint[] { 2, 1, 32, 255, 18, 127, 255, 12 }; //Pidgeotto
+                    return new LockInfo[] { new LockInfo(18, 32, 255), new LockInfo(12, 127, 255) }; //Pidgeotto
                 case 56:
-                    return new uint[] { 1, 1, 127, 255, 6 }; //Pineco
+                    return new LockInfo[] { new LockInfo(6, 127, 255) }; //Pineco
                 case 57:
-                    return new uint[] { 3, 6, 0, 126, 0, 191, 255, 18, 127, 255, 18 }; //Pinsir
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(18, 191, 255), new LockInfo(18, 127, 255) }; //Pinsir
                 case 58:
-                    return new uint[] { 4, 1, 0, 126, 6, 127, 255, 24, 127, 255, 18, 127, 255, 18 }; //Poliwrath
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255), new LockInfo(18, 127, 255), new LockInfo(18, 127, 255) }; //Poliwrath
                 case 59:
-                    return new uint[] { 1, 1, 0, 126, 12 }; //Poochyena
+                    return new LockInfo[] { new LockInfo(12, 0, 126) }; //Poochyena
                 case 60:
-                    return new uint[] { 4, 1, 127, 255, 24, 0, 126, 6, 0, 126, 12, 0, 126, 18 }; //Primeape
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 0, 126) }; //Primeape
                 case 61:
-                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 63, 255, 0 }; //Ralts
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 0, 126), new LockInfo(0, 63, 255) }; //Ralts
                 case 62:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 6, 127, 255, 24 }; //Rapidash
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 127, 255) }; //Rapidash
                 case 63:
-                    return new uint[] { 3, 1, 127, 255, 18, 500, 500, 500, 0, 126, 18 }; //Raticate
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(500, 500, 500), new LockInfo(18, 0, 126) }; //Raticate
                 case 64:
-                    return new uint[] { 0, 0 }; //Rhydon
+                    return null; //Rhydon
                 case 65:
-                    return new uint[] { 2, 1, 127, 255, 18, 127, 255, 6 }; //Roselia
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 127, 255) }; //Roselia
                 case 66:
-                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 127, 255, 24 }; //Sableye
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Sableye
                 case 67:
-                    return new uint[] { 1, 6, 0, 126, 6 }; //Salamence
+                    return new LockInfo[] { new LockInfo(6, 0, 126) }; //Salamence
                 case 68:
-                    return new uint[] { 2, 1, 127, 255, 24, 0, 126, 6 }; //Scyther
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126) }; //Scyther
                 case 69:
-                    return new uint[] { 0, 0 }; //To do seedot 3
+                    return null; //To do seedot 3
                 case 70:
-                    return new uint[] { 5, 1, 127, 255, 12, 127, 255, 0, 0, 126, 12, 0, 126, 24, 127, 255, 6 }; //Seedot 1
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(0, 127, 255), new LockInfo(12, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) }; //Seedot 1
                 case 71:
-                    return new uint[] { 5, 1, 127, 255, 6, 0, 126, 0, 0, 126, 0, 0, 126, 24, 127, 255, 6 }; //Seedot 2
+                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(0, 0, 126), new LockInfo(0, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) }; //Seedot 2
                 case 72:
-                    return new uint[] { 3, 1, 0, 126, 18, 127, 255, 12, 127, 255, 6 }; //Seel
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(12, 127, 255), new LockInfo(6, 127, 255) }; //Seel
                 case 73:
-                    return new uint[] { 0, 0 }; //Shellder
+                    return null; //Shellder
                 case 74:
-                    return new uint[] { 2, 1, 0, 126, 0, 0, 126, 24 }; //Shroomish
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 0, 126) }; //Shroomish
                 case 75:
-                    return new uint[] { 3, 6, 0, 126, 18, 0, 126, 6, 63, 255, 24 }; //Snorlax
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 63, 255) }; //Snorlax
                 case 76:
-                    return new uint[] { 1, 1, 0, 126, 6 }; //Snorunt
+                    return new LockInfo[] { new LockInfo(6, 0, 126) }; //Snorunt
                 case 77:
-                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Solrock
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 0, 255) }; //Solrock
                 case 78:
-                    return new uint[] { 2, 1, 0, 126, 6, 127, 255, 18 }; //Spearow
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(18, 127, 255) }; //Spearow
                 case 79:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 3
+                    return new LockInfo[] { new LockInfo(0, 0, 255), new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Spheal 3
                 case 80:
-                    return new uint[] { 2, 1, 0, 126, 12, 127, 255, 24 }; //Spheal 1
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Spheal 1
                 case 81:
-                    return new uint[] { 3, 1, 0, 255, 0, 0, 126, 12, 127, 255, 24 }; //Spheal 2
+                    return new LockInfo[] { new LockInfo(0, 0, 255), new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Spheal 2
                 case 82:
-                    return new uint[] { 2, 1, 127, 255, 6, 0, 126, 12 }; //Spinarak
+                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) }; //Spinarak
                 case 83:
-                    return new uint[] { 5, 1, 127, 255, 18, 500, 500, 500, 0, 126, 0, 127, 255, 6, 0, 255, 24 }; //Starmie
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(500, 500, 500), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 0, 255) }; //Starmie
                 case 84:
-                    return new uint[] { 0, 0 }; //Swellow
+                    return null; //Swellow
                 case 85:
-                    return new uint[] { 2, 1, 127, 255, 0, 0, 126, 18 }; //Swinub
+                    return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(18, 0, 126) }; //Swinub
                 case 86:
-                    return new uint[] { 3, 1, 0, 126, 0, 127, 255, 6, 0, 190, 12 }; //Tangela
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 190) }; //Tangela
                 case 87:
-                    return new uint[] { 0, 0 }; //Tauros
+                    return null; //Tauros
                 case 88:
-                    return new uint[] { 0, 0 }; //Teddiursa
+                    return null; //Teddiursa
                 case 89:
-                    return new uint[] { 0, 0 }; //Togepi
+                    return null; //Togepi
                 case 90:
-                    return new uint[] { 3, 1, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Venomoth
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(24, 0, 255), new LockInfo(18, 0, 126) }; //Venomoth
                 case 91:
-                    return new uint[] { 3, 1, 0, 126, 12, 127, 255, 12, 127, 255, 0 }; //Voltorb
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(12, 127, 255), new LockInfo(0, 127, 255) }; //Voltorb
                 case 92:
-                    return new uint[] { 3, 1, 127, 255, 18, 0, 126, 6, 127, 255, 0 }; //Vulpix
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 0, 126), new LockInfo(0, 127, 255) }; //Vulpix
                 case 93:
-                    return new uint[] { 3, 6, 127, 255, 12, 0, 255, 24, 0, 126, 18 }; //Weepinbell
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(24, 0, 255), new LockInfo(18, 0, 126) }; //Weepinbell
                 case 94:
-                    return new uint[] { 0, 0 }; //Zangoose
+                    return null; //Zangoose
                 default:
-                    return new uint[] { 0, 0 }; //Zapdos 
+                    return null; //Zapdos 
             }
+        }
+
+        public bool method1SingleNL(uint seed)
+        {
+            reverse.Seed = seed;
+            reverse.GetNext32BitNumber();
+
+            //Build PID
+            pid = getPIDReverse();
+
+            //Backwards nature lock check
+            uint genderval = pid & 255;
+            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pid % 25 != lockInfo[0].nature)
+                return false;
+            else
+                return true;
+        }
+
+        public bool salamenceUnset(uint seed)
+        {
+            reverse.Seed = seed;
+            reverse.GetNext32BitNumber(8);
+
+            //Build PID
+            pid = getPIDReverse();
+
+            //Backwards nature lock check
+            genderval = pid & 255;
+            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pid % 25 != lockInfo[0].nature)
+                return false;
+            else
+                return true;
+        }
+
+        public bool salamenceSet(uint seed)
+        {
+            reverse.Seed = seed;
+            reverse.GetNext32BitNumber(6);
+
+            //Build PID
+            pid = getPIDReverse();
+
+            //Backwards nature lock check
+            genderval = pid & 255;
+            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pid % 25 != lockInfo[0].nature)
+                return false;
+            else
+                return true;
+        }
+
+        public bool salamenceShinySkip(uint seed)
+        {
+            reverse.Seed = seed;
+            reverse.GetNext32BitNumber(1);
+
+            uint psv, psvtemp;
+            bool shinyFlag = true;
+
+            //Check how many advances from shiny skip and build PID
+            pid = getPIDReverse();
+            psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
+            while (shinyFlag)
+            {
+                pid = getPIDReverse();
+                psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
+                if (psvtemp != psv)
+                    shinyFlag = false;
+                else
+                    psv = psvtemp;
+            }
+
+            reverse.GetNext32BitNumber(10);
+            pid = getPIDReverse();
+
+            //Backwards nature lock check
+            genderval = pid & 255;
+            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pid % 25 != lockInfo[0].nature)
+                return false;
+            else
+                return true;
         }
 
         public bool method1FirstShadow(uint seed)
@@ -233,17 +311,17 @@ namespace RNGReporter.Objects
 
             //Backwards nature lock check
             uint genderval = pidOriginal & 255;
-            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pidOriginal % 25 != lockInfo[4])
+            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pidOriginal % 25 != lockInfo[0].nature)
                 return false;
 
-            for (int x = 1; x <= count; x++)
+            for (int x = 1; x < count; x++)
             {
                 reverse.GetNext32BitNumber(3);
                 pid = getPIDReverse();
-                if (lockInfo[2 + 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x] || pid % 25 != lockInfo[4 + 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countBackTwo(x);
                 }
             }
@@ -252,14 +330,14 @@ namespace RNGReporter.Objects
             forward.GetNext32BitNumber();
 
             //Forwards nature lock check
-            for (int x = 1; x <= count; x++)
+            for (int x = count2; x >= 0; x--)
             {
                 forward.GetNext32BitNumber(3);
                 pid = getPIDForward();
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwo(x);
                 }
             }
@@ -277,17 +355,17 @@ namespace RNGReporter.Objects
 
             //Backwards nature lock check
             genderval = pidOriginal & 255;
-            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pidOriginal % 25 != lockInfo[4])
+            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pidOriginal % 25 != lockInfo[0].nature)
                 return false;
 
-            for (int x = 1; x <= count; x++)
+            for (int x = 1; x < count; x++)
             {
                 reverse.GetNext32BitNumber(3);
                 pid = getPIDReverse();
-                if (lockInfo[2 + 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x] || pid % 25 != lockInfo[4 + 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countBackTwo(x);
                 }
             }
@@ -296,14 +374,14 @@ namespace RNGReporter.Objects
             forward.GetNext32BitNumber();
 
             //Forwards nature lock check
-            for (int x = 1; x <= count; x++)
+            for (int x = count2; x <= 0; x--)
             {
                 forward.GetNext32BitNumber(3);
                 pid = getPIDForward();
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwo(x);
                 }
             }
@@ -321,17 +399,17 @@ namespace RNGReporter.Objects
 
             //Backwards nature lock check
             genderval = pidOriginal & 255;
-            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pidOriginal % 25 != lockInfo[4])
+            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pidOriginal % 25 != lockInfo[0].nature)
                 return false;
 
-            for (int x = 1; x <= count; x++)
+            for (int x = 1; x < count; x++)
             {
                 reverse.GetNext32BitNumber(3);
                 pid = getPIDReverse();
-                if (lockInfo[2 + 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x] || pid % 25 != lockInfo[4 + 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countBackTwo(x);
                 }
             }
@@ -340,14 +418,14 @@ namespace RNGReporter.Objects
             forward.GetNext32BitNumber();
 
             //Forwards nature lock check
-            for (int x = 1; x <= count; x++)
+            for (int x = count2; x >= 0; x--)
             {
                 forward.GetNext32BitNumber(3);
                 pid = getPIDForward();
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwo(x);
                 }
             }
@@ -358,7 +436,7 @@ namespace RNGReporter.Objects
         public bool method1SecondShadowShinySkip(uint seed)
         {
             reverse.Seed = seed;
-            reverse.GetNext32BitNumber(8);
+            reverse.GetNext32BitNumber(1);
 
             uint pidOriginal, psv, psvtemp;
             bool shinyFlag = true;
@@ -376,19 +454,22 @@ namespace RNGReporter.Objects
                     psv = psvtemp;
             }
 
+            reverse.GetNext32BitNumber(10);
+            pidOriginal = getPIDReverse();
+
             //Backwards nature lock check
             genderval = pidOriginal & 255;
-            if (genderval < lockInfo[2] || genderval > lockInfo[3] || pidOriginal % 25 != lockInfo[4])
+            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pid % 25 != lockInfo[0].nature)
                 return false;
 
-            for (int x = 1; x <= count; x++)
+            for (int x = 1; x < count; x++)
             {
                 reverse.GetNext32BitNumber(3);
                 pid = getPIDReverse();
-                if (lockInfo[2 + 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x] || pid % 25 != lockInfo[4 + 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countBackTwo(x);
                 }
             }
@@ -397,14 +478,14 @@ namespace RNGReporter.Objects
             forward.GetNext32BitNumber();
 
             //Forwards nature lock check
-            for (int x = 1; x <= count; x++)
+            for (int x = count2; x >= 0; x--)
             {
                 forward.GetNext32BitNumber(3);
                 pid = getPIDForward();
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwo(x);
                 }
             }
@@ -416,15 +497,15 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (int x = 0; x < count2; x++)
+            for (int x = count2; x >= 0; x++)
             {
                 forwardCounter += 5;
                 pid = getPIDForward2(sister);
 
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwo2(sister, x);
                 }
             }
@@ -443,15 +524,15 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (int x = 0; x < count2; x++)
+            for (int x = count2; x >= 0; x++)
             {
                 forwardCounter += 5;
                 pid = getPIDForward2(sister);
 
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwo2(sister, x);
                 }
             }
@@ -470,15 +551,15 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (int x = 0; x < count2; x++)
+            for (int x = count2; x >= 0; x++)
             {
                 forwardCounter += 5;
                 pid = getPIDForward2(sister);
 
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwo2(sister, x);
                 }
             }
@@ -497,15 +578,15 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 4;
 
-            for (int x = 0; x < count2; x++)
+            for (int x = count2; x >= 0; x++)
             {
                 forwardCounter += 5;
                 pid = getPIDForward2(sister);
 
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwo2(sister, x);
                 }
             }
@@ -540,15 +621,15 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (int x = 0; x < count2; x++)
+            for (int x = count2; x >= 0; x++)
             {
                 forwardCounter += 5;
                 pid = getPIDShadow();
 
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwoShadow(x);
                 }
             }
@@ -563,15 +644,15 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (int x = 0; x < count2; x++)
+            for (int x = count2; x >= 0; x++)
             {
                 forwardCounter += 5;
                 pid = getPIDShadow();
 
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwoShadow(x);
                 }
             }
@@ -586,15 +667,15 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (int x = 0; x < count2; x++)
+            for (int x = count2; x >= 0; x++)
             {
                 forwardCounter += 5;
                 pid = getPIDShadow();
 
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwoShadow(x);
                 }
             }
@@ -609,15 +690,15 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (int x = 0; x < count2; x++)
+            for (int x = count2; x >= 0; x++)
             {
                 forwardCounter += 5;
                 pid = getPIDShadow();
 
-                if (lockInfo[lastIndex + 1 - 3 * x] != 500)
+                if (lockInfo[x].nature != 500)
                 {
                     genderval = pid & 255;
-                    if (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+                    if (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
                         countForwardTwoShadow(x);
                 }
             }
@@ -644,9 +725,203 @@ namespace RNGReporter.Objects
             iv2 = rand[forwardCounter - 3] >> 16;
         }
 
-        public uint getType()
+        public uint getType(int index)
         {
-            return lockInfo[1];
+            switch (index)
+            {
+                case 0:
+                    return 6; //Altaria
+                case 1:
+                    return 1; //Arbok
+                case 2:
+                    return 0; //Articuno 
+                case 3:
+                    return 0; //Baltoy 3
+                case 4:
+                    return 0; //Baltoy 1
+                case 5:
+                    return 1; //Baltoy 2
+                case 6:
+                    return 6; //Banette
+                case 7:
+                    return 0; //Beedrill
+                case 8:
+                    return 6; //Butterfree
+                case 9:
+                    return 0; //Carvanha
+                case 10:
+                    return 6; //Chansey
+                case 11:
+                    return 1; //Delcatty
+                case 12:
+                    return 2; //Dodrio
+                case 13:
+                    return 1; //Dragonite
+                case 14:
+                    return 1; //Dugtrio
+                case 15:
+                    return 1; //Duskull
+                case 16:
+                    return 1; //Electabuzz
+                case 17:
+                    return 0; //Exeggutor
+                case 18:
+                    return 1; //Farfetch'd  
+                case 19:
+                    return 1; //Golduck
+                case 20:
+                    return 1; //Grimer
+                case 21:
+                    return 6; //Growlithe
+                case 22:
+                    return 1; //Gulpin 3
+                case 23:
+                    return 1; //Gulpin 1
+                case 24:
+                    return 1; //Gulpin 2
+                case 25:
+                    return 1; //Hitmonchan
+                case 26:
+                    return 1; //Hitmonlee
+                case 27:
+                    return 0; //Houndour 3
+                case 28:
+                    return 0; //Houndour 1
+                case 29:
+                    return 0; //To do houndour 2
+                case 30:
+                    return 6; //Hypno
+                case 31:
+                    return 1; //Kangaskhan
+                case 32:
+                    return 6; //Lapras
+                case 33:
+                    return 2; //Ledyba
+                case 34:
+                    return 1; //Lickitung
+                case 35:
+                    return 0; //Lugia
+                case 36:
+                    return 1; //Lunatone
+                case 37:
+                    return 6; //Marcargo
+                case 38:
+                    return 1; //Magmar 
+                case 39:
+                    return 1; //Magneton
+                case 40:
+                    return 1; //Makuhita
+                case 41:
+                    return 1; //Makuhita Colo
+                case 42:
+                    return 2; //Manectric
+                case 43:
+                    return 0; //Mareep 3
+                case 44:
+                    return 1; //Mareep 1
+                case 45:
+                    return 1; //Mareep 2
+                case 46:
+                    return 1; //Marowak
+                case 47:
+                    return 1; //Mawile
+                case 48:
+                    return 1; //Meowth
+                case 49:
+                    return 0; //Moltres
+                case 50:
+                    return 6; //Mr. Mime
+                case 51:
+                    return 1; //Natu
+                case 52:
+                    return 1; //Nosepass
+                case 53:
+                    return 1; //Numel
+                case 54:
+                    return 1; //Paras
+                case 55:
+                    return 1; //Pidgeotto
+                case 56:
+                    return 2; //Pineco
+                case 57:
+                    return 6; //Pinsir
+                case 58:
+                    return 1; //Poliwrath
+                case 59:
+                    return 2; //Poochyena
+                case 60:
+                    return 1; //Primeape
+                case 61:
+                    return 1; //Ralts
+                case 62:
+                    return 1; //Rapidash
+                case 63:
+                    return 1; //Raticate
+                case 64:
+                    return 0; //Rhydon
+                case 65:
+                    return 1; //Roselia
+                case 66:
+                    return 6; //Sableye
+                case 67:
+                    return 3; //Salamence
+                case 68:
+                    return 1; //Scyther
+                case 69:
+                    return 0; //To do seedot 3
+                case 70:
+                    return 1; //Seedot 1
+                case 71:
+                    return 1; //Seedot 2
+                case 72:
+                    return 1; //Seel
+                case 73:
+                    return 0; //Shellder
+                case 74:
+                    return 1; //Shroomish
+                case 75:
+                    return 6; //Snorlax
+                case 76:
+                    return 2; //Snorunt
+                case 77:
+                    return 1; //Solrock
+                case 78:
+                    return 1; //Spearow
+                case 79:
+                    return 1; //Spheal 3
+                case 80:
+                    return 1; //Spheal 1
+                case 81:
+                    return 1; //Spheal 2
+                case 82:
+                    return 1; //Spinarak
+                case 83:
+                    return 1; //Starmie
+                case 84:
+                    return 0; //Swellow
+                case 85:
+                    return 1; //Swinub
+                case 86:
+                    return 1; //Tangela
+                case 87:
+                    return 0; //Tauros
+                case 88:
+                    return 0; //Teddiursa
+                case 89:
+                    return 0; //Togepi
+                case 90:
+                    return 0; //Venomoth
+                case 91:
+                    return 0; //Voltorb
+                case 92:
+                    return 1; //Vulpix
+                case 93:
+                    return 6; //Weepinbell
+                case 94:
+                    return 0; //Zangoose
+                default:
+                    return 0; //Zapdos 
+            }
         }
 
         private uint getPIDReverse()
@@ -673,7 +948,7 @@ namespace RNGReporter.Objects
         {
             pid = getPIDReverse();
             genderval = pid & 255;
-            while (genderval < lockInfo[2 + 3 * x] || genderval > lockInfo[3 + 3 * x] || pid % 25 != lockInfo[4 + 3 * x])
+            while (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
             {
                 pid = getPIDReverse();
                 genderval = pid & 255;
@@ -684,7 +959,7 @@ namespace RNGReporter.Objects
         {
             pid = getPIDForward();
             genderval = pid & 255;
-            while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+            while (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
             {
                 pid = getPIDForward();
                 genderval = pid & 255;
@@ -696,7 +971,7 @@ namespace RNGReporter.Objects
             forwardCounter += 2;
             pid = getPIDForward2(sister);
             genderval = pid & 255;
-            while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+            while (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
             {
                 forwardCounter += 2;
                 pid = getPIDForward2(sister);
@@ -709,12 +984,28 @@ namespace RNGReporter.Objects
             forwardCounter += 2;
             pid = getPIDShadow();
             genderval = pid & 255;
-            while (genderval < lockInfo[lastIndex + 1 - 3 * x] || genderval > lockInfo[lastIndex + 2 - 3 * x] || pid % 25 != lockInfo[lastIndex + 3 - 3 * x])
+            while (genderval < lockInfo[x].genderLower || genderval > lockInfo[x].genderUpper || pid % 25 != lockInfo[x].nature)
             {
                 forwardCounter += 2;
                 pid = getPIDShadow();
                 genderval = pid & 255;
             }
+        }
+    }
+
+    class LockInfo
+    {
+        public uint nature { get; set; }
+
+        public uint genderLower { get; set; }
+
+        public uint genderUpper { get; set; }
+
+        public LockInfo(uint nature, uint genderLower, uint genderUpper)
+        {
+            this.nature = nature;
+            this.genderLower = genderLower;
+            this.genderUpper = genderUpper;
         }
     }
 }

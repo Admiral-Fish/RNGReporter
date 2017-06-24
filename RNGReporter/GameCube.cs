@@ -185,7 +185,7 @@ namespace RNGReporter
         {
             natureLockIndex = shadowPokemon.SelectedIndex;
             natureLock = new NatureLock(natureLockIndex);
-            shadow = natureLock.getType();
+            shadow = natureLock.getType(natureLockIndex);
             galesFlag = natureLockIndex != 41;
 
             uint method = 1;
@@ -353,8 +353,70 @@ namespace RNGReporter
                         }
                     }
                     break;
-                //Second Shadow
+                //First shadow 1 NL
                 case 2:
+                    for (cnt = 0; cnt <= 0xFFFF; cnt++)
+                    {
+                        seedb = ivs_1b | cnt;
+                        ivs_2 = forwardXD(seedb) >> 16;
+                        if (ivs_2 == ex8 || ivs_2 == ex8_2)
+                        {
+                            pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                            pid2 = forwardXD(pid1);
+                            pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                            nature = pid % 25;
+                            galesSeed = reverseXD(seedb);
+                            pass = (natureList == null || natureList.Contains(nature));
+
+                            xorSeed = galesSeed ^ 0x80000000;
+                            xorPID = pid ^ 0x80008000;
+                            xorNature = xorPID % 25;
+                            xorPass = (natureList == null || natureList.Contains(xorNature));
+
+                            if (pass && natureLock.method1SingleNL(galesSeed))
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0);
+                            else if (xorPass && natureLock.method1SingleNL(xorSeed))
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
+                        }
+                    }
+                    break;
+                //Salamence
+                case 3:
+                    for (cnt = 0; cnt <= 0xFFFF; cnt++)
+                    {
+                        seedb = ivs_1b | cnt;
+                        ivs_2 = forwardXD(seedb) >> 16;
+                        if (ivs_2 == ex8 || ivs_2 == ex8_2)
+                        {
+                            pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                            pid2 = forwardXD(pid1);
+                            pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                            nature = pid % 25;
+                            galesSeed = reverseXD(seedb);
+                            pass = (natureList == null || natureList.Contains(nature));
+
+                            xorSeed = galesSeed ^ 0x80000000;
+                            xorPID = pid ^ 0x80008000;
+                            xorNature = xorPID % 25;
+                            xorPass = (natureList == null || natureList.Contains(xorNature));
+
+                            if (pass && natureLock.salamenceSet(galesSeed))
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1);
+                            else if (xorPass && natureLock.salamenceSet(xorSeed))
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1);
+                            else if (pass && natureLock.salamenceUnset(galesSeed))
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2);
+                            else if (xorPass && natureLock.salamenceUnset(xorSeed))
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2);
+                            else if (pass && natureLock.salamenceShinySkip(galesSeed))
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3);
+                            else if (xorPass && natureLock.salamenceShinySkip(xorSeed))
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3);
+                        }
+                    }
+                    break;
+                //Second Shadow
+                case 6:
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
@@ -525,6 +587,7 @@ namespace RNGReporter
                     break;
                 //First Shadow
                 case 1:
+                case 2:
                     info.rand.Add(inseed);
                     for (uint x = 0; x < 10000; x++)
                         info.rand.Add(rng.GetNext32BitNumber());
@@ -564,6 +627,7 @@ namespace RNGReporter
                     }
                     break;
                 //Second shadow
+                case 3:
                 case 6:
                     info.rand.Add(inseed);
                     for (uint x = 0; x < 2999; x++)
@@ -1568,7 +1632,7 @@ namespace RNGReporter
                 genderFilter = (uint)comboBoxGenderShadow.SelectedIndex;
                 abilityFilter = (uint)comboBoxAbilityShadow.SelectedIndex;
                 natureLock = new NatureLock(comboBoxShadow.SelectedIndex);
-                shadow = natureLock.getType();
+                shadow = natureLock.getType(comboBoxShadow.SelectedIndex);
 
                 shadowDisplay.Clear();
                 bindingShadow.ResetBindings(false);

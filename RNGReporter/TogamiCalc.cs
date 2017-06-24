@@ -97,7 +97,7 @@ namespace RNGReporter
                         addTime = new TimeSpan(0, 0, 0, secondsToAdd);
                         DateTime finalTime = date + addTime;
                         String result = finalTime.ToString();
-                        seedTime.Add(new RTCTime { Time = result, Frame = framesAway + 1 + minFrame});
+                        seedTime.Add(new RTCTime { Time = result, Frame = framesAway + 1 + minFrame, Seed = initialSeed.ToString("X")});
                         isSearching = false;
                         searchText.Invoke((MethodInvoker)(() => searchText.Text = "Finish. Awaiting command"));
                         dataGridViewValues.Invoke((MethodInvoker)(() => dataGridViewValues.DataSource = seedTime));

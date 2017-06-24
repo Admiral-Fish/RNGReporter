@@ -87,6 +87,8 @@ namespace RNGReporter.Objects
         public string Time { get; set; }
 
         public int Frame { get; set; }
+
+        public String Seed { get; set; }
     }
 
     internal class ProbableGeneration

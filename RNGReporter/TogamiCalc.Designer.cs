@@ -41,12 +41,13 @@
             this.cancel = new RNGReporter.GlassButton();
             this.buttonSearch = new RNGReporter.GlassButton();
             this.dataGridViewValues = new RNGReporter.DoubleBufferedDataGridView();
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Frame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.maxFrame = new RNGReporter.Controls.MaskedTextBox2();
             this.minFrame = new RNGReporter.Controls.MaskedTextBox2();
             this.targetSeed = new RNGReporter.Controls.MaskedTextBox2();
             this.initialSeed = new RNGReporter.Controls.MaskedTextBox2();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Frame = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,7 +161,8 @@
             this.dataGridViewValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Time,
-            this.Frame});
+            this.Frame,
+            this.Seed});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -189,23 +191,6 @@
             this.dataGridViewValues.ShowRowErrors = false;
             this.dataGridViewValues.Size = new System.Drawing.Size(392, 167);
             this.dataGridViewValues.TabIndex = 46;
-            // 
-            // Time
-            // 
-            this.Time.DataPropertyName = "Time";
-            dataGridViewCellStyle2.Format = "X";
-            this.Time.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Time.HeaderText = "Time";
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            this.Time.Width = 123;
-            // 
-            // Frame
-            // 
-            this.Frame.DataPropertyName = "Frame";
-            this.Frame.HeaderText = "Frame";
-            this.Frame.Name = "Frame";
-            this.Frame.ReadOnly = true;
             // 
             // maxFrame
             // 
@@ -246,6 +231,29 @@
             this.initialSeed.Name = "initialSeed";
             this.initialSeed.Size = new System.Drawing.Size(96, 20);
             this.initialSeed.TabIndex = 8;
+            // 
+            // Time
+            // 
+            this.Time.DataPropertyName = "Time";
+            dataGridViewCellStyle2.Format = "X";
+            this.Time.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Time.HeaderText = "Time";
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            // 
+            // Frame
+            // 
+            this.Frame.DataPropertyName = "Frame";
+            this.Frame.HeaderText = "Frame";
+            this.Frame.Name = "Frame";
+            this.Frame.ReadOnly = true;
+            // 
+            // Seed
+            // 
+            this.Seed.DataPropertyName = "Seed";
+            this.Seed.HeaderText = "Seed";
+            this.Seed.Name = "Seed";
+            this.Seed.ReadOnly = true;
             // 
             // TogamiCalc
             // 
@@ -290,8 +298,9 @@
         private DoubleBufferedDataGridView dataGridViewValues;
         private GlassButton buttonSearch;
         private System.Windows.Forms.Label searchText;
+        private GlassButton cancel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Frame;
-        private GlassButton cancel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Seed;
     }
 }

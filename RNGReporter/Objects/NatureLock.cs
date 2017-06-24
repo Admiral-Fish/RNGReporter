@@ -17,7 +17,7 @@ namespace RNGReporter.Objects
             lockInfo = natureLockList(lockNum);
             rand = new List<uint>();
             count = lockInfo.Length;
-            count2 = lockNum == 12 || lockNum == 12 || lockNum == 33 || lockNum == 42 || lockNum == 56 || lockNum == 59 || lockNum == 76 ||lockNum == 67 ? 1 : count - 2;
+            count2 = lockNum == 12 || lockNum == 12 || lockNum == 33 || lockNum == 42 || lockNum == 56 || lockNum == 59 || lockNum == 76 ||lockNum == 67 ? 0 : count - 2;
             reverse = new XdRngR(0);
             forward = new XdRng(0);
         }

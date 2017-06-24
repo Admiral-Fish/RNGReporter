@@ -1,6 +1,7 @@
 ﻿using RNGReporter.Objects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
@@ -140,6 +141,39 @@ namespace RNGReporter
                 searchThread.Abort();
                 isSearching = false;
                 searchText.Text = "Search cancelled";
+            }
+        }
+
+        private void dataGridViewValues_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo hti = dataGridViewValues.HitTest(e.X, e.Y);
+
+                if (hti.Type == DataGridViewHitTestType.Cell)
+                {
+                    if (!((dataGridViewValues.Rows[hti.RowIndex])).Selected)
+                    {
+                        dataGridViewValues.ClearSelection();
+
+                        (dataGridViewValues.Rows[hti.RowIndex]).Selected = true;
+                    }
+                }
+            }
+        }
+
+        private void contextMenuStripGrid_Opening(object sender, CancelEventArgs e)
+        {
+            if (dataGridViewValues.SelectedRows.Count == 0)
+                e.Cancel = true;
+        }
+
+        private void copySeedToClipboard_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewValues.SelectedRows[0] != null)
+            {
+                var frame = (RTCTime)dataGridViewValues.SelectedRows[0].DataBoundItem;
+                Clipboard.SetText(frame.Seed);
             }
         }
     }

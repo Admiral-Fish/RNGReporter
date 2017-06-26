@@ -722,198 +722,106 @@ namespace RNGReporter.Objects
         {
             switch (natureLockIndex)
             {
-                case 0:
-                    return 6; //Altaria
-                case 1:
-                    return 1; //Arbok
-                case 2:
-                    return 0; //Articuno 
-                case 3:
-                    return 0; //Baltoy 3
-                case 4:
-                    return 0; //Baltoy 1
-                case 5:
-                    return 1; //Baltoy 2
-                case 6:
-                    return 6; //Banette
-                case 7:
-                    return 0; //Beedrill
-                case 8:
-                    return 6; //Butterfree
-                case 9:
-                    return 0; //Carvanha
-                case 10:
-                    return 6; //Chansey
-                case 11:
-                    return 1; //Delcatty
-                case 12:
-                    return 2; //Dodrio
-                case 13:
-                    return 1; //Dragonite
-                case 14:
-                    return 1; //Dugtrio
-                case 15:
-                    return 1; //Duskull
-                case 16:
-                    return 1; //Electabuzz
-                case 17:
-                    return 0; //Exeggutor
-                case 18:
-                    return 1; //Farfetch'd  
-                case 19:
-                    return 1; //Golduck
-                case 20:
-                    return 1; //Grimer
-                case 21:
-                    return 6; //Growlithe
-                case 22:
-                    return 1; //Gulpin 3
-                case 23:
-                    return 1; //Gulpin 1
-                case 24:
-                    return 1; //Gulpin 2
-                case 25:
-                    return 1; //Hitmonchan
-                case 26:
-                    return 1; //Hitmonlee
-                case 27:
-                    return 0; //Houndour 3
-                case 28:
-                    return 0; //Houndour 1
-                case 29:
-                    return 0; //To do houndour 2
-                case 30:
-                    return 6; //Hypno
-                case 31:
-                    return 1; //Kangaskhan
-                case 32:
-                    return 6; //Lapras
-                case 33:
-                    return 2; //Ledyba
-                case 34:
-                    return 1; //Lickitung
-                case 35:
-                    return 0; //Lugia
-                case 36:
-                    return 1; //Lunatone
-                case 37:
-                    return 6; //Marcargo
-                case 38:
-                    return 1; //Magmar 
-                case 39:
-                    return 1; //Magneton
-                case 40:
-                    return 1; //Makuhita
-                case 41:
-                    return 1; //Makuhita Colo
-                case 42:
-                    return 2; //Manectric
-                case 43:
-                    return 0; //Mareep 3
-                case 44:
-                    return 1; //Mareep 1
-                case 45:
-                    return 1; //Mareep 2
-                case 46:
-                    return 1; //Marowak
-                case 47:
-                    return 1; //Mawile
-                case 48:
-                    return 1; //Meowth
-                case 49:
-                    return 0; //Moltres
-                case 50:
-                    return 6; //Mr. Mime
-                case 51:
-                    return 1; //Natu
-                case 52:
-                    return 1; //Nosepass
-                case 53:
-                    return 1; //Numel
-                case 54:
-                    return 1; //Paras
-                case 55:
-                    return 1; //Pidgeotto
-                case 56:
-                    return 2; //Pineco
-                case 57:
-                    return 6; //Pinsir
-                case 58:
-                    return 1; //Poliwrath
-                case 59:
-                    return 2; //Poochyena
-                case 60:
-                    return 1; //Primeape
-                case 61:
-                    return 1; //Ralts
-                case 62:
-                    return 1; //Rapidash
-                case 63:
-                    return 1; //Raticate
-                case 64:
-                    return 0; //Rhydon
-                case 65:
-                    return 1; //Roselia
-                case 66:
-                    return 6; //Sableye
-                case 67:
-                    return 3; //Salamence
-                case 68:
-                    return 1; //Scyther
-                case 69:
-                    return 0; //To do seedot 3
-                case 70:
-                    return 1; //Seedot 1
-                case 71:
-                    return 1; //Seedot 2
-                case 72:
-                    return 1; //Seel
-                case 73:
-                    return 0; //Shellder
-                case 74:
-                    return 1; //Shroomish
-                case 75:
-                    return 6; //Snorlax
-                case 76:
-                    return 2; //Snorunt
-                case 77:
-                    return 1; //Solrock
-                case 78:
-                    return 1; //Spearow
-                case 79:
-                    return 1; //Spheal 3
-                case 80:
-                    return 1; //Spheal 1
-                case 81:
-                    return 1; //Spheal 2
-                case 82:
-                    return 1; //Spinarak
-                case 83:
-                    return 1; //Starmie
-                case 84:
-                    return 0; //Swellow
-                case 85:
-                    return 1; //Swinub
-                case 86:
-                    return 1; //Tangela
-                case 87:
-                    return 0; //Tauros
-                case 88:
-                    return 0; //Teddiursa
-                case 89:
-                    return 0; //Togepi
-                case 90:
-                    return 0; //Venomoth
-                case 91:
-                    return 0; //Voltorb
-                case 92:
-                    return 1; //Vulpix
-                case 93:
-                    return 6; //Weepinbell
-                case 94:
-                    return 0; //Zangoose
-                default:
-                    return 0; //Zapdos 
+                case 2: //Articuno 
+                case 3: //Baltoy 3
+                case 4: //Baltoy 1
+                case 7: //Beedrill
+                case 9: //Carvanha
+                case 17: //Exeggutor
+                case 27: //Houndour 3
+                case 28: //Houndour 1
+                case 29: //To do houndour 2
+                case 35: //Lugia
+                case 43: //Mareep 3
+                case 49: //Moltres
+                case 64: //Rhydon
+                case 69: //To do seedot 3
+                case 73: //Shellder
+                case 84: //Swellow
+                case 87: //Tauros
+                case 88: //Teddiursa
+                case 89: //Togepi
+                case 94: //Zangoose
+                default: //Zapdos 
+                    return 0;
+                case 1: //Arbok
+                case 5: //Baltoy 2
+                case 11: //Delcatty
+                case 13: //Dragonite
+                case 14: //Dugtrio
+                case 15: //Duskull
+                case 16: //Electabuzz
+                case 18: //Farfetch'd  
+                case 19: //Golduck
+                case 20: //Grimer
+                case 22: //Gulpin 3
+                case 23: //Gulpin 1
+                case 24: //Gulpin 2
+                case 25: //Hitmonchan
+                case 26: //Hitmonlee
+                case 31: //Kangaskhan
+                case 34: //Lickitung
+                case 36: //Lunatone
+                case 38: //Magmar 
+                case 39: //Magneton
+                case 40: //Makuhita
+                case 41: //Makuhita Colo
+                case 44: //Mareep 1
+                case 45: //Mareep 2
+                case 46: //Marowak
+                case 47: //Mawile
+                case 48: //Meowth
+                case 51: //Natu
+                case 52: //Nosepass
+                case 53: //Numel
+                case 54: //Paras
+                case 55: //Pidgeotto
+                case 58: //Poliwrath
+                case 60: //Primeape
+                case 61: //Ralts
+                case 62: //Rapidash
+                case 63: //Raticate
+                case 65: //Roselia
+                case 68: //Scyther
+                case 70: //Seedot 1
+                case 71: //Seedot 2
+                case 72: //Seel
+                case 74: //Shroomish
+                case 77: //Solrock
+                case 78: //Spearow
+                case 79: //Spheal 3
+                case 80: //Spheal 1
+                case 81: //Spheal 2
+                case 82: //Spinarak
+                case 83: //Starmie
+                case 85: //Swinub
+                case 86: //Tangela
+                case 90: //Venomoth
+                case 91: //Voltorb
+                case 92: //Vulpix
+                case 12: //Dodrio
+                case 33: //Ledyba
+                case 42: //Manectric
+                case 56: //Pineco
+                case 59: //Poochyena
+                case 76: //Snorunt
+                    return 2;
+                case 67: //Salamence
+                    return 3;
+                case 0: //Altaria
+                case 6: //Banette
+                case 8: //Butterfree
+                case 10: //Chansey
+                case 21: //Growlithe
+                case 30: //Hypno
+                case 32: //Lapras
+                case 37: //Marcargo
+                case 50: //Mr. Mime
+                case 57: //Pinsir
+                case 66: //Sableye
+                case 75: //Snorlax
+                case 93: //Weepinbell
+                    return 6;
             }
         }
 

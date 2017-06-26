@@ -6,9 +6,8 @@ namespace RNGReporter.Objects
     {
         private LockInfo[] lockInfo;
         private static int forwardCounter, count, count2;
-        private static uint pid, genderval;
+        private static uint pid, pidOriginal, genderval;
         public List<uint> rand;
-        public int index;
         private XdRngR reverse;
         private XdRng forward;
 
@@ -17,7 +16,7 @@ namespace RNGReporter.Objects
             lockInfo = natureLockList(lockNum);
             rand = new List<uint>();
             count = lockInfo.Length;
-            count2 = lockNum == 12 || lockNum == 12 || lockNum == 33 || lockNum == 42 || lockNum == 56 || lockNum == 59 || lockNum == 76 ||lockNum == 67 ? 0 : count - 2;
+            count2 = count == 1 ? 0 : count - 2;
             reverse = new XdRngR(0);
             forward = new XdRng(0);
         }
@@ -230,7 +229,7 @@ namespace RNGReporter.Objects
             pid = getPIDReverse();
 
             //Backwards nature lock check
-            uint genderval = pid & 255;
+            genderval = pid & 255;
             if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pid % 25 != lockInfo[0].nature)
                 return false;
             else
@@ -275,19 +274,17 @@ namespace RNGReporter.Objects
             reverse.GetNext32BitNumber(1);
 
             uint psv, psvtemp;
-            bool shinyFlag = true;
 
             //Check how many advances from shiny skip and build PID
             pid = getPIDReverse();
             psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
-            while (shinyFlag)
+            pid = getPIDReverse();
+            psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
+            while (psv == psvtemp)
             {
+                psvtemp = psv;
                 pid = getPIDReverse();
-                psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
-                if (psvtemp != psv)
-                    shinyFlag = false;
-                else
-                    psv = psvtemp;
+                psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
             }
 
             reverse.GetNext32BitNumber(10);
@@ -307,10 +304,10 @@ namespace RNGReporter.Objects
             reverse.GetNext32BitNumber();
 
             //Build temp pid first to not waste time populating if first backwards nl fails
-            uint pidOriginal = getPIDReverse();
+            pidOriginal = getPIDReverse();
 
             //Backwards nature lock check
-            uint genderval = pidOriginal & 255;
+            genderval = pidOriginal & 255;
             if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pidOriginal % 25 != lockInfo[0].nature)
                 return false;
 
@@ -351,7 +348,7 @@ namespace RNGReporter.Objects
             reverse.GetNext32BitNumber(8);
 
             //Build temp pid first to not waste time populating if first nl fails
-            uint pidOriginal = getPIDReverse();
+            pidOriginal = getPIDReverse();
 
             //Backwards nature lock check
             genderval = pidOriginal & 255;
@@ -395,7 +392,7 @@ namespace RNGReporter.Objects
             reverse.GetNext32BitNumber(6);
 
             //Build temp pid first to not waste time populating if first nl fails
-            uint pidOriginal = getPIDReverse();
+            pidOriginal = getPIDReverse();
 
             //Backwards nature lock check
             genderval = pidOriginal & 255;
@@ -439,19 +436,17 @@ namespace RNGReporter.Objects
             reverse.GetNext32BitNumber(1);
 
             uint pidOriginal, psv, psvtemp;
-            bool shinyFlag = true;
 
             //Check how many advances from shiny skip and build initial pid for first nl
             pidOriginal = getPIDReverse();
             psv = ((pidOriginal & 0xFFFF) ^ (pidOriginal >> 16)) >> 3;
-            while (shinyFlag)
+            pidOriginal = getPIDReverse();
+            psvtemp = ((pidOriginal & 0xFFFF) ^ (pidOriginal >> 16)) >> 3;
+            while (psv == psvtemp)
             {
+                psvtemp = psv;
                 pidOriginal = getPIDReverse();
-                psvtemp = ((pidOriginal & 0xFFFF) ^ (pidOriginal >> 16)) >> 3;
-                if (psvtemp != psv)
-                    shinyFlag = false;
-                else
-                    psv = psvtemp;
+                psv = ((pidOriginal & 0xFFFF) ^ (pidOriginal >> 16)) >> 3;
             }
 
             reverse.GetNext32BitNumber(10);
@@ -459,7 +454,7 @@ namespace RNGReporter.Objects
 
             //Backwards nature lock check
             genderval = pidOriginal & 255;
-            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pid % 25 != lockInfo[0].nature)
+            if (genderval < lockInfo[0].genderLower || genderval > lockInfo[0].genderUpper || pidOriginal % 25 != lockInfo[0].nature)
                 return false;
 
             for (int x = 1; x < count; x++)
@@ -593,18 +588,17 @@ namespace RNGReporter.Objects
 
             forwardCounter += 7;
             pid = getPIDForward2(sister);
-            bool shiny = true;
             uint psv, psvtemp;
             psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
-            while (shiny)
+            forwardCounter += 2;
+            pid = getPIDForward2(sister);
+            psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
+            while (psv == psvtemp)
             {
+                psvtemp = psv;
                 forwardCounter += 2;
                 pid = getPIDForward2(sister);
-                psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
-                if (psvtemp != psv)
-                    shiny = false;
-                else
-                    psv = psvtemp;
+                psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
             }
 
             forwardCounter += 2;
@@ -705,18 +699,17 @@ namespace RNGReporter.Objects
 
             forwardCounter += 7;
             pid = getPIDShadow();
-            bool shiny = true;
             uint psv, psvtemp;
             psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
-            while (shiny)
+            forwardCounter += 2;
+            pid = getPIDShadow();
+            psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
+            while (psv == psvtemp)
             {
+                psvtemp = psv;
                 forwardCounter += 2;
                 pid = getPIDShadow();
-                psvtemp = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
-                if (psvtemp != psv)
-                    shiny = false;
-                else
-                    psv = psvtemp;
+                psv = ((pid & 0xFFFF) ^ (pid >> 16)) >> 3;
             }
 
             forwardCounter += 7;
@@ -725,9 +718,9 @@ namespace RNGReporter.Objects
             iv2 = rand[forwardCounter - 3] >> 16;
         }
 
-        public uint getType(int index)
+        public uint getType(int natureLockIndex)
         {
-            switch (index)
+            switch (natureLockIndex)
             {
                 case 0:
                     return 6; //Altaria

@@ -53,6 +53,8 @@ namespace RNGReporter.Objects
         RSBredUpper,
         RSBredUpperSplit,
         RSBredUpperAlt,
+        FRLGBredLower,
+        FRLGBredUpper,
         EBredPID,
         BW2Bred,
         BW2BredInternational

@@ -27,6 +27,7 @@ using RNGReporter.Objects;
 using RNGReporter.Objects.Searchers;
 using RNGReporter.Properties;
 using System.Linq;
+using System.Globalization;
 
 namespace RNGReporter
 {
@@ -164,6 +165,15 @@ namespace RNGReporter
             comboBoxNature.Items.AddRange(Objects.Nature.NatureDropDownCollectionSearchNatures());
             comboBoxHiddenPower.Items.AddRange(addHP());
             setComboBox();
+
+            checkBoxNatureFRLG.Items.AddRange(Objects.Nature.NatureDropDownCollectionSearchNatures());
+            checkBoxNatureFRLG.CheckBoxItems[0].Checked = true;
+            checkBoxNatureFRLG.CheckBoxItems[0].Checked = false;
+            glassComboBoxGenderFRLG.DataSource = GenderFilter.GenderFilterCollection();
+            glassComboBoxAbilityFRLG.DataSource = ability;
+            glassComboBoxAbilityFRLG.SelectedIndex = 0;
+            compatibilityFRLG.SelectedIndex = 0;
+            glassComboBoxGenderFRLG.SelectedIndex = 0;
             
             var everstoneList = new BindingSource {DataSource = Objects.Nature.NatureDropDownCollectionSynch()};
             comboEPIDEverstone.DataSource = everstoneList;
@@ -193,6 +203,9 @@ namespace RNGReporter
 
             dataGridViewShinyRSResults.AutoGenerateColumns = false;
             shiny3rdPID.DefaultCellStyle.Format = "X8";
+
+            dataGridFRLG.AutoGenerateColumns = false;
+            pidFRLG.DefaultCellStyle.Format = "X8";
 
             dataGridViewEIVs.AutoGenerateColumns = false;
             dataGridViewEPIDs.AutoGenerateColumns = false;
@@ -364,6 +377,60 @@ namespace RNGReporter
                             DisplaySpdInh = shinyFrame.DisplaySpd,
                             DisplaySpeInh = shinyFrame.DisplaySpe
                         };
+
+                    lock (threadLock)
+                    {
+                        iframesRSEgg.Add(iframe);
+                    }
+                    refreshQueue = true;
+                }
+            }
+        }
+
+        //FRLG
+        private void Generate3rdGenFRLGJob()
+        {
+            uint searchRange = ivGenerator.MaxResults;
+
+            //  This is where we actually go ahead and call our 
+            //  generator for a list of egg PIDs based on parameters
+            //  that have been passed in.
+            List<Frame> frames = lowerGenerator.Generate(frameCompare, id, sid);
+            progressTotal += (ulong)frames.Count * searchRange;
+
+            //  Now we need to iterate through each result heref
+            //  and create a collection of the information that
+            //  we are going to place into our grid.
+            foreach (Frame frame in frames)
+            {
+                waitHandle.WaitOne();
+                ivGenerator.StaticPID = frame.Pid;
+                List<Frame> shinyFrames = ivGenerator.Generate(subFrameCompare, id, sid);
+
+                progressSearched += searchRange;
+                progressFound += (uint)shinyFrames.Count;
+
+                foreach (Frame shinyFrame in shinyFrames)
+                {
+                    var iframe = new IFrameRSEggPID
+                    {
+                        FrameLowerPID = frame.Number,
+                        FrameUpperPID = shinyFrame.Number,
+                        Pid = shinyFrame.Pid,
+                        Shiny = shinyFrame.Shiny,
+                        DisplayHp = shinyFrame.DisplayHpAlt,
+                        DisplayAtk = shinyFrame.DisplayAtkAlt,
+                        DisplayDef = shinyFrame.DisplayDefAlt,
+                        DisplaySpa = shinyFrame.DisplaySpaAlt,
+                        DisplaySpd = shinyFrame.DisplaySpdAlt,
+                        DisplaySpe = shinyFrame.DisplaySpeAlt,
+                        DisplayHpInh = shinyFrame.DisplayHp,
+                        DisplayAtkInh = shinyFrame.DisplayAtk,
+                        DisplayDefInh = shinyFrame.DisplayDef,
+                        DisplaySpaInh = shinyFrame.DisplaySpa,
+                        DisplaySpdInh = shinyFrame.DisplaySpd,
+                        DisplaySpeInh = shinyFrame.DisplaySpe
+                    };
 
                     lock (threadLock)
                     {
@@ -1487,6 +1554,221 @@ namespace RNGReporter
                 txtMinMinute.Enabled = false;
                 txtMaxMinute.Enabled = false;
             }
+        }
+
+        private void swapParentsFRLG_Click(object sender, EventArgs e)
+        {
+            string tempHP = parentBFRLG_HP.Text;
+            string tempAtk = parentBFRLG_Atk.Text;
+            string tempDef = parentBFRLG_Def.Text;
+            string tempSpA = parentBFRLG_SpA.Text;
+            string tempSpD = parentBFRLG_SpD.Text;
+            string tempSpe = parentBFRLG_Spe.Text;
+
+            parentBFRLG_HP.Text = parentAFRLG_HP.Text;
+            parentBFRLG_Atk.Text = parentAFRLG_Atk.Text;
+            parentBFRLG_Def.Text = parentAFRLG_Def.Text;
+            parentBFRLG_SpA.Text = parentAFRLG_SpA.Text;
+            parentBFRLG_SpD.Text = parentAFRLG_SpD.Text;
+            parentBFRLG_Spe.Text = parentAFRLG_Spe.Text;
+
+            parentAFRLG_HP.Text = tempHP;
+            parentAFRLG_Atk.Text = tempAtk;
+            parentAFRLG_Def.Text = tempDef;
+            parentAFRLG_SpA.Text = tempSpA;
+            parentAFRLG_SpD.Text = tempSpD;
+            parentAFRLG_Spe.Text = tempSpe;
+        }
+
+        private void anyAbilityFRLG_Click(object sender, EventArgs e)
+        {
+            glassComboBoxAbilityFRLG.SelectedIndex = 0;
+        }
+
+        private void anyNatureFRLG_Click(object sender, EventArgs e)
+        {
+            checkBoxNatureFRLG.ClearSelection();
+        }
+
+        private void generateFRLGEggShiny_Click(object sender, EventArgs e)
+        {
+            uint.TryParse(textBoxSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint seed); ;
+
+            if (tidFRLG.Text != "")
+                id = ushort.Parse(tidFRLG.Text);
+
+            if (sidFRLG.Text != "")
+                sid = ushort.Parse(sidFRLG.Text);
+
+            var parentA = new uint[6];
+            var parentB = new uint[6];
+
+            uint.TryParse(parentAFRLG_HP.Text, out parentA[0]);
+            uint.TryParse(parentAFRLG_Atk.Text, out parentA[1]);
+            uint.TryParse(parentAFRLG_Def.Text, out parentA[2]);
+            uint.TryParse(parentAFRLG_SpA.Text, out parentA[3]);
+            uint.TryParse(parentAFRLG_SpD.Text, out parentA[4]);
+            uint.TryParse(parentAFRLG_Spe.Text, out parentA[5]);
+
+            uint.TryParse(parentBFRLG_HP.Text, out parentB[0]);
+            uint.TryParse(parentBFRLG_Atk.Text, out parentB[1]);
+            uint.TryParse(parentBFRLG_Def.Text, out parentB[2]);
+            uint.TryParse(parentBFRLG_SpA.Text, out parentB[3]);
+            uint.TryParse(parentBFRLG_SpD.Text, out parentB[4]);
+            uint.TryParse(parentBFRLG_Spe.Text, out parentB[5]);
+
+            uint maxHeldFrame;
+            uint maxPickupFrame;
+            uint minHeldFrame;
+            uint minPickupFrame;
+
+            if (!uint.TryParse(minHeldFrameFRLG.Text, out minHeldFrame))
+            {
+                minHeldFrameFRLG.Focus();
+                minHeldFrameFRLG.SelectAll();
+                return;
+            }
+
+            if (!uint.TryParse(minPickFrameFRLG.Text, out minPickupFrame))
+            {
+                minPickFrameFRLG.Focus();
+                minPickFrameFRLG.SelectAll();
+                return;
+            }
+
+            if (!uint.TryParse(maxHeldFrameFRLG.Text, out maxHeldFrame))
+            {
+                maxHeldFrameFRLG.Focus();
+                maxHeldFrameFRLG.SelectAll();
+                return;
+            }
+
+            if (!uint.TryParse(maxPickFrameFRLG.Text, out maxPickupFrame))
+            {
+                maxPickFrameFRLG.Focus();
+                maxPickFrameFRLG.SelectAll();
+                return;
+            }
+
+            if (minHeldFrame > maxHeldFrame)
+            {
+                minHeldFrameFRLG.Focus();
+                minHeldFrameFRLG.SelectAll();
+                return;
+            }
+
+            if (minPickupFrame > maxPickupFrame)
+            {
+                minPickFrameFRLG.Focus();
+                minPickFrameFRLG.SelectAll();
+                return;
+            }
+
+            lowerGenerator = new FrameGenerator();
+            ivGenerator = new FrameGenerator();
+
+            if (compatibilityFRLG.SelectedIndex == 1)
+                lowerGenerator.Compatibility = 50;
+            else if (compatibilityFRLG.SelectedIndex == 2)
+                lowerGenerator.Compatibility = 70;
+            else
+                lowerGenerator.Compatibility = 20;
+
+            lowerGenerator.FrameType = FrameType.FRLGBredLower;
+            ivGenerator.FrameType = FrameType.FRLGBredUpper;
+
+            lowerGenerator.InitialFrame = minHeldFrame;
+            ivGenerator.InitialFrame = minPickupFrame;
+
+            lowerGenerator.MaxResults = maxHeldFrame - minHeldFrame + 1;
+            ivGenerator.MaxResults = maxPickupFrame - minPickupFrame + 1;
+
+            lowerGenerator.InitialSeed = seed;
+            ivGenerator.InitialSeed = seed;
+
+            ivGenerator.ParentA = parentA;
+            ivGenerator.ParentB = parentB;
+
+            List<uint> natures = null;
+            if (checkBoxNatureFRLG.Text != "Any" && checkBoxNatureFRLG.CheckBoxItems.Count > 0)
+            {
+                natures = new List<uint>();
+                for (int i = 0; i < checkBoxNatureFRLG.CheckBoxItems.Count; i++)
+                    if (checkBoxNatureFRLG.CheckBoxItems[i].Checked)
+                        natures.Add((uint)((Nature)checkBoxNatureFRLG.CheckBoxItems[i].ComboBoxItem).Number);
+            }
+
+            frameCompare = new FrameCompare(
+                0, CompareType.None,
+                0, CompareType.None,
+                0, CompareType.None,
+                0, CompareType.None,
+                0, CompareType.None,
+                0, CompareType.None,
+                null,
+                -1,
+                false,
+                false,
+                false,
+                null,
+                (GenderFilter)(glassComboBoxGenderFRLG.SelectedItem));
+
+            subFrameCompare = new FrameCompare(
+                parentA[0],
+                parentA[1],
+                parentA[2],
+                parentA[3],
+                parentA[4],
+                parentA[5],
+                parentB[0],
+                parentB[1],
+                parentB[2],
+                parentB[3],
+                parentB[4],
+                parentB[5],
+                ivFiltersFRLG.IVFilter,
+                natures,
+                (int)((ComboBoxItem)glassComboBoxAbilityFRLG.SelectedItem).Reference,
+                shinyOnlyFRLG.Checked,
+                true,
+                new NoGenderFilter());
+
+            // Here we check the parent IVs
+            // To make sure they even have a chance of producing the desired spread
+            int parentPassCount = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                if (subFrameCompare.CompareIV(i, parentA[i]) || subFrameCompare.CompareIV(i, parentB[i]))
+                    parentPassCount++;
+            }
+
+            if (parentPassCount < 3)
+            {
+                MessageBox.Show("The parent IVs you have listed cannot produce your desired search results.");
+                return;
+            }
+
+            iframesRSEgg = new List<IFrameRSEggPID>();
+            listBindingEggRS = new BindingSource { DataSource = iframesRSEgg };
+
+            dataGridViewShinyRSResults.DataSource = listBindingEggRS;
+
+            progressSearched = 0;
+            progressFound = 0;
+            progressTotal = 0;
+
+            waitHandle = new EventWaitHandle(true, EventResetMode.ManualReset);
+
+            jobs = new Thread[1];
+            jobs[0] = new Thread(Generate3rdGenFRLGJob);
+            jobs[0].Start();
+
+            Thread.Sleep(200);
+
+            var progressJob = new Thread(() => ManageProgress(listBindingEggRS, dataGridFRLG, lowerGenerator.FrameType, 0));
+            progressJob.Start();
+            progressJob.Priority = ThreadPriority.Lowest;
+            buttonShiny3rdGenerate.Enabled = false;
         }
 
         #region Nested type: ResortGridDelegate

@@ -519,21 +519,15 @@ namespace RNGReporter
             {
                 reason = "Shiny skip";
                 var reverse = new XdRngR(seed);
-                bool shinyCheck = true;
                 reverse.GetNext32BitNumber();
                 uint tsv = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
                 uint tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
-                while (shinyCheck)
+                while (tsv == tsvtemp)
                 {
-                    if (tsv == tsvtemp)
-                    {
-                        tsv = tsvtemp;
-                        tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
-                    }
-                    else
-                        shinyCheck = false;
+                    tsvtemp = tsv;
+                    tsv = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
                 }
-                reason = reason + " (TSV: " + tsvtemp + ")";
+                reason = reason + " (TSV: " + tsv + ")";
             }
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, reason, 0);
         }
@@ -787,21 +781,15 @@ namespace RNGReporter
             {
                 reason = "Shiny skip";
                 var reverse = new XdRngR(seed);
-                bool shinyCheck = true;
                 reverse.GetNext32BitNumber();
                 uint tsv = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
                 uint tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
-                while (shinyCheck)
+                while (tsv == tsvtemp)
                 {
-                    if (tsv == tsvtemp)
-                    {
-                        tsv = tsvtemp;
-                        tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
-                    }
-                    else
-                        shinyCheck = false;
+                    tsvtemp = tsv;
+                    tsv = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
                 }
-                reason = reason + " (TSV: " + tsvtemp + ")";
+                reason = reason + " (TSV: " + tsv + ")";
             }
             seedList.Add(seed);
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, reason, 0);

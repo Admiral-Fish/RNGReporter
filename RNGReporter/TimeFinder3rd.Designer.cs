@@ -59,9 +59,14 @@ namespace RNGReporter
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties6 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties6 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties7 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties8 = new RNGReporter.Controls.CheckBoxProperties();
             this.saveFileDialogTxt = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStripEggPid3rd = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.outputShiny3rdResultsToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -393,6 +398,79 @@ namespace RNGReporter
             this.maskedTextBoxShiny3rdSID = new RNGReporter.Controls.MaskedTextBox2();
             this.maskedTextBoxShiny3rdID = new RNGReporter.Controls.MaskedTextBox2();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPageShinyFRLGEgg = new System.Windows.Forms.TabPage();
+            this.label97 = new System.Windows.Forms.Label();
+            this.textBoxSeed = new RNGReporter.Controls.MaskedTextBox2();
+            this.ivFiltersFRLG = new RNGReporter.Controls.IVFilters();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.normalSpreadFRLG = new System.Windows.Forms.RadioButton();
+            this.splitSpreadFRLG = new System.Windows.Forms.RadioButton();
+            this.alternateSpreadFRLG = new System.Windows.Forms.RadioButton();
+            this.anyNatureFRLG = new RNGReporter.GlassButton();
+            this.checkBoxNatureFRLG = new RNGReporter.Controls.CheckBoxComboBox();
+            this.glassComboBoxGenderFRLG = new RNGReporter.GlassComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.swapParentsFRLG = new RNGReporter.GlassButton();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.generateFRLGEggShiny = new RNGReporter.GlassButton();
+            this.compatibilityFRLG = new RNGReporter.GlassComboBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.shinyOnlyFRLG = new System.Windows.Forms.CheckBox();
+            this.inheritanceFRLG = new System.Windows.Forms.CheckBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.anyAbilityFRLG = new RNGReporter.GlassButton();
+            this.glassComboBoxAbilityFRLG = new RNGReporter.GlassComboBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.dataGridFRLG = new RNGReporter.DoubleBufferedDataGridView();
+            this.dataGridViewTextBoxColumn42 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn43 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn44 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn45 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pidFRLG = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn47 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn48 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn49 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn51 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn52 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn53 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn54 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn55 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn56 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn57 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn58 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn59 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label92 = new System.Windows.Forms.Label();
+            this.label93 = new System.Windows.Forms.Label();
+            this.minPickFrameFRLG = new RNGReporter.Controls.MaskedTextBox2();
+            this.minHeldFrameFRLG = new RNGReporter.Controls.MaskedTextBox2();
+            this.maxHeldFrameFRLG = new RNGReporter.Controls.MaskedTextBox2();
+            this.maxPickFrameFRLG = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentBFRLG_Def = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentBFRLG_Atk = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentBFRLG_Spe = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentBFRLG_SpD = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentBFRLG_SpA = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentBFRLG_HP = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentAFRLG_Def = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentAFRLG_Atk = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentAFRLG_Spe = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentAFRLG_SpD = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentAFRLG_SpA = new RNGReporter.Controls.MaskedTextBox2();
+            this.parentAFRLG_HP = new RNGReporter.Controls.MaskedTextBox2();
+            this.sidFRLG = new RNGReporter.Controls.MaskedTextBox2();
+            this.tidFRLG = new RNGReporter.Controls.MaskedTextBox2();
             this.tabPageWild = new System.Windows.Forms.TabPage();
             this.speClear = new RNGReporter.GlassButton();
             this.spdClear = new RNGReporter.GlassButton();
@@ -497,6 +575,9 @@ namespace RNGReporter
             this.panelSpreads.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShinyRSResults)).BeginInit();
             this.tabControl.SuspendLayout();
+            this.tabPageShinyFRLGEgg.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFRLG)).BeginInit();
             this.tabPageWild.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).BeginInit();
             this.SuspendLayout();
@@ -4441,6 +4522,7 @@ namespace RNGReporter
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabPageShinyRSEgg);
+            this.tabControl.Controls.Add(this.tabPageShinyFRLGEgg);
             this.tabControl.Controls.Add(this.tabPageShinyEEgg);
             this.tabControl.Controls.Add(this.tabPageIVEEgg);
             this.tabControl.Controls.Add(this.tabPageCapture);
@@ -4451,6 +4533,857 @@ namespace RNGReporter
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(956, 524);
             this.tabControl.TabIndex = 0;
+            // 
+            // tabPageShinyFRLGEgg
+            // 
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label97);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.textBoxSeed);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.ivFiltersFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.panel1);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.anyNatureFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.checkBoxNatureFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.glassComboBoxGenderFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label16);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.swapParentsFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label29);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label32);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label47);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label48);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label49);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label50);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label51);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label53);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label59);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label60);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.generateFRLGEggShiny);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.compatibilityFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label61);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.shinyOnlyFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.inheritanceFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label62);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label64);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.anyAbilityFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.glassComboBoxAbilityFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label65);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label71);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.dataGridFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label92);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.label93);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.minPickFrameFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.minHeldFrameFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.maxHeldFrameFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.maxPickFrameFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentBFRLG_Def);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentBFRLG_Atk);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentBFRLG_Spe);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentBFRLG_SpD);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentBFRLG_SpA);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentBFRLG_HP);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentAFRLG_Def);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentAFRLG_Atk);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentAFRLG_Spe);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentAFRLG_SpD);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentAFRLG_SpA);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.parentAFRLG_HP);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.sidFRLG);
+            this.tabPageShinyFRLGEgg.Controls.Add(this.tidFRLG);
+            this.tabPageShinyFRLGEgg.Location = new System.Drawing.Point(4, 22);
+            this.tabPageShinyFRLGEgg.Name = "tabPageShinyFRLGEgg";
+            this.tabPageShinyFRLGEgg.Size = new System.Drawing.Size(948, 498);
+            this.tabPageShinyFRLGEgg.TabIndex = 10;
+            this.tabPageShinyFRLGEgg.Text = "FRLG Shiny Egg";
+            this.tabPageShinyFRLGEgg.UseVisualStyleBackColor = true;
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(24, 104);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(32, 13);
+            this.label97.TabIndex = 371;
+            this.label97.Text = "Seed";
+            // 
+            // textBoxSeed
+            // 
+            this.textBoxSeed.Hex = true;
+            this.textBoxSeed.Location = new System.Drawing.Point(91, 101);
+            this.textBoxSeed.Mask = "AAAA";
+            this.textBoxSeed.Name = "textBoxSeed";
+            this.textBoxSeed.Size = new System.Drawing.Size(40, 20);
+            this.textBoxSeed.TabIndex = 370;
+            // 
+            // ivFiltersFRLG
+            // 
+            this.ivFiltersFRLG.Location = new System.Drawing.Point(609, 9);
+            this.ivFiltersFRLG.Name = "ivFiltersFRLG";
+            this.ivFiltersFRLG.Size = new System.Drawing.Size(315, 166);
+            this.ivFiltersFRLG.TabIndex = 369;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.normalSpreadFRLG);
+            this.panel1.Controls.Add(this.splitSpreadFRLG);
+            this.panel1.Controls.Add(this.alternateSpreadFRLG);
+            this.panel1.Location = new System.Drawing.Point(180, 17);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(116, 60);
+            this.panel1.TabIndex = 368;
+            // 
+            // normalSpreadFRLG
+            // 
+            this.normalSpreadFRLG.AutoSize = true;
+            this.normalSpreadFRLG.Checked = true;
+            this.normalSpreadFRLG.Location = new System.Drawing.Point(5, 6);
+            this.normalSpreadFRLG.Name = "normalSpreadFRLG";
+            this.normalSpreadFRLG.Size = new System.Drawing.Size(100, 17);
+            this.normalSpreadFRLG.TabIndex = 4;
+            this.normalSpreadFRLG.TabStop = true;
+            this.normalSpreadFRLG.Text = "Normal Spreads";
+            this.normalSpreadFRLG.UseVisualStyleBackColor = true;
+            this.normalSpreadFRLG.Visible = false;
+            // 
+            // splitSpreadFRLG
+            // 
+            this.splitSpreadFRLG.AutoSize = true;
+            this.splitSpreadFRLG.Location = new System.Drawing.Point(5, 22);
+            this.splitSpreadFRLG.Name = "splitSpreadFRLG";
+            this.splitSpreadFRLG.Size = new System.Drawing.Size(87, 17);
+            this.splitSpreadFRLG.TabIndex = 5;
+            this.splitSpreadFRLG.Text = "Split Spreads";
+            this.splitSpreadFRLG.UseVisualStyleBackColor = true;
+            this.splitSpreadFRLG.Visible = false;
+            // 
+            // alternateSpreadFRLG
+            // 
+            this.alternateSpreadFRLG.AutoSize = true;
+            this.alternateSpreadFRLG.Location = new System.Drawing.Point(5, 38);
+            this.alternateSpreadFRLG.Name = "alternateSpreadFRLG";
+            this.alternateSpreadFRLG.Size = new System.Drawing.Size(109, 17);
+            this.alternateSpreadFRLG.TabIndex = 6;
+            this.alternateSpreadFRLG.Text = "Alternate Spreads";
+            this.alternateSpreadFRLG.UseVisualStyleBackColor = true;
+            this.alternateSpreadFRLG.Visible = false;
+            // 
+            // anyNatureFRLG
+            // 
+            this.anyNatureFRLG.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyNatureFRLG.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.anyNatureFRLG.ForeColor = System.Drawing.Color.Black;
+            this.anyNatureFRLG.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.anyNatureFRLG.Location = new System.Drawing.Point(521, 12);
+            this.anyNatureFRLG.Margin = new System.Windows.Forms.Padding(0);
+            this.anyNatureFRLG.Name = "anyNatureFRLG";
+            this.anyNatureFRLG.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyNatureFRLG.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyNatureFRLG.Size = new System.Drawing.Size(41, 22);
+            this.anyNatureFRLG.TabIndex = 330;
+            this.anyNatureFRLG.Text = "Any";
+            this.anyNatureFRLG.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.anyNatureFRLG.Click += new System.EventHandler(this.anyNatureFRLG_Click);
+            // 
+            // checkBoxNatureFRLG
+            // 
+            this.checkBoxNatureFRLG.BlankText = "Any";
+            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBoxNatureFRLG.CheckBoxProperties = checkBoxProperties5;
+            this.checkBoxNatureFRLG.DisplayMemberSingleItem = "";
+            this.checkBoxNatureFRLG.DropDownHeight = 300;
+            this.checkBoxNatureFRLG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.checkBoxNatureFRLG.FormattingEnabled = true;
+            this.checkBoxNatureFRLG.Location = new System.Drawing.Point(342, 14);
+            this.checkBoxNatureFRLG.Name = "checkBoxNatureFRLG";
+            this.checkBoxNatureFRLG.Size = new System.Drawing.Size(176, 21);
+            this.checkBoxNatureFRLG.TabIndex = 329;
+            // 
+            // glassComboBoxGenderFRLG
+            // 
+            this.glassComboBoxGenderFRLG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.glassComboBoxGenderFRLG.ForeColor = System.Drawing.Color.Black;
+            this.glassComboBoxGenderFRLG.FormattingEnabled = true;
+            this.glassComboBoxGenderFRLG.Items.AddRange(new object[] {
+            "Don\'t Care/Fixed Gender/Genderless",
+            "Female (50% Male, 50% Female)",
+            "Male (50% Male, 50% Female)",
+            "Female (25% Male, 75% Female)",
+            "Male (25% Male, 75% Female)",
+            "Female (75% Male, 25% Female)",
+            "Male (75% Male, 25% Female)",
+            "Female (87.5% Male, 12.5% Female)",
+            "Male (87.5% Male, 12.5% Female)"});
+            this.glassComboBoxGenderFRLG.Location = new System.Drawing.Point(342, 64);
+            this.glassComboBoxGenderFRLG.MaxDropDownItems = 3;
+            this.glassComboBoxGenderFRLG.Name = "glassComboBoxGenderFRLG";
+            this.glassComboBoxGenderFRLG.ShineColor = System.Drawing.SystemColors.Window;
+            this.glassComboBoxGenderFRLG.Size = new System.Drawing.Size(238, 21);
+            this.glassComboBoxGenderFRLG.TabIndex = 333;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(294, 67);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(42, 13);
+            this.label16.TabIndex = 367;
+            this.label16.Text = "Gender";
+            // 
+            // swapParentsFRLG
+            // 
+            this.swapParentsFRLG.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.swapParentsFRLG.ForeColor = System.Drawing.Color.Black;
+            this.swapParentsFRLG.Location = new System.Drawing.Point(91, 158);
+            this.swapParentsFRLG.Name = "swapParentsFRLG";
+            this.swapParentsFRLG.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.swapParentsFRLG.ShineColor = System.Drawing.SystemColors.Window;
+            this.swapParentsFRLG.Size = new System.Drawing.Size(104, 23);
+            this.swapParentsFRLG.TabIndex = 327;
+            this.swapParentsFRLG.Text = "Swap Parents";
+            this.swapParentsFRLG.Click += new System.EventHandler(this.swapParentsFRLG_Click);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(136, 18);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(27, 13);
+            this.label29.TabIndex = 366;
+            this.label29.Text = "Max";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(13, 63);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(72, 13);
+            this.label32.TabIndex = 365;
+            this.label32.Text = "Pickup Frame";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(91, 18);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(24, 13);
+            this.label47.TabIndex = 364;
+            this.label47.Text = "Min";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(541, 88);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(26, 13);
+            this.label48.TabIndex = 363;
+            this.label48.Text = "Spe";
+            this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(501, 88);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(28, 13);
+            this.label49.TabIndex = 362;
+            this.label49.Text = "SpD";
+            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(461, 88);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(27, 13);
+            this.label50.TabIndex = 361;
+            this.label50.Text = "SpA";
+            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(421, 88);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(24, 13);
+            this.label51.TabIndex = 360;
+            this.label51.Text = "Def";
+            this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(381, 88);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(23, 13);
+            this.label53.TabIndex = 359;
+            this.label53.Text = "Atk";
+            this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(341, 88);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(22, 13);
+            this.label59.TabIndex = 358;
+            this.label59.Text = "HP";
+            this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(24, 41);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(61, 13);
+            this.label60.TabIndex = 357;
+            this.label60.Text = "Frame Held";
+            // 
+            // generateFRLGEggShiny
+            // 
+            this.generateFRLGEggShiny.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.generateFRLGEggShiny.ForeColor = System.Drawing.Color.Black;
+            this.generateFRLGEggShiny.Location = new System.Drawing.Point(6, 158);
+            this.generateFRLGEggShiny.Name = "generateFRLGEggShiny";
+            this.generateFRLGEggShiny.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.generateFRLGEggShiny.ShineColor = System.Drawing.SystemColors.Window;
+            this.generateFRLGEggShiny.Size = new System.Drawing.Size(75, 23);
+            this.generateFRLGEggShiny.TabIndex = 326;
+            this.generateFRLGEggShiny.Text = "Generate";
+            this.generateFRLGEggShiny.Click += new System.EventHandler(this.generateFRLGEggShiny_Click);
+            // 
+            // compatibilityFRLG
+            // 
+            this.compatibilityFRLG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.compatibilityFRLG.ForeColor = System.Drawing.Color.Black;
+            this.compatibilityFRLG.FormattingEnabled = true;
+            this.compatibilityFRLG.Items.AddRange(new object[] {
+            "The two don\'t seem to like each other",
+            "The two seem to get along",
+            "The two seem to get along very well"});
+            this.compatibilityFRLG.Location = new System.Drawing.Point(91, 131);
+            this.compatibilityFRLG.MaxDropDownItems = 3;
+            this.compatibilityFRLG.Name = "compatibilityFRLG";
+            this.compatibilityFRLG.ShineColor = System.Drawing.SystemColors.Window;
+            this.compatibilityFRLG.Size = new System.Drawing.Size(193, 21);
+            this.compatibilityFRLG.TabIndex = 325;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(19, 134);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(65, 13);
+            this.label61.TabIndex = 356;
+            this.label61.Text = "Compatibility";
+            // 
+            // shinyOnlyFRLG
+            // 
+            this.shinyOnlyFRLG.AutoSize = true;
+            this.shinyOnlyFRLG.Location = new System.Drawing.Point(506, 162);
+            this.shinyOnlyFRLG.Name = "shinyOnlyFRLG";
+            this.shinyOnlyFRLG.Size = new System.Drawing.Size(76, 17);
+            this.shinyOnlyFRLG.TabIndex = 348;
+            this.shinyOnlyFRLG.Text = "Shiny Only";
+            this.shinyOnlyFRLG.UseVisualStyleBackColor = true;
+            // 
+            // inheritanceFRLG
+            // 
+            this.inheritanceFRLG.AutoSize = true;
+            this.inheritanceFRLG.Location = new System.Drawing.Point(204, 162);
+            this.inheritanceFRLG.Name = "inheritanceFRLG";
+            this.inheritanceFRLG.Size = new System.Drawing.Size(109, 17);
+            this.inheritanceFRLG.TabIndex = 328;
+            this.inheritanceFRLG.Text = "Show Inheritance";
+            this.inheritanceFRLG.UseVisualStyleBackColor = true;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(293, 130);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(48, 13);
+            this.label62.TabIndex = 355;
+            this.label62.Text = "Parent B";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(293, 108);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(48, 13);
+            this.label64.TabIndex = 354;
+            this.label64.Text = "Parent A";
+            // 
+            // anyAbilityFRLG
+            // 
+            this.anyAbilityFRLG.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyAbilityFRLG.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.anyAbilityFRLG.ForeColor = System.Drawing.Color.Black;
+            this.anyAbilityFRLG.Location = new System.Drawing.Point(424, 38);
+            this.anyAbilityFRLG.Name = "anyAbilityFRLG";
+            this.anyAbilityFRLG.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyAbilityFRLG.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyAbilityFRLG.Size = new System.Drawing.Size(46, 22);
+            this.anyAbilityFRLG.TabIndex = 332;
+            this.anyAbilityFRLG.TabStop = false;
+            this.anyAbilityFRLG.Text = "Any";
+            this.anyAbilityFRLG.Click += new System.EventHandler(this.anyAbilityFRLG_Click);
+            // 
+            // glassComboBoxAbilityFRLG
+            // 
+            this.glassComboBoxAbilityFRLG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.glassComboBoxAbilityFRLG.ForeColor = System.Drawing.Color.Black;
+            this.glassComboBoxAbilityFRLG.FormattingEnabled = true;
+            this.glassComboBoxAbilityFRLG.Items.AddRange(new object[] {
+            "Any",
+            "Ability 0",
+            "Ability 1"});
+            this.glassComboBoxAbilityFRLG.Location = new System.Drawing.Point(342, 39);
+            this.glassComboBoxAbilityFRLG.MaxDropDownItems = 3;
+            this.glassComboBoxAbilityFRLG.Name = "glassComboBoxAbilityFRLG";
+            this.glassComboBoxAbilityFRLG.ShineColor = System.Drawing.SystemColors.Window;
+            this.glassComboBoxAbilityFRLG.Size = new System.Drawing.Size(76, 21);
+            this.glassComboBoxAbilityFRLG.TabIndex = 331;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(297, 17);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(39, 13);
+            this.label65.TabIndex = 352;
+            this.label65.Text = "Nature";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(302, 43);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(34, 13);
+            this.label71.TabIndex = 353;
+            this.label71.Text = "Ability";
+            // 
+            // dataGridFRLG
+            // 
+            this.dataGridFRLG.AllowUserToAddRows = false;
+            this.dataGridFRLG.AllowUserToDeleteRows = false;
+            this.dataGridFRLG.AllowUserToOrderColumns = true;
+            this.dataGridFRLG.AllowUserToResizeRows = false;
+            this.dataGridFRLG.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridFRLG.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            this.dataGridFRLG.ColumnHeadersHeight = 20;
+            this.dataGridFRLG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridFRLG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn42,
+            this.dataGridViewTextBoxColumn43,
+            this.dataGridViewTextBoxColumn44,
+            this.dataGridViewTextBoxColumn45,
+            this.pidFRLG,
+            this.dataGridViewTextBoxColumn47,
+            this.dataGridViewTextBoxColumn48,
+            this.dataGridViewTextBoxColumn49,
+            this.dataGridViewTextBoxColumn50,
+            this.dataGridViewTextBoxColumn51,
+            this.dataGridViewTextBoxColumn52,
+            this.dataGridViewTextBoxColumn53,
+            this.dataGridViewTextBoxColumn54,
+            this.dataGridViewTextBoxColumn55,
+            this.dataGridViewTextBoxColumn56,
+            this.dataGridViewTextBoxColumn57,
+            this.dataGridViewTextBoxColumn58,
+            this.dataGridViewTextBoxColumn59});
+            this.dataGridFRLG.ContextMenuStrip = this.contextMenuStripEggPid3rd;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridFRLG.DefaultCellStyle = dataGridViewCellStyle25;
+            this.dataGridFRLG.Location = new System.Drawing.Point(0, 187);
+            this.dataGridFRLG.MultiSelect = false;
+            this.dataGridFRLG.Name = "dataGridFRLG";
+            this.dataGridFRLG.ReadOnly = true;
+            this.dataGridFRLG.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridFRLG.RowHeadersDefaultCellStyle = dataGridViewCellStyle26;
+            this.dataGridFRLG.RowHeadersVisible = false;
+            this.dataGridFRLG.RowTemplate.Height = 20;
+            this.dataGridFRLG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridFRLG.ShowCellErrors = false;
+            this.dataGridFRLG.ShowCellToolTips = false;
+            this.dataGridFRLG.ShowEditingIcon = false;
+            this.dataGridFRLG.ShowRowErrors = false;
+            this.dataGridFRLG.Size = new System.Drawing.Size(948, 303);
+            this.dataGridFRLG.TabIndex = 349;
+            // 
+            // dataGridViewTextBoxColumn42
+            // 
+            this.dataGridViewTextBoxColumn42.DataPropertyName = "FrameLowerPID";
+            this.dataGridViewTextBoxColumn42.HeaderText = "Egg Held Frame";
+            this.dataGridViewTextBoxColumn42.Name = "dataGridViewTextBoxColumn42";
+            this.dataGridViewTextBoxColumn42.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn43
+            // 
+            this.dataGridViewTextBoxColumn43.DataPropertyName = "TimeLowerPID";
+            this.dataGridViewTextBoxColumn43.HeaderText = "Egg Held Time";
+            this.dataGridViewTextBoxColumn43.Name = "dataGridViewTextBoxColumn43";
+            this.dataGridViewTextBoxColumn43.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn44
+            // 
+            this.dataGridViewTextBoxColumn44.DataPropertyName = "FrameUpperPID";
+            this.dataGridViewTextBoxColumn44.HeaderText = "Egg Pickup Frame";
+            this.dataGridViewTextBoxColumn44.Name = "dataGridViewTextBoxColumn44";
+            this.dataGridViewTextBoxColumn44.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn45
+            // 
+            this.dataGridViewTextBoxColumn45.DataPropertyName = "TimeUpperPID";
+            this.dataGridViewTextBoxColumn45.HeaderText = "Egg Pickup Time";
+            this.dataGridViewTextBoxColumn45.Name = "dataGridViewTextBoxColumn45";
+            this.dataGridViewTextBoxColumn45.ReadOnly = true;
+            // 
+            // pidFRLG
+            // 
+            this.pidFRLG.DataPropertyName = "Pid";
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.pidFRLG.DefaultCellStyle = dataGridViewCellStyle24;
+            this.pidFRLG.HeaderText = "PID";
+            this.pidFRLG.Name = "pidFRLG";
+            this.pidFRLG.ReadOnly = true;
+            this.pidFRLG.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.pidFRLG.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn47
+            // 
+            this.dataGridViewTextBoxColumn47.DataPropertyName = "ShinyDisplay";
+            this.dataGridViewTextBoxColumn47.HeaderText = "!!!";
+            this.dataGridViewTextBoxColumn47.Name = "dataGridViewTextBoxColumn47";
+            this.dataGridViewTextBoxColumn47.ReadOnly = true;
+            this.dataGridViewTextBoxColumn47.Width = 20;
+            // 
+            // dataGridViewTextBoxColumn48
+            // 
+            this.dataGridViewTextBoxColumn48.DataPropertyName = "Nature";
+            this.dataGridViewTextBoxColumn48.HeaderText = "Nature";
+            this.dataGridViewTextBoxColumn48.Name = "dataGridViewTextBoxColumn48";
+            this.dataGridViewTextBoxColumn48.ReadOnly = true;
+            this.dataGridViewTextBoxColumn48.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn49
+            // 
+            this.dataGridViewTextBoxColumn49.DataPropertyName = "Ability";
+            this.dataGridViewTextBoxColumn49.HeaderText = "Ability";
+            this.dataGridViewTextBoxColumn49.Name = "dataGridViewTextBoxColumn49";
+            this.dataGridViewTextBoxColumn49.ReadOnly = true;
+            this.dataGridViewTextBoxColumn49.Width = 40;
+            // 
+            // dataGridViewTextBoxColumn50
+            // 
+            this.dataGridViewTextBoxColumn50.DataPropertyName = "DisplayHp";
+            this.dataGridViewTextBoxColumn50.HeaderText = "HP";
+            this.dataGridViewTextBoxColumn50.Name = "dataGridViewTextBoxColumn50";
+            this.dataGridViewTextBoxColumn50.ReadOnly = true;
+            this.dataGridViewTextBoxColumn50.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn51
+            // 
+            this.dataGridViewTextBoxColumn51.DataPropertyName = "DisplayAtk";
+            this.dataGridViewTextBoxColumn51.HeaderText = "Atk";
+            this.dataGridViewTextBoxColumn51.Name = "dataGridViewTextBoxColumn51";
+            this.dataGridViewTextBoxColumn51.ReadOnly = true;
+            this.dataGridViewTextBoxColumn51.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn52
+            // 
+            this.dataGridViewTextBoxColumn52.DataPropertyName = "DisplayDef";
+            this.dataGridViewTextBoxColumn52.HeaderText = "Def";
+            this.dataGridViewTextBoxColumn52.Name = "dataGridViewTextBoxColumn52";
+            this.dataGridViewTextBoxColumn52.ReadOnly = true;
+            this.dataGridViewTextBoxColumn52.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn53
+            // 
+            this.dataGridViewTextBoxColumn53.DataPropertyName = "DisplaySpa";
+            this.dataGridViewTextBoxColumn53.HeaderText = "SpA";
+            this.dataGridViewTextBoxColumn53.Name = "dataGridViewTextBoxColumn53";
+            this.dataGridViewTextBoxColumn53.ReadOnly = true;
+            this.dataGridViewTextBoxColumn53.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn54
+            // 
+            this.dataGridViewTextBoxColumn54.DataPropertyName = "DisplaySpd";
+            this.dataGridViewTextBoxColumn54.HeaderText = "SpD";
+            this.dataGridViewTextBoxColumn54.Name = "dataGridViewTextBoxColumn54";
+            this.dataGridViewTextBoxColumn54.ReadOnly = true;
+            this.dataGridViewTextBoxColumn54.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn55
+            // 
+            this.dataGridViewTextBoxColumn55.DataPropertyName = "DisplaySpe";
+            this.dataGridViewTextBoxColumn55.HeaderText = "Spe";
+            this.dataGridViewTextBoxColumn55.Name = "dataGridViewTextBoxColumn55";
+            this.dataGridViewTextBoxColumn55.ReadOnly = true;
+            this.dataGridViewTextBoxColumn55.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn56
+            // 
+            this.dataGridViewTextBoxColumn56.DataPropertyName = "Female50";
+            this.dataGridViewTextBoxColumn56.HeaderText = "50% F";
+            this.dataGridViewTextBoxColumn56.Name = "dataGridViewTextBoxColumn56";
+            this.dataGridViewTextBoxColumn56.ReadOnly = true;
+            this.dataGridViewTextBoxColumn56.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn57
+            // 
+            this.dataGridViewTextBoxColumn57.DataPropertyName = "Female75";
+            this.dataGridViewTextBoxColumn57.HeaderText = "25% F";
+            this.dataGridViewTextBoxColumn57.Name = "dataGridViewTextBoxColumn57";
+            this.dataGridViewTextBoxColumn57.ReadOnly = true;
+            this.dataGridViewTextBoxColumn57.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn58
+            // 
+            this.dataGridViewTextBoxColumn58.DataPropertyName = "Female75";
+            this.dataGridViewTextBoxColumn58.HeaderText = "75% F";
+            this.dataGridViewTextBoxColumn58.Name = "dataGridViewTextBoxColumn58";
+            this.dataGridViewTextBoxColumn58.ReadOnly = true;
+            this.dataGridViewTextBoxColumn58.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn59
+            // 
+            this.dataGridViewTextBoxColumn59.DataPropertyName = "Female125";
+            this.dataGridViewTextBoxColumn59.HeaderText = "12.5%F";
+            this.dataGridViewTextBoxColumn59.Name = "dataGridViewTextBoxColumn59";
+            this.dataGridViewTextBoxColumn59.ReadOnly = true;
+            this.dataGridViewTextBoxColumn59.Width = 50;
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Location = new System.Drawing.Point(411, 163);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(25, 13);
+            this.label92.TabIndex = 351;
+            this.label92.Text = "SID";
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Location = new System.Drawing.Point(320, 163);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(18, 13);
+            this.label93.TabIndex = 350;
+            this.label93.Text = "ID";
+            // 
+            // minPickFrameFRLG
+            // 
+            this.minPickFrameFRLG.Hex = false;
+            this.minPickFrameFRLG.Location = new System.Drawing.Point(91, 60);
+            this.minPickFrameFRLG.Mask = "0000000";
+            this.minPickFrameFRLG.Name = "minPickFrameFRLG";
+            this.minPickFrameFRLG.Size = new System.Drawing.Size(40, 20);
+            this.minPickFrameFRLG.TabIndex = 323;
+            this.minPickFrameFRLG.Text = "1000";
+            this.minPickFrameFRLG.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            // 
+            // minHeldFrameFRLG
+            // 
+            this.minHeldFrameFRLG.Hex = false;
+            this.minHeldFrameFRLG.Location = new System.Drawing.Point(91, 34);
+            this.minHeldFrameFRLG.Mask = "0000000";
+            this.minHeldFrameFRLG.Name = "minHeldFrameFRLG";
+            this.minHeldFrameFRLG.Size = new System.Drawing.Size(40, 20);
+            this.minHeldFrameFRLG.TabIndex = 321;
+            this.minHeldFrameFRLG.Text = "1000";
+            this.minHeldFrameFRLG.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            // 
+            // maxHeldFrameFRLG
+            // 
+            this.maxHeldFrameFRLG.Hex = false;
+            this.maxHeldFrameFRLG.Location = new System.Drawing.Point(137, 34);
+            this.maxHeldFrameFRLG.Mask = "0000000";
+            this.maxHeldFrameFRLG.Name = "maxHeldFrameFRLG";
+            this.maxHeldFrameFRLG.Size = new System.Drawing.Size(40, 20);
+            this.maxHeldFrameFRLG.TabIndex = 322;
+            this.maxHeldFrameFRLG.Text = "5000";
+            this.maxHeldFrameFRLG.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            // 
+            // maxPickFrameFRLG
+            // 
+            this.maxPickFrameFRLG.Hex = false;
+            this.maxPickFrameFRLG.Location = new System.Drawing.Point(137, 60);
+            this.maxPickFrameFRLG.Mask = "0000000";
+            this.maxPickFrameFRLG.Name = "maxPickFrameFRLG";
+            this.maxPickFrameFRLG.Size = new System.Drawing.Size(40, 20);
+            this.maxPickFrameFRLG.TabIndex = 324;
+            this.maxPickFrameFRLG.Text = "5000";
+            this.maxPickFrameFRLG.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            // 
+            // parentBFRLG_Def
+            // 
+            this.parentBFRLG_Def.Hex = false;
+            this.parentBFRLG_Def.Location = new System.Drawing.Point(424, 127);
+            this.parentBFRLG_Def.Mask = "00";
+            this.parentBFRLG_Def.Name = "parentBFRLG_Def";
+            this.parentBFRLG_Def.Size = new System.Drawing.Size(38, 20);
+            this.parentBFRLG_Def.TabIndex = 342;
+            this.parentBFRLG_Def.Tag = "ivs";
+            this.parentBFRLG_Def.ValidatingType = typeof(int);
+            // 
+            // parentBFRLG_Atk
+            // 
+            this.parentBFRLG_Atk.Hex = false;
+            this.parentBFRLG_Atk.Location = new System.Drawing.Point(384, 127);
+            this.parentBFRLG_Atk.Mask = "00";
+            this.parentBFRLG_Atk.Name = "parentBFRLG_Atk";
+            this.parentBFRLG_Atk.Size = new System.Drawing.Size(38, 20);
+            this.parentBFRLG_Atk.TabIndex = 341;
+            this.parentBFRLG_Atk.Tag = "ivs";
+            this.parentBFRLG_Atk.ValidatingType = typeof(int);
+            // 
+            // parentBFRLG_Spe
+            // 
+            this.parentBFRLG_Spe.Hex = false;
+            this.parentBFRLG_Spe.Location = new System.Drawing.Point(544, 127);
+            this.parentBFRLG_Spe.Mask = "00";
+            this.parentBFRLG_Spe.Name = "parentBFRLG_Spe";
+            this.parentBFRLG_Spe.Size = new System.Drawing.Size(38, 20);
+            this.parentBFRLG_Spe.TabIndex = 345;
+            this.parentBFRLG_Spe.Tag = "ivs";
+            this.parentBFRLG_Spe.ValidatingType = typeof(int);
+            // 
+            // parentBFRLG_SpD
+            // 
+            this.parentBFRLG_SpD.Hex = false;
+            this.parentBFRLG_SpD.Location = new System.Drawing.Point(504, 127);
+            this.parentBFRLG_SpD.Mask = "00";
+            this.parentBFRLG_SpD.Name = "parentBFRLG_SpD";
+            this.parentBFRLG_SpD.Size = new System.Drawing.Size(38, 20);
+            this.parentBFRLG_SpD.TabIndex = 344;
+            this.parentBFRLG_SpD.Tag = "ivs";
+            this.parentBFRLG_SpD.ValidatingType = typeof(int);
+            // 
+            // parentBFRLG_SpA
+            // 
+            this.parentBFRLG_SpA.Hex = false;
+            this.parentBFRLG_SpA.Location = new System.Drawing.Point(464, 127);
+            this.parentBFRLG_SpA.Mask = "00";
+            this.parentBFRLG_SpA.Name = "parentBFRLG_SpA";
+            this.parentBFRLG_SpA.Size = new System.Drawing.Size(38, 20);
+            this.parentBFRLG_SpA.TabIndex = 343;
+            this.parentBFRLG_SpA.Tag = "ivs";
+            this.parentBFRLG_SpA.ValidatingType = typeof(int);
+            // 
+            // parentBFRLG_HP
+            // 
+            this.parentBFRLG_HP.Hex = false;
+            this.parentBFRLG_HP.Location = new System.Drawing.Point(344, 127);
+            this.parentBFRLG_HP.Mask = "00";
+            this.parentBFRLG_HP.Name = "parentBFRLG_HP";
+            this.parentBFRLG_HP.Size = new System.Drawing.Size(38, 20);
+            this.parentBFRLG_HP.TabIndex = 340;
+            this.parentBFRLG_HP.Tag = "ivs";
+            // 
+            // parentAFRLG_Def
+            // 
+            this.parentAFRLG_Def.Hex = false;
+            this.parentAFRLG_Def.Location = new System.Drawing.Point(424, 104);
+            this.parentAFRLG_Def.Mask = "00";
+            this.parentAFRLG_Def.Name = "parentAFRLG_Def";
+            this.parentAFRLG_Def.Size = new System.Drawing.Size(38, 20);
+            this.parentAFRLG_Def.TabIndex = 336;
+            this.parentAFRLG_Def.Tag = "ivs";
+            this.parentAFRLG_Def.ValidatingType = typeof(int);
+            // 
+            // parentAFRLG_Atk
+            // 
+            this.parentAFRLG_Atk.Hex = false;
+            this.parentAFRLG_Atk.Location = new System.Drawing.Point(384, 104);
+            this.parentAFRLG_Atk.Mask = "00";
+            this.parentAFRLG_Atk.Name = "parentAFRLG_Atk";
+            this.parentAFRLG_Atk.Size = new System.Drawing.Size(38, 20);
+            this.parentAFRLG_Atk.TabIndex = 335;
+            this.parentAFRLG_Atk.Tag = "ivs";
+            this.parentAFRLG_Atk.ValidatingType = typeof(int);
+            // 
+            // parentAFRLG_Spe
+            // 
+            this.parentAFRLG_Spe.Hex = false;
+            this.parentAFRLG_Spe.Location = new System.Drawing.Point(544, 104);
+            this.parentAFRLG_Spe.Mask = "00";
+            this.parentAFRLG_Spe.Name = "parentAFRLG_Spe";
+            this.parentAFRLG_Spe.Size = new System.Drawing.Size(38, 20);
+            this.parentAFRLG_Spe.TabIndex = 339;
+            this.parentAFRLG_Spe.Tag = "ivs";
+            this.parentAFRLG_Spe.ValidatingType = typeof(int);
+            // 
+            // parentAFRLG_SpD
+            // 
+            this.parentAFRLG_SpD.Hex = false;
+            this.parentAFRLG_SpD.Location = new System.Drawing.Point(504, 104);
+            this.parentAFRLG_SpD.Mask = "00";
+            this.parentAFRLG_SpD.Name = "parentAFRLG_SpD";
+            this.parentAFRLG_SpD.Size = new System.Drawing.Size(38, 20);
+            this.parentAFRLG_SpD.TabIndex = 338;
+            this.parentAFRLG_SpD.Tag = "ivs";
+            this.parentAFRLG_SpD.ValidatingType = typeof(int);
+            // 
+            // parentAFRLG_SpA
+            // 
+            this.parentAFRLG_SpA.Hex = false;
+            this.parentAFRLG_SpA.Location = new System.Drawing.Point(464, 104);
+            this.parentAFRLG_SpA.Mask = "00";
+            this.parentAFRLG_SpA.Name = "parentAFRLG_SpA";
+            this.parentAFRLG_SpA.Size = new System.Drawing.Size(38, 20);
+            this.parentAFRLG_SpA.TabIndex = 337;
+            this.parentAFRLG_SpA.Tag = "ivs";
+            this.parentAFRLG_SpA.ValidatingType = typeof(int);
+            // 
+            // parentAFRLG_HP
+            // 
+            this.parentAFRLG_HP.Hex = false;
+            this.parentAFRLG_HP.Location = new System.Drawing.Point(344, 104);
+            this.parentAFRLG_HP.Mask = "00";
+            this.parentAFRLG_HP.Name = "parentAFRLG_HP";
+            this.parentAFRLG_HP.Size = new System.Drawing.Size(38, 20);
+            this.parentAFRLG_HP.TabIndex = 334;
+            this.parentAFRLG_HP.Tag = "ivs";
+            // 
+            // sidFRLG
+            // 
+            this.sidFRLG.Hex = false;
+            this.sidFRLG.Location = new System.Drawing.Point(438, 160);
+            this.sidFRLG.Mask = "00000";
+            this.sidFRLG.Name = "sidFRLG";
+            this.sidFRLG.Size = new System.Drawing.Size(60, 20);
+            this.sidFRLG.TabIndex = 347;
+            this.sidFRLG.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            // 
+            // tidFRLG
+            // 
+            this.tidFRLG.Hex = false;
+            this.tidFRLG.Location = new System.Drawing.Point(344, 160);
+            this.tidFRLG.Mask = "00000";
+            this.tidFRLG.Name = "tidFRLG";
+            this.tidFRLG.Size = new System.Drawing.Size(60, 20);
+            this.tidFRLG.TabIndex = 346;
+            this.tidFRLG.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // tabPageWild
             // 
@@ -4641,8 +5574,8 @@ namespace RNGReporter
             // comboBoxSlots
             // 
             this.comboBoxSlots.BlankText = "Any";
-            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxSlots.CheckBoxProperties = checkBoxProperties5;
+            checkBoxProperties6.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxSlots.CheckBoxProperties = checkBoxProperties6;
             this.comboBoxSlots.DisplayMemberSingleItem = "";
             this.comboBoxSlots.DropDownHeight = 310;
             this.comboBoxSlots.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4714,8 +5647,8 @@ namespace RNGReporter
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties6;
+            checkBoxProperties7.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties7;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4809,8 +5742,8 @@ namespace RNGReporter
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "PID";
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle27;
             this.dataGridViewTextBoxColumn4.HeaderText = "PID";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -5555,8 +6488,8 @@ namespace RNGReporter
             // comboBoxNature
             // 
             this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties7.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties7;
+            checkBoxProperties8.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties8;
             this.comboBoxNature.DisplayMemberSingleItem = "";
             this.comboBoxNature.DropDownHeight = 300;
             this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -5601,6 +6534,11 @@ namespace RNGReporter
             this.panelSpreads.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShinyRSResults)).EndInit();
             this.tabControl.ResumeLayout(false);
+            this.tabPageShinyFRLGEgg.ResumeLayout(false);
+            this.tabPageShinyFRLGEgg.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFRLG)).EndInit();
             this.tabPageWild.ResumeLayout(false);
             this.tabPageWild.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).EndInit();
@@ -6028,5 +6966,78 @@ namespace RNGReporter
         private GlassButton defClear;
         private GlassButton atkClear;
         private GlassButton hpClear;
+        private System.Windows.Forms.TabPage tabPageShinyFRLGEgg;
+        private IVFilters ivFiltersFRLG;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton normalSpreadFRLG;
+        private System.Windows.Forms.RadioButton splitSpreadFRLG;
+        private System.Windows.Forms.RadioButton alternateSpreadFRLG;
+        private GlassButton anyNatureFRLG;
+        private CheckBoxComboBox checkBoxNatureFRLG;
+        private GlassComboBox glassComboBoxGenderFRLG;
+        private System.Windows.Forms.Label label16;
+        private GlassButton swapParentsFRLG;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label60;
+        private GlassButton generateFRLGEggShiny;
+        private GlassComboBox compatibilityFRLG;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.CheckBox shinyOnlyFRLG;
+        private System.Windows.Forms.CheckBox inheritanceFRLG;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.Label label64;
+        private GlassButton anyAbilityFRLG;
+        private GlassComboBox glassComboBoxAbilityFRLG;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Label label71;
+        private DoubleBufferedDataGridView dataGridFRLG;
+        private System.Windows.Forms.Label label92;
+        private System.Windows.Forms.Label label93;
+        private MaskedTextBox2 minPickFrameFRLG;
+        private MaskedTextBox2 minHeldFrameFRLG;
+        private MaskedTextBox2 maxHeldFrameFRLG;
+        private MaskedTextBox2 maxPickFrameFRLG;
+        private MaskedTextBox2 parentBFRLG_Def;
+        private MaskedTextBox2 parentBFRLG_Atk;
+        private MaskedTextBox2 parentBFRLG_Spe;
+        private MaskedTextBox2 parentBFRLG_SpD;
+        private MaskedTextBox2 parentBFRLG_SpA;
+        private MaskedTextBox2 parentBFRLG_HP;
+        private MaskedTextBox2 parentAFRLG_Def;
+        private MaskedTextBox2 parentAFRLG_Atk;
+        private MaskedTextBox2 parentAFRLG_Spe;
+        private MaskedTextBox2 parentAFRLG_SpD;
+        private MaskedTextBox2 parentAFRLG_SpA;
+        private MaskedTextBox2 parentAFRLG_HP;
+        private MaskedTextBox2 sidFRLG;
+        private MaskedTextBox2 tidFRLG;
+        private System.Windows.Forms.Label label97;
+        private MaskedTextBox2 textBoxSeed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn42;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn43;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn44;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn45;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pidFRLG;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn47;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn48;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn49;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn50;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn51;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn52;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn53;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn54;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn55;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn56;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn57;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn58;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn59;
     }
 }

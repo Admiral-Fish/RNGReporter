@@ -306,7 +306,8 @@ namespace RNGReporter.Objects
                 if (FrameType == FrameType.HGSSBred ||
                     FrameType == FrameType.RSBredUpper ||
                     FrameType == FrameType.RSBredUpperSplit ||
-                    FrameType == FrameType.RSBredUpperAlt)
+                    FrameType == FrameType.RSBredUpperAlt ||
+                    FrameType == FrameType.FRLGBredUpper)
                 {
                     DisplayHp = Hp.ToString();
                     DisplayAtk = Atk.ToString();

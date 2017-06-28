@@ -3918,6 +3918,38 @@ namespace RNGReporter.Objects
                                     id, sid);
                             break;
 
+                        case FrameType.FRLGBredLower:
+                            frame =
+                                Frame.GenerateFrame(
+                                    FrameType.RSBredLower,
+                                    cnt + InitialFrame,
+                                    rngList[0],
+                                    rngList[1],
+                                    Compatibility
+                                    );
+                            break;
+
+                        case FrameType.FRLGBredUpper:
+                            frame =
+                                Frame.GenerateFrame(
+                                    FrameType.FRLGBredUpper,
+                                    cnt + InitialFrame,
+                                    rngList[0],
+                                    StaticPID,
+                                    rngList[2],
+                                    rngList[4],
+                                    rngList[5],
+                                    // vblank
+                                    rngList[7],
+                                    rngList[8],
+                                    rngList[9],
+                                    rngList[10],
+                                    rngList[11],
+                                    rngList[12],
+                                    ParentA,
+                                    ParentB,
+                                    id, sid);
+                            break;
                         case FrameType.Bred:
 
                             frame =

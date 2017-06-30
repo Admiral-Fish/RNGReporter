@@ -49,8 +49,8 @@ namespace RNGReporter
             Column32Bit.DefaultCellStyle.Format = "X8";
             Column32BitHigh.DefaultCellStyle.Format = "X8";
             Column32BitLow.DefaultCellStyle.Format = "X8";
-            Column16High.DefaultCellStyle.Format = "X4";
-            Column16Low.DefaultCellStyle.Format = "X4";
+            Column16BitHigh.DefaultCellStyle.Format = "X4";
+            Column16BitLow.DefaultCellStyle.Format = "X4";
 
             comboBoxLValue1.SelectedIndex = 0;
             comboBoxLValue2.SelectedIndex = 0;
@@ -86,6 +86,8 @@ namespace RNGReporter
 
             comboBoxRNG.SelectedIndex = 0;
 
+            glassComboBox1.SelectedIndex = 0;
+
             columns = new List<int>();
             sb = new StringBuilder();
         }
@@ -116,15 +118,15 @@ namespace RNGReporter
                 switch (comboBoxRNG.SelectedIndex)
                 {
                     case 0:
-                        rng = new PokeRng((uint) seed);
+                        rng = new PokeRng((uint)seed);
                         break;
                     case 1:
-                        rng = new PokeRngR((uint) seed);
+                        rng = new PokeRngR((uint)seed);
                         break;
                     case 2:
                         // if the given seed is 64 bit, remove the lower 32 bits.
                         if (seed >= 0x100000000) seed >>= 32;
-                        rng = new MersenneTwister((uint) seed);
+                        rng = new MersenneTwister((uint)seed);
                         break;
                     case 3:
                         rng64 = new BWRng(seed);
@@ -133,37 +135,37 @@ namespace RNGReporter
                         rng64 = new BWRngR(seed);
                         break;
                     case 5:
-                        rng = new XdRng((uint) seed);
+                        rng = new XdRng((uint)seed);
                         break;
                     case 6:
-                        rng = new XdRngR((uint) seed);
+                        rng = new XdRngR((uint)seed);
                         break;
                     case 7:
-                        rng = new ARng((uint) seed);
+                        rng = new ARng((uint)seed);
                         break;
                     case 8:
-                        rng = new ARngR((uint) seed);
+                        rng = new ARngR((uint)seed);
                         break;
                     case 9:
-                        rng = new GRng((uint) seed);
+                        rng = new GRng((uint)seed);
                         break;
                     case 10:
-                        rng = new GRngR((uint) seed);
+                        rng = new GRngR((uint)seed);
                         break;
                     case 11:
-                        rng = new EncounterRng((uint) seed);
+                        rng = new EncounterRng((uint)seed);
                         break;
                     case 12:
-                        rng = new EncounterRngR((uint) seed);
+                        rng = new EncounterRngR((uint)seed);
                         break;
                     case 13:
-                        rng = new MersenneTwisterUntempered((int) seed);
+                        rng = new MersenneTwisterUntempered((int)seed);
                         break;
                     case 14:
-                        rng = new MersenneTwisterFast((uint) seed, (int) maxFrames);
+                        rng = new MersenneTwisterFast((uint)seed, (int)maxFrames);
                         break;
                     case 15:
-                        rng = new MersenneTwisterTable((uint) seed);
+                        rng = new MersenneTwisterTable((uint)seed);
                         break;
                 }
             }
@@ -193,7 +195,7 @@ namespace RNGReporter
                 }
                 else
                 {
-                    rng = new GenericRng((uint) seed, (uint) mult, (uint) add);
+                    rng = new GenericRng((uint)seed, (uint)mult, (uint)add);
                 }
             }
 
@@ -201,45 +203,45 @@ namespace RNGReporter
             //  fancy, we may want to break it off and have it in it's own class
             var calculators = new Dictionary<string, Calculator>();
 
-            calculators["%"] = (x, y) => x%y;
-            calculators["*"] = (x, y) => x*y;
-            calculators["/"] = (x, y) => y == 0 ? 0 : x/y;
+            calculators["%"] = (x, y) => x % y;
+            calculators["*"] = (x, y) => x * y;
+            calculators["/"] = (x, y) => y == 0 ? 0 : x / y;
             calculators["&"] = (x, y) => x & y;
             calculators["^"] = (x, y) => x ^ y;
             calculators["|"] = (x, y) => x | y;
             calculators["+"] = (x, y) => x + y;
             calculators["-"] = (x, y) => x - y;
-            calculators[">>"] = (x, y) => x >> (int) y;
-            calculators["<<"] = (x, y) => x << (int) y;
+            calculators[">>"] = (x, y) => x >> (int)y;
+            calculators["<<"] = (x, y) => x << (int)y;
 
             bool calcCustom1 =
                 textBoxRValue1.Text != "" &&
-                (string) comboBoxOperator1.SelectedItem != null &&
-                (string) comboBoxLValue1.SelectedItem != null;
+                (string)comboBoxOperator1.SelectedItem != null &&
+                (string)comboBoxLValue1.SelectedItem != null;
             bool calcCustom2 =
                 (textBoxRValue2.Text != "" || comboBoxRValue2.SelectedIndex != 0) &&
-                (string) comboBoxOperator2.SelectedItem != null &&
-                (string) comboBoxLValue2.SelectedItem != null;
+                (string)comboBoxOperator2.SelectedItem != null &&
+                (string)comboBoxLValue2.SelectedItem != null;
             bool calcCustom3 =
                 (textBoxRValue3.Text != "" || comboBoxRValue3.SelectedIndex != 0) &&
-                (string) comboBoxOperator3.SelectedItem != null &&
-                (string) comboBoxLValue3.SelectedItem != null;
+                (string)comboBoxOperator3.SelectedItem != null &&
+                (string)comboBoxLValue3.SelectedItem != null;
             bool calcCustom4 =
                 (textBoxRValue4.Text != "" || comboBoxRValue4.SelectedIndex != 0) &&
-                (string) comboBoxOperator4.SelectedItem != null &&
-                (string) comboBoxLValue4.SelectedItem != null;
+                (string)comboBoxOperator4.SelectedItem != null &&
+                (string)comboBoxLValue4.SelectedItem != null;
             bool calcCustom5 =
                 (textBoxRValue5.Text != "" || comboBoxRValue5.SelectedIndex != 0) &&
-                (string) comboBoxOperator5.SelectedItem != null &&
-                (string) comboBoxLValue5.SelectedItem != null;
+                (string)comboBoxOperator5.SelectedItem != null &&
+                (string)comboBoxLValue5.SelectedItem != null;
             bool calcCustom6 =
                 (textBoxRValue6.Text != "" || comboBoxRValue6.SelectedIndex != 0) &&
-                (string) comboBoxOperator6.SelectedItem != null &&
-                (string) comboBoxLValue6.SelectedItem != null;
+                (string)comboBoxOperator6.SelectedItem != null &&
+                (string)comboBoxLValue6.SelectedItem != null;
             bool calcCustom7 =
                 (textBoxRValue7.Text != "" || comboBoxRValue7.SelectedIndex != 0) &&
-                (string) comboBoxOperator7.SelectedItem != null &&
-                (string) comboBoxLValue7.SelectedItem != null;
+                (string)comboBoxOperator7.SelectedItem != null &&
+                (string)comboBoxLValue7.SelectedItem != null;
             bool calcCustom8 =
                 (textBoxRValue8.Text != "" || comboBoxRValue8.SelectedIndex != 0) &&
                 (string)comboBoxOperator8.SelectedItem != null &&
@@ -326,27 +328,27 @@ namespace RNGReporter
                 return;
             }
 
-            Calculator custom1Calc = ((string) comboBoxOperator1.SelectedItem == null
+            Calculator custom1Calc = ((string)comboBoxOperator1.SelectedItem == null
                                           ? null
-                                          : calculators[(string) comboBoxOperator1.SelectedItem]);
-            Calculator custom2Calc = ((string) comboBoxOperator2.SelectedItem == null
+                                          : calculators[(string)comboBoxOperator1.SelectedItem]);
+            Calculator custom2Calc = ((string)comboBoxOperator2.SelectedItem == null
                                           ? null
-                                          : calculators[(string) comboBoxOperator2.SelectedItem]);
-            Calculator custom3Calc = ((string) comboBoxOperator3.SelectedItem == null
+                                          : calculators[(string)comboBoxOperator2.SelectedItem]);
+            Calculator custom3Calc = ((string)comboBoxOperator3.SelectedItem == null
                                           ? null
-                                          : calculators[(string) comboBoxOperator3.SelectedItem]);
-            Calculator custom4Calc = ((string) comboBoxOperator4.SelectedItem == null
+                                          : calculators[(string)comboBoxOperator3.SelectedItem]);
+            Calculator custom4Calc = ((string)comboBoxOperator4.SelectedItem == null
                                           ? null
-                                          : calculators[(string) comboBoxOperator4.SelectedItem]);
-            Calculator custom5Calc = ((string) comboBoxOperator5.SelectedItem == null
+                                          : calculators[(string)comboBoxOperator4.SelectedItem]);
+            Calculator custom5Calc = ((string)comboBoxOperator5.SelectedItem == null
                                           ? null
-                                          : calculators[(string) comboBoxOperator5.SelectedItem]);
-            Calculator custom6Calc = ((string) comboBoxOperator6.SelectedItem == null
+                                          : calculators[(string)comboBoxOperator5.SelectedItem]);
+            Calculator custom6Calc = ((string)comboBoxOperator6.SelectedItem == null
                                           ? null
-                                          : calculators[(string) comboBoxOperator6.SelectedItem]);
-            Calculator custom7Calc = ((string) comboBoxOperator7.SelectedItem == null
+                                          : calculators[(string)comboBoxOperator6.SelectedItem]);
+            Calculator custom7Calc = ((string)comboBoxOperator7.SelectedItem == null
                                           ? null
-                                          : calculators[(string) comboBoxOperator7.SelectedItem]);
+                                          : calculators[(string)comboBoxOperator7.SelectedItem]);
             Calculator custom8Calc = ((string)comboBoxOperator8.SelectedItem == null
                                           ? null
                                           : calculators[(string)comboBoxOperator8.SelectedItem]);
@@ -388,7 +390,7 @@ namespace RNGReporter
                     uint rngResult = rng.Next();
 
                     //  Start building the research frame that we are going to use
-                    frame = new FrameResearch {RNG64bit = rngIs64Bit, FrameNumber = cnt + 1, Full32 = rngResult};
+                    frame = new FrameResearch { RNG64bit = rngIs64Bit, FrameNumber = cnt + 1, Full32 = rngResult };
                 }
                 else
                 {
@@ -400,7 +402,7 @@ namespace RNGReporter
                     ulong rngResult = rng64.Next();
 
                     //  Start building the research frame that we are going to use
-                    frame = new FrameResearch {RNG64bit = rngIs64Bit, FrameNumber = cnt + 1, Full64 = rngResult};
+                    frame = new FrameResearch { RNG64bit = rngIs64Bit, FrameNumber = cnt + 1, Full64 = rngResult };
                 }
 
                 //  Call Custom 1 ////////////////////////////////////////////////////////////////
@@ -409,7 +411,7 @@ namespace RNGReporter
                     ulong customLValue1 = CustomCalcs(comboBoxLValue1, frame, frames);
 
                     if (!rngIs64Bit)
-                        customLValue1 = (uint) customLValue1;
+                        customLValue1 = (uint)customLValue1;
 
                     frame.Custom1 = custom1Calc(customLValue1, customRValue1);
                 }
@@ -419,11 +421,11 @@ namespace RNGReporter
                 if (calcCustom2)
                 {
                     ulong customLValue2 = CustomCalcs(comboBoxLValue2, frame, frames);
-                    if ((string) comboBoxRValue2.SelectedItem != "None")
+                    if ((string)comboBoxRValue2.SelectedItem != "None")
                         customRValue2 = CustomCalcs(comboBoxRValue2, frame, frames);
 
                     if (!rngIs64Bit)
-                        customLValue2 = (uint) customLValue2;
+                        customLValue2 = (uint)customLValue2;
 
                     frame.Custom2 = custom2Calc(customLValue2, customRValue2);
                 }
@@ -433,11 +435,11 @@ namespace RNGReporter
                 if (calcCustom3)
                 {
                     ulong customLValue3 = CustomCalcs(comboBoxLValue3, frame, frames);
-                    if ((string) comboBoxRValue3.SelectedItem != "None")
+                    if ((string)comboBoxRValue3.SelectedItem != "None")
                         customRValue3 = CustomCalcs(comboBoxRValue3, frame, frames);
 
                     if (!rngIs64Bit)
-                        customLValue3 = (uint) customLValue3;
+                        customLValue3 = (uint)customLValue3;
 
                     frame.Custom3 = custom3Calc(customLValue3, customRValue3);
                 }
@@ -447,11 +449,11 @@ namespace RNGReporter
                 if (calcCustom4)
                 {
                     ulong customLValue4 = CustomCalcs(comboBoxLValue4, frame, frames);
-                    if ((string) comboBoxRValue4.SelectedItem != "None")
+                    if ((string)comboBoxRValue4.SelectedItem != "None")
                         customRValue4 = CustomCalcs(comboBoxRValue4, frame, frames);
 
                     if (!rngIs64Bit)
-                        customLValue4 = (uint) customLValue4;
+                        customLValue4 = (uint)customLValue4;
 
                     frame.Custom4 = custom4Calc(customLValue4, customRValue4);
                 }
@@ -461,11 +463,11 @@ namespace RNGReporter
                 if (calcCustom5)
                 {
                     ulong customLValue5 = CustomCalcs(comboBoxLValue5, frame, frames);
-                    if ((string) comboBoxRValue5.SelectedItem != "None")
+                    if ((string)comboBoxRValue5.SelectedItem != "None")
                         customRValue5 = CustomCalcs(comboBoxRValue5, frame, frames);
 
                     if (!rngIs64Bit)
-                        customLValue5 = (uint) customLValue5;
+                        customLValue5 = (uint)customLValue5;
 
                     frame.Custom5 = custom5Calc(customLValue5, customRValue5);
                 }
@@ -475,11 +477,11 @@ namespace RNGReporter
                 if (calcCustom6)
                 {
                     ulong customLValue6 = CustomCalcs(comboBoxLValue6, frame, frames);
-                    if ((string) comboBoxRValue6.SelectedItem != "None")
+                    if ((string)comboBoxRValue6.SelectedItem != "None")
                         customRValue6 = CustomCalcs(comboBoxRValue6, frame, frames);
 
                     if (!rngIs64Bit)
-                        customLValue6 = (uint) customLValue6;
+                        customLValue6 = (uint)customLValue6;
 
                     frame.Custom6 = custom6Calc(customLValue6, customRValue6);
                 }
@@ -489,11 +491,11 @@ namespace RNGReporter
                 if (calcCustom7)
                 {
                     ulong customLValue7 = CustomCalcs(comboBoxLValue7, frame, frames);
-                    if ((string) comboBoxRValue7.SelectedItem != "None")
+                    if ((string)comboBoxRValue7.SelectedItem != "None")
                         customRValue7 = CustomCalcs(comboBoxRValue7, frame, frames);
 
                     if (!rngIs64Bit)
-                        customLValue7 = (uint) customLValue7;
+                        customLValue7 = (uint)customLValue7;
 
                     frame.Custom7 = custom7Calc(customLValue7, customRValue7);
                 }
@@ -557,7 +559,7 @@ namespace RNGReporter
 
             byte[] b = Encoding.ASCII.GetBytes(s);
 
-            if (e.KeyChar != (char) Keys.Back && !char.IsControl(e.KeyChar))
+            if (e.KeyChar != (char)Keys.Back && !char.IsControl(e.KeyChar))
             {
                 if (!(((0x30 <= b[0]) && (b[0] <= 0x39)) ||
                       ((0x41 <= b[0]) && (b[0] <= 0x46)) ||
@@ -565,12 +567,16 @@ namespace RNGReporter
                 {
                     e.Handled = true;
                 }
+                else
+                {
+                    e.KeyChar = char.ToUpper(e.KeyChar);
+                }
             }
         }
 
         private ulong CustomCalcs(ComboBox selection, FrameResearch frame, List<FrameResearch> frames)
         {
-            switch ((string) selection.SelectedItem)
+            switch ((string)selection.SelectedItem)
             {
                 case "64Bit":
                     return frame.Full64;
@@ -650,7 +656,7 @@ namespace RNGReporter
                 if (columns != null && columns.Count > 0)
                 {
                     sb = new StringBuilder();
-                    var frame = (FrameResearch) dataGridViewValues.SelectedRows[0].DataBoundItem;
+                    var frame = (FrameResearch)dataGridViewValues.SelectedRows[0].DataBoundItem;
                     for (int i = 0; i < columns.Count; i++)
                     {
                         int columnIndex = columns[i];
@@ -673,7 +679,7 @@ namespace RNGReporter
                 sb = new StringBuilder();
                 foreach (DataGridViewRow row in dataGridViewValues.Rows)
                 {
-                    var frame = (FrameResearch) row.DataBoundItem;
+                    var frame = (FrameResearch)row.DataBoundItem;
                     for (int i = 0; i < columns.Count; i++)
                     {
                         int columnIndex = columns[i];
@@ -695,7 +701,7 @@ namespace RNGReporter
         {
             if (dataGridViewValues.SelectedRows[0] != null)
             {
-                var frame = (FrameResearch) dataGridViewValues.SelectedRows[0].DataBoundItem;
+                var frame = (FrameResearch)dataGridViewValues.SelectedRows[0].DataBoundItem;
                 sb = new StringBuilder();
 
                 sb.AppendFormat("{0:" + dataGridViewValues.Columns[columnHover].DefaultCellStyle.Format + "}",
@@ -716,7 +722,7 @@ namespace RNGReporter
                 //  Get the name of the file and then go ahead 
                 //  and create and save the thing to the hard
                 //  drive.   
-                var frames = (List<FrameResearch>) dataGridViewValues.DataSource;
+                var frames = (List<FrameResearch>)dataGridViewValues.DataSource;
 
                 if (frames.Count > 0)
                 {
@@ -728,6 +734,8 @@ namespace RNGReporter
 
         private void dataGridViewValues_MouseDown(object sender, MouseEventArgs e)
         {
+            dataGridViewValues.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
             DataGridView.HitTestInfo Hti = dataGridViewValues.HitTest(e.X, e.Y);
             if (e.Button == MouseButtons.Right)
             {
@@ -794,7 +802,7 @@ namespace RNGReporter
                     //  Get the name of the file and then go ahead 
                     //  and create and save the thing to the hard
                     //  drive.   
-                    var frames = (List<FrameResearch>) dataGridViewValues.DataSource;
+                    var frames = (List<FrameResearch>)dataGridViewValues.DataSource;
 
                     if (frames.Count > 0)
                     {
@@ -807,7 +815,7 @@ namespace RNGReporter
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var profile = new ResearcherProfile {MaxResults = 1000, Custom = new CustomResearcher[10]};
+            var profile = new ResearcherProfile { MaxResults = 1000, Custom = new CustomResearcher[10] };
             for (int i = 0; i < 9; ++i)
                 profile.Custom[i] = new CustomResearcher();
             SetProfile(profile);
@@ -842,7 +850,7 @@ namespace RNGReporter
             if (profile.Type != ResearcherProfile.RNGType.Custom)
             {
                 radioButtonCommon.Checked = true;
-                comboBoxRNG.SelectedIndex = (int) profile.Type;
+                comboBoxRNG.SelectedIndex = (int)profile.Type;
             }
             else
             {
@@ -855,46 +863,46 @@ namespace RNGReporter
             textBoxSeed.Text = profile.Seed;
 
             //todo: automoate this
-            comboBoxLValue1.SelectedIndex = (int) profile.Custom[0].Type;
-            comboBoxOperator1.SelectedIndex = (int) profile.Custom[0].Operation;
+            comboBoxLValue1.SelectedIndex = (int)profile.Custom[0].Type;
+            comboBoxOperator1.SelectedIndex = (int)profile.Custom[0].Operation;
             textBoxRValue1.Text = profile.Custom[0].Operand;
             checkBoxCustom1Hex.Checked = profile.Custom[0].isHex;
 
-            comboBoxLValue2.SelectedIndex = (int) profile.Custom[1].Type;
-            comboBoxOperator2.SelectedIndex = (int) profile.Custom[1].Operation;
+            comboBoxLValue2.SelectedIndex = (int)profile.Custom[1].Type;
+            comboBoxOperator2.SelectedIndex = (int)profile.Custom[1].Operation;
             textBoxRValue2.Text = profile.Custom[1].Operand;
             checkBoxCustom2Hex.Checked = profile.Custom[1].isHex;
-            comboBoxRValue2.SelectedIndex = (int) profile.Custom[1].RelOperand;
+            comboBoxRValue2.SelectedIndex = (int)profile.Custom[1].RelOperand;
 
-            comboBoxLValue3.SelectedIndex = (int) profile.Custom[2].Type;
-            comboBoxOperator3.SelectedIndex = (int) profile.Custom[2].Operation;
+            comboBoxLValue3.SelectedIndex = (int)profile.Custom[2].Type;
+            comboBoxOperator3.SelectedIndex = (int)profile.Custom[2].Operation;
             textBoxRValue3.Text = profile.Custom[2].Operand;
             checkBoxCustom3Hex.Checked = profile.Custom[2].isHex;
-            comboBoxRValue3.SelectedIndex = (int) profile.Custom[2].RelOperand;
+            comboBoxRValue3.SelectedIndex = (int)profile.Custom[2].RelOperand;
 
-            comboBoxLValue4.SelectedIndex = (int) profile.Custom[3].Type;
-            comboBoxOperator4.SelectedIndex = (int) profile.Custom[3].Operation;
+            comboBoxLValue4.SelectedIndex = (int)profile.Custom[3].Type;
+            comboBoxOperator4.SelectedIndex = (int)profile.Custom[3].Operation;
             textBoxRValue4.Text = profile.Custom[3].Operand;
             checkBoxCustom4Hex.Checked = profile.Custom[3].isHex;
-            comboBoxRValue4.SelectedIndex = (int) profile.Custom[3].RelOperand;
+            comboBoxRValue4.SelectedIndex = (int)profile.Custom[3].RelOperand;
 
-            comboBoxLValue5.SelectedIndex = (int) profile.Custom[4].Type;
-            comboBoxOperator5.SelectedIndex = (int) profile.Custom[4].Operation;
+            comboBoxLValue5.SelectedIndex = (int)profile.Custom[4].Type;
+            comboBoxOperator5.SelectedIndex = (int)profile.Custom[4].Operation;
             textBoxRValue5.Text = profile.Custom[4].Operand;
             checkBoxCustom5Hex.Checked = profile.Custom[4].isHex;
-            comboBoxRValue5.SelectedIndex = (int) profile.Custom[4].RelOperand;
+            comboBoxRValue5.SelectedIndex = (int)profile.Custom[4].RelOperand;
 
-            comboBoxLValue6.SelectedIndex = (int) profile.Custom[5].Type;
-            comboBoxOperator6.SelectedIndex = (int) profile.Custom[5].Operation;
+            comboBoxLValue6.SelectedIndex = (int)profile.Custom[5].Type;
+            comboBoxOperator6.SelectedIndex = (int)profile.Custom[5].Operation;
             textBoxRValue6.Text = profile.Custom[5].Operand;
             checkBoxCustom6Hex.Checked = profile.Custom[5].isHex;
-            comboBoxRValue6.SelectedIndex = (int) profile.Custom[5].RelOperand;
+            comboBoxRValue6.SelectedIndex = (int)profile.Custom[5].RelOperand;
 
-            comboBoxLValue7.SelectedIndex = (int) profile.Custom[6].Type;
-            comboBoxOperator7.SelectedIndex = (int) profile.Custom[6].Operation;
+            comboBoxLValue7.SelectedIndex = (int)profile.Custom[6].Type;
+            comboBoxOperator7.SelectedIndex = (int)profile.Custom[6].Operation;
             textBoxRValue7.Text = profile.Custom[6].Operand;
             checkBoxCustom7Hex.Checked = profile.Custom[6].isHex;
-            comboBoxRValue7.SelectedIndex = (int) profile.Custom[6].RelOperand;
+            comboBoxRValue7.SelectedIndex = (int)profile.Custom[6].RelOperand;
 
             comboBoxLValue8.SelectedIndex = (int)profile.Custom[7].Type;
             comboBoxOperator8.SelectedIndex = (int)profile.Custom[7].Operation;
@@ -921,7 +929,7 @@ namespace RNGReporter
 
             if (radioButtonCommon.Checked)
             {
-                profile.Type = (ResearcherProfile.RNGType) comboBoxRNG.SelectedIndex;
+                profile.Type = (ResearcherProfile.RNGType)comboBoxRNG.SelectedIndex;
             }
             else
             {
@@ -936,46 +944,46 @@ namespace RNGReporter
             profile.Custom = new CustomResearcher[10];
             for (int i = 0; i < 10; ++i)
                 profile.Custom[i] = new CustomResearcher();
-            profile.Custom[0].Type = (CustomResearcher.ValueType) comboBoxLValue1.SelectedIndex;
-            profile.Custom[0].Operation = (CustomResearcher.Operator) comboBoxOperator1.SelectedIndex;
+            profile.Custom[0].Type = (CustomResearcher.ValueType)comboBoxLValue1.SelectedIndex;
+            profile.Custom[0].Operation = (CustomResearcher.Operator)comboBoxOperator1.SelectedIndex;
             profile.Custom[0].Operand = textBoxRValue1.Text;
             profile.Custom[0].isHex = checkBoxCustom1Hex.Checked;
 
-            profile.Custom[1].Type = (CustomResearcher.ValueType) comboBoxLValue2.SelectedIndex;
-            profile.Custom[1].Operation = (CustomResearcher.Operator) comboBoxOperator2.SelectedIndex;
+            profile.Custom[1].Type = (CustomResearcher.ValueType)comboBoxLValue2.SelectedIndex;
+            profile.Custom[1].Operation = (CustomResearcher.Operator)comboBoxOperator2.SelectedIndex;
             profile.Custom[1].Operand = textBoxRValue2.Text;
             profile.Custom[1].isHex = checkBoxCustom2Hex.Checked;
-            profile.Custom[1].RelOperand = (CustomResearcher.RelativeOperand) comboBoxRValue2.SelectedIndex;
+            profile.Custom[1].RelOperand = (CustomResearcher.RelativeOperand)comboBoxRValue2.SelectedIndex;
 
-            profile.Custom[2].Type = (CustomResearcher.ValueType) comboBoxLValue3.SelectedIndex;
-            profile.Custom[2].Operation = (CustomResearcher.Operator) comboBoxOperator3.SelectedIndex;
+            profile.Custom[2].Type = (CustomResearcher.ValueType)comboBoxLValue3.SelectedIndex;
+            profile.Custom[2].Operation = (CustomResearcher.Operator)comboBoxOperator3.SelectedIndex;
             profile.Custom[2].Operand = textBoxRValue3.Text;
             profile.Custom[2].isHex = checkBoxCustom3Hex.Checked;
-            profile.Custom[2].RelOperand = (CustomResearcher.RelativeOperand) comboBoxRValue3.SelectedIndex;
+            profile.Custom[2].RelOperand = (CustomResearcher.RelativeOperand)comboBoxRValue3.SelectedIndex;
 
-            profile.Custom[3].Type = (CustomResearcher.ValueType) comboBoxLValue4.SelectedIndex;
-            profile.Custom[3].Operation = (CustomResearcher.Operator) comboBoxOperator4.SelectedIndex;
+            profile.Custom[3].Type = (CustomResearcher.ValueType)comboBoxLValue4.SelectedIndex;
+            profile.Custom[3].Operation = (CustomResearcher.Operator)comboBoxOperator4.SelectedIndex;
             profile.Custom[3].Operand = textBoxRValue4.Text;
             profile.Custom[3].isHex = checkBoxCustom4Hex.Checked;
-            profile.Custom[3].RelOperand = (CustomResearcher.RelativeOperand) comboBoxRValue4.SelectedIndex;
+            profile.Custom[3].RelOperand = (CustomResearcher.RelativeOperand)comboBoxRValue4.SelectedIndex;
 
-            profile.Custom[4].Type = (CustomResearcher.ValueType) comboBoxLValue5.SelectedIndex;
-            profile.Custom[4].Operation = (CustomResearcher.Operator) comboBoxOperator5.SelectedIndex;
+            profile.Custom[4].Type = (CustomResearcher.ValueType)comboBoxLValue5.SelectedIndex;
+            profile.Custom[4].Operation = (CustomResearcher.Operator)comboBoxOperator5.SelectedIndex;
             profile.Custom[4].Operand = textBoxRValue5.Text;
             profile.Custom[4].isHex = checkBoxCustom5Hex.Checked;
-            profile.Custom[4].RelOperand = (CustomResearcher.RelativeOperand) comboBoxRValue5.SelectedIndex;
+            profile.Custom[4].RelOperand = (CustomResearcher.RelativeOperand)comboBoxRValue5.SelectedIndex;
 
-            profile.Custom[5].Type = (CustomResearcher.ValueType) comboBoxLValue6.SelectedIndex;
-            profile.Custom[5].Operation = (CustomResearcher.Operator) comboBoxOperator6.SelectedIndex;
+            profile.Custom[5].Type = (CustomResearcher.ValueType)comboBoxLValue6.SelectedIndex;
+            profile.Custom[5].Operation = (CustomResearcher.Operator)comboBoxOperator6.SelectedIndex;
             profile.Custom[5].Operand = textBoxRValue6.Text;
             profile.Custom[5].isHex = checkBoxCustom6Hex.Checked;
-            profile.Custom[5].RelOperand = (CustomResearcher.RelativeOperand) comboBoxRValue6.SelectedIndex;
+            profile.Custom[5].RelOperand = (CustomResearcher.RelativeOperand)comboBoxRValue6.SelectedIndex;
 
-            profile.Custom[6].Type = (CustomResearcher.ValueType) comboBoxLValue7.SelectedIndex;
-            profile.Custom[6].Operation = (CustomResearcher.Operator) comboBoxOperator7.SelectedIndex;
+            profile.Custom[6].Type = (CustomResearcher.ValueType)comboBoxLValue7.SelectedIndex;
+            profile.Custom[6].Operation = (CustomResearcher.Operator)comboBoxOperator7.SelectedIndex;
             profile.Custom[6].Operand = textBoxRValue7.Text;
             profile.Custom[6].isHex = checkBoxCustom7Hex.Checked;
-            profile.Custom[6].RelOperand = (CustomResearcher.RelativeOperand) comboBoxRValue7.SelectedIndex;
+            profile.Custom[6].RelOperand = (CustomResearcher.RelativeOperand)comboBoxRValue7.SelectedIndex;
 
             profile.Custom[7].Type = (CustomResearcher.ValueType)comboBoxLValue8.SelectedIndex;
             profile.Custom[7].Operation = (CustomResearcher.Operator)comboBoxOperator8.SelectedIndex;
@@ -1000,16 +1008,16 @@ namespace RNGReporter
 
         private ResearcherProfile OpenProfile(string fileName)
         {
-            var deserializer = new XmlSerializer(typeof (ResearcherProfile));
+            var deserializer = new XmlSerializer(typeof(ResearcherProfile));
             TextReader textReader = new StreamReader(fileName);
-            var profile = (ResearcherProfile) deserializer.Deserialize(textReader);
+            var profile = (ResearcherProfile)deserializer.Deserialize(textReader);
             textReader.Close();
             return profile;
         }
 
         private void SaveProfile(ResearcherProfile profile, string fileName)
         {
-            var serializer = new XmlSerializer(typeof (ResearcherProfile));
+            var serializer = new XmlSerializer(typeof(ResearcherProfile));
             TextWriter textWriter = new StreamWriter(fileName);
             serializer.Serialize(textWriter, profile);
             textWriter.Close();
@@ -1020,5 +1028,113 @@ namespace RNGReporter
         private delegate ulong Calculator(ulong x, ulong y);
 
         #endregion
+
+        private void searchValue(bool search)
+        {
+            if (dataGridViewValues.RowCount > 0)
+            {
+                int rowIndex = 0;
+                int columnIndex = 0;
+
+                foreach (DataGridViewColumn col in dataGridViewValues.Columns)
+                {
+                    if (col.Name == "Column" + glassComboBox1.SelectedItem.ToString())
+                    {
+                        break;
+                    }
+                    columnIndex++;
+                }
+
+                foreach (DataGridViewRow row in dataGridViewValues.Rows)
+                {
+                    string cellValue = long.Parse(dataGridViewValues["Column" + glassComboBox1.SelectedItem.ToString(), rowIndex].Value.ToString()).ToString("X");
+
+                    if (cellValue == textBoxSearch.Text && search == true)
+                    {
+                        dataGridViewValues.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
+                        dataGridViewValues.Rows[rowIndex].Cells[columnIndex].Selected = true;
+                        break;
+                    }
+                    else if (cellValue == textBoxSearch.Text && search == false)
+                    {
+                        dataGridViewValues.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
+
+                        if (rowIndex > dataGridViewValues.CurrentCell.RowIndex)
+                        {
+                            dataGridViewValues.Rows[rowIndex].Cells[columnIndex].Selected = true;
+                            break;
+                        }
+                    }
+                    rowIndex++;
+                }
+            }
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            searchValue(true);
+        }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            searchValue(false);
+        }
+
+        private void comboBoxRNG_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxRNG.SelectedIndex != 3 && comboBoxRNG.SelectedIndex != 4)
+            {
+                glassComboBox1.Items.Remove("64Bit");
+                glassComboBox1.Items.Remove("32BitHigh");
+                glassComboBox1.Items.Remove("32BitLow");
+
+                if (!glassComboBox1.Items.Contains("32Bit"))
+                {
+                    glassComboBox1.Items.Insert(0, "32Bit");
+                }
+                glassComboBox1.SelectedIndex = 0;
+            }
+            else if (comboBoxRNG.SelectedIndex == 3 || comboBoxRNG.SelectedIndex == 4)
+            {
+                glassComboBox1.Items.Remove("32Bit");
+
+                if (!glassComboBox1.Items.Contains("64Bit"))
+                {
+                    glassComboBox1.Items.Insert(0, "64Bit");
+                }
+                if (!glassComboBox1.Items.Contains("32BitHigh"))
+                {
+                    glassComboBox1.Items.Insert(1, "32BitHigh");
+                }
+                if (!glassComboBox1.Items.Contains("32BitLow"))
+                {
+                    glassComboBox1.Items.Insert(2, "32BitLow");
+                }
+                glassComboBox1.SelectedIndex = 0;
+            }
+        }
+
+        private void textBoxSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.V || e.Modifiers == Keys.Shift && e.KeyCode == Keys.Insert)
+            {
+                string NewText = "";
+
+                foreach (char a in Clipboard.GetText())
+                {
+                    if ((a >= 'a' && a <= 'f') || (a >= 'A' && a <= 'F') || (a >= '0' && a <= '9'))
+                    {
+                        NewText = NewText + char.ToUpper(a);
+                    }
+                }
+
+                if (NewText != "")
+                {
+                    Clipboard.SetText(NewText);
+                }
+                else
+                { Clipboard.Clear(); }
+            }
+        }
     }
 }

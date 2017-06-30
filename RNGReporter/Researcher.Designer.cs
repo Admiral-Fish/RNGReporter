@@ -31,9 +31,9 @@ namespace RNGReporter
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.radioButtonCommon = new System.Windows.Forms.RadioButton();
             this.contextMenuStripGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +69,31 @@ namespace RNGReporter
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.checkBoxCustom8Hex = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.checkBoxCustom9Hex = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.checkBoxCustom10Hex = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.buttonNext = new RNGReporter.GlassButton();
+            this.glassComboBox1 = new RNGReporter.GlassComboBox();
+            this.buttonSearch = new RNGReporter.GlassButton();
+            this.textBoxSearch = new RNGReporter.TextBox2();
+            this.comboBoxRValue10 = new RNGReporter.GlassComboBox();
+            this.textBoxRValue10 = new RNGReporter.TextBox2();
+            this.comboBoxLValue10 = new RNGReporter.GlassComboBox();
+            this.comboBoxOperator10 = new RNGReporter.GlassComboBox();
+            this.comboBoxRValue9 = new RNGReporter.GlassComboBox();
+            this.textBoxRValue9 = new RNGReporter.TextBox2();
+            this.comboBoxLValue9 = new RNGReporter.GlassComboBox();
+            this.comboBoxOperator9 = new RNGReporter.GlassComboBox();
+            this.comboBoxRValue8 = new RNGReporter.GlassComboBox();
+            this.textBoxRValue8 = new RNGReporter.TextBox2();
+            this.comboBoxLValue8 = new RNGReporter.GlassComboBox();
+            this.comboBoxOperator8 = new RNGReporter.GlassComboBox();
             this.comboBoxRNG = new RNGReporter.GlassComboBox();
             this.comboBoxRValue7 = new RNGReporter.GlassComboBox();
             this.comboBoxRValue6 = new RNGReporter.GlassComboBox();
@@ -102,34 +127,13 @@ namespace RNGReporter
             this.textBoxMult = new RNGReporter.TextBox2();
             this.textBoxAdd = new RNGReporter.TextBox2();
             this.dataGridViewValues = new RNGReporter.DoubleBufferedDataGridView();
-            this.buttonGenerate = new RNGReporter.GlassButton();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.comboBoxRValue8 = new RNGReporter.GlassComboBox();
-            this.textBoxRValue8 = new RNGReporter.TextBox2();
-            this.checkBoxCustom8Hex = new System.Windows.Forms.CheckBox();
-            this.comboBoxLValue8 = new RNGReporter.GlassComboBox();
-            this.comboBoxOperator8 = new RNGReporter.GlassComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboBoxRValue9 = new RNGReporter.GlassComboBox();
-            this.textBoxRValue9 = new RNGReporter.TextBox2();
-            this.checkBoxCustom9Hex = new System.Windows.Forms.CheckBox();
-            this.comboBoxLValue9 = new RNGReporter.GlassComboBox();
-            this.comboBoxOperator9 = new RNGReporter.GlassComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.comboBoxRValue10 = new RNGReporter.GlassComboBox();
-            this.textBoxRValue10 = new RNGReporter.TextBox2();
-            this.checkBoxCustom10Hex = new System.Windows.Forms.CheckBox();
-            this.comboBoxLValue10 = new RNGReporter.GlassComboBox();
-            this.comboBoxOperator10 = new RNGReporter.GlassComboBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.Frame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column64Bit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column32Bit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column32BitHigh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column32BitLow = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column16High = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column16Low = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16BitHigh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16BitLow = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Custom1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Custom2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Custom3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -146,6 +150,7 @@ namespace RNGReporter
             this.Div656 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mod2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HighBit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonGenerate = new RNGReporter.GlassButton();
             this.contextMenuStripGrid.SuspendLayout();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).BeginInit();
@@ -155,7 +160,7 @@ namespace RNGReporter
             // 
             this.radioButtonCommon.AutoSize = true;
             this.radioButtonCommon.Checked = true;
-            this.radioButtonCommon.Location = new System.Drawing.Point(12, 27);
+            this.radioButtonCommon.Location = new System.Drawing.Point(10, 27);
             this.radioButtonCommon.Name = "radioButtonCommon";
             this.radioButtonCommon.Size = new System.Drawing.Size(98, 17);
             this.radioButtonCommon.TabIndex = 0;
@@ -225,7 +230,7 @@ namespace RNGReporter
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(11, 285);
+            this.label12.Location = new System.Drawing.Point(10, 192);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(60, 13);
             this.label12.TabIndex = 11;
@@ -234,7 +239,7 @@ namespace RNGReporter
             // radioButtonCustom
             // 
             this.radioButtonCustom.AutoSize = true;
-            this.radioButtonCustom.Location = new System.Drawing.Point(12, 65);
+            this.radioButtonCustom.Location = new System.Drawing.Point(10, 65);
             this.radioButtonCustom.Name = "radioButtonCustom";
             this.radioButtonCustom.Size = new System.Drawing.Size(60, 17);
             this.radioButtonCustom.TabIndex = 4;
@@ -298,7 +303,7 @@ namespace RNGReporter
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 259);
+            this.label10.Location = new System.Drawing.Point(10, 166);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(65, 13);
             this.label10.TabIndex = 9;
@@ -435,23 +440,452 @@ namespace RNGReporter
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "&New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Title = "Open Researcher Profile";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "xml";
+            this.saveFileDialog1.Title = "Save Researcher Profile";
+            // 
+            // checkBoxCustom8Hex
+            // 
+            this.checkBoxCustom8Hex.AutoSize = true;
+            this.checkBoxCustom8Hex.Location = new System.Drawing.Point(656, 219);
+            this.checkBoxCustom8Hex.Name = "checkBoxCustom8Hex";
+            this.checkBoxCustom8Hex.Size = new System.Drawing.Size(45, 17);
+            this.checkBoxCustom8Hex.TabIndex = 75;
+            this.checkBoxCustom8Hex.Text = "Hex";
+            this.checkBoxCustom8Hex.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(392, 218);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(51, 13);
+            this.label11.TabIndex = 72;
+            this.label11.Text = "Custom 8";
+            // 
+            // checkBoxCustom9Hex
+            // 
+            this.checkBoxCustom9Hex.AutoSize = true;
+            this.checkBoxCustom9Hex.Location = new System.Drawing.Point(656, 246);
+            this.checkBoxCustom9Hex.Name = "checkBoxCustom9Hex";
+            this.checkBoxCustom9Hex.Size = new System.Drawing.Size(45, 17);
+            this.checkBoxCustom9Hex.TabIndex = 81;
+            this.checkBoxCustom9Hex.Text = "Hex";
+            this.checkBoxCustom9Hex.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(392, 245);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(51, 13);
+            this.label13.TabIndex = 78;
+            this.label13.Text = "Custom 9";
+            // 
+            // checkBoxCustom10Hex
+            // 
+            this.checkBoxCustom10Hex.AutoSize = true;
+            this.checkBoxCustom10Hex.Location = new System.Drawing.Point(656, 274);
+            this.checkBoxCustom10Hex.Name = "checkBoxCustom10Hex";
+            this.checkBoxCustom10Hex.Size = new System.Drawing.Size(45, 17);
+            this.checkBoxCustom10Hex.TabIndex = 87;
+            this.checkBoxCustom10Hex.Text = "Hex";
+            this.checkBoxCustom10Hex.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(392, 273);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(57, 13);
+            this.label14.TabIndex = 84;
+            this.label14.Text = "Custom 10";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 249);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(97, 13);
+            this.label15.TabIndex = 95;
+            this.label15.Text = "Search Seed (Hex)";
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.buttonNext.ForeColor = System.Drawing.Color.Black;
+            this.buttonNext.Location = new System.Drawing.Point(166, 274);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonNext.ShineColor = System.Drawing.SystemColors.Window;
+            this.buttonNext.Size = new System.Drawing.Size(145, 23);
+            this.buttonNext.TabIndex = 94;
+            this.buttonNext.Text = "Next";
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            // 
+            // glassComboBox1
+            // 
+            this.glassComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.glassComboBox1.ForeColor = System.Drawing.Color.Black;
+            this.glassComboBox1.FormattingEnabled = true;
+            this.glassComboBox1.Items.AddRange(new object[] {
+            "32Bit",
+            "16BitHigh",
+            "16BitLow"});
+            this.glassComboBox1.Location = new System.Drawing.Point(217, 245);
+            this.glassComboBox1.Name = "glassComboBox1";
+            this.glassComboBox1.ShineColor = System.Drawing.SystemColors.Window;
+            this.glassComboBox1.Size = new System.Drawing.Size(94, 21);
+            this.glassComboBox1.TabIndex = 93;
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.buttonSearch.ForeColor = System.Drawing.Color.Black;
+            this.buttonSearch.Location = new System.Drawing.Point(13, 274);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonSearch.ShineColor = System.Drawing.SystemColors.Window;
+            this.buttonSearch.Size = new System.Drawing.Size(145, 23);
+            this.buttonSearch.TabIndex = 92;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Location = new System.Drawing.Point(111, 245);
+            this.textBoxSearch.MaxLength = 16;
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSearch.TabIndex = 90;
+            this.textBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
+            this.textBoxSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
+            // 
+            // comboBoxRValue10
+            // 
+            this.comboBoxRValue10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxRValue10.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxRValue10.FormattingEnabled = true;
+            this.comboBoxRValue10.Items.AddRange(new object[] {
+            "None",
+            "64Bit",
+            "32Bit",
+            "32Bit High",
+            "32Bit Low",
+            "16Bit High",
+            "16Bit Low",
+            "Custom 1",
+            "Custom 2",
+            "Custom 3",
+            "Custom 4",
+            "Custom 5",
+            "Custom 6",
+            "Custom 7",
+            "Custom 8",
+            "Custom 9",
+            "Previous 1",
+            "Previous 2",
+            "Previous 3",
+            "Previous 4",
+            "Previous 5",
+            "Previous 6",
+            "Previous 7",
+            "Previous 8",
+            "Previous 9"});
+            this.comboBoxRValue10.Location = new System.Drawing.Point(709, 270);
+            this.comboBoxRValue10.Name = "comboBoxRValue10";
+            this.comboBoxRValue10.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxRValue10.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxRValue10.TabIndex = 89;
+            // 
+            // textBoxRValue10
+            // 
+            this.textBoxRValue10.Location = new System.Drawing.Point(592, 270);
+            this.textBoxRValue10.MaxLength = 16;
+            this.textBoxRValue10.Name = "textBoxRValue10";
+            this.textBoxRValue10.Size = new System.Drawing.Size(58, 20);
+            this.textBoxRValue10.TabIndex = 88;
+            this.textBoxRValue10.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
+            this.textBoxRValue10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
+            // 
+            // comboBoxLValue10
+            // 
+            this.comboBoxLValue10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLValue10.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxLValue10.FormattingEnabled = true;
+            this.comboBoxLValue10.Items.AddRange(new object[] {
+            "64Bit",
+            "32Bit",
+            "32Bit High",
+            "32Bit Low",
+            "16Bit High",
+            "16Bit Low",
+            "Custom 1",
+            "Custom 2",
+            "Custom 3",
+            "Custom 4",
+            "Custom 5",
+            "Custom 6",
+            "Custom 7",
+            "Custom 8",
+            "Custom 9",
+            "Previous 1",
+            "Previous 2",
+            "Previous 3",
+            "Previous 4",
+            "Previous 5",
+            "Previous 6",
+            "Previous 7",
+            "Previous 8",
+            "Previous 9"});
+            this.comboBoxLValue10.Location = new System.Drawing.Point(449, 270);
+            this.comboBoxLValue10.Name = "comboBoxLValue10";
+            this.comboBoxLValue10.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxLValue10.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxLValue10.TabIndex = 85;
+            // 
+            // comboBoxOperator10
+            // 
+            this.comboBoxOperator10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOperator10.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxOperator10.FormattingEnabled = true;
+            this.comboBoxOperator10.Items.AddRange(new object[] {
+            "/",
+            "%",
+            ">>",
+            "<<",
+            "&",
+            "|",
+            "^",
+            "+",
+            "-",
+            "*"});
+            this.comboBoxOperator10.Location = new System.Drawing.Point(535, 270);
+            this.comboBoxOperator10.Name = "comboBoxOperator10";
+            this.comboBoxOperator10.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxOperator10.Size = new System.Drawing.Size(51, 21);
+            this.comboBoxOperator10.TabIndex = 86;
+            // 
+            // comboBoxRValue9
+            // 
+            this.comboBoxRValue9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxRValue9.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxRValue9.FormattingEnabled = true;
+            this.comboBoxRValue9.Items.AddRange(new object[] {
+            "None",
+            "64Bit",
+            "32Bit",
+            "32Bit High",
+            "32Bit Low",
+            "16Bit High",
+            "16Bit Low",
+            "Custom 1",
+            "Custom 2",
+            "Custom 3",
+            "Custom 4",
+            "Custom 5",
+            "Custom 6",
+            "Custom 7",
+            "Custom 8",
+            "Previous 1",
+            "Previous 2",
+            "Previous 3",
+            "Previous 4",
+            "Previous 5",
+            "Previous 6",
+            "Previous 7",
+            "Previous 8"});
+            this.comboBoxRValue9.Location = new System.Drawing.Point(709, 242);
+            this.comboBoxRValue9.Name = "comboBoxRValue9";
+            this.comboBoxRValue9.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxRValue9.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxRValue9.TabIndex = 83;
+            // 
+            // textBoxRValue9
+            // 
+            this.textBoxRValue9.Location = new System.Drawing.Point(592, 242);
+            this.textBoxRValue9.MaxLength = 16;
+            this.textBoxRValue9.Name = "textBoxRValue9";
+            this.textBoxRValue9.Size = new System.Drawing.Size(58, 20);
+            this.textBoxRValue9.TabIndex = 82;
+            this.textBoxRValue9.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
+            this.textBoxRValue9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
+            // 
+            // comboBoxLValue9
+            // 
+            this.comboBoxLValue9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLValue9.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxLValue9.FormattingEnabled = true;
+            this.comboBoxLValue9.Items.AddRange(new object[] {
+            "64Bit",
+            "32Bit",
+            "32Bit High",
+            "32Bit Low",
+            "16Bit High",
+            "16Bit Low",
+            "Custom 1",
+            "Custom 2",
+            "Custom 3",
+            "Custom 4",
+            "Custom 5",
+            "Custom 6",
+            "Custom 7",
+            "Custom 8",
+            "Previous 1",
+            "Previous 2",
+            "Previous 3",
+            "Previous 4",
+            "Previous 5",
+            "Previous 6",
+            "Previous 7",
+            "Previous 8"});
+            this.comboBoxLValue9.Location = new System.Drawing.Point(449, 242);
+            this.comboBoxLValue9.Name = "comboBoxLValue9";
+            this.comboBoxLValue9.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxLValue9.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxLValue9.TabIndex = 79;
+            // 
+            // comboBoxOperator9
+            // 
+            this.comboBoxOperator9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOperator9.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxOperator9.FormattingEnabled = true;
+            this.comboBoxOperator9.Items.AddRange(new object[] {
+            "/",
+            "%",
+            ">>",
+            "<<",
+            "&",
+            "|",
+            "^",
+            "+",
+            "-",
+            "*"});
+            this.comboBoxOperator9.Location = new System.Drawing.Point(535, 242);
+            this.comboBoxOperator9.Name = "comboBoxOperator9";
+            this.comboBoxOperator9.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxOperator9.Size = new System.Drawing.Size(51, 21);
+            this.comboBoxOperator9.TabIndex = 80;
+            // 
+            // comboBoxRValue8
+            // 
+            this.comboBoxRValue8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxRValue8.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxRValue8.FormattingEnabled = true;
+            this.comboBoxRValue8.Items.AddRange(new object[] {
+            "None",
+            "64Bit",
+            "32Bit",
+            "32Bit High",
+            "32Bit Low",
+            "16Bit High",
+            "16Bit Low",
+            "Custom 1",
+            "Custom 2",
+            "Custom 3",
+            "Custom 4",
+            "Custom 5",
+            "Custom 6",
+            "Custom 7",
+            "Previous 1",
+            "Previous 2",
+            "Previous 3",
+            "Previous 4",
+            "Previous 5",
+            "Previous 6",
+            "Previous 7"});
+            this.comboBoxRValue8.Location = new System.Drawing.Point(709, 215);
+            this.comboBoxRValue8.Name = "comboBoxRValue8";
+            this.comboBoxRValue8.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxRValue8.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxRValue8.TabIndex = 77;
+            // 
+            // textBoxRValue8
+            // 
+            this.textBoxRValue8.Location = new System.Drawing.Point(592, 215);
+            this.textBoxRValue8.MaxLength = 16;
+            this.textBoxRValue8.Name = "textBoxRValue8";
+            this.textBoxRValue8.Size = new System.Drawing.Size(58, 20);
+            this.textBoxRValue8.TabIndex = 76;
+            this.textBoxRValue8.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
+            this.textBoxRValue8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
+            // 
+            // comboBoxLValue8
+            // 
+            this.comboBoxLValue8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLValue8.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxLValue8.FormattingEnabled = true;
+            this.comboBoxLValue8.Items.AddRange(new object[] {
+            "64Bit",
+            "32Bit",
+            "32Bit High",
+            "32Bit Low",
+            "16Bit High",
+            "16Bit Low",
+            "Custom 1",
+            "Custom 2",
+            "Custom 3",
+            "Custom 4",
+            "Custom 5",
+            "Custom 6",
+            "Custom 7",
+            "Previous 1",
+            "Previous 2",
+            "Previous 3",
+            "Previous 4",
+            "Previous 5",
+            "Previous 6",
+            "Previous 7"});
+            this.comboBoxLValue8.Location = new System.Drawing.Point(449, 215);
+            this.comboBoxLValue8.Name = "comboBoxLValue8";
+            this.comboBoxLValue8.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxLValue8.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxLValue8.TabIndex = 73;
+            // 
+            // comboBoxOperator8
+            // 
+            this.comboBoxOperator8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOperator8.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxOperator8.FormattingEnabled = true;
+            this.comboBoxOperator8.Items.AddRange(new object[] {
+            "/",
+            "%",
+            ">>",
+            "<<",
+            "&",
+            "|",
+            "^",
+            "+",
+            "-",
+            "*"});
+            this.comboBoxOperator8.Location = new System.Drawing.Point(535, 215);
+            this.comboBoxOperator8.Name = "comboBoxOperator8";
+            this.comboBoxOperator8.ShineColor = System.Drawing.SystemColors.Window;
+            this.comboBoxOperator8.Size = new System.Drawing.Size(51, 21);
+            this.comboBoxOperator8.TabIndex = 74;
             // 
             // comboBoxRNG
             // 
@@ -480,6 +914,7 @@ namespace RNGReporter
             this.comboBoxRNG.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxRNG.Size = new System.Drawing.Size(170, 21);
             this.comboBoxRNG.TabIndex = 70;
+            this.comboBoxRNG.SelectedIndexChanged += new System.EventHandler(this.comboBoxRNG_SelectedIndexChanged);
             // 
             // comboBoxRValue7
             // 
@@ -666,6 +1101,7 @@ namespace RNGReporter
             this.textBoxRValue7.Name = "textBoxRValue7";
             this.textBoxRValue7.Size = new System.Drawing.Size(58, 20);
             this.textBoxRValue7.TabIndex = 62;
+            this.textBoxRValue7.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxRValue7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // textBoxRValue6
@@ -675,6 +1111,7 @@ namespace RNGReporter
             this.textBoxRValue6.Name = "textBoxRValue6";
             this.textBoxRValue6.Size = new System.Drawing.Size(58, 20);
             this.textBoxRValue6.TabIndex = 61;
+            this.textBoxRValue6.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxRValue6.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // textBoxRValue5
@@ -684,6 +1121,7 @@ namespace RNGReporter
             this.textBoxRValue5.Name = "textBoxRValue5";
             this.textBoxRValue5.Size = new System.Drawing.Size(58, 20);
             this.textBoxRValue5.TabIndex = 60;
+            this.textBoxRValue5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxRValue5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // textBoxRValue4
@@ -693,6 +1131,7 @@ namespace RNGReporter
             this.textBoxRValue4.Name = "textBoxRValue4";
             this.textBoxRValue4.Size = new System.Drawing.Size(58, 20);
             this.textBoxRValue4.TabIndex = 59;
+            this.textBoxRValue4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxRValue4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // textBoxRValue3
@@ -702,6 +1141,7 @@ namespace RNGReporter
             this.textBoxRValue3.Name = "textBoxRValue3";
             this.textBoxRValue3.Size = new System.Drawing.Size(58, 20);
             this.textBoxRValue3.TabIndex = 58;
+            this.textBoxRValue3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxRValue3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // textBoxRValue2
@@ -711,6 +1151,7 @@ namespace RNGReporter
             this.textBoxRValue2.Name = "textBoxRValue2";
             this.textBoxRValue2.Size = new System.Drawing.Size(58, 20);
             this.textBoxRValue2.TabIndex = 57;
+            this.textBoxRValue2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxRValue2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // textBoxRValue1
@@ -720,6 +1161,7 @@ namespace RNGReporter
             this.textBoxRValue1.Name = "textBoxRValue1";
             this.textBoxRValue1.Size = new System.Drawing.Size(58, 20);
             this.textBoxRValue1.TabIndex = 56;
+            this.textBoxRValue1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxRValue1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // comboBoxLValue7
@@ -853,7 +1295,7 @@ namespace RNGReporter
             // maskedTextBoxMaxFrames
             // 
             this.maskedTextBoxMaxFrames.Hex = false;
-            this.maskedTextBoxMaxFrames.Location = new System.Drawing.Point(78, 256);
+            this.maskedTextBoxMaxFrames.Location = new System.Drawing.Point(76, 163);
             this.maskedTextBoxMaxFrames.Mask = "0000000000";
             this.maskedTextBoxMaxFrames.Name = "maskedTextBoxMaxFrames";
             this.maskedTextBoxMaxFrames.Size = new System.Drawing.Size(85, 20);
@@ -946,11 +1388,12 @@ namespace RNGReporter
             // 
             // textBoxSeed
             // 
-            this.textBoxSeed.Location = new System.Drawing.Point(78, 282);
+            this.textBoxSeed.Location = new System.Drawing.Point(76, 189);
             this.textBoxSeed.MaxLength = 16;
             this.textBoxSeed.Name = "textBoxSeed";
-            this.textBoxSeed.Size = new System.Drawing.Size(170, 20);
+            this.textBoxSeed.Size = new System.Drawing.Size(144, 20);
             this.textBoxSeed.TabIndex = 12;
+            this.textBoxSeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxSeed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // comboBoxOperator4
@@ -1048,6 +1491,7 @@ namespace RNGReporter
             this.textBoxMult.Name = "textBoxMult";
             this.textBoxMult.Size = new System.Drawing.Size(170, 20);
             this.textBoxMult.TabIndex = 5;
+            this.textBoxMult.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxMult.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // textBoxAdd
@@ -1057,6 +1501,7 @@ namespace RNGReporter
             this.textBoxAdd.Name = "textBoxAdd";
             this.textBoxAdd.Size = new System.Drawing.Size(170, 20);
             this.textBoxAdd.TabIndex = 6;
+            this.textBoxAdd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHex_KeyPress);
             // 
             // dataGridViewValues
@@ -1064,17 +1509,17 @@ namespace RNGReporter
             this.dataGridViewValues.AllowUserToAddRows = false;
             this.dataGridViewValues.AllowUserToDeleteRows = false;
             this.dataGridViewValues.AllowUserToResizeRows = false;
-            this.dataGridViewValues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridViewValues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Frame,
@@ -1082,8 +1527,8 @@ namespace RNGReporter
             this.Column32Bit,
             this.Column32BitHigh,
             this.Column32BitLow,
-            this.Column16High,
-            this.Column16Low,
+            this.Column16BitHigh,
+            this.Column16BitLow,
             this.Custom1,
             this.Custom2,
             this.Custom3,
@@ -1101,26 +1546,26 @@ namespace RNGReporter
             this.Mod2,
             this.HighBit});
             this.dataGridViewValues.ContextMenuStrip = this.contextMenuStripGrid;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 8.75F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewValues.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewValues.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewValues.Location = new System.Drawing.Point(13, 309);
             this.dataGridViewValues.MultiSelect = false;
             this.dataGridViewValues.Name = "dataGridViewValues";
             this.dataGridViewValues.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewValues.RowHeadersVisible = false;
             this.dataGridViewValues.RowTemplate.Height = 20;
             this.dataGridViewValues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1128,382 +1573,6 @@ namespace RNGReporter
             this.dataGridViewValues.Size = new System.Drawing.Size(776, 340);
             this.dataGridViewValues.TabIndex = 33;
             this.dataGridViewValues.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewValues_MouseDown);
-            // 
-            // buttonGenerate
-            // 
-            this.buttonGenerate.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.buttonGenerate.ForeColor = System.Drawing.Color.Black;
-            this.buttonGenerate.Location = new System.Drawing.Point(255, 280);
-            this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.buttonGenerate.ShineColor = System.Drawing.SystemColors.Window;
-            this.buttonGenerate.Size = new System.Drawing.Size(85, 23);
-            this.buttonGenerate.TabIndex = 34;
-            this.buttonGenerate.Text = "Generate";
-            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.Title = "Open Researcher Profile";
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "xml";
-            this.saveFileDialog1.Title = "Save Researcher Profile";
-            // 
-            // comboBoxRValue8
-            // 
-            this.comboBoxRValue8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxRValue8.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxRValue8.FormattingEnabled = true;
-            this.comboBoxRValue8.Items.AddRange(new object[] {
-            "None",
-            "64Bit",
-            "32Bit",
-            "32Bit High",
-            "32Bit Low",
-            "16Bit High",
-            "16Bit Low",
-            "Custom 1",
-            "Custom 2",
-            "Custom 3",
-            "Custom 4",
-            "Custom 5",
-            "Custom 6",
-            "Custom 7",
-            "Previous 1",
-            "Previous 2",
-            "Previous 3",
-            "Previous 4",
-            "Previous 5",
-            "Previous 6",
-            "Previous 7"});
-            this.comboBoxRValue8.Location = new System.Drawing.Point(709, 215);
-            this.comboBoxRValue8.Name = "comboBoxRValue8";
-            this.comboBoxRValue8.ShineColor = System.Drawing.SystemColors.Window;
-            this.comboBoxRValue8.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxRValue8.TabIndex = 77;
-            // 
-            // textBoxRValue8
-            // 
-            this.textBoxRValue8.Location = new System.Drawing.Point(592, 215);
-            this.textBoxRValue8.MaxLength = 16;
-            this.textBoxRValue8.Name = "textBoxRValue8";
-            this.textBoxRValue8.Size = new System.Drawing.Size(58, 20);
-            this.textBoxRValue8.TabIndex = 76;
-            // 
-            // checkBoxCustom8Hex
-            // 
-            this.checkBoxCustom8Hex.AutoSize = true;
-            this.checkBoxCustom8Hex.Location = new System.Drawing.Point(656, 219);
-            this.checkBoxCustom8Hex.Name = "checkBoxCustom8Hex";
-            this.checkBoxCustom8Hex.Size = new System.Drawing.Size(45, 17);
-            this.checkBoxCustom8Hex.TabIndex = 75;
-            this.checkBoxCustom8Hex.Text = "Hex";
-            this.checkBoxCustom8Hex.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxLValue8
-            // 
-            this.comboBoxLValue8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLValue8.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxLValue8.FormattingEnabled = true;
-            this.comboBoxLValue8.Items.AddRange(new object[] {
-            "64Bit",
-            "32Bit",
-            "32Bit High",
-            "32Bit Low",
-            "16Bit High",
-            "16Bit Low",
-            "Custom 1",
-            "Custom 2",
-            "Custom 3",
-            "Custom 4",
-            "Custom 5",
-            "Custom 6",
-            "Custom 7",
-            "Previous 1",
-            "Previous 2",
-            "Previous 3",
-            "Previous 4",
-            "Previous 5",
-            "Previous 6",
-            "Previous 7"});
-            this.comboBoxLValue8.Location = new System.Drawing.Point(449, 215);
-            this.comboBoxLValue8.Name = "comboBoxLValue8";
-            this.comboBoxLValue8.ShineColor = System.Drawing.SystemColors.Window;
-            this.comboBoxLValue8.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxLValue8.TabIndex = 73;
-            // 
-            // comboBoxOperator8
-            // 
-            this.comboBoxOperator8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOperator8.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxOperator8.FormattingEnabled = true;
-            this.comboBoxOperator8.Items.AddRange(new object[] {
-            "/",
-            "%",
-            ">>",
-            "<<",
-            "&",
-            "|",
-            "^",
-            "+",
-            "-",
-            "*"});
-            this.comboBoxOperator8.Location = new System.Drawing.Point(535, 215);
-            this.comboBoxOperator8.Name = "comboBoxOperator8";
-            this.comboBoxOperator8.ShineColor = System.Drawing.SystemColors.Window;
-            this.comboBoxOperator8.Size = new System.Drawing.Size(51, 21);
-            this.comboBoxOperator8.TabIndex = 74;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(392, 218);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(51, 13);
-            this.label11.TabIndex = 72;
-            this.label11.Text = "Custom 8";
-            // 
-            // comboBoxRValue9
-            // 
-            this.comboBoxRValue9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxRValue9.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxRValue9.FormattingEnabled = true;
-            this.comboBoxRValue9.Items.AddRange(new object[] {
-            "None",
-            "64Bit",
-            "32Bit",
-            "32Bit High",
-            "32Bit Low",
-            "16Bit High",
-            "16Bit Low",
-            "Custom 1",
-            "Custom 2",
-            "Custom 3",
-            "Custom 4",
-            "Custom 5",
-            "Custom 6",
-            "Custom 7",
-            "Custom 8",
-            "Previous 1",
-            "Previous 2",
-            "Previous 3",
-            "Previous 4",
-            "Previous 5",
-            "Previous 6",
-            "Previous 7",
-            "Previous 8"});
-            this.comboBoxRValue9.Location = new System.Drawing.Point(709, 242);
-            this.comboBoxRValue9.Name = "comboBoxRValue9";
-            this.comboBoxRValue9.ShineColor = System.Drawing.SystemColors.Window;
-            this.comboBoxRValue9.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxRValue9.TabIndex = 83;
-            // 
-            // textBoxRValue9
-            // 
-            this.textBoxRValue9.Location = new System.Drawing.Point(592, 242);
-            this.textBoxRValue9.MaxLength = 16;
-            this.textBoxRValue9.Name = "textBoxRValue9";
-            this.textBoxRValue9.Size = new System.Drawing.Size(58, 20);
-            this.textBoxRValue9.TabIndex = 82;
-            // 
-            // checkBoxCustom9Hex
-            // 
-            this.checkBoxCustom9Hex.AutoSize = true;
-            this.checkBoxCustom9Hex.Location = new System.Drawing.Point(656, 246);
-            this.checkBoxCustom9Hex.Name = "checkBoxCustom9Hex";
-            this.checkBoxCustom9Hex.Size = new System.Drawing.Size(45, 17);
-            this.checkBoxCustom9Hex.TabIndex = 81;
-            this.checkBoxCustom9Hex.Text = "Hex";
-            this.checkBoxCustom9Hex.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxLValue9
-            // 
-            this.comboBoxLValue9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLValue9.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxLValue9.FormattingEnabled = true;
-            this.comboBoxLValue9.Items.AddRange(new object[] {
-            "64Bit",
-            "32Bit",
-            "32Bit High",
-            "32Bit Low",
-            "16Bit High",
-            "16Bit Low",
-            "Custom 1",
-            "Custom 2",
-            "Custom 3",
-            "Custom 4",
-            "Custom 5",
-            "Custom 6",
-            "Custom 7",
-            "Custom 8",
-            "Previous 1",
-            "Previous 2",
-            "Previous 3",
-            "Previous 4",
-            "Previous 5",
-            "Previous 6",
-            "Previous 7",
-            "Previous 8"});
-            this.comboBoxLValue9.Location = new System.Drawing.Point(449, 242);
-            this.comboBoxLValue9.Name = "comboBoxLValue9";
-            this.comboBoxLValue9.ShineColor = System.Drawing.SystemColors.Window;
-            this.comboBoxLValue9.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxLValue9.TabIndex = 79;
-            // 
-            // comboBoxOperator9
-            // 
-            this.comboBoxOperator9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOperator9.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxOperator9.FormattingEnabled = true;
-            this.comboBoxOperator9.Items.AddRange(new object[] {
-            "/",
-            "%",
-            ">>",
-            "<<",
-            "&",
-            "|",
-            "^",
-            "+",
-            "-",
-            "*"});
-            this.comboBoxOperator9.Location = new System.Drawing.Point(535, 242);
-            this.comboBoxOperator9.Name = "comboBoxOperator9";
-            this.comboBoxOperator9.ShineColor = System.Drawing.SystemColors.Window;
-            this.comboBoxOperator9.Size = new System.Drawing.Size(51, 21);
-            this.comboBoxOperator9.TabIndex = 80;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(392, 245);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(51, 13);
-            this.label13.TabIndex = 78;
-            this.label13.Text = "Custom 9";
-            // 
-            // comboBoxRValue10
-            // 
-            this.comboBoxRValue10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxRValue10.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxRValue10.FormattingEnabled = true;
-            this.comboBoxRValue10.Items.AddRange(new object[] {
-            "None",
-            "64Bit",
-            "32Bit",
-            "32Bit High",
-            "32Bit Low",
-            "16Bit High",
-            "16Bit Low",
-            "Custom 1",
-            "Custom 2",
-            "Custom 3",
-            "Custom 4",
-            "Custom 5",
-            "Custom 6",
-            "Custom 7",
-            "Custom 8",
-            "Custom 9",
-            "Previous 1",
-            "Previous 2",
-            "Previous 3",
-            "Previous 4",
-            "Previous 5",
-            "Previous 6",
-            "Previous 7",
-            "Previous 8",
-            "Previous 9"});
-            this.comboBoxRValue10.Location = new System.Drawing.Point(709, 270);
-            this.comboBoxRValue10.Name = "comboBoxRValue10";
-            this.comboBoxRValue10.ShineColor = System.Drawing.SystemColors.Window;
-            this.comboBoxRValue10.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxRValue10.TabIndex = 89;
-            // 
-            // textBoxRValue10
-            // 
-            this.textBoxRValue10.Location = new System.Drawing.Point(592, 270);
-            this.textBoxRValue10.MaxLength = 16;
-            this.textBoxRValue10.Name = "textBoxRValue10";
-            this.textBoxRValue10.Size = new System.Drawing.Size(58, 20);
-            this.textBoxRValue10.TabIndex = 88;
-            // 
-            // checkBoxCustom10Hex
-            // 
-            this.checkBoxCustom10Hex.AutoSize = true;
-            this.checkBoxCustom10Hex.Location = new System.Drawing.Point(656, 274);
-            this.checkBoxCustom10Hex.Name = "checkBoxCustom10Hex";
-            this.checkBoxCustom10Hex.Size = new System.Drawing.Size(45, 17);
-            this.checkBoxCustom10Hex.TabIndex = 87;
-            this.checkBoxCustom10Hex.Text = "Hex";
-            this.checkBoxCustom10Hex.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxLValue10
-            // 
-            this.comboBoxLValue10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLValue10.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxLValue10.FormattingEnabled = true;
-            this.comboBoxLValue10.Items.AddRange(new object[] {
-            "64Bit",
-            "32Bit",
-            "32Bit High",
-            "32Bit Low",
-            "16Bit High",
-            "16Bit Low",
-            "Custom 1",
-            "Custom 2",
-            "Custom 3",
-            "Custom 4",
-            "Custom 5",
-            "Custom 6",
-            "Custom 7",
-            "Custom 8",
-            "Custom 9",
-            "Previous 1",
-            "Previous 2",
-            "Previous 3",
-            "Previous 4",
-            "Previous 5",
-            "Previous 6",
-            "Previous 7",
-            "Previous 8",
-            "Previous 9"});
-            this.comboBoxLValue10.Location = new System.Drawing.Point(449, 270);
-            this.comboBoxLValue10.Name = "comboBoxLValue10";
-            this.comboBoxLValue10.ShineColor = System.Drawing.SystemColors.Window;
-            this.comboBoxLValue10.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxLValue10.TabIndex = 85;
-            // 
-            // comboBoxOperator10
-            // 
-            this.comboBoxOperator10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOperator10.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxOperator10.FormattingEnabled = true;
-            this.comboBoxOperator10.Items.AddRange(new object[] {
-            "/",
-            "%",
-            ">>",
-            "<<",
-            "&",
-            "|",
-            "^",
-            "+",
-            "-",
-            "*"});
-            this.comboBoxOperator10.Location = new System.Drawing.Point(535, 270);
-            this.comboBoxOperator10.Name = "comboBoxOperator10";
-            this.comboBoxOperator10.ShineColor = System.Drawing.SystemColors.Window;
-            this.comboBoxOperator10.Size = new System.Drawing.Size(51, 21);
-            this.comboBoxOperator10.TabIndex = 86;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(392, 273);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(57, 13);
-            this.label14.TabIndex = 84;
-            this.label14.Text = "Custom 10";
             // 
             // Frame
             // 
@@ -1545,21 +1614,21 @@ namespace RNGReporter
             this.Column32BitLow.ReadOnly = true;
             this.Column32BitLow.Width = 70;
             // 
-            // Column16High
+            // Column16BitHigh
             // 
-            this.Column16High.DataPropertyName = "High16";
-            this.Column16High.HeaderText = "16BitHigh";
-            this.Column16High.Name = "Column16High";
-            this.Column16High.ReadOnly = true;
-            this.Column16High.Width = 55;
+            this.Column16BitHigh.DataPropertyName = "High16";
+            this.Column16BitHigh.HeaderText = "16BitHigh";
+            this.Column16BitHigh.Name = "Column16BitHigh";
+            this.Column16BitHigh.ReadOnly = true;
+            this.Column16BitHigh.Width = 55;
             // 
-            // Column16Low
+            // Column16BitLow
             // 
-            this.Column16Low.DataPropertyName = "Low16";
-            this.Column16Low.HeaderText = "16BitLow";
-            this.Column16Low.Name = "Column16Low";
-            this.Column16Low.ReadOnly = true;
-            this.Column16Low.Width = 55;
+            this.Column16BitLow.DataPropertyName = "Low16";
+            this.Column16BitLow.HeaderText = "16BitLow";
+            this.Column16BitLow.Name = "Column16BitLow";
+            this.Column16BitLow.ReadOnly = true;
+            this.Column16BitLow.Width = 55;
             // 
             // Custom1
             // 
@@ -1689,11 +1758,29 @@ namespace RNGReporter
             this.HighBit.ReadOnly = true;
             this.HighBit.Width = 35;
             // 
+            // buttonGenerate
+            // 
+            this.buttonGenerate.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.buttonGenerate.ForeColor = System.Drawing.Color.Black;
+            this.buttonGenerate.Location = new System.Drawing.Point(226, 187);
+            this.buttonGenerate.Name = "buttonGenerate";
+            this.buttonGenerate.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonGenerate.ShineColor = System.Drawing.SystemColors.Window;
+            this.buttonGenerate.Size = new System.Drawing.Size(85, 23);
+            this.buttonGenerate.TabIndex = 34;
+            this.buttonGenerate.Text = "Generate";
+            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
+            // 
             // Researcher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(801, 654);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.buttonNext);
+            this.Controls.Add(this.glassComboBox1);
+            this.Controls.Add(this.buttonSearch);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.comboBoxRValue10);
             this.Controls.Add(this.textBoxRValue10);
             this.Controls.Add(this.checkBoxCustom10Hex);
@@ -1874,13 +1961,16 @@ namespace RNGReporter
         private GlassComboBox comboBoxLValue10;
         private GlassComboBox comboBoxOperator10;
         private System.Windows.Forms.Label label14;
+        private TextBox2 textBoxSearch;
+        private GlassButton buttonSearch;
+        private GlassComboBox glassComboBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Frame;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column64Bit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column32Bit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column32BitHigh;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column32BitLow;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column16High;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column16Low;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column16BitHigh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column16BitLow;
         private System.Windows.Forms.DataGridViewTextBoxColumn Custom1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Custom2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Custom3;
@@ -1897,5 +1987,7 @@ namespace RNGReporter
         private System.Windows.Forms.DataGridViewTextBoxColumn Div656;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mod2;
         private System.Windows.Forms.DataGridViewTextBoxColumn HighBit;
+        private GlassButton buttonNext;
+        private System.Windows.Forms.Label label15;
     }
 }

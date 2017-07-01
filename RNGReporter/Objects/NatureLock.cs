@@ -790,6 +790,7 @@ namespace RNGReporter.Objects
                 case 90: //Venomoth
                 case 91: //Voltorb
                 case 92: //Vulpix
+                    return 1;
                 case 12: //Dodrio
                 case 33: //Ledyba
                 case 42: //Manectric

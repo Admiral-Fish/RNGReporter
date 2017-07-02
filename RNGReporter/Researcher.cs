@@ -1031,8 +1031,16 @@ namespace RNGReporter
 
         private void searchValue(bool search)
         {
-            if (dataGridViewValues.RowCount > 0)
+            dataGridViewValues.Focus();                     
+
+            if (dataGridViewValues.RowCount > 0 && textBoxSearch.Text.Length > 0)
             {
+                string newTextBoxValue = textBoxSearch.Text;
+
+                while (newTextBoxValue.Length > 1 && newTextBoxValue.Substring(0, 1) == "0")
+                {
+                    newTextBoxValue = newTextBoxValue.Substring(1, newTextBoxValue.Length - 1);
+                }
                 int rowIndex = 0;
                 int columnIndex = 0;
 
@@ -1045,27 +1053,34 @@ namespace RNGReporter
                     columnIndex++;
                 }
 
-                foreach (DataGridViewRow row in dataGridViewValues.Rows)
+                if (search == false)
                 {
-                    string cellValue = long.Parse(dataGridViewValues["Column" + glassComboBox1.SelectedItem.ToString(), rowIndex].Value.ToString()).ToString("X");
-
-                    if (cellValue == textBoxSearch.Text && search == true)
+                    for (rowIndex = dataGridViewValues.CurrentCell.RowIndex + 1; rowIndex < dataGridViewValues.Rows.Count; rowIndex++)
                     {
-                        dataGridViewValues.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
-                        dataGridViewValues.Rows[rowIndex].Cells[columnIndex].Selected = true;
-                        break;
-                    }
-                    else if (cellValue == textBoxSearch.Text && search == false)
-                    {
-                        dataGridViewValues.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
+                        string cellValue = long.Parse(dataGridViewValues["Column" + glassComboBox1.SelectedItem.ToString(), rowIndex].Value.ToString()).ToString("X");
 
-                        if (rowIndex > dataGridViewValues.CurrentCell.RowIndex)
+                        if (cellValue == newTextBoxValue)
                         {
+                            dataGridViewValues.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
                             dataGridViewValues.Rows[rowIndex].Cells[columnIndex].Selected = true;
                             break;
                         }
                     }
-                    rowIndex++;
+                }
+                else
+                {
+                    foreach (DataGridViewRow row in dataGridViewValues.Rows)
+                    {
+                        string cellValue = long.Parse(dataGridViewValues["Column" + glassComboBox1.SelectedItem.ToString(), rowIndex].Value.ToString()).ToString("X");
+
+                        if (cellValue == newTextBoxValue)
+                        {
+                            dataGridViewValues.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
+                            dataGridViewValues.Rows[rowIndex].Cells[columnIndex].Selected = true;
+                            break;
+                        }
+                        rowIndex++;
+                    }
                 }
             }
         }

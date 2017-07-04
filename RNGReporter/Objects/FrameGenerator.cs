@@ -3703,15 +3703,6 @@ namespace RNGReporter.Objects
                 var rng = new PokeRng((uint) InitialSeed);
                 rngList = new List<uint>();
 
-                if (FrameType == FrameType.Bred || FrameType == FrameType.BredAlternate || FrameType == FrameType.BredSplit)
-                    rng.GetNext32BitNumber(4);
-
-                if (FrameType == FrameType.FRLGBredUpper)
-                    rng.GetNext32BitNumber(2);
-
-                //if (FrameType == FrameType.RSBredLower)
-                    //rng.GetNext32BitNumber(3);
-
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
                     rng.GetNext32BitNumber();
 
@@ -3865,16 +3856,16 @@ namespace RNGReporter.Objects
                                     cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
-                                    rngList[1],
-                                    rngList[2],
                                     rngList[3],
-                                    // vblank
                                     rngList[5],
                                     rngList[6],
-                                    rngList[7],
+                                    // vblank
                                     rngList[8],
                                     rngList[9],
                                     rngList[10],
+                                    rngList[11],
+                                    rngList[12],
+                                    rngList[13],
                                     ParentA,
                                     ParentB,
                                     id, sid);
@@ -3898,16 +3889,16 @@ namespace RNGReporter.Objects
                                     cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
-                                    rngList[2],
                                     rngList[4],
-                                    rngList[5],
-                                    // vblank
+                                    rngList[6],
                                     rngList[7],
-                                    rngList[8],
+                                    // vblank
                                     rngList[9],
                                     rngList[10],
                                     rngList[11],
                                     rngList[12],
+                                    rngList[13],
+                                    rngList[14],
                                     ParentA,
                                     ParentB,
                                     id, sid);
@@ -3920,14 +3911,14 @@ namespace RNGReporter.Objects
                                     cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
-                                    rngList[0],
-                                    rngList[1],
-                                    rngList[3],
                                     rngList[4],
                                     rngList[5],
-                                    rngList[6],
                                     rngList[7],
                                     rngList[8],
+                                    rngList[9],
+                                    rngList[10],
+                                    rngList[11],
+                                    rngList[12],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);
@@ -3945,15 +3936,15 @@ namespace RNGReporter.Objects
                                     cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
-                                    rngList[0],
-                                    rngList[1],
-                                    //  Garbage
-                                    rngList[3],
                                     rngList[4],
                                     rngList[5],
-                                    rngList[6],
+                                    //  Garbage
                                     rngList[7],
                                     rngList[8],
+                                    rngList[9],
+                                    rngList[10],
+                                    rngList[11],
+                                    rngList[12],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);
@@ -3964,15 +3955,15 @@ namespace RNGReporter.Objects
                                     cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
-                                    rngList[0],
-                                    rngList[2],
-                                    //  Garbage
                                     rngList[4],
-                                    rngList[5],
                                     rngList[6],
-                                    rngList[7],
+                                    //  Garbage
                                     rngList[8],
                                     rngList[9],
+                                    rngList[10],
+                                    rngList[11],
+                                    rngList[12],
+                                    rngList[13],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);
@@ -3987,14 +3978,14 @@ namespace RNGReporter.Objects
                                     cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
-                                    rngList[0],
-                                    rngList[1],
                                     rngList[4],
                                     rngList[5],
-                                    rngList[6],
-                                    rngList[7],
                                     rngList[8],
                                     rngList[9],
+                                    rngList[10],
+                                    rngList[11],
+                                    rngList[12],
+                                    rngList[13],
                                     ParentA,
                                     ParentB,
                                     id, sid, cnt);

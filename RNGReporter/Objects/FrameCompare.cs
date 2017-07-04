@@ -317,7 +317,7 @@ namespace RNGReporter.Objects
                 return false;
 
             // For 3rd Gen eggs - if an egg is not generated on that frame, ignore it
-            if (frame.FrameType == FrameType.RSBredLower)
+            if (frame.FrameType == FrameType.RSBredLower || frame.FrameType == FrameType.FRLGBredLower)
             {
                 // need to replace this now that we're using numbered natures
                 if (frame.Number == 0)

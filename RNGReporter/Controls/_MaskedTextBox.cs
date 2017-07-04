@@ -308,11 +308,11 @@ namespace RNGReporter
 
         protected override void OnTextChanged(EventArgs e)
         {
-            if (Tag == "ivs" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 31)
+            if ((String)Tag == "ivs" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 31)
             {
                 Text = "31";
             }
-            else if (Tag == "frame" && Text.Substring(Text.Length - 1, 1) != "_" && ulong.Parse(Text) > 4294967295)
+            else if ((String)Tag == "frame" && Text.Substring(Text.Length - 1, 1) != "_" && ulong.Parse(Text) > 4294967295)
             {
                 Text = "4294967295";
             }

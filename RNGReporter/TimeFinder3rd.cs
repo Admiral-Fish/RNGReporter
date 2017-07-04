@@ -79,6 +79,8 @@ namespace RNGReporter
             this.id = id;
             this.sid = sid;
             InitializeComponent();
+
+            normalSpreadRadioButton.Checked = true;
         }
 
         public int TabPage
@@ -174,8 +176,8 @@ namespace RNGReporter
             glassComboBoxAbilityFRLG.SelectedIndex = 0;
             compatibilityFRLG.SelectedIndex = 0;
             glassComboBoxGenderFRLG.SelectedIndex = 0;
-            
-            var everstoneList = new BindingSource {DataSource = Objects.Nature.NatureDropDownCollectionSynch()};
+
+            var everstoneList = new BindingSource { DataSource = Objects.Nature.NatureDropDownCollectionSynch() };
             comboEPIDEverstone.DataSource = everstoneList;
             cbSynchNature.DataSource = Objects.Nature.NatureDropDownCollectionSynch();
 
@@ -247,7 +249,7 @@ namespace RNGReporter
         public void SetLanguage()
         {
             var CellStyle = new DataGridViewCellStyle();
-            switch ((Language) Settings.Default.Language)
+            switch ((Language)Settings.Default.Language)
             {
                 case (Language.Japanese):
                     CellStyle.Font = new Font("Meiryo", 7.25F);
@@ -342,7 +344,7 @@ namespace RNGReporter
             //  generator for a list of egg PIDs based on parameters
             //  that have been passed in.
             List<Frame> frames = lowerGenerator.Generate(frameCompare, id, sid);
-            progressTotal += (ulong) frames.Count*searchRange;
+            progressTotal += (ulong)frames.Count * searchRange;
 
             //  Now we need to iterate through each result heref
             //  and create a collection of the information that
@@ -354,29 +356,29 @@ namespace RNGReporter
                 List<Frame> shinyFrames = ivGenerator.Generate(subFrameCompare, id, sid);
 
                 progressSearched += searchRange;
-                progressFound += (uint) shinyFrames.Count;
+                progressFound += (uint)shinyFrames.Count;
 
                 foreach (Frame shinyFrame in shinyFrames)
                 {
                     var iframe = new IFrameRSEggPID
-                        {
-                            FrameLowerPID = frame.Number,
-                            FrameUpperPID = shinyFrame.Number,
-                            Pid = shinyFrame.Pid,
-                            Shiny = shinyFrame.Shiny,
-                            DisplayHp = shinyFrame.DisplayHpAlt,
-                            DisplayAtk = shinyFrame.DisplayAtkAlt,
-                            DisplayDef = shinyFrame.DisplayDefAlt,
-                            DisplaySpa = shinyFrame.DisplaySpaAlt,
-                            DisplaySpd = shinyFrame.DisplaySpdAlt,
-                            DisplaySpe = shinyFrame.DisplaySpeAlt,
-                            DisplayHpInh = shinyFrame.DisplayHp,
-                            DisplayAtkInh = shinyFrame.DisplayAtk,
-                            DisplayDefInh = shinyFrame.DisplayDef,
-                            DisplaySpaInh = shinyFrame.DisplaySpa,
-                            DisplaySpdInh = shinyFrame.DisplaySpd,
-                            DisplaySpeInh = shinyFrame.DisplaySpe
-                        };
+                    {
+                        FrameLowerPID = frame.Number,
+                        FrameUpperPID = shinyFrame.Number,
+                        Pid = shinyFrame.Pid,
+                        Shiny = shinyFrame.Shiny,
+                        DisplayHp = shinyFrame.DisplayHpAlt,
+                        DisplayAtk = shinyFrame.DisplayAtkAlt,
+                        DisplayDef = shinyFrame.DisplayDefAlt,
+                        DisplaySpa = shinyFrame.DisplaySpaAlt,
+                        DisplaySpd = shinyFrame.DisplaySpdAlt,
+                        DisplaySpe = shinyFrame.DisplaySpeAlt,
+                        DisplayHpInh = shinyFrame.DisplayHp,
+                        DisplayAtkInh = shinyFrame.DisplayAtk,
+                        DisplayDefInh = shinyFrame.DisplayDef,
+                        DisplaySpaInh = shinyFrame.DisplaySpa,
+                        DisplaySpdInh = shinyFrame.DisplaySpd,
+                        DisplaySpeInh = shinyFrame.DisplaySpe
+                    };
 
                     lock (threadLock)
                     {
@@ -450,10 +452,10 @@ namespace RNGReporter
             {
                 // note: this is inefficent and should be done in a much faster way
                 // will require a restructure of FrameGenerator
-                uint offset = calibration + 3*redraws;
+                uint offset = calibration + 3 * redraws;
                 lowerGenerator.Calibration = offset;
                 List<Frame> frames = lowerGenerator.Generate(frameCompare, id, sid);
-                progressTotal = (ulong) frames.Count*searchRange*(maxRedraws - minRedraws);
+                progressTotal = (ulong)frames.Count * searchRange * (maxRedraws - minRedraws);
 
                 foreach (Frame frame in frames)
                 {
@@ -461,13 +463,13 @@ namespace RNGReporter
                     progressSearched += searchRange;
                     progressFound += 1;
                     var iframe = new IFrameEEggPID
-                        {
-                            Advances = frame.Advances,
-                            FrameLowerPID = frame.Number - offset - 18,
-                            Pid = frame.Pid,
-                            Shiny = frame.Shiny,
-                            Redraws = redraws
-                        };
+                    {
+                        Advances = frame.Advances,
+                        FrameLowerPID = frame.Number - offset - 18,
+                        Pid = frame.Pid,
+                        Shiny = frame.Shiny,
+                        Redraws = redraws
+                    };
 
                     lock (threadLock)
                     {
@@ -484,34 +486,34 @@ namespace RNGReporter
 
             //generate the iv frames
             List<Frame> ivFrames = ivGenerator.Generate(subFrameCompare, id, sid);
-            progressTotal = (ulong) ivFrames.Count*searchRange;
+            progressTotal = (ulong)ivFrames.Count * searchRange;
 
             foreach (Frame frame in ivFrames)
             {
                 waitHandle.WaitOne();
                 //ivGenerator.StaticPID = frame.Pid;
                 progressSearched += searchRange;
-                progressFound += (uint) ivFrames.Count;
+                progressFound += (uint)ivFrames.Count;
 
                 var iframe = new IFrameEEggPID
-                    {
-                        FrameNumber = frame.Name,
-                        FrameUpperPID = frame.Number,
-                        Pid = frame.Pid,
-                        Shiny = frame.Shiny,
-                        DisplayHp = frame.DisplayHpAlt,
-                        DisplayAtk = frame.DisplayAtkAlt,
-                        DisplayDef = frame.DisplayDefAlt,
-                        DisplaySpa = frame.DisplaySpaAlt,
-                        DisplaySpd = frame.DisplaySpdAlt,
-                        DisplaySpe = frame.DisplaySpeAlt,
-                        DisplayHpInh = frame.DisplayHp,
-                        DisplayAtkInh = frame.DisplayAtk,
-                        DisplayDefInh = frame.DisplayDef,
-                        DisplaySpaInh = frame.DisplaySpa,
-                        DisplaySpdInh = frame.DisplaySpd,
-                        DisplaySpeInh = frame.DisplaySpe,
-                    };
+                {
+                    FrameNumber = frame.Name,
+                    FrameUpperPID = frame.Number,
+                    Pid = frame.Pid,
+                    Shiny = frame.Shiny,
+                    DisplayHp = frame.DisplayHpAlt,
+                    DisplayAtk = frame.DisplayAtkAlt,
+                    DisplayDef = frame.DisplayDefAlt,
+                    DisplaySpa = frame.DisplaySpaAlt,
+                    DisplaySpd = frame.DisplaySpdAlt,
+                    DisplaySpe = frame.DisplaySpeAlt,
+                    DisplayHpInh = frame.DisplayHp,
+                    DisplayAtkInh = frame.DisplayAtk,
+                    DisplayDefInh = frame.DisplayDef,
+                    DisplaySpaInh = frame.DisplaySpa,
+                    DisplaySpdInh = frame.DisplaySpd,
+                    DisplaySpeInh = frame.DisplaySpe,
+                };
 
                 lock (threadLock)
                 {
@@ -531,9 +533,9 @@ namespace RNGReporter
             progressFound = 0;
 
             UpdateGridDelegate gridUpdater = UpdateGrid;
-            var updateParams = new object[] {bindingSource};
+            var updateParams = new object[] { bindingSource };
             ResortGridDelegate gridSorter = ResortGrid;
-            var sortParams = new object[] {bindingSource, grid, frameType};
+            var sortParams = new object[] { bindingSource, grid, frameType };
             ThreadDelegate enableGenerateButton = EnableCapGenerate;
 
             try
@@ -541,7 +543,7 @@ namespace RNGReporter
                 bool alive = true;
                 while (alive)
                 {
-                    progress.ShowProgress(progressSearched/(float) progressTotal, progressSearched, progressFound);
+                    progress.ShowProgress(progressSearched / (float)progressTotal, progressSearched, progressFound);
                     if (refreshQueue)
                     {
                         Invoke(gridUpdater, updateParams);
@@ -607,8 +609,8 @@ namespace RNGReporter
             switch (frameType)
             {
                 case FrameType.EBredPID:
-                    var iframeComparer = new IFrameEEggPIDComparer {CompareType = "Frame"};
-                    ((List<IFrameEEggPID>) bindingSource.DataSource).Sort(iframeComparer);
+                    var iframeComparer = new IFrameEEggPIDComparer { CompareType = "Frame" };
+                    ((List<IFrameEEggPID>)bindingSource.DataSource).Sort(iframeComparer);
                     EPIDFrame.HeaderCell.SortGlyphDirection = SortOrder.Ascending;
                     break;
             }
@@ -626,7 +628,7 @@ namespace RNGReporter
             //  Make all of the junk natures show up in a lighter color
             if (dataGridViewShinyRSResults.Columns[e.ColumnIndex].Name == "shiny3rdNature")
             {
-                var nature = (string) e.Value;
+                var nature = (string)e.Value;
 
                 if (nature == Functions.NatureStrings(18) ||
                     nature == Functions.NatureStrings(6) ||
@@ -647,17 +649,17 @@ namespace RNGReporter
                 dataGridViewShinyRSResults.Columns[e.ColumnIndex].Name == "shiny3rdSpD" ||
                 dataGridViewShinyRSResults.Columns[e.ColumnIndex].Name == "shiny3rdSpe")
             {
-                if ((string) e.Value == "30" || (string) e.Value == "31")
+                if ((string)e.Value == "30" || (string)e.Value == "31")
                 {
                     e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
                 }
 
-                if ((string) e.Value == "0")
+                if ((string)e.Value == "0")
                 {
                     e.CellStyle.ForeColor = Color.Red;
                 }
 
-                if ((string) e.Value == "A" || (string) e.Value == "B")
+                if ((string)e.Value == "A" || (string)e.Value == "B")
                 {
                     e.CellStyle.ForeColor = Color.Blue;
                 }
@@ -712,8 +714,17 @@ namespace RNGReporter
 
         private void buttonShiny3rdGenerate_Click(object sender, EventArgs e)
         {
-            // seed used by all Ruby\Sapphire cartridges when the internal battery is dead
-            const uint seed = 0x05A0;
+            uint seed;
+
+            if (normalSpreadRadioButton.Checked == true)
+            {
+                // seed used by all Ruby\Sapphire cartridges when the internal battery is dead
+                seed = 0x05A0;
+            }
+            else
+            {
+                seed = uint.Parse(maskedTextBox21.Text, NumberStyles.HexNumber);
+            }
 
             if (maskedTextBoxShiny3rdID.Text != "")
                 id = ushort.Parse(maskedTextBoxShiny3rdID.Text);
@@ -816,7 +827,7 @@ namespace RNGReporter
                 natures = new List<uint>();
                 for (int i = 0; i < comboBoxShiny3rdNature.CheckBoxItems.Count; i++)
                     if (comboBoxShiny3rdNature.CheckBoxItems[i].Checked)
-                        natures.Add((uint) ((Nature) comboBoxShiny3rdNature.CheckBoxItems[i].ComboBoxItem).Number);
+                        natures.Add((uint)((Nature)comboBoxShiny3rdNature.CheckBoxItems[i].ComboBoxItem).Number);
             }
 
             frameCompare = new FrameCompare(
@@ -832,7 +843,7 @@ namespace RNGReporter
                 false,
                 false,
                 null,
-                (GenderFilter) (comboBoxShiny3rdGender.SelectedItem));
+                (GenderFilter)(comboBoxShiny3rdGender.SelectedItem));
 
             subFrameCompare = new FrameCompare(
                 parentA[0],
@@ -849,7 +860,7 @@ namespace RNGReporter
                 parentB[5],
                 ivFiltersRSEgg.IVFilter,
                 natures,
-                (int) ((ComboBoxItem) comboBoxShiny3rdAbility.SelectedItem).Reference,
+                (int)((ComboBoxItem)comboBoxShiny3rdAbility.SelectedItem).Reference,
                 checkBoxShiny3rdShinyOnly.Checked,
                 true,
                 new NoGenderFilter());
@@ -870,7 +881,7 @@ namespace RNGReporter
             }
 
             iframesRSEgg = new List<IFrameRSEggPID>();
-            listBindingEggRS = new BindingSource {DataSource = iframesRSEgg};
+            listBindingEggRS = new BindingSource { DataSource = iframesRSEgg };
 
             dataGridViewShinyRSResults.DataSource = listBindingEggRS;
 
@@ -1014,7 +1025,7 @@ namespace RNGReporter
             uint maxspd = uint.Parse(maskedTextBoxMaxSpD.Text);
             uint maxspe = uint.Parse(maskedTextBoxMaxSpe.Text);
 
-            var nature = (uint) comboBoxNatureXD.SelectedIndex;
+            var nature = (uint)comboBoxNatureXD.SelectedIndex;
 
             var XDGenerator = new FrameGenerator();
 
@@ -1030,7 +1041,7 @@ namespace RNGReporter
 
             foreach (Frame frame in frames)
             {
-                var iframe = new IFrameCaptureXD {Frame = frame};
+                var iframe = new IFrameCaptureXD { Frame = frame };
 
                 // We're calibrating only with shadow Pokémon that are generated first in the party.
                 // There are 375451 frames between the initial seed generation and Pokémon generation,
@@ -1060,9 +1071,9 @@ namespace RNGReporter
 
         private void btnGetCurrentTick_Click(object sender, EventArgs e)
         {
-            var tickDifference = (ulong) (DateTime.Now.Ticks - gameTime.Ticks);
-            ulong currentTick = (gameTick + tickDifference/10*6)&0xFFFFFFFF;
-            ulong currentTickAlt = (gameTickAlt + tickDifference/10*6)&0xFFFFFFFF;
+            var tickDifference = (ulong)(DateTime.Now.Ticks - gameTime.Ticks);
+            ulong currentTick = (gameTick + tickDifference / 10 * 6) & 0xFFFFFFFF;
+            ulong currentTickAlt = (gameTickAlt + tickDifference / 10 * 6) & 0xFFFFFFFF;
 
             lblCurrentTick.Text = "Tick: " + currentTick.ToString("X8");
             lblCurrentTickAlt.Text = "Tick 2: " + currentTickAlt.ToString("X8");
@@ -1086,10 +1097,10 @@ namespace RNGReporter
         {
             if (dataGridViewXDCalibration.SelectedRows[0] != null)
             {
-                var frame = (IFrameCaptureXD) dataGridViewXDCalibration.SelectedRows[0].DataBoundItem;
+                var frame = (IFrameCaptureXD)dataGridViewXDCalibration.SelectedRows[0].DataBoundItem;
                 gameTick = frame.Seed;
 
-                var oneFrameBack = new XdRngR((uint) frame.Seed);
+                var oneFrameBack = new XdRngR((uint)frame.Seed);
                 gameTickAlt = oneFrameBack.GetNext32BitNumber();
 
                 maskedTextBoxXDHp.Text = frame.DisplayHp;
@@ -1128,7 +1139,7 @@ namespace RNGReporter
 
         private void FocusControl(object sender, MouseEventArgs e)
         {
-            ((Control) sender).Focus();
+            ((Control)sender).Focus();
         }
 
         private void buttonGenerateEPIDs_Click(object sender, EventArgs e)
@@ -1184,7 +1195,7 @@ namespace RNGReporter
 
             lowerGenerator.InitialFrame = minHeldFrame;
 
-            lowerGenerator.MaxResults = maxHeldFrame - minHeldFrame + 1 + 3*(maxRedraw - minRedraw);
+            lowerGenerator.MaxResults = maxHeldFrame - minHeldFrame + 1 + 3 * (maxRedraw - minRedraw);
 
             lowerGenerator.InitialSeed = seed;
 
@@ -1195,14 +1206,14 @@ namespace RNGReporter
                 for (int i = 0; i < comboEPIDNature.CheckBoxItems.Count; i++)
                 {
                     if (comboEPIDNature.CheckBoxItems[i].Checked)
-                        natures.Add((uint) ((Nature) comboEPIDNature.CheckBoxItems[i].ComboBoxItem).Number);
+                        natures.Add((uint)((Nature)comboEPIDNature.CheckBoxItems[i].ComboBoxItem).Number);
                 }
             }
 
             if (comboEPIDEverstone.SelectedIndex != 0)
             {
                 lowerGenerator.Everstone = true;
-                lowerGenerator.SynchNature = ((Nature) comboEPIDEverstone.SelectedItem).Number;
+                lowerGenerator.SynchNature = ((Nature)comboEPIDEverstone.SelectedItem).Number;
                 Advances.Visible = true;
             }
             else
@@ -1216,17 +1227,17 @@ namespace RNGReporter
                 0, CompareType.None,
                 0, CompareType.None,
                 natures,
-                (int) ((ComboBoxItem) comboEPIDAbility.SelectedItem).Reference,
+                (int)((ComboBoxItem)comboEPIDAbility.SelectedItem).Reference,
                 checkEPIDShiny.Checked,
                 false,
                 false,
                 null,
-                (GenderFilter) (comboEPIDGender.SelectedItem));
+                (GenderFilter)(comboEPIDGender.SelectedItem));
 
             // Here we check the parent IVs
             // To make sure they even have a chance of producing the desired spread
             iframesEEgg = new List<IFrameEEggPID>();
-            listBindingEggEPID = new BindingSource {DataSource = iframesEEgg};
+            listBindingEggEPID = new BindingSource { DataSource = iframesEEgg };
             dataGridViewEPIDs.DataSource = listBindingEggEPID;
 
             progressSearched = 0;
@@ -1338,7 +1349,7 @@ namespace RNGReporter
             }
 
             iframesEEggIV = new List<IFrameEEggPID>();
-            listBindingEggEIV = new BindingSource {DataSource = iframesEEggIV};
+            listBindingEggEIV = new BindingSource { DataSource = iframesEEggIV };
 
             dataGridViewEIVs.DataSource = listBindingEggEIV;
 
@@ -1476,9 +1487,9 @@ namespace RNGReporter
 
         private void comboBoxMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((FrameType) ((ComboBoxItem) cbMethod.SelectedItem).Reference == FrameType.MethodH1 ||
-                (FrameType) ((ComboBoxItem) cbMethod.SelectedItem).Reference == FrameType.MethodH2 ||
-                (FrameType) ((ComboBoxItem) cbMethod.SelectedItem).Reference == FrameType.MethodH4)
+            if ((FrameType)((ComboBoxItem)cbMethod.SelectedItem).Reference == FrameType.MethodH1 ||
+                (FrameType)((ComboBoxItem)cbMethod.SelectedItem).Reference == FrameType.MethodH2 ||
+                (FrameType)((ComboBoxItem)cbMethod.SelectedItem).Reference == FrameType.MethodH4)
             {
                 cbEncounterSlot.Enabled = true;
             }
@@ -1501,29 +1512,29 @@ namespace RNGReporter
         private void buttonCapGenerate_Click(object sender, EventArgs e)
         {
             var searchParams = new Gen3SearchParams
-                {
-                    ability = cbAbility,
-                    capButton = btnCapGenerate,
-                    dataGridView = dgvCapValues,
-                    date = dtSeed,
-                    encounterSlot = cbEncounterSlot,
-                    encounterType = cbEncounterType,
-                    frameType = cbMethod,
-                    gender = cbCapGender,
-                    id = txtID,
-                    isShiny = chkShinyOnly,
-                    isSynch = chkSynchOnly,
-                    ivfilters = ivFiltersCapture,
-                    maxFrame = txtCapMaxFrame,
-                    maxHour = txtMaxHour,
-                    maxMinute = txtMaxMinute,
-                    minFrame = txtCapMinFrame,
-                    minHour = txtMinHour,
-                    minMinute = txtMinMinute,
-                    nature = cbNature,
-                    sid = txtSID,
-                    synchNature = cbSynchNature
-                };
+            {
+                ability = cbAbility,
+                capButton = btnCapGenerate,
+                dataGridView = dgvCapValues,
+                date = dtSeed,
+                encounterSlot = cbEncounterSlot,
+                encounterType = cbEncounterType,
+                frameType = cbMethod,
+                gender = cbCapGender,
+                id = txtID,
+                isShiny = chkShinyOnly,
+                isSynch = chkSynchOnly,
+                ivfilters = ivFiltersCapture,
+                maxFrame = txtCapMaxFrame,
+                maxHour = txtMaxHour,
+                maxMinute = txtMaxMinute,
+                minFrame = txtCapMinFrame,
+                minHour = txtMinHour,
+                minMinute = txtMinMinute,
+                nature = cbNature,
+                sid = txtSID,
+                synchNature = cbSynchNature
+            };
             Searcher searcher = new Gen3Searcher(searchParams, threadLock, this);
             if (!searcher.ParseInput()) return;
             searcher.RunSearch();
@@ -1784,7 +1795,7 @@ namespace RNGReporter
         private delegate void UpdateGridDelegate(BindingSource bindingSource);
 
         #endregion
-        
+
         #region Wild Encounter Slots Time Finder
         #region Search Settings
         private void searchWild_Click(object sender, EventArgs e)
@@ -1962,9 +1973,9 @@ namespace RNGReporter
                             }
                         }
                     }
-                    
+
                 }
-                
+
             }
         }
         #endregion
@@ -2108,7 +2119,7 @@ namespace RNGReporter
                             }
                         }
                     }
-                    
+
                 }
             }
         }
@@ -2299,7 +2310,7 @@ namespace RNGReporter
                     return;
 
             uint gender = pid & 255;
-            switch(gender)
+            switch (gender)
             {
                 case 1:
                     if (gender < 127)
@@ -2399,7 +2410,7 @@ namespace RNGReporter
             while (searchNature != nature)
             {
                 rng.GetNext32BitNumber();
-                searchNature = rng.GetNext16BitNumber() %  25;
+                searchNature = rng.GetNext16BitNumber() % 25;
             }
 
             rng.GetNext32BitNumber(2);
@@ -2414,7 +2425,7 @@ namespace RNGReporter
             uint nature = rng.GetNext16BitNumber() % 25;
             uint pid = rng.GetNext16BitNumber() | (rng.GetNext32BitNumber() & 0xFFFF0000);
 
-            while(pid % 25 != nature)
+            while (pid % 25 != nature)
                 pid = rng.GetNext16BitNumber() | (rng.GetNext32BitNumber() & 0xFFFF0000);
 
             return pid;
@@ -2422,7 +2433,7 @@ namespace RNGReporter
 
         private EncounterType getEncounterType(int num)
         {
-            switch(num)
+            switch (num)
             {
                 case 0:
                     return EncounterType.Wild;
@@ -2776,6 +2787,21 @@ namespace RNGReporter
         private int calcHPPower(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             return (int)(30 + ((((hp >> 1) & 1) + 2 * ((atk >> 1) & 1) + 4 * ((def >> 1) & 1) + 8 * ((spe >> 1) & 1) + 16 * ((spa >> 1) & 1) + 32 * ((spd >> 1) & 1)) * 40 / 63));
+        }
+
+        private void normalSpreadRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (normalSpreadRadioButton.Checked == true)
+            {
+                maskedTextBox21.ReadOnly = true;
+                maskedTextBox21.TabStop = false;
+            }
+            else
+            {
+                maskedTextBox21.ReadOnly = false;
+                maskedTextBox21.TabStop = true;
+            }
+
         }
 
         private uint calcHP(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)

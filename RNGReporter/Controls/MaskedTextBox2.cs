@@ -36,10 +36,10 @@ namespace RNGReporter.Controls
 
         protected override void OnEnter(EventArgs e)
         {
-            base.OnEnter(e);
-
             Focus();
             SelectAll();
+
+            base.OnEnter(e);
         }
 
         protected override void OnKeyPress(KeyPressEventArgs e)
@@ -49,13 +49,13 @@ namespace RNGReporter.Controls
             if (SelectionStart > Text.Length)
                 SelectionStart = Text.Length;
 
-            if (e.KeyChar == ' ') e.KeyChar = (char) 0;
+            if (e.KeyChar == ' ') e.KeyChar = (char)0;
 
             if (SelectionStart < Mask.Length)
             {
                 if (Hex && Mask[SelectionStart].Equals('A'))
                 {
-                    if (e.KeyChar != (char) Keys.Back && !char.IsControl(e.KeyChar))
+                    if (e.KeyChar != (char)Keys.Back && !char.IsControl(e.KeyChar))
                     {
                         if ((e.KeyChar >= 'a') && (e.KeyChar <= 'f'))
                         {
@@ -66,14 +66,14 @@ namespace RNGReporter.Controls
                         {
                         }
                         else
-                            e.KeyChar = (char) 0;
+                            e.KeyChar = (char)0;
                     }
                 }
             }
 
             base.OnKeyPress(e);
         }
-        
+
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == 0x302)  //PasteEvent
@@ -91,8 +91,8 @@ namespace RNGReporter.Controls
                 if (NewText != "")
                 {
                     if (SelectionStart > Text.Length)
-                    SelectionStart = Text.Length;
-                
+                        SelectionStart = Text.Length;
+
                     Clipboard.SetText(NewText);
                     base.WndProc(ref m);
                 }
@@ -104,11 +104,11 @@ namespace RNGReporter.Controls
         protected override void OnTextChanged(EventArgs e)
         {
             //To make this work you have to change the tags of all the maskedTextBoxes that accept a maximum number of 31 to "ivs"
-            if (Tag == "ivs" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 31)
+            if ((String)Tag == "ivs" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 31)
             {
                 Text = "31";
             }
-            else if (Tag == "level" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 100)
+            else if ((String)Tag == "level" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 100)
             {
                 //change the tags of all the maskedTextBoxes that accept a maximum number of 100 to "level"
                 Text = "100";

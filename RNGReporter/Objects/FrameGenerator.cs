@@ -3843,8 +3843,8 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.RSBredLower,
                                     cnt + InitialFrame,
-                                    rngList[0],
-                                    rngList[1],
+                                    rngList[18],
+                                    rngList[19],
                                     Compatibility
                                     );
                             break;
@@ -3876,8 +3876,8 @@ namespace RNGReporter.Objects
                                 Frame.GenerateFrame(
                                     FrameType.FRLGBredLower,
                                     cnt + InitialFrame,
-                                    rngList[0],
-                                    rngList[1],
+                                    rngList[18],
+                                    rngList[19],
                                     Compatibility
                                     );
                             break;
@@ -3889,16 +3889,16 @@ namespace RNGReporter.Objects
                                     cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
-                                    rngList[4],
+                                    rngList[3],
+                                    rngList[5],
                                     rngList[6],
-                                    rngList[7],
                                     // vblank
+                                    rngList[8],
                                     rngList[9],
                                     rngList[10],
                                     rngList[11],
                                     rngList[12],
                                     rngList[13],
-                                    rngList[14],
                                     ParentA,
                                     ParentB,
                                     id, sid);

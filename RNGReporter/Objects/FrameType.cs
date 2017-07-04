@@ -51,8 +51,6 @@ namespace RNGReporter.Objects
         Channel,
         RSBredLower,
         RSBredUpper,
-        RSBredUpperSplit,
-        RSBredUpperAlt,
         FRLGBredLower,
         FRLGBredUpper,
         EBredPID,

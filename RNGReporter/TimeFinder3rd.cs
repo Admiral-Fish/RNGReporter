@@ -463,7 +463,7 @@ namespace RNGReporter
                     var iframe = new IFrameEEggPID
                         {
                             Advances = frame.Advances,
-                            FrameLowerPID = frame.Number - offset,
+                            FrameLowerPID = frame.Number - offset - 18,
                             Pid = frame.Pid,
                             Shiny = frame.Shiny,
                             Redraws = redraws
@@ -796,12 +796,7 @@ namespace RNGReporter
                 lowerGenerator.Compatibility = 20;
 
             lowerGenerator.FrameType = FrameType.RSBredLower;
-            if (radioButtonSplitSpreads.Checked)
-                ivGenerator.FrameType = FrameType.RSBredUpperSplit;
-            else if (radioButtonAltSpreads.Checked)
-                ivGenerator.FrameType = FrameType.RSBredUpperAlt;
-            else
-                ivGenerator.FrameType = FrameType.RSBredUpper;
+            ivGenerator.FrameType = FrameType.RSBredUpper;
 
             lowerGenerator.InitialFrame = minHeldFrame;
             ivGenerator.InitialFrame = minPickupFrame;

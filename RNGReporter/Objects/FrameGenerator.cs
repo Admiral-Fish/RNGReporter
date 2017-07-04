@@ -3703,26 +3703,14 @@ namespace RNGReporter.Objects
                 var rng = new PokeRng((uint) InitialSeed);
                 rngList = new List<uint>();
 
-                if (FrameType == FrameType.EBredPID)
-                    while (InitialFrame < 19)
-                    {
-                        InitialFrame++;
-                        rng.GetNext32BitNumber();
-                    }
-
                 if (FrameType == FrameType.Bred || FrameType == FrameType.BredAlternate || FrameType == FrameType.BredSplit)
-                    while (InitialFrame < 5)
-                    {
-                        InitialFrame++;
-                        rng.GetNext32BitNumber();
-                    }
+                    rng.GetNext32BitNumber(4);
 
                 if (FrameType == FrameType.FRLGBredUpper)
-                    while (InitialFrame < 2)
-                    {
-                        InitialFrame++;
-                        rng.GetNext32BitNumber();
-                    }
+                    rng.GetNext32BitNumber(2);
+
+                //if (FrameType == FrameType.RSBredLower)
+                    //rng.GetNext32BitNumber(3);
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
                     rng.GetNext32BitNumber();
@@ -3854,7 +3842,7 @@ namespace RNGReporter.Objects
                                 continue;
                             }
                             //generate frame with bogus RNG result
-                            frame = Frame.GenerateFrame(FrameType.EBredPID, cnt + InitialFrame - 18, 0, pid, id, sid);
+                            frame = Frame.GenerateFrame(FrameType.EBredPID, cnt + InitialFrame, 0, pid, id, sid);
                             frame.Advances = total;
                             //new Frame {FrameType = FrameType.EBredPID, Number = cnt + InitialFrame, Pid = pid};
                             break;
@@ -3891,58 +3879,11 @@ namespace RNGReporter.Objects
                                     ParentB,
                                     id, sid);
                             break;
-                        case FrameType.RSBredUpperSplit:
-                            frame =
-                                frame =
-                                Frame.GenerateFrame(
-                                    FrameType.RSBredUpperSplit,
-                                    cnt + InitialFrame,
-                                    rngList[0],
-                                    StaticPID,
-                                    // vblank
-                                    rngList[2],
-                                    rngList[3],
-                                    rngList[4],
-                                    // another vblank
-                                    rngList[6],
-                                    rngList[7],
-                                    rngList[8],
-                                    rngList[9],
-                                    rngList[10],
-                                    rngList[11],
-                                    ParentA,
-                                    ParentB,
-                                    id, sid);
-                            break;
-                            // untested needs further research
-                        case FrameType.RSBredUpperAlt:
-                            frame =
-                                Frame.GenerateFrame(
-                                    FrameType.RSBredUpperAlt,
-                                    cnt + InitialFrame,
-                                    rngList[0],
-                                    StaticPID,
-                                    // vblank
-                                    rngList[2],
-                                    rngList[3],
-                                    // vblank
-                                    rngList[5],
-                                    // vblank
-                                    rngList[5],
-                                    rngList[6],
-                                    rngList[7],
-                                    rngList[8],
-                                    rngList[9],
-                                    rngList[10],
-                                    ParentA,
-                                    ParentB,
-                                    id, sid);
-                            break;
 
                         case FrameType.FRLGBredLower:
                             frame =
                                 Frame.GenerateFrame(
-                                    FrameType.RSBredLower,
+                                    FrameType.FRLGBredLower,
                                     cnt + InitialFrame,
                                     rngList[0],
                                     rngList[1],
@@ -3954,7 +3895,7 @@ namespace RNGReporter.Objects
                             frame =
                                 Frame.GenerateFrame(
                                     FrameType.FRLGBredUpper,
-                                    cnt + InitialFrame - 1,
+                                    cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
                                     rngList[2],
@@ -3976,7 +3917,7 @@ namespace RNGReporter.Objects
                             frame =
                                 Frame.GenerateFrame(
                                     FrameType.Bred,
-                                    cnt + InitialFrame - 4,
+                                    cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
                                     rngList[0],
@@ -4001,7 +3942,7 @@ namespace RNGReporter.Objects
                             frame =
                                 Frame.GenerateFrame(
                                     FrameType.Bred,
-                                    cnt + InitialFrame - 4,
+                                    cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
                                     rngList[0],
@@ -4020,7 +3961,7 @@ namespace RNGReporter.Objects
                             frameSplit =
                                 Frame.GenerateFrame(
                                     FrameType.BredSplit,
-                                    cnt + InitialFrame - 4,
+                                    cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
                                     rngList[0],
@@ -4043,7 +3984,7 @@ namespace RNGReporter.Objects
                             frame =
                                 Frame.GenerateFrame(
                                     FrameType.Bred,
-                                    cnt + InitialFrame - 4,
+                                    cnt + InitialFrame,
                                     rngList[0],
                                     StaticPID,
                                     rngList[0],

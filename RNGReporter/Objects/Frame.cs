@@ -305,8 +305,6 @@ namespace RNGReporter.Objects
                 }
                 if (FrameType == FrameType.HGSSBred ||
                     FrameType == FrameType.RSBredUpper ||
-                    FrameType == FrameType.RSBredUpperSplit ||
-                    FrameType == FrameType.RSBredUpperAlt ||
                     FrameType == FrameType.FRLGBredUpper)
                 {
                     DisplayHp = Hp.ToString();
@@ -1369,8 +1367,7 @@ namespace RNGReporter.Objects
                 FrameType != FrameType.HGSSBred &&
                 FrameType != FrameType.BWBred &&
                 FrameType != FrameType.BWBredInternational &&
-                FrameType != FrameType.RSBredUpper &&
-                FrameType != FrameType.RSBredUpperSplit)
+                FrameType != FrameType.RSBredUpper)
             {
                 DisplayHp = Hp.ToString();
                 DisplayAtk = Atk.ToString();

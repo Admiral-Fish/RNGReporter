@@ -34,6 +34,7 @@ using Microsoft.Win32;
 using RNGReporter.Objects;
 using RNGReporter.Properties;
 using Version = RNGReporter.Objects.Version;
+using System.Threading;
 
 namespace RNGReporter
 {
@@ -90,13 +91,7 @@ namespace RNGReporter
                     new ComboBoxItem("Breeding (Emerald Splits)", FrameType.BredSplit),
                     new ComboBoxItem("Breeding (Emerald Alternate)",
                                      FrameType.BredAlternate),
-                    new ComboBoxItem("Breeding (RSUpper No Splits)", FrameType.RSBredUpper)
-                    ,
-                    new ComboBoxItem("Breeding (RSUpper Splits)",
-                                     FrameType.RSBredUpperSplit),
-                    // removing alternate since it's untested
-                    // new ComboBoxItem("Breeding (RSUpper Alternate)",
-                    // FrameType.RSBredUpperAlt),
+                    new ComboBoxItem("Breeding (RSUpper)", FrameType.RSBredUpper),
                     new ComboBoxItem("Breeding (DPPt)", FrameType.DPPtBred),
                     new ComboBoxItem("Breeding (HGSS)", FrameType.HGSSBred),
                     new ComboBoxItem("Breeding (BW)", FrameType.BWBred),
@@ -486,8 +481,6 @@ namespace RNGReporter
                 generator.FrameType == FrameType.BredAlternate ||
                 generator.FrameType == FrameType.BredSplit ||
                 generator.FrameType == FrameType.RSBredUpper ||
-                generator.FrameType == FrameType.RSBredUpperAlt ||
-                generator.FrameType == FrameType.RSBredUpperSplit ||
                 generator.FrameType == FrameType.DPPtBred ||
                 generator.FrameType == FrameType.HGSSBred)
             {
@@ -777,8 +770,6 @@ namespace RNGReporter
                     generator.FrameType == FrameType.BredSplit ||
                     generator.FrameType == FrameType.BredAlternate ||
                     generator.FrameType == FrameType.RSBredUpper ||
-                    generator.FrameType == FrameType.RSBredUpperAlt ||
-                    generator.FrameType == FrameType.RSBredUpperSplit ||
                     generator.FrameType == FrameType.DPPtBred ||
                     generator.FrameType == FrameType.HGSSBred)
                 {
@@ -938,8 +929,7 @@ namespace RNGReporter
             }
 
             //  Hide some columns based on output type
-            if (generator.FrameType == FrameType.RSBredUpper ||
-                generator.FrameType == FrameType.RSBredUpperSplit)
+            if (generator.FrameType == FrameType.RSBredUpper)
             {
                 Frame.Visible = true;
                 Offset.Visible = false;
@@ -979,9 +969,7 @@ namespace RNGReporter
             if (generator.FrameType == FrameType.Bred ||
                 generator.FrameType == FrameType.BredSplit ||
                 generator.FrameType == FrameType.BredAlternate ||
-                generator.FrameType == FrameType.RSBredUpper ||
-                generator.FrameType == FrameType.RSBredUpperAlt ||
-                generator.FrameType == FrameType.RSBredUpperSplit)
+                generator.FrameType == FrameType.RSBredUpper)
             {
                 Frame.Visible = true;
                 Offset.Visible = false;
@@ -1585,8 +1573,6 @@ namespace RNGReporter
                 generator.FrameType == FrameType.BredSplit ||
                 generator.FrameType == FrameType.BredAlternate ||
                 generator.FrameType == FrameType.RSBredUpper ||
-                generator.FrameType == FrameType.RSBredUpperAlt ||
-                generator.FrameType == FrameType.RSBredUpperSplit ||
                 generator.FrameType == FrameType.Method5Natures)
             {
                 displayParentsInSearchToolStripMenuItem.Enabled = true;

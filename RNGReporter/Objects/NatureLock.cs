@@ -7,6 +7,7 @@ namespace RNGReporter.Objects
         private LockInfo[] lockInfo;
         private int forwardCounter, count, count2, x;
         private uint pid, pidOriginal, gender, genderLower, genderUpper, nature;
+        private ShadowType type;
         public List<uint> rand;
         private XdRngR reverse;
         private XdRng forward;
@@ -24,202 +25,294 @@ namespace RNGReporter.Objects
                 getCurrLock();
         }
 
+        public void changeLock(int lockNum)
+        {
+            lockInfo = natureLockList(lockNum);
+            count = lockInfo.Length;
+            count2 = count == 1 ? 0 : count - 2;
+            x = 0;
+            if (count == 1)
+                getCurrLock();
+        }
+
         private LockInfo[] natureLockList(int natureLockIndex)
         {
             switch (natureLockIndex)
             {
-                case 0:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 0, 126), new LockInfo(12, 127, 255) }; //Altaria
-                case 1:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(12, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255) }; //Arbok
-                case 2:
-                    return null; //Articuno 
-                case 3:
-                    return null; //Baltoy 3
-                case 4:
-                    return null; //Baltoy 1
-                case 5:
-                    return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(24, 127, 255) }; //Baltoy 2
-                case 6:
-                    return new LockInfo[] { new LockInfo(12, 0, 255), new LockInfo(18, 0, 126), new LockInfo(0, 0, 255) }; //Banette
-                case 7:
-                    return null; //Beedrill
-                case 8:
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 190) }; //Butterfree
-                case 9:
-                    return null; //Carvanha
-                case 10:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126) }; //Chansey
-                case 11:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 127, 255), new LockInfo(6, 0, 190) }; //Delcatty
-                case 12:
-                    return new LockInfo[] { new LockInfo(18, 0, 126) }; //Dodrio
-                case 13:
-                    return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(12, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) }; //Dragonite
-                case 14:
-                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(6, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) }; //Dugtrio
-                case 15:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(18, 0, 126), new LockInfo(12, 127, 255) }; //Duskull
-                case 16:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 63, 255) }; //Electabuzz
-                case 17:
-                    return null; //Exeggutor
-                case 18:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 0, 126), new LockInfo(12, 127, 255) }; //Farfetch'd  
-                case 19:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Golduck
-                case 20:
-                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(12, 127, 255) }; //Grimer
-                case 21:
-                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Growlithe
-                case 22:
-                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) }; //Gulpin 3
-                case 23:
-                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) }; //Gulpin 1
-                case 24:
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) }; //Gulpin 2
-                case 25:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Hitmonchan
-                case 26:
-                    return new LockInfo[] { new LockInfo(24, 0, 126), new LockInfo(6, 0, 255), new LockInfo(12, 0, 126), new LockInfo(18, 127, 255) }; //Hitmonlee
-                case 27:
-                    return null; //Houndour 3
-                case 28:
-                    return null; //Houndour 1
-                case 29:
-                    return null; //To do houndour 2
-                case 30:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 0, 126) }; //Hypno
-                case 31:
-                    return new LockInfo[] { new LockInfo(12, 0, 255), new LockInfo(18, 0, 126), new LockInfo(0, 0, 255) }; //Kangaskhan
-                case 32:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(500, 500, 500), new LockInfo(500, 500, 500), new LockInfo(6, 0, 126) }; //Lapras
-                case 33:
-                    return new LockInfo[] { new LockInfo(0, 0, 126) }; //Ledyba
-                case 34:
-                    return new LockInfo[] { new LockInfo(6, 0, 255), new LockInfo(24, 127, 255) }; //Lickitung
-                case 35:
-                    return null; //Lugia
-                case 36:
-                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(0, 0, 126) }; //Lunatone
-                case 37:
-                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 127, 255) }; //Marcargo
-                case 38:
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(18, 191, 255), new LockInfo(18, 127, 255) }; //Magmar 
-                case 39:
-                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(0, 127, 255), new LockInfo(18, 0, 255) }; //Magneton
-                case 40:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 127, 255) }; //Makuhita
-                case 41:
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) }; //Makuhita Colo
-                case 42:
-                    return new LockInfo[] { new LockInfo(6, 0, 126) }; //Manectric
-                case 43:
-                    return null; //Mareep 3
-                case 44:
-                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Mareep 1
-                case 45:
-                    return new LockInfo[] { new LockInfo(0, 0, 255), new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Mareep 2
-                case 46:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(500, 500, 500), new LockInfo(500, 500, 500), new LockInfo(6, 0, 126) }; //Marowak
-                case 47:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 127, 255) }; //Mawile
-                case 48:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 63, 255) }; //Meowth
-                case 49:
-                    return null; //Moltres
-                case 50:
-                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255), new LockInfo(18, 127, 255), new LockInfo(18, 127, 255) }; //Mr. Mime
-                case 51:
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) }; //Natu
-                case 52:
-                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) }; //Nosepass
-                case 53:
-                    return new LockInfo[] { new LockInfo(24, 0, 126), new LockInfo(0, 0, 255), new LockInfo(6, 127, 255) }; //Numel
-                case 54:
-                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Paras
-                case 55:
-                    return new LockInfo[] { new LockInfo(18, 32, 255), new LockInfo(12, 127, 255) }; //Pidgeotto
-                case 56:
-                    return new LockInfo[] { new LockInfo(6, 127, 255) }; //Pineco
-                case 57:
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(18, 191, 255), new LockInfo(18, 127, 255) }; //Pinsir
-                case 58:
-                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255), new LockInfo(18, 127, 255), new LockInfo(18, 127, 255) }; //Poliwrath
-                case 59:
-                    return new LockInfo[] { new LockInfo(12, 0, 126) }; //Poochyena
-                case 60:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 0, 126) }; //Primeape
-                case 61:
-                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 0, 126), new LockInfo(0, 63, 255) }; //Ralts
-                case 62:
-                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 127, 255) }; //Rapidash
-                case 63:
-                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(500, 500, 500), new LockInfo(18, 0, 126) }; //Raticate
-                case 64:
-                    return null; //Rhydon
-                case 65:
-                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 127, 255) }; //Roselia
-                case 66:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }; //Sableye
-                case 67:
-                    return new LockInfo[] { new LockInfo(6, 0, 126) }; //Salamence
-                case 68:
-                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126) }; //Scyther
-                case 69:
-                    return null; //To do seedot 3
-                case 70:
-                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(0, 127, 255), new LockInfo(12, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) }; //Seedot 1
-                case 71:
-                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(0, 0, 126), new LockInfo(0, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) }; //Seedot 2
-                case 72:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(12, 127, 255), new LockInfo(6, 127, 255) }; //Seel
-                case 73:
-                    return null; //Shellder
-                case 74:
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 0, 126) }; //Shroomish
-                case 75:
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 63, 255) }; //Snorlax
-                case 76:
-                    return new LockInfo[] { new LockInfo(6, 0, 126) }; //Snorunt
-                case 77:
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 0, 255) }; //Solrock
-                case 78:
-                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(18, 127, 255) }; //Spearow
-                case 79:
-                    return new LockInfo[] { new LockInfo(0, 0, 255), new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Spheal 3
-                case 80:
-                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Spheal 1
-                case 81:
-                    return new LockInfo[] { new LockInfo(0, 0, 255), new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) }; //Spheal 2
-                case 82:
-                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) }; //Spinarak
-                case 83:
-                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(500, 500, 500), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 0, 255) }; //Starmie
-                case 84:
-                    return null; //Swellow
-                case 85:
-                    return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(18, 0, 126) }; //Swinub
-                case 86:
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 190) }; //Tangela
-                case 87:
-                    return null; //Tauros
-                case 88:
-                    return null; //Teddiursa
-                case 89:
-                    return null; //Togepi
-                case 90:
-                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(24, 0, 255), new LockInfo(18, 0, 126) }; //Venomoth
-                case 91:
-                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(12, 127, 255), new LockInfo(0, 127, 255) }; //Voltorb
-                case 92:
-                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 0, 126), new LockInfo(0, 127, 255) }; //Vulpix
-                case 93:
-                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(24, 0, 255), new LockInfo(18, 0, 126) }; //Weepinbell
-                case 94:
-                    return null; //Zangoose
-                default:
-                    return null; //Zapdos 
+                case 0: //Altaria
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 0, 126), new LockInfo(12, 127, 255) };
+                case 1: //Arbok
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(12, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255) };
+                case 2: //Articuno 
+                case 3: //Baltoy 3
+                case 4: //Baltoy 1
+                    type = ShadowType.NoLock;
+                    return null;
+                case 5: //Baltoy 2
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(24, 127, 255) };
+                case 6: //Banette
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(12, 0, 255), new LockInfo(18, 0, 126), new LockInfo(0, 0, 255) };
+                case 7: //Beedrill
+                    type = ShadowType.NoLock;
+                    return null;
+                case 8: //Butterfree
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 190) };
+                case 9: //Carvanha
+                    type = ShadowType.NoLock;
+                    return null;
+                case 10: //Chansey
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126) };
+                case 11: //Delcatty
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 127, 255), new LockInfo(6, 0, 190) };
+                case 12: //Dodrio
+                    type = ShadowType.SingleLock;
+                    return new LockInfo[] { new LockInfo(18, 0, 126) };
+                case 13: //Dragonite
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(12, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) };
+                case 14: //Dugtrio
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(6, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) };
+                case 15: //Duskull
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(18, 0, 126), new LockInfo(12, 127, 255) };
+                case 16: //Electabuzz
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 63, 255) };
+                case 17: //Exeggutor
+                    type = ShadowType.NoLock;
+                    return null; 
+                case 18: //Farfetch'd  
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 0, 126), new LockInfo(12, 127, 255) };
+                case 19: //Golduck
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) };
+                case 20: //Grimer
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(12, 127, 255) };
+                case 21: //Growlithe
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) };
+                case 22: //Gulpin 3
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) };
+                case 23: //Gulpin 1
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) };
+                case 24: //Gulpin 2
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) };
+                case 25: //Hitmonchan
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) };
+                case 26: //Hitmonlee
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(24, 0, 126), new LockInfo(6, 0, 255), new LockInfo(12, 0, 126), new LockInfo(18, 127, 255) };
+                case 27: //Houndour 3
+                case 28: //Houndour 1
+                case 29: //To do houndour 2
+                    type = ShadowType.NoLock;
+                    return null;
+                case 30: //Hypno
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 0, 126) };
+                case 31: //Kangaskhan
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 0, 255), new LockInfo(18, 0, 126), new LockInfo(0, 0, 255) };
+                case 32: //Lapras
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(500, 500, 500), new LockInfo(500, 500, 500), new LockInfo(6, 0, 126) };
+                case 33: //Ledyba
+                    type = ShadowType.SingleLock;
+                    return new LockInfo[] { new LockInfo(0, 0, 126) };
+                case 34: //Lickitung
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(6, 0, 255), new LockInfo(24, 127, 255) };
+                case 35: //Lugia
+                    type = ShadowType.NoLock;
+                    return null;
+                case 36: //Lunatone
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(0, 0, 126) };
+                case 37: //Marcargo
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 127, 255) };
+                case 38: //Magmar
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(18, 191, 255), new LockInfo(18, 127, 255) };
+                case 39: //Magneton
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(0, 127, 255), new LockInfo(18, 0, 255) };
+                case 40: //Makuhita
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 127, 255) };
+                case 41: //Makuhita Colo
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) };
+                case 42: //Manectric
+                    type = ShadowType.SingleLock;
+                    return new LockInfo[] { new LockInfo(6, 0, 126) };
+                case 43: //Mareep 3
+                    type = ShadowType.NoLock;
+                    return null;
+                case 44: //Mareep 1
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) };
+                case 45: //Mareep 2
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 255), new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) };
+                case 46: //Marowak
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(500, 500, 500), new LockInfo(500, 500, 500), new LockInfo(6, 0, 126) };
+                case 47: //Mawile
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 127, 255) };
+                case 48: //Meowth
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 63, 255) };
+                case 49: //Moltres
+                    type = ShadowType.NoLock;
+                    return null;
+                case 50: //Mr. Mime
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255), new LockInfo(18, 127, 255), new LockInfo(18, 127, 255) };
+                case 51: //Natu
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) };
+                case 52: //Nosepass
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) };
+                case 53: //Numel
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(24, 0, 126), new LockInfo(0, 0, 255), new LockInfo(6, 127, 255) };
+                case 54: //Paras
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) };
+                case 55: //Pidgeotto
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 32, 255), new LockInfo(12, 127, 255) };
+                case 56: //Pineco
+                    type = ShadowType.SingleLock;
+                    return new LockInfo[] { new LockInfo(6, 127, 255) };
+                case 57: //Pinsir
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(18, 191, 255), new LockInfo(18, 127, 255) };
+                case 58: //Poliwrath
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255), new LockInfo(18, 127, 255), new LockInfo(18, 127, 255) };
+                case 59: //Poochyena
+                    type = ShadowType.SingleLock;
+                    return new LockInfo[] { new LockInfo(12, 0, 126) };
+                case 60: //Primeape
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 0, 126) };
+                case 61: //Ralts
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 0, 126), new LockInfo(0, 63, 255) };
+                case 62: //Rapidash
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 127, 255) };
+                case 63: //Raticate
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(500, 500, 500), new LockInfo(18, 0, 126) };
+                case 64: //Rhydon
+                    type = ShadowType.NoLock;
+                    return null;
+                case 65: //Roselia
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 127, 255) };
+                case 66: //Sableye
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) };
+                case 67: //Salamence
+                    type = ShadowType.Salamence;
+                    return new LockInfo[] { new LockInfo(6, 0, 126) };
+                case 68: //Scyther
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126) };
+                case 69: //To do seedot 3
+                    type = ShadowType.NoLock;
+                    return null;
+                case 70: //Seedot 1
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(0, 127, 255), new LockInfo(12, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) };
+                case 71: //Seedot 2
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(0, 0, 126), new LockInfo(0, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) };
+                case 72: //Seel
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(12, 127, 255), new LockInfo(6, 127, 255) };
+                case 73: //Shellder
+                    type = ShadowType.NoLock;
+                    return null;
+                case 74: //Shroomish
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 0, 126) };
+                case 75: //Snorlax
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 63, 255) };
+                case 76: //Snorunt
+                    type = ShadowType.SingleLock;
+                    return new LockInfo[] { new LockInfo(6, 0, 126) };
+                case 77: //Solrock
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 0, 255) };
+                case 78: //Spearow
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(18, 127, 255) };
+                case 79: //Spheal 3
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 255), new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) };
+                case 80: //Spheal 1
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) };
+                case 81: //Spheal 2
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 255), new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) };
+                case 82: //Spinarak
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(12, 0, 126) };
+                case 83: //Starmie
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(500, 500, 500), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 0, 255) };
+                case 84: //Swellow
+                    type = ShadowType.NoLock;
+                    return null;
+                case 85: //Swinub
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(18, 0, 126) };
+                case 86: //Tangela
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 190) };
+                case 87: //Tauros
+                case 88: //Teddiursa
+                case 89: //Togepi
+                    type = ShadowType.NoLock;
+                    return null;
+                case 90: //Venomoth
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(24, 0, 255), new LockInfo(18, 0, 126) };
+                case 91: //Voltorb
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(12, 127, 255), new LockInfo(0, 127, 255) };
+                case 92: //Vulpix
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 0, 126), new LockInfo(0, 127, 255) };
+                case 93: //Weepinbell
+                    type = ShadowType.SecondShadow;
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(24, 0, 255), new LockInfo(18, 0, 126) };
+                case 94: //Zangoose
+                default: //Zapdos 
+                    type = ShadowType.NoLock;
+                    return null;
             }
         }
 
@@ -489,7 +582,7 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (x = count2; x >= 0; x++)
+            for (x = count2; x >= 0; x--)
             {
                 forwardCounter += 5;
                 pid = getPIDForward2(sister);
@@ -516,7 +609,7 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (x = count2; x >= 0; x++)
+            for (x = count2; x >= 0; x--)
             {
                 forwardCounter += 5;
                 pid = getPIDForward2(sister);
@@ -543,7 +636,7 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (x = count2; x >= 0; x++)
+            for (x = count2; x >= 0; x--)
             {
                 forwardCounter += 5;
                 pid = getPIDForward2(sister);
@@ -570,7 +663,7 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 4;
 
-            for (x = count2; x >= 0; x++)
+            for (x = count2; x >= 0; x--)
             {
                 forwardCounter += 5;
                 pid = getPIDForward2(sister);
@@ -609,7 +702,7 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (x = count2; x >= 0; x++)
+            for (x = count2; x >= 0; x--)
             {
                 forwardCounter += 5;
                 pid = getPIDShadow();
@@ -632,7 +725,7 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (x = count2; x >= 0; x++)
+            for (x = count2; x >= 0; x--)
             {
                 forwardCounter += 5;
                 pid = getPIDShadow();
@@ -655,7 +748,7 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (x = count2; x >= 0; x++)
+            for (x = count2; x >= 0; x--)
             {
                 forwardCounter += 5;
                 pid = getPIDShadow();
@@ -678,7 +771,7 @@ namespace RNGReporter.Objects
         {
             forwardCounter = 5;
 
-            for (x = count2; x >= 0; x++)
+            for (x = count2; x >= 0; x--)
             {
                 forwardCounter += 5;
                 pid = getPIDShadow();
@@ -709,112 +802,9 @@ namespace RNGReporter.Objects
             iv2 = rand[forwardCounter - 3] >> 16;
         }
 
-        public uint getType(int natureLockIndex)
+        public ShadowType getType()
         {
-            switch (natureLockIndex)
-            {
-                case 2: //Articuno 
-                case 3: //Baltoy 3
-                case 4: //Baltoy 1
-                case 7: //Beedrill
-                case 9: //Carvanha
-                case 17: //Exeggutor
-                case 27: //Houndour 3
-                case 28: //Houndour 1
-                case 29: //To do houndour 2
-                case 35: //Lugia
-                case 43: //Mareep 3
-                case 49: //Moltres
-                case 64: //Rhydon
-                case 69: //To do seedot 3
-                case 73: //Shellder
-                case 84: //Swellow
-                case 87: //Tauros
-                case 88: //Teddiursa
-                case 89: //Togepi
-                case 94: //Zangoose
-                default: //Zapdos 
-                    return 0;
-                case 1: //Arbok
-                case 5: //Baltoy 2
-                case 11: //Delcatty
-                case 13: //Dragonite
-                case 14: //Dugtrio
-                case 15: //Duskull
-                case 16: //Electabuzz
-                case 18: //Farfetch'd  
-                case 19: //Golduck
-                case 20: //Grimer
-                case 22: //Gulpin 3
-                case 23: //Gulpin 1
-                case 24: //Gulpin 2
-                case 25: //Hitmonchan
-                case 26: //Hitmonlee
-                case 31: //Kangaskhan
-                case 34: //Lickitung
-                case 36: //Lunatone
-                case 38: //Magmar 
-                case 39: //Magneton
-                case 40: //Makuhita
-                case 41: //Makuhita Colo
-                case 44: //Mareep 1
-                case 45: //Mareep 2
-                case 46: //Marowak
-                case 47: //Mawile
-                case 48: //Meowth
-                case 51: //Natu
-                case 52: //Nosepass
-                case 53: //Numel
-                case 54: //Paras
-                case 55: //Pidgeotto
-                case 58: //Poliwrath
-                case 60: //Primeape
-                case 61: //Ralts
-                case 62: //Rapidash
-                case 63: //Raticate
-                case 65: //Roselia
-                case 68: //Scyther
-                case 70: //Seedot 1
-                case 71: //Seedot 2
-                case 72: //Seel
-                case 74: //Shroomish
-                case 77: //Solrock
-                case 78: //Spearow
-                case 79: //Spheal 3
-                case 80: //Spheal 1
-                case 81: //Spheal 2
-                case 82: //Spinarak
-                case 83: //Starmie
-                case 85: //Swinub
-                case 86: //Tangela
-                case 90: //Venomoth
-                case 91: //Voltorb
-                case 92: //Vulpix
-                    return 1;
-                case 12: //Dodrio
-                case 33: //Ledyba
-                case 42: //Manectric
-                case 56: //Pineco
-                case 59: //Poochyena
-                case 76: //Snorunt
-                    return 2;
-                case 67: //Salamence
-                    return 3;
-                case 0: //Altaria
-                case 6: //Banette
-                case 8: //Butterfree
-                case 10: //Chansey
-                case 21: //Growlithe
-                case 30: //Hypno
-                case 32: //Lapras
-                case 37: //Marcargo
-                case 50: //Mr. Mime
-                case 57: //Pinsir
-                case 66: //Sableye
-                case 75: //Snorlax
-                case 93: //Weepinbell
-                    return 6;
-            }
+            return type;
         }
 
         private uint getPIDReverse()
@@ -905,6 +895,15 @@ namespace RNGReporter.Objects
             nature = lockInfo[x].nature;
             genderLower = lockInfo[x].genderLower;
             genderUpper = lockInfo[x].genderUpper;
+        }
+
+        public enum ShadowType
+        {
+            NoLock,
+            SingleLock,
+            FirstShadow,
+            Salamence,
+            SecondShadow
         }
     }
 

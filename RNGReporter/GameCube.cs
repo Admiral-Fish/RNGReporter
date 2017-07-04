@@ -7,6 +7,7 @@ using System.Linq;
 using System.ComponentModel;
 using System.IO;
 using System.Globalization;
+using static RNGReporter.Objects.NatureLock;
 
 namespace RNGReporter
 {
@@ -19,8 +20,9 @@ namespace RNGReporter
         private List<DisplayList> displayList;
         private List<ShadowDisplay> shadowDisplay;
         private bool isSearching, galesFlag;
-        private uint searchNumber, shadow, genderFilter, abilityFilter;
-        private NatureLock natureLock;
+        private uint searchNumber, genderFilter, abilityFilter;
+        private ShadowType shadow;
+        private NatureLock natureLock = new NatureLock(0);
         private List<uint> natureList, seedList, hiddenPowerList;
         private uint[] ivsLower, ivsUpper, shinyval;
         private int natureLockIndex, cores;
@@ -184,9 +186,9 @@ namespace RNGReporter
         private void getGalesMethod()
         {
             natureLockIndex = shadowPokemon.SelectedIndex;
-            natureLock = new NatureLock(natureLockIndex);
-            shadow = natureLock.getType(natureLockIndex);
             galesFlag = natureLockIndex != 41;
+            natureLock.changeLock(natureLockIndex);
+            shadow = natureLock.getType();
 
             uint method = 1;
 
@@ -202,6 +204,7 @@ namespace RNGReporter
                     if (method > 162268)
                     {
                         searchThread = new Thread[1];
+                        
                         searchThread[0] = new Thread(() => generateGales2(0, 64));
                         searchThread[0].Start();
                     }
@@ -299,8 +302,7 @@ namespace RNGReporter
 
             switch (shadow)
             {
-                //No NL
-                case 0:
+                case ShadowType.NoLock:
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
@@ -326,8 +328,7 @@ namespace RNGReporter
                         }
                     }
                     break;
-                //First Shadow
-                case 1:
+                case ShadowType.FirstShadow:
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
@@ -353,8 +354,7 @@ namespace RNGReporter
                         }
                     }
                     break;
-                //First shadow 1 NL
-                case 2:
+                case ShadowType.SingleLock:
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
@@ -380,8 +380,7 @@ namespace RNGReporter
                         }
                     }
                     break;
-                //Salamence
-                case 3:
+                case ShadowType.Salamence:
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
@@ -415,8 +414,7 @@ namespace RNGReporter
                         }
                     }
                     break;
-                //Second Shadow
-                case 6:
+                case ShadowType.SecondShadow:
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
@@ -543,8 +541,7 @@ namespace RNGReporter
 
             switch (shadow)
             {
-                //No nature lock
-                case 0:
+                case ShadowType.NoLock:
                     uint[] rand = new uint[6];
                     rand[0] = inseed;
 
@@ -579,9 +576,8 @@ namespace RNGReporter
                         }
                     }
                     break;
-                //First Shadow
-                case 1:
-                case 2:
+                case ShadowType.SingleLock:
+                case ShadowType.FirstShadow:
                     info.rand.Add(inseed);
                     for (uint x = 0; x < 10000; x++)
                         info.rand.Add(rng.GetNext32BitNumber());
@@ -620,9 +616,8 @@ namespace RNGReporter
                         }
                     }
                     break;
-                //Second shadow
-                case 3:
-                case 6:
+                case ShadowType.Salamence:
+                case ShadowType.SecondShadow:
                     info.rand.Add(inseed);
                     for (uint x = 0; x < 2999; x++)
                         info.rand.Add(rng.GetNext32BitNumber());
@@ -710,6 +705,7 @@ namespace RNGReporter
                     }
                     break;
             }
+            info.rand.Clear();
             isSearching = false;
             Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
@@ -1619,8 +1615,8 @@ namespace RNGReporter
                 int shadowMethod = comboBoxMethodShadow.SelectedIndex;
                 genderFilter = (uint)comboBoxGenderShadow.SelectedIndex;
                 abilityFilter = (uint)comboBoxAbilityShadow.SelectedIndex;
-                natureLock = new NatureLock(comboBoxShadow.SelectedIndex);
-                shadow = natureLock.getType(comboBoxShadow.SelectedIndex);
+                natureLock.changeLock(comboBoxShadow.SelectedIndex);
+                shadow = natureLock.getType();
 
                 shadowDisplay.Clear();
                 bindingShadow.ResetBindings(false);
@@ -1643,8 +1639,7 @@ namespace RNGReporter
 
             switch(shadow)
             {
-                //No NL
-                case 0:
+                case ShadowType.NoLock:
 
                     uint[] rand = new uint[6];
                     rand[0] = rng.Seed >> 16;
@@ -1670,8 +1665,8 @@ namespace RNGReporter
                     }
 
                     break;
-                //First shadow
-                case 1:
+                case ShadowType.SingleLock:
+                case ShadowType.FirstShadow:
                     natureLock.rand.Add(rng.Seed);
                     for (uint x = 0; x < 2999; x++)
                         natureLock.rand.Add(rng.GetNext32BitNumber());
@@ -1689,8 +1684,8 @@ namespace RNGReporter
                         }
                     }
                     break;
-                //Second shadow
-                case 6:
+                case ShadowType.Salamence:
+                case ShadowType.SecondShadow:
                     switch(secondMethod)
                     {
                         //Set
@@ -1753,6 +1748,7 @@ namespace RNGReporter
                     }
                     break;
             }
+            natureLock.rand.Clear();
             isSearching = false;
             Invoke(new Action(() => { bindingShadow.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
@@ -2135,6 +2131,7 @@ namespace RNGReporter
                 status.Text = "Cancelled. - Awaiting Command";
                 for (int x = 0; x < searchThread.Length; x++)
                     searchThread[x].Abort();
+                natureLock.rand.Clear();
                 binding.ResetBindings(false);
             }
         }

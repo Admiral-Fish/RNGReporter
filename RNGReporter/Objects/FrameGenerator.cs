@@ -3703,6 +3703,27 @@ namespace RNGReporter.Objects
                 var rng = new PokeRng((uint) InitialSeed);
                 rngList = new List<uint>();
 
+                if (FrameType == FrameType.EBredPID)
+                    while (InitialFrame < 19)
+                    {
+                        InitialFrame++;
+                        rng.GetNext32BitNumber();
+                    }
+
+                if (FrameType == FrameType.Bred || FrameType == FrameType.BredAlternate || FrameType == FrameType.BredSplit)
+                    while (InitialFrame < 5)
+                    {
+                        InitialFrame++;
+                        rng.GetNext32BitNumber();
+                    }
+
+                if (FrameType == FrameType.FRLGBredUpper)
+                    while (InitialFrame < 2)
+                    {
+                        InitialFrame++;
+                        rng.GetNext32BitNumber();
+                    }
+
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
                     rng.GetNext32BitNumber();
 
@@ -3833,7 +3854,7 @@ namespace RNGReporter.Objects
                                 continue;
                             }
                             //generate frame with bogus RNG result
-                            frame = Frame.GenerateFrame(FrameType.EBredPID, cnt + InitialFrame, 0, pid, id, sid);
+                            frame = Frame.GenerateFrame(FrameType.EBredPID, cnt + InitialFrame - 18, 0, pid, id, sid);
                             frame.Advances = total;
                             //new Frame {FrameType = FrameType.EBredPID, Number = cnt + InitialFrame, Pid = pid};
                             break;
@@ -3933,7 +3954,7 @@ namespace RNGReporter.Objects
                             frame =
                                 Frame.GenerateFrame(
                                     FrameType.FRLGBredUpper,
-                                    cnt + InitialFrame,
+                                    cnt + InitialFrame - 1,
                                     rngList[0],
                                     StaticPID,
                                     rngList[2],
@@ -3955,7 +3976,7 @@ namespace RNGReporter.Objects
                             frame =
                                 Frame.GenerateFrame(
                                     FrameType.Bred,
-                                    cnt + InitialFrame,
+                                    cnt + InitialFrame - 4,
                                     rngList[0],
                                     StaticPID,
                                     rngList[0],
@@ -3980,7 +4001,7 @@ namespace RNGReporter.Objects
                             frame =
                                 Frame.GenerateFrame(
                                     FrameType.Bred,
-                                    cnt + InitialFrame,
+                                    cnt + InitialFrame - 4,
                                     rngList[0],
                                     StaticPID,
                                     rngList[0],
@@ -3999,7 +4020,7 @@ namespace RNGReporter.Objects
                             frameSplit =
                                 Frame.GenerateFrame(
                                     FrameType.BredSplit,
-                                    cnt + InitialFrame,
+                                    cnt + InitialFrame - 4,
                                     rngList[0],
                                     StaticPID,
                                     rngList[0],
@@ -4022,7 +4043,7 @@ namespace RNGReporter.Objects
                             frame =
                                 Frame.GenerateFrame(
                                     FrameType.Bred,
-                                    cnt + InitialFrame,
+                                    cnt + InitialFrame - 4,
                                     rngList[0],
                                     StaticPID,
                                     rngList[0],

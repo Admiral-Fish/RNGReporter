@@ -80,7 +80,7 @@ namespace RNGReporter
             this.sid = sid;
             InitializeComponent();
 
-            normalSpreadRadioButton.Checked = true;
+            deadBatteryRadioButton.Checked = true;
         }
 
         public int TabPage
@@ -722,7 +722,7 @@ namespace RNGReporter
         {
             uint seed;
 
-            if (normalSpreadRadioButton.Checked == true)
+            if (deadBatteryRadioButton.Checked == true)
             {
                 // seed used by all Ruby\Sapphire cartridges when the internal battery is dead
                 seed = 0x05A0;
@@ -2797,7 +2797,7 @@ namespace RNGReporter
 
         private void normalSpreadRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (normalSpreadRadioButton.Checked == true)
+            if (deadBatteryRadioButton.Checked == true)
             {
                 maskedTextBox21.ReadOnly = true;
                 maskedTextBox21.TabStop = false;

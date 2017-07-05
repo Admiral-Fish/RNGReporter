@@ -382,7 +382,10 @@ namespace RNGReporter
 
                     lock (threadLock)
                     {
-                        iframesRSEgg.Add(iframe);
+                        if (iframe.FrameUpperPID > iframe.FrameLowerPID)
+                        {
+                            iframesRSEgg.Add(iframe);
+                        }
                     }
                     refreshQueue = true;
                 }
@@ -436,7 +439,10 @@ namespace RNGReporter
 
                     lock (threadLock)
                     {
-                        iframesRSEgg.Add(iframe);
+                        if (iframe.FrameUpperPID > iframe.FrameLowerPID)
+                        {
+                            iframesRSEgg.Add(iframe);
+                        }
                     }
                     refreshQueue = true;
                 }
@@ -2802,6 +2808,14 @@ namespace RNGReporter
                 maskedTextBox21.TabStop = true;
             }
 
+        }
+        
+        private void maskedTextBox21_Enter(object sender, EventArgs e)
+        {
+            if (maskedTextBox21.ReadOnly == true)
+            {
+                label99.Focus();
+            }
         }
 
         private uint calcHP(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)

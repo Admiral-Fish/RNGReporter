@@ -1,4 +1,4 @@
-﻿using RNGReporter.Controls;
+using RNGReporter.Controls;
 using RNGReporter.Objects;
 
 namespace RNGReporter
@@ -326,8 +326,8 @@ namespace RNGReporter
             this.textEPIDSID = new RNGReporter.Controls.MaskedTextBox2();
             this.textEPIDID = new RNGReporter.Controls.MaskedTextBox2();
             this.tabPageShinyRSEgg = new System.Windows.Forms.TabPage();
-            this.liveBatterySpreadRadioButton = new System.Windows.Forms.RadioButton();
-            this.normalSpreadRadioButton = new System.Windows.Forms.RadioButton();
+            this.liveBatteryRadioButton = new System.Windows.Forms.RadioButton();
+            this.deadBatteryRadioButton = new System.Windows.Forms.RadioButton();
             this.label99 = new System.Windows.Forms.Label();
             this.maskedTextBox21 = new RNGReporter.Controls.MaskedTextBox2();
             this.ivFiltersRSEgg = new RNGReporter.Controls.IVFilters();
@@ -3667,8 +3667,8 @@ namespace RNGReporter
             // 
             // tabPageShinyRSEgg
             // 
-            this.tabPageShinyRSEgg.Controls.Add(this.liveBatterySpreadRadioButton);
-            this.tabPageShinyRSEgg.Controls.Add(this.normalSpreadRadioButton);
+            this.tabPageShinyRSEgg.Controls.Add(this.liveBatteryRadioButton);
+            this.tabPageShinyRSEgg.Controls.Add(this.deadBatteryRadioButton);
             this.tabPageShinyRSEgg.Controls.Add(this.label99);
             this.tabPageShinyRSEgg.Controls.Add(this.maskedTextBox21);
             this.tabPageShinyRSEgg.Controls.Add(this.ivFiltersRSEgg);
@@ -3727,33 +3727,33 @@ namespace RNGReporter
             this.tabPageShinyRSEgg.Text = "Ruby\\Sapphire Shiny Egg";
             this.tabPageShinyRSEgg.UseVisualStyleBackColor = true;
             // 
-            // liveBatterySpreadRadioButton
+            // liveBatteryRadioButton
             // 
-            this.liveBatterySpreadRadioButton.AutoSize = true;
-            this.liveBatterySpreadRadioButton.Location = new System.Drawing.Point(164, 134);
-            this.liveBatterySpreadRadioButton.Name = "liveBatterySpreadRadioButton";
-            this.liveBatterySpreadRadioButton.Size = new System.Drawing.Size(81, 17);
-            this.liveBatterySpreadRadioButton.TabIndex = 324;
-            this.liveBatterySpreadRadioButton.TabStop = true;
-            this.liveBatterySpreadRadioButton.Text = "Live Battery";
-            this.liveBatterySpreadRadioButton.UseVisualStyleBackColor = true;
+            this.liveBatteryRadioButton.AutoSize = true;
+            this.liveBatteryRadioButton.Location = new System.Drawing.Point(164, 107);
+            this.liveBatteryRadioButton.Name = "liveBatteryRadioButton";
+            this.liveBatteryRadioButton.Size = new System.Drawing.Size(81, 17);
+            this.liveBatteryRadioButton.TabIndex = 324;
+            this.liveBatteryRadioButton.TabStop = true;
+            this.liveBatteryRadioButton.Text = "Live Battery";
+            this.liveBatteryRadioButton.UseVisualStyleBackColor = true;
             // 
-            // normalSpreadRadioButton
+            // deadBatteryRadioButton
             // 
-            this.normalSpreadRadioButton.AutoSize = true;
-            this.normalSpreadRadioButton.Location = new System.Drawing.Point(164, 119);
-            this.normalSpreadRadioButton.Name = "normalSpreadRadioButton";
-            this.normalSpreadRadioButton.Size = new System.Drawing.Size(87, 17);
-            this.normalSpreadRadioButton.TabIndex = 323;
-            this.normalSpreadRadioButton.TabStop = true;
-            this.normalSpreadRadioButton.Text = "Dead Battery";
-            this.normalSpreadRadioButton.UseVisualStyleBackColor = true;
-            this.normalSpreadRadioButton.CheckedChanged += new System.EventHandler(this.normalSpreadRadioButton_CheckedChanged);
+            this.deadBatteryRadioButton.AutoSize = true;
+            this.deadBatteryRadioButton.Location = new System.Drawing.Point(164, 92);
+            this.deadBatteryRadioButton.Name = "deadBatteryRadioButton";
+            this.deadBatteryRadioButton.Size = new System.Drawing.Size(87, 17);
+            this.deadBatteryRadioButton.TabIndex = 323;
+            this.deadBatteryRadioButton.TabStop = true;
+            this.deadBatteryRadioButton.Text = "Dead Battery";
+            this.deadBatteryRadioButton.UseVisualStyleBackColor = true;
+            this.deadBatteryRadioButton.CheckedChanged += new System.EventHandler(this.normalSpreadRadioButton_CheckedChanged);
             // 
             // label99
             // 
             this.label99.AutoSize = true;
-            this.label99.Location = new System.Drawing.Point(25, 132);
+            this.label99.Location = new System.Drawing.Point(25, 105);
             this.label99.Name = "label99";
             this.label99.Size = new System.Drawing.Size(59, 13);
             this.label99.TabIndex = 322;
@@ -3762,15 +3762,16 @@ namespace RNGReporter
             // maskedTextBox21
             // 
             this.maskedTextBox21.Hex = true;
-            this.maskedTextBox21.Location = new System.Drawing.Point(91, 128);
+            this.maskedTextBox21.Location = new System.Drawing.Point(91, 101);
             this.maskedTextBox21.Mask = "AAAA";
             this.maskedTextBox21.Name = "maskedTextBox21";
             this.maskedTextBox21.Size = new System.Drawing.Size(47, 20);
             this.maskedTextBox21.TabIndex = 321;
+            this.maskedTextBox21.Enter += new System.EventHandler(this.maskedTextBox21_Enter);
             // 
             // ivFiltersRSEgg
             // 
-            this.ivFiltersRSEgg.Location = new System.Drawing.Point(609, 11);
+            this.ivFiltersRSEgg.Location = new System.Drawing.Point(616, 13);
             this.ivFiltersRSEgg.Name = "ivFiltersRSEgg";
             this.ivFiltersRSEgg.Size = new System.Drawing.Size(315, 166);
             this.ivFiltersRSEgg.TabIndex = 320;
@@ -3781,7 +3782,7 @@ namespace RNGReporter
             this.buttonAnyNature.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAnyNature.ForeColor = System.Drawing.Color.Black;
             this.buttonAnyNature.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonAnyNature.Location = new System.Drawing.Point(521, 14);
+            this.buttonAnyNature.Location = new System.Drawing.Point(540, 13);
             this.buttonAnyNature.Margin = new System.Windows.Forms.Padding(0);
             this.buttonAnyNature.Name = "buttonAnyNature";
             this.buttonAnyNature.OuterBorderColor = System.Drawing.Color.Transparent;
@@ -3801,7 +3802,7 @@ namespace RNGReporter
             this.comboBoxShiny3rdNature.DropDownHeight = 300;
             this.comboBoxShiny3rdNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxShiny3rdNature.FormattingEnabled = true;
-            this.comboBoxShiny3rdNature.Location = new System.Drawing.Point(342, 16);
+            this.comboBoxShiny3rdNature.Location = new System.Drawing.Point(361, 15);
             this.comboBoxShiny3rdNature.Name = "comboBoxShiny3rdNature";
             this.comboBoxShiny3rdNature.Size = new System.Drawing.Size(176, 21);
             this.comboBoxShiny3rdNature.TabIndex = 11;
@@ -3822,7 +3823,7 @@ namespace RNGReporter
             "Male (75% Male, 25% Female)",
             "Female (87.5% Male, 12.5% Female)",
             "Male (87.5% Male, 12.5% Female)"});
-            this.comboBoxShiny3rdGender.Location = new System.Drawing.Point(342, 66);
+            this.comboBoxShiny3rdGender.Location = new System.Drawing.Point(361, 65);
             this.comboBoxShiny3rdGender.MaxDropDownItems = 3;
             this.comboBoxShiny3rdGender.Name = "comboBoxShiny3rdGender";
             this.comboBoxShiny3rdGender.ShineColor = System.Drawing.SystemColors.Window;
@@ -3832,7 +3833,7 @@ namespace RNGReporter
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(294, 69);
+            this.label41.Location = new System.Drawing.Point(313, 68);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(42, 13);
             this.label41.TabIndex = 315;
@@ -3842,7 +3843,7 @@ namespace RNGReporter
             // 
             this.buttonSwapParents.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonSwapParents.ForeColor = System.Drawing.Color.Black;
-            this.buttonSwapParents.Location = new System.Drawing.Point(91, 184);
+            this.buttonSwapParents.Location = new System.Drawing.Point(91, 161);
             this.buttonSwapParents.Name = "buttonSwapParents";
             this.buttonSwapParents.OuterBorderColor = System.Drawing.Color.Transparent;
             this.buttonSwapParents.ShineColor = System.Drawing.SystemColors.Window;
@@ -3854,7 +3855,7 @@ namespace RNGReporter
             // label96
             // 
             this.label96.AutoSize = true;
-            this.label96.Location = new System.Drawing.Point(141, 51);
+            this.label96.Location = new System.Drawing.Point(164, 19);
             this.label96.Name = "label96";
             this.label96.Size = new System.Drawing.Size(27, 13);
             this.label96.TabIndex = 313;
@@ -3863,7 +3864,7 @@ namespace RNGReporter
             // label95
             // 
             this.label95.AutoSize = true;
-            this.label95.Location = new System.Drawing.Point(13, 96);
+            this.label95.Location = new System.Drawing.Point(13, 64);
             this.label95.Name = "label95";
             this.label95.Size = new System.Drawing.Size(72, 13);
             this.label95.TabIndex = 310;
@@ -3872,7 +3873,7 @@ namespace RNGReporter
             // label94
             // 
             this.label94.AutoSize = true;
-            this.label94.Location = new System.Drawing.Point(91, 51);
+            this.label94.Location = new System.Drawing.Point(91, 19);
             this.label94.Name = "label94";
             this.label94.Size = new System.Drawing.Size(24, 13);
             this.label94.TabIndex = 308;
@@ -3881,7 +3882,7 @@ namespace RNGReporter
             // label70
             // 
             this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(541, 90);
+            this.label70.Location = new System.Drawing.Point(560, 89);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(26, 13);
             this.label70.TabIndex = 256;
@@ -3891,7 +3892,7 @@ namespace RNGReporter
             // label69
             // 
             this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(501, 90);
+            this.label69.Location = new System.Drawing.Point(520, 89);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(28, 13);
             this.label69.TabIndex = 255;
@@ -3901,7 +3902,7 @@ namespace RNGReporter
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(461, 90);
+            this.label68.Location = new System.Drawing.Point(480, 89);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(27, 13);
             this.label68.TabIndex = 254;
@@ -3911,7 +3912,7 @@ namespace RNGReporter
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(421, 90);
+            this.label67.Location = new System.Drawing.Point(440, 89);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(24, 13);
             this.label67.TabIndex = 253;
@@ -3921,7 +3922,7 @@ namespace RNGReporter
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(381, 90);
+            this.label45.Location = new System.Drawing.Point(400, 89);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(23, 13);
             this.label45.TabIndex = 252;
@@ -3931,7 +3932,7 @@ namespace RNGReporter
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(341, 90);
+            this.label42.Location = new System.Drawing.Point(360, 89);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(22, 13);
             this.label42.TabIndex = 251;
@@ -3941,7 +3942,7 @@ namespace RNGReporter
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(24, 74);
+            this.label66.Location = new System.Drawing.Point(24, 42);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(61, 13);
             this.label66.TabIndex = 249;
@@ -3951,7 +3952,7 @@ namespace RNGReporter
             // 
             this.buttonShiny3rdGenerate.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonShiny3rdGenerate.ForeColor = System.Drawing.Color.Black;
-            this.buttonShiny3rdGenerate.Location = new System.Drawing.Point(6, 184);
+            this.buttonShiny3rdGenerate.Location = new System.Drawing.Point(6, 161);
             this.buttonShiny3rdGenerate.Name = "buttonShiny3rdGenerate";
             this.buttonShiny3rdGenerate.OuterBorderColor = System.Drawing.Color.Transparent;
             this.buttonShiny3rdGenerate.ShineColor = System.Drawing.SystemColors.Window;
@@ -3969,7 +3970,7 @@ namespace RNGReporter
             "The two don\'t seem to like each other",
             "The two seem to get along",
             "The two seem to get along very well"});
-            this.comboBoxParentCompatibility.Location = new System.Drawing.Point(91, 157);
+            this.comboBoxParentCompatibility.Location = new System.Drawing.Point(91, 134);
             this.comboBoxParentCompatibility.MaxDropDownItems = 3;
             this.comboBoxParentCompatibility.Name = "comboBoxParentCompatibility";
             this.comboBoxParentCompatibility.ShineColor = System.Drawing.SystemColors.Window;
@@ -3979,7 +3980,7 @@ namespace RNGReporter
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(19, 160);
+            this.label58.Location = new System.Drawing.Point(19, 137);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(65, 13);
             this.label58.TabIndex = 204;
@@ -3988,7 +3989,7 @@ namespace RNGReporter
             // checkBoxShiny3rdShinyOnly
             // 
             this.checkBoxShiny3rdShinyOnly.AutoSize = true;
-            this.checkBoxShiny3rdShinyOnly.Location = new System.Drawing.Point(506, 188);
+            this.checkBoxShiny3rdShinyOnly.Location = new System.Drawing.Point(525, 164);
             this.checkBoxShiny3rdShinyOnly.Name = "checkBoxShiny3rdShinyOnly";
             this.checkBoxShiny3rdShinyOnly.Size = new System.Drawing.Size(76, 17);
             this.checkBoxShiny3rdShinyOnly.TabIndex = 30;
@@ -3998,7 +3999,7 @@ namespace RNGReporter
             // checkBoxShiny3rdShowInheritance
             // 
             this.checkBoxShiny3rdShowInheritance.AutoSize = true;
-            this.checkBoxShiny3rdShowInheritance.Location = new System.Drawing.Point(204, 188);
+            this.checkBoxShiny3rdShowInheritance.Location = new System.Drawing.Point(204, 165);
             this.checkBoxShiny3rdShowInheritance.Name = "checkBoxShiny3rdShowInheritance";
             this.checkBoxShiny3rdShowInheritance.Size = new System.Drawing.Size(109, 17);
             this.checkBoxShiny3rdShowInheritance.TabIndex = 10;
@@ -4009,7 +4010,7 @@ namespace RNGReporter
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(293, 132);
+            this.label56.Location = new System.Drawing.Point(312, 131);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(48, 13);
             this.label56.TabIndex = 201;
@@ -4018,7 +4019,7 @@ namespace RNGReporter
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(293, 110);
+            this.label57.Location = new System.Drawing.Point(312, 109);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(48, 13);
             this.label57.TabIndex = 200;
@@ -4029,7 +4030,7 @@ namespace RNGReporter
             this.buttonAnyAbility.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonAnyAbility.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAnyAbility.ForeColor = System.Drawing.Color.Black;
-            this.buttonAnyAbility.Location = new System.Drawing.Point(424, 40);
+            this.buttonAnyAbility.Location = new System.Drawing.Point(443, 39);
             this.buttonAnyAbility.Name = "buttonAnyAbility";
             this.buttonAnyAbility.OuterBorderColor = System.Drawing.Color.Transparent;
             this.buttonAnyAbility.ShineColor = System.Drawing.SystemColors.Window;
@@ -4048,7 +4049,7 @@ namespace RNGReporter
             "Any",
             "Ability 0",
             "Ability 1"});
-            this.comboBoxShiny3rdAbility.Location = new System.Drawing.Point(342, 41);
+            this.comboBoxShiny3rdAbility.Location = new System.Drawing.Point(361, 40);
             this.comboBoxShiny3rdAbility.MaxDropDownItems = 3;
             this.comboBoxShiny3rdAbility.Name = "comboBoxShiny3rdAbility";
             this.comboBoxShiny3rdAbility.ShineColor = System.Drawing.SystemColors.Window;
@@ -4058,7 +4059,7 @@ namespace RNGReporter
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(297, 19);
+            this.label43.Location = new System.Drawing.Point(316, 18);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(39, 13);
             this.label43.TabIndex = 124;
@@ -4067,7 +4068,7 @@ namespace RNGReporter
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(302, 45);
+            this.label44.Location = new System.Drawing.Point(321, 44);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(34, 13);
             this.label44.TabIndex = 127;
@@ -4120,7 +4121,7 @@ namespace RNGReporter
             dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewShinyRSResults.DefaultCellStyle = dataGridViewCellStyle21;
-            this.dataGridViewShinyRSResults.Location = new System.Drawing.Point(0, 213);
+            this.dataGridViewShinyRSResults.Location = new System.Drawing.Point(0, 190);
             this.dataGridViewShinyRSResults.MultiSelect = false;
             this.dataGridViewShinyRSResults.Name = "dataGridViewShinyRSResults";
             this.dataGridViewShinyRSResults.ReadOnly = true;
@@ -4140,7 +4141,7 @@ namespace RNGReporter
             this.dataGridViewShinyRSResults.ShowCellToolTips = false;
             this.dataGridViewShinyRSResults.ShowEditingIcon = false;
             this.dataGridViewShinyRSResults.ShowRowErrors = false;
-            this.dataGridViewShinyRSResults.Size = new System.Drawing.Size(948, 279);
+            this.dataGridViewShinyRSResults.Size = new System.Drawing.Size(948, 302);
             this.dataGridViewShinyRSResults.TabIndex = 43;
             this.dataGridViewShinyRSResults.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewShiny3rdResults_CellFormatting);
             this.dataGridViewShinyRSResults.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewShiny3rdResults_MouseDown);
@@ -4291,7 +4292,7 @@ namespace RNGReporter
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(411, 189);
+            this.label27.Location = new System.Drawing.Point(430, 165);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(25, 13);
             this.label27.TabIndex = 109;
@@ -4300,7 +4301,7 @@ namespace RNGReporter
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(320, 189);
+            this.label31.Location = new System.Drawing.Point(339, 165);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(18, 13);
             this.label31.TabIndex = 108;
@@ -4309,10 +4310,10 @@ namespace RNGReporter
             // maskedTextBox3rdPickupMinFrame
             // 
             this.maskedTextBox3rdPickupMinFrame.Hex = false;
-            this.maskedTextBox3rdPickupMinFrame.Location = new System.Drawing.Point(91, 93);
-            this.maskedTextBox3rdPickupMinFrame.Mask = "0000000";
+            this.maskedTextBox3rdPickupMinFrame.Location = new System.Drawing.Point(91, 61);
+            this.maskedTextBox3rdPickupMinFrame.Mask = "000000000";
             this.maskedTextBox3rdPickupMinFrame.Name = "maskedTextBox3rdPickupMinFrame";
-            this.maskedTextBox3rdPickupMinFrame.Size = new System.Drawing.Size(47, 20);
+            this.maskedTextBox3rdPickupMinFrame.Size = new System.Drawing.Size(68, 20);
             this.maskedTextBox3rdPickupMinFrame.TabIndex = 2;
             this.maskedTextBox3rdPickupMinFrame.Text = "1000";
             this.maskedTextBox3rdPickupMinFrame.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
@@ -4320,10 +4321,10 @@ namespace RNGReporter
             // maskedTextBox3rdHeldMinFrame
             // 
             this.maskedTextBox3rdHeldMinFrame.Hex = false;
-            this.maskedTextBox3rdHeldMinFrame.Location = new System.Drawing.Point(91, 67);
-            this.maskedTextBox3rdHeldMinFrame.Mask = "0000000";
+            this.maskedTextBox3rdHeldMinFrame.Location = new System.Drawing.Point(91, 35);
+            this.maskedTextBox3rdHeldMinFrame.Mask = "000000000";
             this.maskedTextBox3rdHeldMinFrame.Name = "maskedTextBox3rdHeldMinFrame";
-            this.maskedTextBox3rdHeldMinFrame.Size = new System.Drawing.Size(47, 20);
+            this.maskedTextBox3rdHeldMinFrame.Size = new System.Drawing.Size(68, 20);
             this.maskedTextBox3rdHeldMinFrame.TabIndex = 0;
             this.maskedTextBox3rdHeldMinFrame.Text = "1000";
             this.maskedTextBox3rdHeldMinFrame.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
@@ -4331,10 +4332,10 @@ namespace RNGReporter
             // maskedTextBox3rdHeldMaxFrame
             // 
             this.maskedTextBox3rdHeldMaxFrame.Hex = false;
-            this.maskedTextBox3rdHeldMaxFrame.Location = new System.Drawing.Point(144, 67);
-            this.maskedTextBox3rdHeldMaxFrame.Mask = "0000000";
+            this.maskedTextBox3rdHeldMaxFrame.Location = new System.Drawing.Point(164, 35);
+            this.maskedTextBox3rdHeldMaxFrame.Mask = "000000000";
             this.maskedTextBox3rdHeldMaxFrame.Name = "maskedTextBox3rdHeldMaxFrame";
-            this.maskedTextBox3rdHeldMaxFrame.Size = new System.Drawing.Size(47, 20);
+            this.maskedTextBox3rdHeldMaxFrame.Size = new System.Drawing.Size(68, 20);
             this.maskedTextBox3rdHeldMaxFrame.TabIndex = 1;
             this.maskedTextBox3rdHeldMaxFrame.Text = "5000";
             this.maskedTextBox3rdHeldMaxFrame.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
@@ -4342,10 +4343,10 @@ namespace RNGReporter
             // maskedTextBox3rdPickupMaxFrame
             // 
             this.maskedTextBox3rdPickupMaxFrame.Hex = false;
-            this.maskedTextBox3rdPickupMaxFrame.Location = new System.Drawing.Point(144, 93);
-            this.maskedTextBox3rdPickupMaxFrame.Mask = "0000000";
+            this.maskedTextBox3rdPickupMaxFrame.Location = new System.Drawing.Point(164, 61);
+            this.maskedTextBox3rdPickupMaxFrame.Mask = "000000000";
             this.maskedTextBox3rdPickupMaxFrame.Name = "maskedTextBox3rdPickupMaxFrame";
-            this.maskedTextBox3rdPickupMaxFrame.Size = new System.Drawing.Size(47, 20);
+            this.maskedTextBox3rdPickupMaxFrame.Size = new System.Drawing.Size(68, 20);
             this.maskedTextBox3rdPickupMaxFrame.TabIndex = 3;
             this.maskedTextBox3rdPickupMaxFrame.Text = "5000";
             this.maskedTextBox3rdPickupMaxFrame.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
@@ -4353,7 +4354,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentB_Def
             // 
             this.maskedTextBoxShiny3rdParentB_Def.Hex = false;
-            this.maskedTextBoxShiny3rdParentB_Def.Location = new System.Drawing.Point(424, 129);
+            this.maskedTextBoxShiny3rdParentB_Def.Location = new System.Drawing.Point(443, 128);
             this.maskedTextBoxShiny3rdParentB_Def.Mask = "00";
             this.maskedTextBoxShiny3rdParentB_Def.Name = "maskedTextBoxShiny3rdParentB_Def";
             this.maskedTextBoxShiny3rdParentB_Def.Size = new System.Drawing.Size(38, 20);
@@ -4364,7 +4365,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentB_Atk
             // 
             this.maskedTextBoxShiny3rdParentB_Atk.Hex = false;
-            this.maskedTextBoxShiny3rdParentB_Atk.Location = new System.Drawing.Point(384, 129);
+            this.maskedTextBoxShiny3rdParentB_Atk.Location = new System.Drawing.Point(403, 128);
             this.maskedTextBoxShiny3rdParentB_Atk.Mask = "00";
             this.maskedTextBoxShiny3rdParentB_Atk.Name = "maskedTextBoxShiny3rdParentB_Atk";
             this.maskedTextBoxShiny3rdParentB_Atk.Size = new System.Drawing.Size(38, 20);
@@ -4375,7 +4376,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentB_Spe
             // 
             this.maskedTextBoxShiny3rdParentB_Spe.Hex = false;
-            this.maskedTextBoxShiny3rdParentB_Spe.Location = new System.Drawing.Point(544, 129);
+            this.maskedTextBoxShiny3rdParentB_Spe.Location = new System.Drawing.Point(563, 128);
             this.maskedTextBoxShiny3rdParentB_Spe.Mask = "00";
             this.maskedTextBoxShiny3rdParentB_Spe.Name = "maskedTextBoxShiny3rdParentB_Spe";
             this.maskedTextBoxShiny3rdParentB_Spe.Size = new System.Drawing.Size(38, 20);
@@ -4386,7 +4387,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentB_SpD
             // 
             this.maskedTextBoxShiny3rdParentB_SpD.Hex = false;
-            this.maskedTextBoxShiny3rdParentB_SpD.Location = new System.Drawing.Point(504, 129);
+            this.maskedTextBoxShiny3rdParentB_SpD.Location = new System.Drawing.Point(523, 128);
             this.maskedTextBoxShiny3rdParentB_SpD.Mask = "00";
             this.maskedTextBoxShiny3rdParentB_SpD.Name = "maskedTextBoxShiny3rdParentB_SpD";
             this.maskedTextBoxShiny3rdParentB_SpD.Size = new System.Drawing.Size(38, 20);
@@ -4397,7 +4398,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentB_SpA
             // 
             this.maskedTextBoxShiny3rdParentB_SpA.Hex = false;
-            this.maskedTextBoxShiny3rdParentB_SpA.Location = new System.Drawing.Point(464, 129);
+            this.maskedTextBoxShiny3rdParentB_SpA.Location = new System.Drawing.Point(483, 128);
             this.maskedTextBoxShiny3rdParentB_SpA.Mask = "00";
             this.maskedTextBoxShiny3rdParentB_SpA.Name = "maskedTextBoxShiny3rdParentB_SpA";
             this.maskedTextBoxShiny3rdParentB_SpA.Size = new System.Drawing.Size(38, 20);
@@ -4408,7 +4409,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentB_HP
             // 
             this.maskedTextBoxShiny3rdParentB_HP.Hex = false;
-            this.maskedTextBoxShiny3rdParentB_HP.Location = new System.Drawing.Point(344, 129);
+            this.maskedTextBoxShiny3rdParentB_HP.Location = new System.Drawing.Point(363, 128);
             this.maskedTextBoxShiny3rdParentB_HP.Mask = "00";
             this.maskedTextBoxShiny3rdParentB_HP.Name = "maskedTextBoxShiny3rdParentB_HP";
             this.maskedTextBoxShiny3rdParentB_HP.Size = new System.Drawing.Size(38, 20);
@@ -4418,7 +4419,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentA_Def
             // 
             this.maskedTextBoxShiny3rdParentA_Def.Hex = false;
-            this.maskedTextBoxShiny3rdParentA_Def.Location = new System.Drawing.Point(424, 106);
+            this.maskedTextBoxShiny3rdParentA_Def.Location = new System.Drawing.Point(443, 105);
             this.maskedTextBoxShiny3rdParentA_Def.Mask = "00";
             this.maskedTextBoxShiny3rdParentA_Def.Name = "maskedTextBoxShiny3rdParentA_Def";
             this.maskedTextBoxShiny3rdParentA_Def.Size = new System.Drawing.Size(38, 20);
@@ -4429,7 +4430,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentA_Atk
             // 
             this.maskedTextBoxShiny3rdParentA_Atk.Hex = false;
-            this.maskedTextBoxShiny3rdParentA_Atk.Location = new System.Drawing.Point(384, 106);
+            this.maskedTextBoxShiny3rdParentA_Atk.Location = new System.Drawing.Point(403, 105);
             this.maskedTextBoxShiny3rdParentA_Atk.Mask = "00";
             this.maskedTextBoxShiny3rdParentA_Atk.Name = "maskedTextBoxShiny3rdParentA_Atk";
             this.maskedTextBoxShiny3rdParentA_Atk.Size = new System.Drawing.Size(38, 20);
@@ -4440,7 +4441,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentA_Spe
             // 
             this.maskedTextBoxShiny3rdParentA_Spe.Hex = false;
-            this.maskedTextBoxShiny3rdParentA_Spe.Location = new System.Drawing.Point(544, 106);
+            this.maskedTextBoxShiny3rdParentA_Spe.Location = new System.Drawing.Point(563, 105);
             this.maskedTextBoxShiny3rdParentA_Spe.Mask = "00";
             this.maskedTextBoxShiny3rdParentA_Spe.Name = "maskedTextBoxShiny3rdParentA_Spe";
             this.maskedTextBoxShiny3rdParentA_Spe.Size = new System.Drawing.Size(38, 20);
@@ -4451,7 +4452,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentA_SpD
             // 
             this.maskedTextBoxShiny3rdParentA_SpD.Hex = false;
-            this.maskedTextBoxShiny3rdParentA_SpD.Location = new System.Drawing.Point(504, 106);
+            this.maskedTextBoxShiny3rdParentA_SpD.Location = new System.Drawing.Point(523, 105);
             this.maskedTextBoxShiny3rdParentA_SpD.Mask = "00";
             this.maskedTextBoxShiny3rdParentA_SpD.Name = "maskedTextBoxShiny3rdParentA_SpD";
             this.maskedTextBoxShiny3rdParentA_SpD.Size = new System.Drawing.Size(38, 20);
@@ -4462,7 +4463,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentA_SpA
             // 
             this.maskedTextBoxShiny3rdParentA_SpA.Hex = false;
-            this.maskedTextBoxShiny3rdParentA_SpA.Location = new System.Drawing.Point(464, 106);
+            this.maskedTextBoxShiny3rdParentA_SpA.Location = new System.Drawing.Point(483, 105);
             this.maskedTextBoxShiny3rdParentA_SpA.Mask = "00";
             this.maskedTextBoxShiny3rdParentA_SpA.Name = "maskedTextBoxShiny3rdParentA_SpA";
             this.maskedTextBoxShiny3rdParentA_SpA.Size = new System.Drawing.Size(38, 20);
@@ -4473,7 +4474,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdParentA_HP
             // 
             this.maskedTextBoxShiny3rdParentA_HP.Hex = false;
-            this.maskedTextBoxShiny3rdParentA_HP.Location = new System.Drawing.Point(344, 106);
+            this.maskedTextBoxShiny3rdParentA_HP.Location = new System.Drawing.Point(363, 105);
             this.maskedTextBoxShiny3rdParentA_HP.Mask = "00";
             this.maskedTextBoxShiny3rdParentA_HP.Name = "maskedTextBoxShiny3rdParentA_HP";
             this.maskedTextBoxShiny3rdParentA_HP.Size = new System.Drawing.Size(38, 20);
@@ -4483,7 +4484,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdSID
             // 
             this.maskedTextBoxShiny3rdSID.Hex = false;
-            this.maskedTextBoxShiny3rdSID.Location = new System.Drawing.Point(438, 186);
+            this.maskedTextBoxShiny3rdSID.Location = new System.Drawing.Point(457, 162);
             this.maskedTextBoxShiny3rdSID.Mask = "00000";
             this.maskedTextBoxShiny3rdSID.Name = "maskedTextBoxShiny3rdSID";
             this.maskedTextBoxShiny3rdSID.Size = new System.Drawing.Size(60, 20);
@@ -4493,7 +4494,7 @@ namespace RNGReporter
             // maskedTextBoxShiny3rdID
             // 
             this.maskedTextBoxShiny3rdID.Hex = false;
-            this.maskedTextBoxShiny3rdID.Location = new System.Drawing.Point(344, 186);
+            this.maskedTextBoxShiny3rdID.Location = new System.Drawing.Point(363, 162);
             this.maskedTextBoxShiny3rdID.Mask = "00000";
             this.maskedTextBoxShiny3rdID.Name = "maskedTextBoxShiny3rdID";
             this.maskedTextBoxShiny3rdID.Size = new System.Drawing.Size(60, 20);
@@ -4580,11 +4581,11 @@ namespace RNGReporter
             // label97
             // 
             this.label97.AutoSize = true;
-            this.label97.Location = new System.Drawing.Point(24, 104);
+            this.label97.Location = new System.Drawing.Point(25, 104);
             this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(32, 13);
+            this.label97.Size = new System.Drawing.Size(59, 13);
             this.label97.TabIndex = 371;
-            this.label97.Text = "Seed";
+            this.label97.Text = "Initial Seed";
             // 
             // textBoxSeed
             // 
@@ -6966,7 +6967,7 @@ namespace RNGReporter
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn59;
         private System.Windows.Forms.Label label99;
         private MaskedTextBox2 maskedTextBox21;
-        private System.Windows.Forms.RadioButton liveBatterySpreadRadioButton;
-        private System.Windows.Forms.RadioButton normalSpreadRadioButton;
+        private System.Windows.Forms.RadioButton liveBatteryRadioButton;
+        private System.Windows.Forms.RadioButton deadBatteryRadioButton;
     }
 }

@@ -162,18 +162,23 @@ namespace RNGReporter
             this.checkBoxBW2 = new System.Windows.Forms.CheckBox();
             this.cbNidoBeat = new System.Windows.Forms.CheckBox();
             this.cbShinyCharm = new System.Windows.Forms.CheckBox();
+            this.checkBoxMemoryLink = new System.Windows.Forms.CheckBox();
+            this.tuesdayRadioButton = new System.Windows.Forms.RadioButton();
+            this.thursdayRadioButton = new System.Windows.Forms.RadioButton();
+            this.saturdayRadioButton = new System.Windows.Forms.RadioButton();
+            this.preDexRadioButton = new System.Windows.Forms.RadioButton();
+            this.buttonRoamerMap = new RNGReporter.GlassButton();
+            this.maskedTextBoxERoute = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxRRoute = new RNGReporter.Controls.MaskedTextBox2();
+            this.maskedTextBoxLRoute = new RNGReporter.Controls.MaskedTextBox2();
             this.maskedTextBoxSID = new RNGReporter.Controls.MaskedTextBox2();
             this.maskedTextBoxID = new RNGReporter.Controls.MaskedTextBox2();
             this.ivFilters = new RNGReporter.Controls.IVFilters();
             this.buttonAnySlot = new RNGReporter.GlassButton();
-            this.buttonRoamerMap = new RNGReporter.GlassButton();
             this.comboBoxGender = new RNGReporter.GlassComboBox();
             this.buttonCalcInitialFrame = new RNGReporter.GlassButton();
             this.buttonDSParameters = new RNGReporter.GlassButton();
             this.comboBoxEncounterType = new RNGReporter.GlassComboBox();
-            this.maskedTextBoxERoute = new RNGReporter.Controls.MaskedTextBox2();
-            this.maskedTextBoxRRoute = new RNGReporter.Controls.MaskedTextBox2();
-            this.maskedTextBoxLRoute = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxSynchNatures = new RNGReporter.GlassComboBox();
             this.comboBoxEncounterSlot = new RNGReporter.Controls.CheckBoxComboBox();
             this.comboBoxAbility = new RNGReporter.GlassComboBox();
@@ -216,7 +221,6 @@ namespace RNGReporter
             this.maskedTextBoxStartingFrame = new RNGReporter.Controls.MaskedTextBox2();
             this.maskedTextBoxMaxFrames = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxMethod = new RNGReporter.GlassComboBox();
-            this.checkBoxMemoryLink = new System.Windows.Forms.CheckBox();
             this.contextMenuStripGrid.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripTimeFinder.SuspendLayout();
@@ -291,126 +295,126 @@ namespace RNGReporter
             this.toolStripMenuItem3,
             this.outputResultsToTXTToolStripMenuItem});
             this.contextMenuStripGrid.Name = "contextMenuStripGrid";
-            this.contextMenuStripGrid.Size = new System.Drawing.Size(335, 380);
+            this.contextMenuStripGrid.Size = new System.Drawing.Size(336, 380);
             this.contextMenuStripGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripGrid_Opening);
             // 
             // lockFrameToolStripMenuItem
             // 
             this.lockFrameToolStripMenuItem.Name = "lockFrameToolStripMenuItem";
-            this.lockFrameToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.lockFrameToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.lockFrameToolStripMenuItem.Text = "Set as Target Frame";
             this.lockFrameToolStripMenuItem.Click += new System.EventHandler(this.lockFrameToolStripMenuItem_Click);
             // 
             // jumpFrameToolStripMenuItem
             // 
             this.jumpFrameToolStripMenuItem.Name = "jumpFrameToolStripMenuItem";
-            this.jumpFrameToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.jumpFrameToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.jumpFrameToolStripMenuItem.Text = "Jump to Target Frame";
             this.jumpFrameToolStripMenuItem.Click += new System.EventHandler(this.jumpFrameToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(331, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(332, 6);
             // 
             // centerTo1SecondToolStripMenuItem
             // 
             this.centerTo1SecondToolStripMenuItem.Name = "centerTo1SecondToolStripMenuItem";
-            this.centerTo1SecondToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.centerTo1SecondToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.centerTo1SecondToolStripMenuItem.Text = "Center to +/- 1 Second and Set as Target Frame";
             this.centerTo1SecondToolStripMenuItem.Click += new System.EventHandler(this.centerTo1SecondToolStripMenuItem_Click);
             // 
             // centerTo2SecondsToolStripMenuItem
             // 
             this.centerTo2SecondsToolStripMenuItem.Name = "centerTo2SecondsToolStripMenuItem";
-            this.centerTo2SecondsToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.centerTo2SecondsToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.centerTo2SecondsToolStripMenuItem.Text = "Center to +/- 2 Seconds and Set as Target Frame";
             this.centerTo2SecondsToolStripMenuItem.Click += new System.EventHandler(this.centerTo2SecondsToolStripMenuItem_Click);
             // 
             // centerTo3SecondsToolStripMenuItem
             // 
             this.centerTo3SecondsToolStripMenuItem.Name = "centerTo3SecondsToolStripMenuItem";
-            this.centerTo3SecondsToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.centerTo3SecondsToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.centerTo3SecondsToolStripMenuItem.Text = "Center to +/- 3 Seconds and Set as Target Frame";
             this.centerTo3SecondsToolStripMenuItem.Click += new System.EventHandler(this.centerTo3SecondsToolStripMenuItem_Click);
             // 
             // centerTo5SecondsToolStripMenuItem
             // 
             this.centerTo5SecondsToolStripMenuItem.Name = "centerTo5SecondsToolStripMenuItem";
-            this.centerTo5SecondsToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.centerTo5SecondsToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.centerTo5SecondsToolStripMenuItem.Text = "Center to +/- 5 Seconds and Set as Target Frame";
             this.centerTo5SecondsToolStripMenuItem.Click += new System.EventHandler(this.centerTo5SecondsToolStripMenuItem_Click);
             // 
             // centerTo10SecondsToolStripMenuItem
             // 
             this.centerTo10SecondsToolStripMenuItem.Name = "centerTo10SecondsToolStripMenuItem";
-            this.centerTo10SecondsToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.centerTo10SecondsToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.centerTo10SecondsToolStripMenuItem.Text = "Center to +/- 10 Seconds and Set as Target Frame";
             this.centerTo10SecondsToolStripMenuItem.Click += new System.EventHandler(this.centerTo10SecondsToolStripMenuItem_Click);
             // 
             // centerTp1MinuteToolStripMenuItem
             // 
             this.centerTp1MinuteToolStripMenuItem.Name = "centerTp1MinuteToolStripMenuItem";
-            this.centerTp1MinuteToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.centerTp1MinuteToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.centerTp1MinuteToolStripMenuItem.Text = "Center to +/- 1 Minute and Set as Target Frame";
             this.centerTp1MinuteToolStripMenuItem.Click += new System.EventHandler(this.centerTp1MinuteToolStripMenuItem_Click);
             // 
             // removeCenteringToolStripMenuItem
             // 
             this.removeCenteringToolStripMenuItem.Name = "removeCenteringToolStripMenuItem";
-            this.removeCenteringToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.removeCenteringToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.removeCenteringToolStripMenuItem.Text = "Remove Centering";
             this.removeCenteringToolStripMenuItem.Click += new System.EventHandler(this.removeCenteringToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(331, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(332, 6);
             // 
             // calculatePoketechTapsToolStripMenuItem
             // 
             this.calculatePoketechTapsToolStripMenuItem.Name = "calculatePoketechTapsToolStripMenuItem";
-            this.calculatePoketechTapsToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.calculatePoketechTapsToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.calculatePoketechTapsToolStripMenuItem.Text = "Calculate Poketech Taps ...";
             this.calculatePoketechTapsToolStripMenuItem.Click += new System.EventHandler(this.calculatePoketechTapsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(331, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(332, 6);
             // 
             // searchCoinFlipsToolStripMenuItem
             // 
             this.searchCoinFlipsToolStripMenuItem.Name = "searchCoinFlipsToolStripMenuItem";
-            this.searchCoinFlipsToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.searchCoinFlipsToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.searchCoinFlipsToolStripMenuItem.Text = "Search Coin Flips ...";
             this.searchCoinFlipsToolStripMenuItem.Click += new System.EventHandler(this.searchCoinFlipsToolStripMenuItem_Click);
             // 
             // searchNaturesToolStripMenuItem
             // 
             this.searchNaturesToolStripMenuItem.Name = "searchNaturesToolStripMenuItem";
-            this.searchNaturesToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.searchNaturesToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.searchNaturesToolStripMenuItem.Text = "Search Natures ...";
             this.searchNaturesToolStripMenuItem.Click += new System.EventHandler(this.searchNaturesToolStripMenuItem_Click);
             // 
             // searchElmToolStripMenuItem
             // 
             this.searchElmToolStripMenuItem.Name = "searchElmToolStripMenuItem";
-            this.searchElmToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.searchElmToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.searchElmToolStripMenuItem.Text = "Search Elm Responses ...";
             this.searchElmToolStripMenuItem.Click += new System.EventHandler(this.searchElmToolStripMenuItem_Click);
             // 
             // displayParentsInSearchToolStripMenuItem
             // 
             this.displayParentsInSearchToolStripMenuItem.Name = "displayParentsInSearchToolStripMenuItem";
-            this.displayParentsInSearchToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.displayParentsInSearchToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.displayParentsInSearchToolStripMenuItem.Text = "Display Parents in Search...";
             this.displayParentsInSearchToolStripMenuItem.Click += new System.EventHandler(this.displayParentsInSearchToolStripMenuItem_Click);
             // 
             // resetParentsToolStripMenuItem
             // 
             this.resetParentsToolStripMenuItem.Name = "resetParentsToolStripMenuItem";
-            this.resetParentsToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.resetParentsToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.resetParentsToolStripMenuItem.Text = "Reset Parents";
             this.resetParentsToolStripMenuItem.Visible = false;
             this.resetParentsToolStripMenuItem.Click += new System.EventHandler(this.resetParentsToolStripMenuItem_Click);
@@ -418,12 +422,12 @@ namespace RNGReporter
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(331, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(332, 6);
             // 
             // outputResultsToTXTToolStripMenuItem
             // 
             this.outputResultsToTXTToolStripMenuItem.Name = "outputResultsToTXTToolStripMenuItem";
-            this.outputResultsToTXTToolStripMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.outputResultsToTXTToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
             this.outputResultsToTXTToolStripMenuItem.Text = "Output Results to TXT ...";
             this.outputResultsToTXTToolStripMenuItem.Click += new System.EventHandler(this.outputResultsToTXTToolStripMenuItem_Click);
             // 
@@ -643,7 +647,7 @@ namespace RNGReporter
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(916, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(1012, 29);
             this.menuStrip1.Stretch = false;
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -672,7 +676,7 @@ namespace RNGReporter
             this.fireRedEncounterTableToolStripMenuItem,
             this.leafGreenEncounterTableToolStripMenuItem});
             this.rdGenToolsToolStripMenuItem.Name = "rdGenToolsToolStripMenuItem";
-            this.rdGenToolsToolStripMenuItem.Size = new System.Drawing.Size(91, 25);
+            this.rdGenToolsToolStripMenuItem.Size = new System.Drawing.Size(92, 25);
             this.rdGenToolsToolStripMenuItem.Text = "3rd Gen Tools";
             // 
             // tIDSIDManipulationPandorasBoxToolStripMenuItem2
@@ -783,7 +787,7 @@ namespace RNGReporter
             this.heartGoldEncounterTableToolStripMenuItem,
             this.soulSilverEncounterTableToolStripMenuItem});
             this.thGenToolsToolStripMenuItem.Name = "thGenToolsToolStripMenuItem";
-            this.thGenToolsToolStripMenuItem.Size = new System.Drawing.Size(91, 25);
+            this.thGenToolsToolStripMenuItem.Size = new System.Drawing.Size(92, 25);
             this.thGenToolsToolStripMenuItem.Text = "4th Gen Tools";
             // 
             // iVsToPIDToolStripMenuItem
@@ -904,7 +908,7 @@ namespace RNGReporter
             this.white2EncounterTableToolStripMenuItem,
             this.hiddenGrottoEncounterTablesToolStripMenuItem});
             this.thGenToolsToolStripMenuItem1.Name = "thGenToolsToolStripMenuItem1";
-            this.thGenToolsToolStripMenuItem1.Size = new System.Drawing.Size(91, 25);
+            this.thGenToolsToolStripMenuItem1.Size = new System.Drawing.Size(92, 25);
             this.thGenToolsToolStripMenuItem1.Text = "5th Gen Tools";
             // 
             // findDSParametersToolStripMenuItem
@@ -1346,6 +1350,116 @@ namespace RNGReporter
             this.cbShinyCharm.Text = "Shiny Charm";
             this.cbShinyCharm.UseVisualStyleBackColor = true;
             // 
+            // checkBoxMemoryLink
+            // 
+            this.checkBoxMemoryLink.AutoSize = true;
+            this.checkBoxMemoryLink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.checkBoxMemoryLink.Location = new System.Drawing.Point(817, 188);
+            this.checkBoxMemoryLink.Name = "checkBoxMemoryLink";
+            this.checkBoxMemoryLink.Size = new System.Drawing.Size(92, 17);
+            this.checkBoxMemoryLink.TabIndex = 332;
+            this.checkBoxMemoryLink.Text = "Memory Link?";
+            this.checkBoxMemoryLink.UseVisualStyleBackColor = true;
+            this.checkBoxMemoryLink.Visible = false;
+            // 
+            // tuesdayRadioButton
+            // 
+            this.tuesdayRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.tuesdayRadioButton.AutoSize = true;
+            this.tuesdayRadioButton.Location = new System.Drawing.Point(865, 467);
+            this.tuesdayRadioButton.Name = "tuesdayRadioButton";
+            this.tuesdayRadioButton.Size = new System.Drawing.Size(118, 17);
+            this.tuesdayRadioButton.TabIndex = 333;
+            this.tuesdayRadioButton.Text = "Post Dex - Tuesday";
+            this.tuesdayRadioButton.UseVisualStyleBackColor = true;
+            this.tuesdayRadioButton.Visible = false;
+            // 
+            // thursdayRadioButton
+            // 
+            this.thursdayRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.thursdayRadioButton.AutoSize = true;
+            this.thursdayRadioButton.Location = new System.Drawing.Point(727, 490);
+            this.thursdayRadioButton.Name = "thursdayRadioButton";
+            this.thursdayRadioButton.Size = new System.Drawing.Size(121, 17);
+            this.thursdayRadioButton.TabIndex = 334;
+            this.thursdayRadioButton.Text = "Post Dex - Thursday";
+            this.thursdayRadioButton.UseVisualStyleBackColor = true;
+            this.thursdayRadioButton.Visible = false;
+            // 
+            // saturdayRadioButton
+            // 
+            this.saturdayRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saturdayRadioButton.AutoSize = true;
+            this.saturdayRadioButton.Location = new System.Drawing.Point(865, 490);
+            this.saturdayRadioButton.Name = "saturdayRadioButton";
+            this.saturdayRadioButton.Size = new System.Drawing.Size(119, 17);
+            this.saturdayRadioButton.TabIndex = 335;
+            this.saturdayRadioButton.Text = "Post Dex - Saturday";
+            this.saturdayRadioButton.UseVisualStyleBackColor = true;
+            this.saturdayRadioButton.Visible = false;
+            // 
+            // preDexRadioButton
+            // 
+            this.preDexRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.preDexRadioButton.AutoSize = true;
+            this.preDexRadioButton.Checked = true;
+            this.preDexRadioButton.Location = new System.Drawing.Point(727, 467);
+            this.preDexRadioButton.Name = "preDexRadioButton";
+            this.preDexRadioButton.Size = new System.Drawing.Size(63, 17);
+            this.preDexRadioButton.TabIndex = 336;
+            this.preDexRadioButton.TabStop = true;
+            this.preDexRadioButton.Text = "Pre Dex";
+            this.preDexRadioButton.UseVisualStyleBackColor = true;
+            this.preDexRadioButton.Visible = false;
+            // 
+            // buttonRoamerMap
+            // 
+            this.buttonRoamerMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRoamerMap.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.buttonRoamerMap.ForeColor = System.Drawing.Color.Black;
+            this.buttonRoamerMap.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonRoamerMap.Location = new System.Drawing.Point(133, 487);
+            this.buttonRoamerMap.Name = "buttonRoamerMap";
+            this.buttonRoamerMap.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.buttonRoamerMap.ShineColor = System.Drawing.SystemColors.Window;
+            this.buttonRoamerMap.Size = new System.Drawing.Size(45, 23);
+            this.buttonRoamerMap.TabIndex = 38;
+            this.buttonRoamerMap.Text = "Map";
+            this.buttonRoamerMap.Click += new System.EventHandler(this.buttonRoamerMap_Click);
+            // 
+            // maskedTextBoxERoute
+            // 
+            this.maskedTextBoxERoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.maskedTextBoxERoute.Hex = false;
+            this.maskedTextBoxERoute.Location = new System.Drawing.Point(282, 489);
+            this.maskedTextBoxERoute.Mask = "00";
+            this.maskedTextBoxERoute.Name = "maskedTextBoxERoute";
+            this.maskedTextBoxERoute.Size = new System.Drawing.Size(20, 20);
+            this.maskedTextBoxERoute.TabIndex = 42;
+            this.maskedTextBoxERoute.ValidatingType = typeof(int);
+            // 
+            // maskedTextBoxRRoute
+            // 
+            this.maskedTextBoxRRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.maskedTextBoxRRoute.Hex = false;
+            this.maskedTextBoxRRoute.Location = new System.Drawing.Point(217, 489);
+            this.maskedTextBoxRRoute.Mask = "00";
+            this.maskedTextBoxRRoute.Name = "maskedTextBoxRRoute";
+            this.maskedTextBoxRRoute.Size = new System.Drawing.Size(20, 20);
+            this.maskedTextBoxRRoute.TabIndex = 40;
+            this.maskedTextBoxRRoute.ValidatingType = typeof(int);
+            // 
+            // maskedTextBoxLRoute
+            // 
+            this.maskedTextBoxLRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.maskedTextBoxLRoute.Hex = false;
+            this.maskedTextBoxLRoute.Location = new System.Drawing.Point(347, 489);
+            this.maskedTextBoxLRoute.Mask = "00";
+            this.maskedTextBoxLRoute.Name = "maskedTextBoxLRoute";
+            this.maskedTextBoxLRoute.Size = new System.Drawing.Size(20, 20);
+            this.maskedTextBoxLRoute.TabIndex = 44;
+            this.maskedTextBoxLRoute.ValidatingType = typeof(int);
+            // 
             // maskedTextBoxSID
             // 
             this.maskedTextBoxSID.Hex = false;
@@ -1389,21 +1503,6 @@ namespace RNGReporter
             this.buttonAnySlot.Text = "Any";
             this.buttonAnySlot.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonAnySlot.Click += new System.EventHandler(this.buttonAnySlot_Click);
-            // 
-            // buttonRoamerMap
-            // 
-            this.buttonRoamerMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRoamerMap.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.buttonRoamerMap.ForeColor = System.Drawing.Color.Black;
-            this.buttonRoamerMap.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonRoamerMap.Location = new System.Drawing.Point(133, 487);
-            this.buttonRoamerMap.Name = "buttonRoamerMap";
-            this.buttonRoamerMap.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.buttonRoamerMap.ShineColor = System.Drawing.SystemColors.Window;
-            this.buttonRoamerMap.Size = new System.Drawing.Size(45, 23);
-            this.buttonRoamerMap.TabIndex = 38;
-            this.buttonRoamerMap.Text = "Map";
-            this.buttonRoamerMap.Click += new System.EventHandler(this.buttonRoamerMap_Click);
             // 
             // comboBoxGender
             // 
@@ -1470,39 +1569,7 @@ namespace RNGReporter
             this.comboBoxEncounterType.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxEncounterType.Size = new System.Drawing.Size(153, 21);
             this.comboBoxEncounterType.TabIndex = 2;
-            // 
-            // maskedTextBoxERoute
-            // 
-            this.maskedTextBoxERoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.maskedTextBoxERoute.Hex = false;
-            this.maskedTextBoxERoute.Location = new System.Drawing.Point(282, 489);
-            this.maskedTextBoxERoute.Mask = "00";
-            this.maskedTextBoxERoute.Name = "maskedTextBoxERoute";
-            this.maskedTextBoxERoute.Size = new System.Drawing.Size(20, 20);
-            this.maskedTextBoxERoute.TabIndex = 42;
-            this.maskedTextBoxERoute.ValidatingType = typeof(int);
-            // 
-            // maskedTextBoxRRoute
-            // 
-            this.maskedTextBoxRRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.maskedTextBoxRRoute.Hex = false;
-            this.maskedTextBoxRRoute.Location = new System.Drawing.Point(217, 489);
-            this.maskedTextBoxRRoute.Mask = "00";
-            this.maskedTextBoxRRoute.Name = "maskedTextBoxRRoute";
-            this.maskedTextBoxRRoute.Size = new System.Drawing.Size(20, 20);
-            this.maskedTextBoxRRoute.TabIndex = 40;
-            this.maskedTextBoxRRoute.ValidatingType = typeof(int);
-            // 
-            // maskedTextBoxLRoute
-            // 
-            this.maskedTextBoxLRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.maskedTextBoxLRoute.Hex = false;
-            this.maskedTextBoxLRoute.Location = new System.Drawing.Point(347, 489);
-            this.maskedTextBoxLRoute.Mask = "00";
-            this.maskedTextBoxLRoute.Name = "maskedTextBoxLRoute";
-            this.maskedTextBoxLRoute.Size = new System.Drawing.Size(20, 20);
-            this.maskedTextBoxLRoute.TabIndex = 44;
-            this.maskedTextBoxLRoute.ValidatingType = typeof(int);
+            this.comboBoxEncounterType.SelectedIndexChanged += new System.EventHandler(this.comboBoxEncounterType_SelectedIndexChanged);
             // 
             // comboBoxSynchNatures
             // 
@@ -1636,8 +1703,8 @@ namespace RNGReporter
             this.dataGridViewValues.AllowUserToAddRows = false;
             this.dataGridViewValues.AllowUserToDeleteRows = false;
             this.dataGridViewValues.AllowUserToResizeRows = false;
-            this.dataGridViewValues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridViewValues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewValues.ColumnHeadersHeight = 20;
             this.dataGridViewValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -1685,7 +1752,7 @@ namespace RNGReporter
             this.dataGridViewValues.ShowCellToolTips = false;
             this.dataGridViewValues.ShowEditingIcon = false;
             this.dataGridViewValues.ShowRowErrors = false;
-            this.dataGridViewValues.Size = new System.Drawing.Size(892, 193);
+            this.dataGridViewValues.Size = new System.Drawing.Size(988, 193);
             this.dataGridViewValues.TabIndex = 9;
             this.dataGridViewValues.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewValues_CellFormatting);
             this.dataGridViewValues.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewValues_CellMouseEnter);
@@ -1974,47 +2041,20 @@ namespace RNGReporter
             this.comboBoxMethod.TabIndex = 1;
             this.comboBoxMethod.SelectedIndexChanged += new System.EventHandler(this.comboBoxMethod_SelectedIndexChanged);
             // 
-            // checkBoxMemoryLink
-            // 
-            this.checkBoxMemoryLink.AutoSize = true;
-            this.checkBoxMemoryLink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.checkBoxMemoryLink.Location = new System.Drawing.Point(817, 188);
-            this.checkBoxMemoryLink.Name = "checkBoxMemoryLink";
-            this.checkBoxMemoryLink.Size = new System.Drawing.Size(92, 17);
-            this.checkBoxMemoryLink.TabIndex = 332;
-            this.checkBoxMemoryLink.Text = "Memory Link?";
-            this.checkBoxMemoryLink.UseVisualStyleBackColor = true;
-            this.checkBoxMemoryLink.Visible = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(916, 516);
-            this.Controls.Add(this.checkBoxMemoryLink);
-            this.Controls.Add(this.cbShinyCharm);
-            this.Controls.Add(this.cbNidoBeat);
-            this.Controls.Add(this.maskedTextBoxSID);
-            this.Controls.Add(this.maskedTextBoxID);
-            this.Controls.Add(this.checkBoxBW2);
-            this.Controls.Add(this.ivFilters);
-            this.Controls.Add(this.buttonAnySlot);
+            this.ClientSize = new System.Drawing.Size(1012, 516);
+            this.Controls.Add(this.preDexRadioButton);
+            this.Controls.Add(this.saturdayRadioButton);
+            this.Controls.Add(this.thursdayRadioButton);
+            this.Controls.Add(this.tuesdayRadioButton);
             this.Controls.Add(this.buttonRoamerMap);
-            this.Controls.Add(this.checkBoxRoamerReleased);
-            this.Controls.Add(this.buttonLead);
-            this.Controls.Add(this.comboBoxGender);
-            this.Controls.Add(this.label41);
             this.Controls.Add(this.labelRoamerRoutes);
-            this.Controls.Add(this.buttonCalcInitialFrame);
-            this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.label21);
-            this.Controls.Add(this.labelCalcWarning);
-            this.Controls.Add(this.buttonDSParameters);
             this.Controls.Add(this.labelElmForSeed);
-            this.Controls.Add(this.comboBoxEncounterType);
             this.Controls.Add(this.labelFlipsForSeed);
-            this.Controls.Add(this.label52);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.checkBoxEPresent);
@@ -2024,13 +2064,32 @@ namespace RNGReporter
             this.Controls.Add(this.checkBoxRPresent);
             this.Controls.Add(this.checkBoxLPresent);
             this.Controls.Add(this.label17);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.labelTargetFrame);
+            this.Controls.Add(this.checkBoxMemoryLink);
+            this.Controls.Add(this.cbShinyCharm);
+            this.Controls.Add(this.cbNidoBeat);
+            this.Controls.Add(this.maskedTextBoxSID);
+            this.Controls.Add(this.maskedTextBoxID);
+            this.Controls.Add(this.checkBoxBW2);
+            this.Controls.Add(this.ivFilters);
+            this.Controls.Add(this.buttonAnySlot);
+            this.Controls.Add(this.checkBoxRoamerReleased);
+            this.Controls.Add(this.buttonLead);
+            this.Controls.Add(this.comboBoxGender);
+            this.Controls.Add(this.label41);
+            this.Controls.Add(this.buttonCalcInitialFrame);
+            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.labelCalcWarning);
+            this.Controls.Add(this.buttonDSParameters);
+            this.Controls.Add(this.comboBoxEncounterType);
+            this.Controls.Add(this.label52);
             this.Controls.Add(this.checkBoxSynchOnly);
             this.Controls.Add(this.checkBoxDittoParent);
             this.Controls.Add(this.comboBoxSynchNatures);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.checkBoxDreamWorld);
-            this.Controls.Add(this.labelTargetFrame);
             this.Controls.Add(this.comboBoxEncounterSlot);
             this.Controls.Add(this.comboBoxAbility);
             this.Controls.Add(this.label16);
@@ -2250,6 +2309,9 @@ namespace RNGReporter
         private System.Windows.Forms.ToolStripMenuItem pIDToIVsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pokespotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iVsToFrameToolStripMenuItem;
+        private System.Windows.Forms.RadioButton tuesdayRadioButton;
+        private System.Windows.Forms.RadioButton thursdayRadioButton;
+        private System.Windows.Forms.RadioButton saturdayRadioButton;
+        private System.Windows.Forms.RadioButton preDexRadioButton;
     }
 }
-

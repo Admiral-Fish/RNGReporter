@@ -40,6 +40,9 @@ namespace RNGReporter
 {
     public partial class MainForm : Form
     {
+        public static bool mainEncounterSlotFix = false;
+        public static int encounterSlotFixVar;
+
         public const int VersionNumber = 77446;
         private bool completeIVs;
         private EncounterMod currentMod;
@@ -387,10 +390,24 @@ namespace RNGReporter
         {
             Generate();
             dataGridViewValues.Focus();
+
+            mainEncounterSlotFix = false;
         }
 
         private void Generate()
         {
+            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest" && comboBoxMethod.SelectedItem.ToString() == "Method K (HGSS)")
+            {
+                mainEncounterSlotFix = true;
+
+                if (preDexRadioButton.Checked == true || tuesdayRadioButton.Checked == true)
+                {
+                    encounterSlotFixVar = 0;
+                }
+                else
+                { encounterSlotFixVar = 1; }
+            }
+
             // We want to force an early garbage collection
             // Because the frame lists get very big, very fast
             if (frames != null)
@@ -2310,6 +2327,15 @@ namespace RNGReporter
             {
                 comboBoxEncounterType.Enabled = false;
             }
+
+            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest" && comboBoxMethod.SelectedItem.ToString() == "Method K (HGSS)")
+            {
+                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = true;
+            }
+            else
+            {
+                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = false;
+            }
         }
 
         private void buttonRoamerMap_Click(object sender, EventArgs e)
@@ -3166,6 +3192,18 @@ namespace RNGReporter
         {
             var ivsToFrame = new IVstoFrame();
             ivsToFrame.Show();
+        }
+
+        private void comboBoxEncounterType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest" && comboBoxMethod.SelectedItem.ToString() == "Method K (HGSS)")
+            {
+                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = true;
+            }
+            else
+            {
+                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = false;
+            }
         }
     }
 }

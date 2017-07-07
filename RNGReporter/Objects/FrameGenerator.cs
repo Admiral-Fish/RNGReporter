@@ -926,8 +926,41 @@ namespace RNGReporter.Objects
 
                                             frame.Synchable = true;
                                             frame.EncounterMod = EncounterMod.Synchronize;
-                                            frame.EncounterSlot = EncounterSlotCalc.encounterSlot(slot, frameType,
-                                                                                                  EncounterType);
+                                            frame.EncounterSlot = EncounterSlotCalc.encounterSlot(slot, frameType, EncounterType);
+
+                                            if (TimeFinder4th.TF4thEncounterSlotFix == true)
+                                            {
+                                                if (MainForm.encounterSlotFixVar == 0)
+                                                {
+                                                    if (frame.EncounterSlot == 4)
+                                                    {
+                                                        frame.EncounterSlot = 6;
+                                                    }
+                                                    else if (frame.EncounterSlot == 5)
+                                                    {
+                                                        frame.EncounterSlot = 7;
+                                                    }
+                                                    else if (frame.EncounterSlot == 6)
+                                                    {
+                                                        frame.EncounterSlot = 5;
+                                                    }
+                                                    else if (frame.EncounterSlot == 7)
+                                                    {
+                                                        frame.EncounterSlot = 4;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (frame.EncounterSlot == 1)
+                                                    {
+                                                        frame.EncounterSlot = 2;
+                                                    }
+                                                    else if (frame.EncounterSlot == 2)
+                                                    {
+                                                        frame.EncounterSlot = 1;
+                                                    }
+                                                }
+                                            }
                                             candidates.Add(frame);
                                         }
                                     }

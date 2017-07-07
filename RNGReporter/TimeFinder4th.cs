@@ -32,8 +32,9 @@ namespace RNGReporter
 {
     public partial class TimeFinder4th : Form
     {
-        private static readonly object threadLock = new object();
+        public static bool TF4thEncounterSlotFix = false;
 
+        private static readonly object threadLock = new object();
 
         // Column identifiers
         // We use these so we don't have to make string compares
@@ -794,6 +795,18 @@ namespace RNGReporter
 
         private void buttonCapGenerate_Click(object sender, EventArgs e)
         {
+            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest")
+            {
+                TF4thEncounterSlotFix = true;
+
+                if (preDexRadioButton.Checked == true || tuesdayRadioButton.Checked == true)
+                {
+                    MainForm.encounterSlotFixVar = 0;
+                }
+                else
+                { MainForm.encounterSlotFixVar = 1; }
+            }
+
             if (!uint.TryParse(maskedTextBoxID.Text, out id))
                 id = 0;
 
@@ -1053,6 +1066,8 @@ namespace RNGReporter
             buttonCapGenerate.Enabled = false;
 
             dataGridViewCapValues.Focus();
+
+            TF4thEncounterSlotFix = false;
         }
 
         private void Generate4thGenCapJob(List<uint> hpList, List<uint> atkList,
@@ -2293,5 +2308,16 @@ namespace RNGReporter
 
         #endregion
 
+        private void comboBoxEncounterType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest")
+            {
+                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = true;
+            }
+            else
+            {
+                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = false;
+            }
+        }
     }
 }

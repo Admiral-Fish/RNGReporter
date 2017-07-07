@@ -865,7 +865,7 @@ namespace RNGReporter
                 MaxResults = maxOffset
             };
 
-            if (=comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest")
+            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest")
             {
                 if (preDexRadioButton.Checked)
                     generator.EncounterType = EncounterType.BugCatchingContestPreDex;

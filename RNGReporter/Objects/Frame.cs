@@ -897,40 +897,6 @@ namespace RNGReporter.Objects
             uint offset,
             int encounterSlot)
         {
-            if (MainForm.mainEncounterSlotFix == true)
-            {
-                if (MainForm.encounterSlotFixVar == 0)
-                {
-                    if (encounterSlot == 4)
-                    {
-                        encounterSlot = 6;
-                    }
-                    else if (encounterSlot == 5)
-                    {
-                        encounterSlot = 7;
-                    }
-                    else if (encounterSlot == 6)
-                    {
-                        encounterSlot = 5;
-                    }
-                    else if (encounterSlot == 7)
-                    {
-                        encounterSlot = 4;
-                    }
-                }
-                else
-                {
-                    if (encounterSlot == 1)
-                    {
-                        encounterSlot = 2;
-                    }
-                    else if (encounterSlot == 2)
-                    {
-                        encounterSlot = 1;
-                    }
-                }
-            }
-
             var frame = new Frame(frameType)
                 {
                     Seed = seed,

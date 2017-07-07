@@ -40,9 +40,6 @@ namespace RNGReporter
 {
     public partial class MainForm : Form
     {
-        public static bool mainEncounterSlotFix = false;
-        public static int encounterSlotFixVar;
-
         public const int VersionNumber = 77446;
         private bool completeIVs;
         private EncounterMod currentMod;
@@ -390,24 +387,10 @@ namespace RNGReporter
         {
             Generate();
             dataGridViewValues.Focus();
-
-            mainEncounterSlotFix = false;
         }
 
         private void Generate()
         {
-            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest" && comboBoxMethod.SelectedItem.ToString() == "Method K (HGSS)")
-            {
-                mainEncounterSlotFix = true;
-
-                if (preDexRadioButton.Checked == true || tuesdayRadioButton.Checked == true)
-                {
-                    encounterSlotFixVar = 0;
-                }
-                else
-                { encounterSlotFixVar = 1; }
-            }
-
             // We want to force an early garbage collection
             // Because the frame lists get very big, very fast
             if (frames != null)
@@ -423,24 +406,20 @@ namespace RNGReporter
 
             // Set up generator settings
             var generator = new FrameGenerator
-                {
-                    FrameType =
-                        (FrameType) ((ComboBoxItem) comboBoxMethod.SelectedItem).Reference,
-                    EncounterMod = currentMod
-                };
-            var offset =
-                (uint)
-                (checkBoxBW2.Visible && checkBoxBW2.Checked && generator.FrameType != FrameType.Method5Natures &&
-                 generator.FrameType != FrameType.BWBred && generator.FrameType != FrameType.BWBredInternational
-                     ? 2
-                     : 0);
-            if (generator.FrameType == FrameType.BWBred && checkBoxBW2.Checked) generator.FrameType = FrameType.BW2Bred;
+            {
+                FrameType = (FrameType)((ComboBoxItem)comboBoxMethod.SelectedItem).Reference,
+                EncounterMod = currentMod
+            };
+
+            var offset = (uint)(checkBoxBW2.Visible && checkBoxBW2.Checked && generator.FrameType != FrameType.Method5Natures &&
+                 generator.FrameType != FrameType.BWBred && generator.FrameType != FrameType.BWBredInternational ? 2 : 0);
+
+            if (generator.FrameType == FrameType.BWBred && checkBoxBW2.Checked)
+                generator.FrameType = FrameType.BW2Bred;
             if (generator.FrameType == FrameType.BWBredInternational && checkBoxBW2.Checked)
                 generator.FrameType = FrameType.BW2BredInternational;
             if (currentMod == EncounterMod.Synchronize && comboBoxSynchNatures.SelectedIndex == 0)
-            {
                 generator.EncounterMod = EncounterMod.None;
-            }
 
             if (currentMod == EncounterMod.CuteCharm)
                 generator.SynchNature = (int) ((ComboBoxItem) comboBoxSynchNatures.SelectedItem).Reference;
@@ -452,11 +431,22 @@ namespace RNGReporter
             generator.MaleOnlySpecies = cbNidoBeat.Checked;
             generator.ShinyCharm = cbShinyCharm.Checked;
 
+            if (generator.EncounterType == EncounterType.BugCatchingContest && generator.FrameType == FrameType.MethodK)
+            {
+                if (preDexRadioButton.Checked)
+                    generator.EncounterType = EncounterType.BugCatchingContestPreDex;
+                else if (tuesdayRadioButton.Checked)
+                    generator.EncounterType = EncounterType.BugBugCatchingContestTues;
+                else if (thursdayRadioButton.Checked)
+                    generator.EncounterType = EncounterType.BugCatchingContestThurs;
+                else if (saturdayRadioButton.Checked)
+                    generator.EncounterType = EncounterType.BugCatchingContestSat;
+            }
+
             // this is for PIDRNG encounter slots
             generator.isBW2 = checkBoxBW2.Visible && checkBoxBW2.Checked;
 
-            if (generator.EncounterType == EncounterType.SafariZone ||
-                generator.EncounterType == EncounterType.BugCatchingContest && !szWarned)
+            if (generator.EncounterType == EncounterType.SafariZone || generator.EncounterType == EncounterType.BugCatchingContest && !szWarned)
             {
                 var warning = new WarningSZ();
                 warning.ShowDialog();
@@ -479,10 +469,7 @@ namespace RNGReporter
             List<uint> natures = null;
             if (comboBoxNature.Text != "Any" && comboBoxNature.CheckBoxItems.Count > 0)
             {
-                natures =
-                    (from t in comboBoxNature.CheckBoxItems
-                     where t.Checked
-                     select (uint) ((Nature) t.ComboBoxItem).Number).ToList();
+                natures = (from t in comboBoxNature.CheckBoxItems where t.Checked select (uint)((Nature)t.ComboBoxItem).Number).ToList();
             }
 
             generator.ParentA = parentA;
@@ -491,12 +478,9 @@ namespace RNGReporter
 
             FrameCompare frameCompare;
             // Create separate FrameCompares for methods that don't produce natures or IVs
-            if (generator.FrameType == FrameType.Method5Standard ||
-                generator.FrameType == FrameType.Method5CGear ||
+            if (generator.FrameType == FrameType.Method5Standard || generator.FrameType == FrameType.Method5CGear ||
                 (generator.FrameType == FrameType.WondercardIVs && generator.EncounterType != EncounterType.Manaphy) ||
-                generator.FrameType == FrameType.Bred ||
-                generator.FrameType == FrameType.BredAlternate ||
-                generator.FrameType == FrameType.BredSplit ||
+                generator.FrameType == FrameType.Bred || generator.FrameType == FrameType.BredAlternate || generator.FrameType == FrameType.BredSplit ||
                 generator.FrameType == FrameType.RSBredUpper ||
                 generator.FrameType == FrameType.DPPtBred ||
                 generator.FrameType == FrameType.HGSSBred)
@@ -530,8 +514,7 @@ namespace RNGReporter
 
                 generator.RNGIVs = rngIVs;
             }
-            else if (generator.FrameType == FrameType.Gen4Normal ||
-                     generator.FrameType == FrameType.Gen4International)
+            else if (generator.FrameType == FrameType.Gen4Normal || generator.FrameType == FrameType.Gen4International)
             {
                 frameCompare = new FrameCompare(
                     0, CompareType.None,
@@ -568,8 +551,7 @@ namespace RNGReporter
                     null,
                     (GenderFilter) (comboBoxGender.SelectedItem));
             }
-            else if (generator.FrameType == FrameType.Wondercard5thGen ||
-                     generator.FrameType == FrameType.Wondercard5thGenFixed)
+            else if (generator.FrameType == FrameType.Wondercard5thGen || generator.FrameType == FrameType.Wondercard5thGenFixed)
             {
                 frameCompare = new FrameCompare(
                     ivFilters.IVFilter,
@@ -581,10 +563,8 @@ namespace RNGReporter
                     null,
                     new NoGenderFilter());
             }
-            else if (generator.FrameType == FrameType.BWBred ||
-                     generator.FrameType == FrameType.BWBredInternational ||
-                     generator.FrameType == FrameType.BW2Bred ||
-                     generator.FrameType == FrameType.BW2BredInternational)
+            else if (generator.FrameType == FrameType.BWBred || generator.FrameType == FrameType.BWBredInternational ||
+                     generator.FrameType == FrameType.BW2Bred || generator.FrameType == FrameType.BW2BredInternational)
             {
                 if (parentA != null && parentB != null && rngIVs != null)
                 {
@@ -3197,13 +3177,9 @@ namespace RNGReporter
         private void comboBoxEncounterType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest" && comboBoxMethod.SelectedItem.ToString() == "Method K (HGSS)")
-            {
                 preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = true;
-            }
             else
-            {
                 preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = false;
-            }
         }
     }
 }

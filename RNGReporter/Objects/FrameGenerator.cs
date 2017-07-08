@@ -2156,7 +2156,7 @@ namespace RNGReporter.Objects
                                 {
                                     var genderAdjustment =
                                         (uint)
-                                        (((0xFE - frameCompare.GenderFilter.GenderValue)*(ulong) rngList[1]) >>
+                                        (((0xFE - frameCompare.GenderFilter.GenderValue)*(ulong) rngList[2]) >>
                                          32);
                                     pid = (pid & 0xFFFFFF00) |
                                           (genderAdjustment + frameCompare.GenderFilter.GenderValue);
@@ -2165,10 +2165,10 @@ namespace RNGReporter.Objects
                                 {
                                     var genderAdjustment =
                                         (uint)
-                                        (((frameCompare.GenderFilter.GenderValue - 1)*(ulong) rngList[1]) >> 32);
+                                        (((frameCompare.GenderFilter.GenderValue - 1)*(ulong) rngList[2]) >> 32);
                                     pid = (pid & 0xFFFFFF00) | (genderAdjustment + 1);
                                 }
-                                nature = (uint) (((ulong) rngList[5]*25) >> 32);
+                                nature = (uint) (((ulong) rngList[6]*25) >> 32);
                             }
                             if ((pid & 0x10000) == 0x10000)
                                 pid = pid ^ 0x10000;

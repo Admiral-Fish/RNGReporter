@@ -305,10 +305,10 @@ namespace RNGReporter
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
-                        ivs_2 = forwardXD(seedb) >> 16;
-                        if ((ivs_2 & 0x7FFF) == ex8)
+                        ivs_2 = forwardXD(seedb);
+                        if (((ivs_2 >> 16) & 0x7FFF) == ex8)
                         {
-                            pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                            pid1 = forwardXD(forwardXD(ivs_2));
                             pid2 = forwardXD(pid1);
                             pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                             nature = pid % 25;
@@ -331,10 +331,10 @@ namespace RNGReporter
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
-                        ivs_2 = forwardXD(seedb) >> 16;
-                        if ((ivs_2 & 0x7FFF) == ex8)
+                        ivs_2 = forwardXD(seedb);
+                        if (((ivs_2 >> 16) & 0x7FFF) == ex8)
                         {
-                            pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                            pid1 = forwardXD(forwardXD(ivs_2));
                             pid2 = forwardXD(pid1);
                             pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                             nature = pid % 25;
@@ -357,10 +357,10 @@ namespace RNGReporter
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
-                        ivs_2 = forwardXD(seedb) >> 16;
-                        if ((ivs_2 & 0x7FFF) == ex8)
+                        ivs_2 = forwardXD(seedb);
+                        if (((ivs_2 >> 16) & 0x7FFF) == ex8)
                         {
-                            pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                            pid1 = forwardXD(forwardXD(ivs_2));
                             pid2 = forwardXD(pid1);
                             pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                             nature = pid % 25;
@@ -383,10 +383,10 @@ namespace RNGReporter
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
-                        ivs_2 = forwardXD(seedb) >> 16;
-                        if ((ivs_2 & 0x7FFF) == ex8)
+                        ivs_2 = forwardXD(seedb);
+                        if (((ivs_2 >> 16) & 0x7FFF) == ex8)
                         {
-                            pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                            pid1 = forwardXD(forwardXD(ivs_2));
                             pid2 = forwardXD(pid1);
                             pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                             nature = pid % 25;
@@ -417,10 +417,10 @@ namespace RNGReporter
                     for (cnt = 0; cnt <= 0xFFFF; cnt++)
                     {
                         seedb = ivs_1b | cnt;
-                        ivs_2 = forwardXD(seedb) >> 16;
-                        if ((ivs_2 & 0x7FFF) == ex8)
+                        ivs_2 = forwardXD(seedb);
+                        if (((ivs_2 >> 16) & 0x7FFF) == ex8)
                         {
-                            pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                            pid1 = forwardXD(forwardXD(ivs_2));
                             pid2 = forwardXD(pid1);
                             pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                             nature = pid % 25;
@@ -904,10 +904,10 @@ namespace RNGReporter
             for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
             {
                 uint seedb = ivs_1b | cnt;
-                uint ivs_2 = forwardXD(seedb) >> 16;
-                if ((ivs_2 & 0x7FFF) == ex8)
+                uint ivs_2 = forwardXD(seedb);
+                if (((ivs_2 >> 16) & 0x7FFF) == ex8)
                 {
-                    uint pid1 = forwardXD(forwardXD(forwardXD(seedb)));
+                    uint pid1 = forwardXD(forwardXD(ivs_2));
                     uint pid2 = forwardXD(pid1);
                     uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                     uint nature = pid % 25;
@@ -923,46 +923,82 @@ namespace RNGReporter
                 
             }
 
-            /*uint x_test = hp | (atk << 5) | (def << 10);
-            uint y_test = spe | (spa << 5) | (spd << 10);
-            uint y_compare = y_test - 0x31;
+            /*uint x_test = spe | (spa << 5) | (spd << 10);
+            uint y_test = hp | (atk << 5) | (def << 10);
+            uint y_compare = (y_test - 0x31) & 0xFFFF;
             uint x8 = x_test << 16;
+            uint seed;
+            uint rng1;
 
             // Any possible test seed will have at most
             // a difference of 0x31 from the target seed.
             // If it's close enough, we can then modify it
             // to match.
-
-            for (uint cnt = 0xFFFF; cnt > 0xF2CC; cnt--)
+            if (y_test < 0x31)
             {
-                uint seed = x8 | cnt;
-
-                // Do a quick search for matching seeds
-                // with a lower 16-bits between 0xFFFF and 0xF2CD.
-                // We'll take the closest matches and subtract 0xD33
-                // until it produces the correct seed (or doesn't).
-
-                // Best we can do until we find a way to
-                // calculate them directly.
-
-                uint rng1 = reverseXD(seed) >> 16;
-
-                // We don't have to worry about unsigned overflow
-                // because y_test is never more than 0x7FFF
-                if (y_test < 0x31)
+                for (uint cnt = 0xFFFF; cnt > 0xF2CC; cnt--)
                 {
+                    seed = x8 | cnt;
+
+                    // Do a quick search for matching seeds
+                    // with a lower 16-bits between 0xFFFF and 0xF2CD.
+                    // We'll take the closest matches and subtract 0xD33
+                    // until it produces the correct seed (or doesn't).
+
+                    // Best we can do until we find a way to
+                    // calculate them directly.
+
+                    rng1 = (reverseXD(seed) >> 16);
+
+                    // We don't have to worry about unsigned overflow
+                    // because y_test is never more than 0x7FFF
                     if (rng1 <= y_compare)
                     {
                         rng1 &= 0x7FFF;
-                        while ((seed & 0xFFFF) > 0xD32 && rng1 < y_test)
+                        while ((seed & 0xFFFF) > 0xD32 && rng1 > y_test)
                         {
                             seed = seed - 0xD33;
                             rng1 = (reverseXD(seed) >> 16) & 0x7FFF;
                         }
                     }
+                    else
+                        rng1 &= 0x7FFF;
+
+                    if (rng1 == y_test)
+                    {
+                        uint pid1 = forwardXD(forwardXD(seed));
+                        uint pid2 = forwardXD(pid1);
+                        uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                        uint nature = pid % 25;
+                        seed = reverseXD(reverseXD(seed));
+                        if (natureList == null || natureList.Contains(nature))
+                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
+
+                        pid ^= 0x80008000;
+                        nature = pid % 25;
+                        if (natureList == null || natureList.Contains(nature))
+                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
+                    }
                 }
-                else
+            }
+            else
+            {
+                for (uint cnt = 0xFFFF; cnt > 0xF2CC; cnt--)
                 {
+                    seed = x8 | cnt;
+
+                    // Do a quick search for matching seeds
+                    // with a lower 16-bits between 0xFFFF and 0xF2CD.
+                    // We'll take the closest matches and subtract 0xD33
+                    // until it produces the correct seed (or doesn't).
+
+                    // Best we can do until we find a way to
+                    // calculate them directly.
+
+                    rng1 = (reverseXD(seed) >> 16) & 0x7FFF;
+
+                    // We don't have to worry about unsigned overflow
+                    // because y_test is never more than 0x7FFF
                     if (rng1 >= y_compare)
                     {
                         rng1 &= 0x7FFF;
@@ -972,24 +1008,24 @@ namespace RNGReporter
                             rng1 = (reverseXD(seed) >> 16) & 0x7FFF;
                         }
                     }
-                }
+                    else
+                        rng1 &= 0x7FFF;
 
-                if (rng1 == y_test)
-                {
-                    uint pid1 = forwardXD(forwardXD(seed));
-                    uint pid2 = forwardXD(pid1);
-                    uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                    uint nature = pid % 25;
-                    seed = reverseXD(reverseXD(seed));
-                    if (natureList == null || natureList.Contains(nature))
+                    if (rng1 == y_test)
                     {
-                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
-                    }
+                        uint pid1 = forwardXD(forwardXD(seed));
+                        uint pid2 = forwardXD(pid1);
+                        uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                        uint nature = pid % 25;
+                        seed = reverseXD(reverseXD(seed));
+                        if (natureList == null || natureList.Contains(nature))
+                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
 
-                    pid ^= 0x80008000;
-                    nature = pid % 25;
-                    if (natureList == null || natureList.Contains(nature))
-                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
+                        pid ^= 0x80008000;
+                        nature = pid % 25;
+                        if (natureList == null || natureList.Contains(nature))
+                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
+                    }
                 }
             }*/
         }
@@ -1502,9 +1538,34 @@ namespace RNGReporter
 
         private void checkSeedR(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
-            uint x_test = spe | (spa << 5) | (spd << 10);
+            uint x4 = hp | (atk << 5) | (def << 10);
+            uint ex4 = spe | (spa << 5) | (spd << 10);
+            uint ivs_1b = x4 << 16;
+
+            for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
+            {
+                uint seedb = ivs_1b | cnt;
+                uint ivs_2 = forward(seedb) >> 16;
+                if ((ivs_2 & 0x7FFF) == ex4)
+                {
+                    uint pid2 = reverse(seedb);
+                    uint pid1 = reverse(pid2);
+                    uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                    uint nature = pid % 25;
+                    uint seed = reverse(pid1);
+                    if (natureList == null || natureList.Contains(nature))
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
+
+                    pid ^= 0x80008000;
+                    nature = pid % 25;
+                    if (natureList == null || natureList.Contains(nature))
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
+                }
+            }
+
+            /*uint x_test = spe | (spa << 5) | (spd << 10);
             uint y_test = hp | (atk << 5) | (def << 10);
-            uint y_compare = y_test - 0x31;
+            uint y_compare = (y_test - 0x31) & 0xFFFF;
             uint x8 = x_test << 16;
             uint seed;
             uint rng1;
@@ -1534,7 +1595,7 @@ namespace RNGReporter
                     if (rng1 <= y_compare)
                     {
                         rng1 &= 0x7FFF;
-                        while ((seed & 0xFFFF) > 0xD32 && rng1 < y_test)
+                        while ((seed & 0xFFFF) > 0xD32 && rng1 > y_test)
                         {
                             seed = seed - 0xD33;
                             rng1 = (reverse(seed) >> 16) & 0x7FFF;
@@ -1606,7 +1667,7 @@ namespace RNGReporter
                             filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
                     }
                 }
-            }
+            }*/
         }
         #endregion
 

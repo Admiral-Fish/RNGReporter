@@ -2126,7 +2126,7 @@ namespace RNGReporter.Objects
                         }
                         else if (EncounterType == EncounterType.Entralink)
                         {
-                            pid = rngList[0];
+                            pid = rngList[1];
 
                             synchable = false;
 
@@ -2148,7 +2148,7 @@ namespace RNGReporter.Objects
                             {
                                 var genderAdjustment = (uint) ((0xF6*(ulong) rngList[1]) >> 32);
                                 pid = (pid & 0xFFFFFF00) | (genderAdjustment + 8);
-                                nature = (uint) (((ulong) rngList[5]*25) >> 32);
+                                nature = (uint) (((ulong) rngList[6]*25) >> 32);
                             }
                             else
                             {
@@ -2172,9 +2172,6 @@ namespace RNGReporter.Objects
                             }
                             if ((pid & 0x10000) == 0x10000)
                                 pid = pid ^ 0x10000;
-
-                            //note: might be wrong
-                            pid ^= 0x10000000;
                         }
                         else if (EncounterType == EncounterType.HiddenGrotto)
                         {

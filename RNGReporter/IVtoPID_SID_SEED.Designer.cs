@@ -309,30 +309,30 @@ namespace RNGReporter
             this.setSIDToolStripMenuItem,
             this.copyPIDToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(119, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(124, 70);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // setSeedToolStripMenuItem
             // 
             this.setSeedToolStripMenuItem.Name = "setSeedToolStripMenuItem";
-            this.setSeedToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.setSeedToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.setSeedToolStripMenuItem.Text = "Set Seed";
             this.setSeedToolStripMenuItem.Click += new System.EventHandler(this.setSeedToolStripMenuItem_Click);
             // 
             // setSIDToolStripMenuItem
             // 
             this.setSIDToolStripMenuItem.Name = "setSIDToolStripMenuItem";
-            this.setSIDToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.setSIDToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.setSIDToolStripMenuItem.Text = "Set SID";
             this.setSIDToolStripMenuItem.Click += new System.EventHandler(this.setSIDToolStripMenuItem_Click);
             // 
             // copyPIDToolStripMenuItem
-            //
+            // 
             this.copyPIDToolStripMenuItem.Name = "copyPIDToolStripMenuItem";
-            this.copyPIDToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.copyPIDToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.copyPIDToolStripMenuItem.Text = "Copy PID";
             this.copyPIDToolStripMenuItem.Click += new System.EventHandler(this.copyPIDToolStripMenuItem_Click);
-            //
+            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(7, 52);
@@ -443,6 +443,7 @@ namespace RNGReporter
             this.maskedTextBoxID.Name = "maskedTextBoxID";
             this.maskedTextBoxID.Size = new System.Drawing.Size(74, 20);
             this.maskedTextBoxID.TabIndex = 53;
+            this.maskedTextBoxID.Tag = "id/sid";
             this.maskedTextBoxID.ValidatingType = typeof(int);
             // 
             // maskedTextBoxHP

@@ -390,6 +390,7 @@
             this.id.Name = "id";
             this.id.Size = new System.Drawing.Size(39, 20);
             this.id.TabIndex = 332;
+            this.id.Tag = "id/sid";
             this.id.Text = "0";
             this.id.ValidatingType = typeof(int);
             // 
@@ -401,6 +402,7 @@
             this.sid.Name = "sid";
             this.sid.Size = new System.Drawing.Size(39, 20);
             this.sid.TabIndex = 333;
+            this.sid.Tag = "id/sid";
             this.sid.Text = "0";
             this.sid.ValidatingType = typeof(int);
             // 

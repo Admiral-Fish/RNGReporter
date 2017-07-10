@@ -379,6 +379,7 @@ namespace RNGReporter
             this.maskedTextBoxID.Name = "maskedTextBoxID";
             this.maskedTextBoxID.Size = new System.Drawing.Size(105, 20);
             this.maskedTextBoxID.TabIndex = 19;
+            this.maskedTextBoxID.Tag = "id/sid";
             this.maskedTextBoxID.ValidatingType = typeof(int);
             // 
             // maskedTextBoxHP

@@ -1468,6 +1468,7 @@ namespace RNGReporter
             this.maskedTextBoxSID.Name = "maskedTextBoxSID";
             this.maskedTextBoxSID.Size = new System.Drawing.Size(51, 20);
             this.maskedTextBoxSID.TabIndex = 23;
+            this.maskedTextBoxSID.Tag = "id/sid";
             this.maskedTextBoxSID.ValidatingType = typeof(int);
             // 
             // maskedTextBoxID
@@ -1478,6 +1479,7 @@ namespace RNGReporter
             this.maskedTextBoxID.Name = "maskedTextBoxID";
             this.maskedTextBoxID.Size = new System.Drawing.Size(51, 20);
             this.maskedTextBoxID.TabIndex = 22;
+            this.maskedTextBoxID.Tag = "id/sid";
             this.maskedTextBoxID.ValidatingType = typeof(int);
             // 
             // ivFilters

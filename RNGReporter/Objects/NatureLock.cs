@@ -16,23 +16,29 @@ namespace RNGReporter.Objects
         {
             lockInfo = natureLockList(lockNum);
             rand = new List<uint>();
-            count = lockInfo.Length;
-            count2 = count == 1 ? 0 : count - 2;
+            if (lockInfo != null)
+            {
+                count = lockInfo.Length;
+                count2 = count == 1 ? 0 : count - 2;
+                x = 0;
+                if (count == 1)
+                    getCurrLock();
+            }
             reverse = new XdRngR(0);
             forward = new XdRng(0);
-            x = 0;
-            if (count == 1)
-                getCurrLock();
         }
 
         public void changeLock(int lockNum)
         {
             lockInfo = natureLockList(lockNum);
-            count = lockInfo.Length;
-            count2 = count == 1 ? 0 : count - 2;
-            x = 0;
-            if (count == 1)
-                getCurrLock();
+            if (lockInfo != null)
+            {
+                count = lockInfo.Length;
+                count2 = count == 1 ? 0 : count - 2;
+                x = 0;
+                if (count == 1)
+                    getCurrLock();
+            }
         }
 
         private LockInfo[] natureLockList(int natureLockIndex)
@@ -45,26 +51,15 @@ namespace RNGReporter.Objects
                 case 1: //Arbok
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(12, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255) };
-                case 2: //Articuno 
-                case 3: //Baltoy 3
-                case 4: //Baltoy 1
-                    type = ShadowType.NoLock;
-                    return null;
                 case 5: //Baltoy 2
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(24, 127, 255) };
                 case 6: //Banette
                     type = ShadowType.SecondShadow;
                     return new LockInfo[] { new LockInfo(12, 0, 255), new LockInfo(18, 0, 126), new LockInfo(0, 0, 255) };
-                case 7: //Beedrill
-                    type = ShadowType.NoLock;
-                    return null;
                 case 8: //Butterfree
                     type = ShadowType.SecondShadow;
                     return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 190) };
-                case 9: //Carvanha
-                    type = ShadowType.NoLock;
-                    return null;
                 case 10: //Chansey
                     type = ShadowType.SecondShadow;
                     return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126) };
@@ -86,9 +81,6 @@ namespace RNGReporter.Objects
                 case 16: //Electabuzz
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 63, 255) };
-                case 17: //Exeggutor
-                    type = ShadowType.NoLock;
-                    return null; 
                 case 18: //Farfetch'd  
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 0, 126), new LockInfo(12, 127, 255) };
@@ -116,11 +108,6 @@ namespace RNGReporter.Objects
                 case 26: //Hitmonlee
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(24, 0, 126), new LockInfo(6, 0, 255), new LockInfo(12, 0, 126), new LockInfo(18, 127, 255) };
-                case 27: //Houndour 3
-                case 28: //Houndour 1
-                case 29: //To do houndour 2
-                    type = ShadowType.NoLock;
-                    return null;
                 case 30: //Hypno
                     type = ShadowType.SecondShadow;
                     return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126), new LockInfo(12, 0, 126), new LockInfo(18, 0, 126) };
@@ -136,9 +123,6 @@ namespace RNGReporter.Objects
                 case 34: //Lickitung
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(6, 0, 255), new LockInfo(24, 127, 255) };
-                case 35: //Lugia
-                    type = ShadowType.NoLock;
-                    return null;
                 case 36: //Lunatone
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(0, 0, 126) };
@@ -160,9 +144,6 @@ namespace RNGReporter.Objects
                 case 42: //Manectric
                     type = ShadowType.SingleLock;
                     return new LockInfo[] { new LockInfo(6, 0, 126) };
-                case 43: //Mareep 3
-                    type = ShadowType.NoLock;
-                    return null;
                 case 44: //Mareep 1
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(24, 127, 255) };
@@ -178,9 +159,6 @@ namespace RNGReporter.Objects
                 case 48: //Meowth
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(0, 0, 126), new LockInfo(6, 63, 255) };
-                case 49: //Moltres
-                    type = ShadowType.NoLock;
-                    return null;
                 case 50: //Mr. Mime
                     type = ShadowType.SecondShadow;
                     return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255), new LockInfo(18, 127, 255), new LockInfo(18, 127, 255) };
@@ -223,9 +201,6 @@ namespace RNGReporter.Objects
                 case 63: //Raticate
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(500, 500, 500), new LockInfo(18, 0, 126) };
-                case 64: //Rhydon
-                    type = ShadowType.NoLock;
-                    return null;
                 case 65: //Roselia
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 127, 255) };
@@ -238,21 +213,15 @@ namespace RNGReporter.Objects
                 case 68: //Scyther
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126) };
-                case 69: //To do seedot 3
-                    type = ShadowType.NoLock;
-                    return null;
                 case 70: //Seedot 1
                     type = ShadowType.FirstShadow;
-                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(0, 127, 255), new LockInfo(12, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) };
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(0, 127, 255), new LockInfo(18, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) };
                 case 71: //Seedot 2
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(0, 0, 126), new LockInfo(0, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) };
                 case 72: //Seel
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(12, 127, 255), new LockInfo(6, 127, 255) };
-                case 73: //Shellder
-                    type = ShadowType.NoLock;
-                    return null;
                 case 74: //Shroomish
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 0, 126) };
@@ -283,20 +252,12 @@ namespace RNGReporter.Objects
                 case 83: //Starmie
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(500, 500, 500), new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(24, 0, 255) };
-                case 84: //Swellow
-                    type = ShadowType.NoLock;
-                    return null;
                 case 85: //Swinub
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(0, 127, 255), new LockInfo(18, 0, 126) };
                 case 86: //Tangela
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(6, 127, 255), new LockInfo(12, 0, 190) };
-                case 87: //Tauros
-                case 88: //Teddiursa
-                case 89: //Togepi
-                    type = ShadowType.NoLock;
-                    return null;
                 case 90: //Venomoth
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(24, 0, 255), new LockInfo(18, 0, 126) };
@@ -309,6 +270,25 @@ namespace RNGReporter.Objects
                 case 93: //Weepinbell
                     type = ShadowType.SecondShadow;
                     return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(24, 0, 255), new LockInfo(18, 0, 126) };
+                case 2: //Articuno 
+                case 3: //Baltoy 3
+                case 4: //Baltoy 1
+                case 7: //Beedrill
+                case 9: //Carvanha
+                case 17: //Exeggutor
+                case 27: //Houndour 3
+                case 28: //Houndour 1
+                case 29: //To do houndour 2
+                case 35: //Lugia
+                case 43: //Mareep 3
+                case 49: //Moltres
+                case 64: //Rhydon
+                case 69: //To do seedot 3
+                case 73: //Shellder
+                case 84: //Swellow
+                case 87: //Tauros
+                case 88: //Teddiursa
+                case 89: //Togepi
                 case 94: //Zangoose
                 default: //Zapdos 
                     type = ShadowType.NoLock;

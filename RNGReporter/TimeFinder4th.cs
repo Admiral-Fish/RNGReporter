@@ -32,8 +32,6 @@ namespace RNGReporter
 {
     public partial class TimeFinder4th : Form
     {
-        public static bool TF4thEncounterSlotFix = false;
-
         private static readonly object threadLock = new object();
 
         // Column identifiers
@@ -795,18 +793,6 @@ namespace RNGReporter
 
         private void buttonCapGenerate_Click(object sender, EventArgs e)
         {
-            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest")
-            {
-                TF4thEncounterSlotFix = true;
-
-                if (preDexRadioButton.Checked == true || tuesdayRadioButton.Checked == true)
-                {
-                    MainForm.encounterSlotFixVar = 0;
-                }
-                else
-                { MainForm.encounterSlotFixVar = 1; }
-            }
-
             if (!uint.TryParse(maskedTextBoxID.Text, out id))
                 id = 0;
 
@@ -846,23 +832,15 @@ namespace RNGReporter
 
             uint maxOffset = 1000;
             if (maskedTextBoxCapMaxOffset.Text != "")
-            {
                 maxOffset = uint.Parse(maskedTextBoxCapMaxOffset.Text);
-            }
             else
-            {
                 maskedTextBoxCapMaxOffset.Text = "1000";
-            }
 
             uint minOffset = 1;
             if (maskedTextBoxCapMinOffset.Text != "")
-            {
                 minOffset = uint.Parse(maskedTextBoxCapMinOffset.Text);
-            }
             else
-            {
                 maskedTextBoxCapMinOffset.Text = "1";
-            }
 
             if (minOffset > maxOffset)
             {
@@ -879,13 +857,25 @@ namespace RNGReporter
             }
 
             generator = new FrameGenerator
-                {
-                    FrameType = (FrameType) ((ComboBoxItem) comboBoxMethod.SelectedItem).Reference,
-                    EncounterType = EncounterTypeCalc.EncounterString(comboBoxEncounterType.Text),
-                    EncounterMod = Objects.EncounterMod.Search,
-                    InitialFrame = minOffset,
-                    MaxResults = maxOffset
-                };
+            {
+                FrameType = (FrameType)((ComboBoxItem)comboBoxMethod.SelectedItem).Reference,
+                EncounterType = EncounterTypeCalc.EncounterString(comboBoxEncounterType.Text),
+                EncounterMod = Objects.EncounterMod.Search,
+                InitialFrame = minOffset,
+                MaxResults = maxOffset
+            };
+
+            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest")
+            {
+                if (preDexRadioButton.Checked)
+                    generator.EncounterType = EncounterType.BugCatchingContestPreDex;
+                else if (tuesdayRadioButton.Checked)
+                    generator.EncounterType = EncounterType.BugBugCatchingContestTues;
+                else if (thursdayRadioButton.Checked)
+                    generator.EncounterType = EncounterType.BugCatchingContestThurs;
+                else if (saturdayRadioButton.Checked)
+                    generator.EncounterType = EncounterType.BugCatchingContestSat;
+            }
 
             // Now that each combo box item is a custom object containing the FrameType reference
             // We can simply retrieve the FrameType from the selected item
@@ -1066,8 +1056,6 @@ namespace RNGReporter
             buttonCapGenerate.Enabled = false;
 
             dataGridViewCapValues.Focus();
-
-            TF4thEncounterSlotFix = false;
         }
 
         private void Generate4thGenCapJob(List<uint> hpList, List<uint> atkList,
@@ -2311,13 +2299,9 @@ namespace RNGReporter
         private void comboBoxEncounterType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest")
-            {
                 preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = true;
-            }
             else
-            {
                 preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = false;
-            }
         }
     }
 }

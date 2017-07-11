@@ -1616,11 +1616,8 @@ namespace RNGReporter.Objects
             DateTime start;
             if (time.Year <= 1999)
                 start = new DateTime(1900, 12, 31);
-            else if (time.Year == 2000)
-                start = new DateTime(1999, 12, 31);
-                //year 2001 or later
             else
-                start = new DateTime(2000, 12, 31);
+                start = new DateTime(1999, 12, 31);
             TimeSpan span = time - start;
             var d = (uint) span.TotalDays;
             var h = (uint) time.Hour;

@@ -172,6 +172,7 @@
             this.MaximizeBox = false;
             this.Name = "PIDToIVs";
             this.Text = "PID To IVs";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PIDToIVs_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValues)).EndInit();
             this.contextMenuStripGrid.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -1,10 +1,9 @@
-﻿using RNGReporter.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
+using RNGReporter.Objects;
 using System.ComponentModel;
 using System.Globalization;
-using System.Threading;
-using System.Windows.Forms;
 
 namespace RNGReporter
 {
@@ -19,6 +18,12 @@ namespace RNGReporter
             InitializeComponent();
             dataGridViewValues.AutoGenerateColumns = true;
             this.mainForm = mainForm;
+        }
+
+        private void PIDToIVs_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)

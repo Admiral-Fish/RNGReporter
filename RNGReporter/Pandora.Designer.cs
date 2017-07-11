@@ -1196,6 +1196,7 @@ namespace RNGReporter
             this.genFRLGETID.Name = "genFRLGETID";
             this.genFRLGETID.Size = new System.Drawing.Size(119, 20);
             this.genFRLGETID.TabIndex = 3;
+            this.genFRLGETID.Tag = "id/sid";
             this.toolTips.SetToolTip(this.genFRLGETID, "Enter the TID you obtained.");
             // 
             // tabGen3RS
@@ -1400,6 +1401,7 @@ namespace RNGReporter
             this.textIIISID.Name = "textIIISID";
             this.textIIISID.Size = new System.Drawing.Size(119, 20);
             this.textIIISID.TabIndex = 9;
+            this.textIIISID.Tag = "id/sid";
             this.toolTips.SetToolTip(this.textIIISID, "Enter TID to search for here.");
             // 
             // checkIIISID
@@ -1444,6 +1446,7 @@ namespace RNGReporter
             this.textIIITID.Name = "textIIITID";
             this.textIIITID.Size = new System.Drawing.Size(119, 20);
             this.textIIITID.TabIndex = 3;
+            this.textIIITID.Tag = "id/sid";
             this.toolTips.SetToolTip(this.textIIITID, "Enter TID to search for here.");
             // 
             // checkIIITID
@@ -1878,6 +1881,7 @@ namespace RNGReporter
             this.textVSID.Name = "textVSID";
             this.textVSID.Size = new System.Drawing.Size(119, 20);
             this.textVSID.TabIndex = 9;
+            this.textVSID.Tag = "id/sid";
             this.toolTips.SetToolTip(this.textVSID, "Enter TID to search for here.");
             // 
             // checkVSID
@@ -1942,6 +1946,7 @@ namespace RNGReporter
             this.textVTID.Name = "textVTID";
             this.textVTID.Size = new System.Drawing.Size(119, 20);
             this.textVTID.TabIndex = 3;
+            this.textVTID.Tag = "id/sid";
             this.toolTips.SetToolTip(this.textVTID, "Enter TID to search for here.");
             // 
             // checkVSeed

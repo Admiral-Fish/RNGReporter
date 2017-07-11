@@ -177,6 +177,12 @@ namespace RNGReporter
             maskedTextBoxShinyID.Text = id.ToString("00000");
             maskedTextBoxShinySecretID.Text = sid.ToString("00000");
 
+            maskedTextBoxSID.Text = Settings.Default.SID;
+            maskedTextBoxID.Text = Settings.Default.ID;
+
+            maskedTextBoxShinySecretID.Text = Settings.Default.SID;
+            maskedTextBoxShinyID.Text = Settings.Default.ID;
+
             tabControl.SelectTab(tabPage);
 
             //  Load all of our items from the registry
@@ -243,15 +249,6 @@ namespace RNGReporter
                     if (cpus < 1)
                     {
                         cpus = 1;
-                    }
-
-                    if (id == 0 && sid == 0)
-                    {
-                        maskedTextBoxSID.Text = Settings.Default.SID;
-                        maskedTextBoxID.Text = Settings.Default.ID;
-
-                        maskedTextBoxShinySecretID.Text = Settings.Default.SID;
-                        maskedTextBoxShinyID.Text = Settings.Default.ID;
                     }
                 }
             }

@@ -113,6 +113,10 @@ namespace RNGReporter.Controls
                 //change the tags of all the maskedTextBoxes that accept a maximum number of 100 to "level"
                 Text = "100";
             }
+            else if ((String)Tag == "id/sid" && Text.Substring(Text.Length - 1, 1) != "_" && int.Parse(Text) > 65535)
+            {
+                Text = "65535";
+            }
             base.OnTextChanged(e);
         }
     }

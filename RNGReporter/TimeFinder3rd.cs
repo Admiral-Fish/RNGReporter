@@ -28,6 +28,7 @@ using RNGReporter.Objects.Searchers;
 using RNGReporter.Properties;
 using System.Linq;
 using System.Globalization;
+using RNGReporter.Controls;
 
 namespace RNGReporter
 {
@@ -223,6 +224,9 @@ namespace RNGReporter
             maskedTextBoxShiny3rdID.Text = id.ToString("00000");
             maskedTextBoxShiny3rdSID.Text = sid.ToString("00000");
 
+            tidFRLG.Text = id.ToString("00000");
+            sidFRLG.Text = sid.ToString("00000");
+
             tabControl.SelectTab(tabPage);
 
             cbEncounterSlot.CheckBoxItems[0].Checked = true;
@@ -230,6 +234,10 @@ namespace RNGReporter
 
             maskedTextBoxShiny3rdSID.Text = Settings.Default.SID;
             maskedTextBoxShiny3rdID.Text = Settings.Default.ID;
+
+            sidFRLG.Text = Settings.Default.SID;
+            tidFRLG.Text = Settings.Default.ID;
+
             textEPIDSID.Text = Settings.Default.SID;
             textEPIDID.Text = Settings.Default.ID;
             txtSID.Text = Settings.Default.SID;

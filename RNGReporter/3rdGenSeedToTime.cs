@@ -11,24 +11,20 @@ namespace RNGReporter
 {
     public partial class thirdGenSeedToTime : Form
     {
-        private Thread searchThread;
-        private bool refresh;
-        private ThreadDelegate gridUpdate;
-        private BindingSource binding = new BindingSource();
         private List<SeedtoTime> seedTime;
-        DateTime date = new DateTime(2000, 1, 1, 0, 0, 0);
+        DateTime start = new DateTime(2000, 1, 1, 0, 0, 0);
         TimeSpan addTime;
 
         public thirdGenSeedToTime()
         {
             InitializeComponent();
-            dataGridViewValues.DataSource = binding;
             dataGridViewValues.AutoGenerateColumns = false;
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
             uint.TryParse(seedToTimeSeed.Text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint seed);
+            int.TryParse(maskedTextBoxYear.Text, out int year);
 
             if (seed > 0xFFFF)
             {
@@ -37,14 +33,10 @@ namespace RNGReporter
             }
 
             seedTime = new List<SeedtoTime>();
-            binding = new BindingSource { DataSource = seedTime };
-            dataGridViewValues.DataSource = binding;
+            seedToTime(seed, year);
 
-            searchThread = new Thread(() => seedToTime(seed));
-            searchThread.Start();
-
-            var update = new Thread(updateGUI);
-            update.Start();
+            dataGridViewValues.DataSource = seedTime;
+            dataGridViewValues.AutoResizeColumns();
         }
 
         private uint originSeed(uint seed)
@@ -56,88 +48,63 @@ namespace RNGReporter
 
         private uint LCRNGR(uint seed)
         {
-            return (seed * 0xEEB9EB65 + 0x0A3561A1) & 0xFFFFFFFF;
+            return (seed * 0xEEB9EB65 + 0x0A3561A1);
         }
 
         //Credits to Zari for writing this
-        private void seedToTime(uint seed)
+        private void seedToTime(uint seed, int year)
         {
-            for (int d = 0; d < 366; d++)
+            int maxDay = 0;
+            int minDay = 0;
+
+            if (year < 2000 || year > 2037)
             {
-                int x1 = (1440 * d) / 65536;
-                int x2 = x1 + 1;
+                MessageBox.Show("Please enter a year between 2000 and 2037");
+                return;
+            }
 
-                int y1 = (int)((uint)x1 ^ seed);
-                int y2 = (int)((uint)x2 ^ seed);
-
-                int v1 = (x1 << 16) | y1;
-                int v2 = (x2 << 16) | y2;
-
-                for (int h = 0; h < 24; h++)
-                {
-                    for (int m = 0; m < 60; m++)
+            if (year != 2000)
+            {
+                for (int x = 2000; x < year; x++)
+                    for (int months = 1; months < 13; months++)
                     {
-                        int v = 1440 * d + 960 * (h / 10) + 60 * (h % 10) + 16 * (m / 10) + (m % 10) + 0x5a0;
-                        if (v1 == v)
+                        minDay += DateTime.DaysInMonth(x, months);
+                        maxDay += DateTime.DaysInMonth(x, months);
+                    }
+            }
+
+            for (int month = 1; month < 13; month++)
+            {
+                maxDay += DateTime.DaysInMonth(year, month);
+                for (int day = minDay; day < maxDay; day++)
+                {
+                    int x1 = (1440 * day) >> 16;
+                    int x2 = x1 + 1;
+
+                    int y1 = (int)((uint)x1 ^ seed);
+                    int y2 = (int)((uint)x2 ^ seed);
+
+                    int v1 = (x1 << 16) | y1;
+                    int v2 = (x2 << 16) | y2;
+
+                    for (int hour = 0; hour < 24; hour++)
+                    {
+                        for (int minute = 0; minute < 60; minute++)
                         {
-                            addTime = new TimeSpan(d, h, m, 0);
-                            DateTime finalTime = date + addTime;
-                            String result = finalTime.ToString();
-                            String seconds = ((d * 86400) + (h * 3600) + (m * 60)).ToString();
-                            seedTime.Add(new SeedtoTime { Time = result, Seconds = seconds});
-                        }
-                        else if (v2 == v)
-                        {
-                            addTime = new TimeSpan(d, h, m, 0);
-                            DateTime finalTime = date + addTime;
-                            String result = finalTime.ToString();
-                            String seconds = ((d * 86400)) + (h * 3600) + (m * 60).ToString();
-                            seedTime.Add(new SeedtoTime { Time = result, Seconds = seconds});
+                            int v = 1440 * day + 960 * (hour / 10) + 60 * (hour % 10) + 16 * (minute / 10) + (minute % 10) + 0x5a0;
+                            if (v1 == v || v2 == v)
+                            {
+                                addTime = new TimeSpan(day, hour, minute, 0);
+                                DateTime finalTime = start + addTime;
+                                String result = finalTime.ToString();
+                                int seconds = ((day * 86400) + (hour * 3600) + (minute * 60));
+                                seedTime.Add(new SeedtoTime { Time = result, Seconds = seconds });
+                            }
                         }
                     }
                 }
+                minDay += DateTime.DaysInMonth(year, month);
             }
-        }
-
-        private void updateGUI()
-        {
-            gridUpdate = dataGridUpdate;
-            ThreadDelegate resizeGrid = dataGridViewValues.AutoResizeColumns;
-            try
-            {
-                bool alive = true;
-                while (alive)
-                {
-                    if (refresh)
-                    {
-                        Invoke(gridUpdate);
-                        refresh = false;
-                    }
-                    if (searchThread == null || !searchThread.IsAlive)
-                    {
-                        alive = false;
-                    }
-
-                    Thread.Sleep(500);
-                }
-            }
-            finally
-            {
-                Invoke(gridUpdate);
-                Invoke(resizeGrid);
-            }
-        }
-
-
-        #region Nested type: ThreadDelegate
-
-        private delegate void ThreadDelegate();
-
-        #endregion
-
-        private void dataGridUpdate()
-        {
-            binding.ResetBindings(false);
         }
     }
 }

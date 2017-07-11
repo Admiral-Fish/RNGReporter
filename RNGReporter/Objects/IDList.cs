@@ -79,7 +79,7 @@ namespace RNGReporter.Objects
     {
         public string Time { get; set; }
 
-        public string Seconds { get; set; }
+        public int Seconds { get; set; }
     }
 
     internal class RTCTime

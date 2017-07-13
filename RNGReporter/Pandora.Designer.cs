@@ -126,8 +126,10 @@ namespace RNGReporter
             this.genFRLGETID = new RNGReporter.Controls.MaskedTextBox2();
             this.tabGen3RS = new System.Windows.Forms.TabPage();
             this.buttonIIICancel = new RNGReporter.GlassButton();
-            this.label32 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.maskedTextBox21 = new RNGReporter.Controls.MaskedTextBox2();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.checkIIIClock = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textIIIMaxFrame = new RNGReporter.Controls.MaskedTextBox2();
@@ -1202,7 +1204,6 @@ namespace RNGReporter
             // tabGen3RS
             // 
             this.tabGen3RS.Controls.Add(this.buttonIIICancel);
-            this.tabGen3RS.Controls.Add(this.label32);
             this.tabGen3RS.Controls.Add(this.groupBox4);
             this.tabGen3RS.Controls.Add(this.buttonIIIFindFrames);
             this.tabGen3RS.Controls.Add(this.groupBox3);
@@ -1218,7 +1219,7 @@ namespace RNGReporter
             // 
             this.buttonIIICancel.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonIIICancel.ForeColor = System.Drawing.Color.Black;
-            this.buttonIIICancel.Location = new System.Drawing.Point(207, 185);
+            this.buttonIIICancel.Location = new System.Drawing.Point(207, 226);
             this.buttonIIICancel.Name = "buttonIIICancel";
             this.buttonIIICancel.OuterBorderColor = System.Drawing.Color.Transparent;
             this.buttonIIICancel.ShineColor = System.Drawing.SystemColors.Window;
@@ -1227,17 +1228,11 @@ namespace RNGReporter
             this.buttonIIICancel.Text = "Cancel";
             this.buttonIIICancel.Click += new System.EventHandler(this.buttonIIICancel_Click);
             // 
-            // label32
-            // 
-            this.label32.Location = new System.Drawing.Point(3, 213);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(269, 30);
-            this.label32.TabIndex = 119;
-            this.label32.Text = "This feature will only work for a copy of Ruby\\Sapphire that displays the \"intern" +
-    "al battery has run dry\" error.";
-            // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.maskedTextBox21);
+            this.groupBox4.Controls.Add(this.radioButton1);
+            this.groupBox4.Controls.Add(this.radioButton2);
             this.groupBox4.Controls.Add(this.checkIIIClock);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.textIIIMaxFrame);
@@ -1250,17 +1245,53 @@ namespace RNGReporter
             this.groupBox4.Controls.Add(this.textIIIHour);
             this.groupBox4.Location = new System.Drawing.Point(207, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(177, 173);
+            this.groupBox4.Size = new System.Drawing.Size(198, 214);
             this.groupBox4.TabIndex = 29;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Search Parameters";
+            // 
+            // maskedTextBox21
+            // 
+            this.maskedTextBox21.Enabled = false;
+            this.maskedTextBox21.Hex = true;
+            this.maskedTextBox21.Location = new System.Drawing.Point(98, 43);
+            this.maskedTextBox21.Mask = "AAAA";
+            this.maskedTextBox21.Name = "maskedTextBox21";
+            this.maskedTextBox21.ReadOnly = true;
+            this.maskedTextBox21.Size = new System.Drawing.Size(73, 20);
+            this.maskedTextBox21.TabIndex = 123;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Enabled = false;
+            this.radioButton1.Location = new System.Drawing.Point(15, 45);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(80, 17);
+            this.radioButton1.TabIndex = 121;
+            this.radioButton1.Text = "Initial Seed:";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
+            this.radioButton2.Enabled = false;
+            this.radioButton2.Location = new System.Drawing.Point(15, 71);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(51, 17);
+            this.radioButton2.TabIndex = 122;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Date:";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // checkIIIClock
             // 
             this.checkIIIClock.AutoSize = true;
             this.checkIIIClock.Checked = true;
             this.checkIIIClock.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkIIIClock.Location = new System.Drawing.Point(6, 19);
+            this.checkIIIClock.Location = new System.Drawing.Point(15, 19);
             this.checkIIIClock.Name = "checkIIIClock";
             this.checkIIIClock.Size = new System.Drawing.Size(88, 17);
             this.checkIIIClock.TabIndex = 33;
@@ -1271,7 +1302,7 @@ namespace RNGReporter
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(27, 97);
+            this.label5.Location = new System.Drawing.Point(27, 126);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 13);
             this.label5.TabIndex = 32;
@@ -1281,7 +1312,7 @@ namespace RNGReporter
             // textIIIMaxFrame
             // 
             this.textIIIMaxFrame.Hex = false;
-            this.textIIIMaxFrame.Location = new System.Drawing.Point(72, 146);
+            this.textIIIMaxFrame.Location = new System.Drawing.Point(72, 175);
             this.textIIIMaxFrame.Mask = "000000";
             this.textIIIMaxFrame.Name = "textIIIMaxFrame";
             this.textIIIMaxFrame.Size = new System.Drawing.Size(90, 20);
@@ -1291,7 +1322,7 @@ namespace RNGReporter
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 123);
+            this.label6.Location = new System.Drawing.Point(12, 152);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 9;
@@ -1301,7 +1332,7 @@ namespace RNGReporter
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(35, 69);
+            this.label8.Location = new System.Drawing.Point(35, 98);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(33, 13);
             this.label8.TabIndex = 31;
@@ -1311,7 +1342,7 @@ namespace RNGReporter
             // textIIIMinFrame
             // 
             this.textIIIMinFrame.Hex = false;
-            this.textIIIMinFrame.Location = new System.Drawing.Point(72, 120);
+            this.textIIIMinFrame.Location = new System.Drawing.Point(72, 149);
             this.textIIIMinFrame.Mask = "000000";
             this.textIIIMinFrame.Name = "textIIIMinFrame";
             this.textIIIMinFrame.Size = new System.Drawing.Size(90, 20);
@@ -1321,7 +1352,7 @@ namespace RNGReporter
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 149);
+            this.label7.Location = new System.Drawing.Point(9, 178);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(62, 13);
             this.label7.TabIndex = 7;
@@ -1332,7 +1363,7 @@ namespace RNGReporter
             // 
             this.textIIIMinute.Enabled = false;
             this.textIIIMinute.Hex = false;
-            this.textIIIMinute.Location = new System.Drawing.Point(72, 94);
+            this.textIIIMinute.Location = new System.Drawing.Point(72, 123);
             this.textIIIMinute.Mask = "00";
             this.textIIIMinute.Name = "textIIIMinute";
             this.textIIIMinute.Size = new System.Drawing.Size(24, 20);
@@ -1344,7 +1375,7 @@ namespace RNGReporter
             this.dateIII.CustomFormat = "";
             this.dateIII.Enabled = false;
             this.dateIII.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateIII.Location = new System.Drawing.Point(72, 42);
+            this.dateIII.Location = new System.Drawing.Point(72, 69);
             this.dateIII.MaxDate = new System.DateTime(2038, 1, 19, 0, 0, 0, 0);
             this.dateIII.MinDate = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
             this.dateIII.Name = "dateIII";
@@ -1357,7 +1388,7 @@ namespace RNGReporter
             // 
             this.textIIIHour.Enabled = false;
             this.textIIIHour.Hex = false;
-            this.textIIIHour.Location = new System.Drawing.Point(72, 66);
+            this.textIIIHour.Location = new System.Drawing.Point(72, 95);
             this.textIIIHour.Mask = "00";
             this.textIIIHour.Name = "textIIIHour";
             this.textIIIHour.Size = new System.Drawing.Size(24, 20);
@@ -1368,7 +1399,7 @@ namespace RNGReporter
             // 
             this.buttonIIIFindFrames.BackColor = System.Drawing.Color.AntiqueWhite;
             this.buttonIIIFindFrames.ForeColor = System.Drawing.Color.Black;
-            this.buttonIIIFindFrames.Location = new System.Drawing.Point(6, 185);
+            this.buttonIIIFindFrames.Location = new System.Drawing.Point(6, 226);
             this.buttonIIIFindFrames.Name = "buttonIIIFindFrames";
             this.buttonIIIFindFrames.OuterBorderColor = System.Drawing.Color.Transparent;
             this.buttonIIIFindFrames.ShineColor = System.Drawing.SystemColors.Window;
@@ -2319,7 +2350,6 @@ namespace RNGReporter
         private System.Windows.Forms.Label label6;
         private MaskedTextBox2 textIIIMinFrame;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label32;
         private GlassButton buttonIIICancel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
@@ -2355,6 +2385,8 @@ namespace RNGReporter
         private GlassButton genCancelXDColo;
         private GlassButton searchGenXDColo;
         private System.Windows.Forms.Label labelXDColo;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private MaskedTextBox2 maskedTextBox21;
     }
-
 }

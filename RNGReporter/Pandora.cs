@@ -1861,9 +1861,18 @@ namespace RNGReporter
 
         private void searchGenIII(DateTime seedTime, bool usePID, uint pid, bool useID, uint searchID, bool useSID, uint searchSID)
         {
-            //empty should be 0x000005A0
-            uint seed = Functions.CalculateSeedGen3(seedTime);
-            //dry batteries always use this seed
+            uint seed;
+
+            if (radioButton1.Checked == true)
+            {
+                seed = uint.Parse(maskedTextBox21.Text, NumberStyles.HexNumber);
+            }
+            else
+            {
+                //empty should be 0x000005A0
+                seed = Functions.CalculateSeedGen3(seedTime);
+                //dry batteries always use this seed
+            }
             var rng = new PokeRng(seed);
             resultsCount = 0;
 
@@ -1960,6 +1969,9 @@ namespace RNGReporter
                 dateIII.Enabled = false;
                 textIIIHour.Enabled = false;
                 textIIIMinute.Enabled = false;
+                radioButton1.Enabled = false;
+                radioButton2.Enabled = false;
+                maskedTextBox21.Enabled = false;
                 //set the values for a dead battery
                 dateIII.Value = new DateTime(2000, 1, 1);
                 textIIIHour.Text = "0";
@@ -1970,6 +1982,9 @@ namespace RNGReporter
                 dateIII.Enabled = true;
                 textIIIHour.Enabled = true;
                 textIIIMinute.Enabled = true;
+                radioButton1.Enabled = true;
+                radioButton2.Enabled = true;
+                maskedTextBox21.Enabled = true;
             }
         }
 
@@ -2151,6 +2166,24 @@ namespace RNGReporter
                     binding.ResetBindings(false);
                     selectedColumn.HeaderCell.SortGlyphDirection = idListBWComparator.sortOrder;
                 }
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked == true)
+            {
+                dateIII.Enabled = false;
+                textIIIHour.ReadOnly = true;
+                textIIIMinute.ReadOnly = true;
+                maskedTextBox21.ReadOnly = false;
+            }
+            else
+            {
+                dateIII.Enabled = true;
+                textIIIHour.ReadOnly = false;
+                textIIIMinute.ReadOnly = false;
+                maskedTextBox21.ReadOnly = true;
             }
         }
     }

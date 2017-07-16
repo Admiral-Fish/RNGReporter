@@ -167,7 +167,7 @@ namespace RNGReporter.Objects
                     return new LockInfo[] { new LockInfo(6, 0, 126), new LockInfo(24, 127, 255), new LockInfo(18, 127, 255), new LockInfo(18, 127, 255) };
                 case 51: //Natu
                     type = ShadowType.FirstShadow;
-                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) };
+                    return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(0, 127, 255) };
                 case 52: //Nosepass
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(12, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) };
@@ -224,7 +224,7 @@ namespace RNGReporter.Objects
                     return new LockInfo[] { new LockInfo(6, 127, 255), new LockInfo(0, 0, 126), new LockInfo(0, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) };
                 case 72: //Seel
                     type = ShadowType.FirstShadow;
-                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(12, 127, 255), new LockInfo(6, 127, 255) };
+                    return new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(18, 127, 255), new LockInfo(6, 127, 255) };
                 case 74: //Shroomish
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 0, 126) };

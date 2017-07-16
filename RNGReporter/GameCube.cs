@@ -536,6 +536,7 @@ namespace RNGReporter
             var rng = new XdRng(inseed);
             uint pid, iv1, iv2, nature, seed;
             uint[] ivs;
+            int count;
             var info = new NatureLock(natureLockIndex);
 
             switch (shadow)
@@ -578,7 +579,7 @@ namespace RNGReporter
                 case ShadowType.SingleLock:
                 case ShadowType.FirstShadow:
                     info.rand.Add(inseed);
-                    for (uint x = 0; x < 10000; x++)
+                    for (uint x = 0; x < 2999; x++)
                         info.rand.Add(rng.GetNext32BitNumber());
 
                     for (uint z = 0; z < 32; z++)
@@ -627,7 +628,9 @@ namespace RNGReporter
                         {
                             for (uint n = 0; n < 1048576; n++, info.rand.RemoveAt(0), info.rand.Add(rng.GetNext32BitNumber()))
                             {
-                                info.method2SecondShadowSet(false, out seed, out pid, out iv1, out iv2);
+                                count = info.method2SecondShadowPassNL(false);
+
+                                info.method2SecondShadowSet(false, count, out seed, out pid, out iv1, out iv2);
                                 if (!seedList.Contains(seed))
                                 {
                                     nature = pid % 25;
@@ -639,7 +642,33 @@ namespace RNGReporter
                                     }
                                 }
 
-                                info.method2SecondShadowSet(true, out seed, out pid, out iv1, out iv2);
+                                info.method2SecondShadowUnset(false, count, out seed, out pid, out iv1, out iv2);
+                                if (!seedList.Contains(seed))
+                                {
+                                    nature = pid % 25;
+                                    if (natureList == null || natureList.Contains(nature))
+                                    {
+                                        ivs = createIVs(iv1, iv2);
+                                        if (ivs != null)
+                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seed, 2);
+                                    }
+                                }
+
+                                info.method2SecondShinySkip(false, count, out seed, out pid, out iv1, out iv2);
+                                if (!seedList.Contains(seed))
+                                {
+                                    nature = pid % 25;
+                                    if (natureList == null || natureList.Contains(nature))
+                                    {
+                                        ivs = createIVs(iv1, iv2);
+                                        if (ivs != null)
+                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seed, 3);
+                                    }
+                                }
+
+                                count = info.method2SecondShadowPassNL(true);
+
+                                info.method2SecondShadowSet(true, count, out seed, out pid, out iv1, out iv2);
                                 if (!seedList.Contains(seed))
                                 {
                                     nature = pid % 25;
@@ -651,7 +680,7 @@ namespace RNGReporter
                                     }
                                 }
 
-                                info.method2SecondShadowUnset(false, out seed, out pid, out iv1, out iv2);
+                                info.method2SecondShadowUnset(true, count, out seed, out pid, out iv1, out iv2);
                                 if (!seedList.Contains(seed))
                                 {
                                     nature = pid % 25;
@@ -659,11 +688,11 @@ namespace RNGReporter
                                     {
                                         ivs = createIVs(iv1, iv2);
                                         if (ivs != null)
-                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seed, 1);
+                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seed, 2);
                                     }
                                 }
 
-                                info.method2SecondShadowUnset(true, out seed, out pid, out iv1, out iv2);
+                                info.method2SecondShinySkip(true, count, out seed, out pid, out iv1, out iv2);
                                 if (!seedList.Contains(seed))
                                 {
                                     nature = pid % 25;
@@ -671,31 +700,7 @@ namespace RNGReporter
                                     {
                                         ivs = createIVs(iv1, iv2);
                                         if (ivs != null)
-                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seed, 1);
-                                    }
-                                }
-
-                                info.method2SecondShinySkip(false, out seed, out pid, out iv1, out iv2);
-                                if (!seedList.Contains(seed))
-                                {
-                                    nature = pid % 25;
-                                    if (natureList == null || natureList.Contains(nature))
-                                    {
-                                        ivs = createIVs(iv1, iv2);
-                                        if (ivs != null)
-                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seed, 1);
-                                    }
-                                }
-
-                                info.method2SecondShinySkip(true, out seed, out pid, out iv1, out iv2);
-                                if (!seedList.Contains(seed))
-                                {
-                                    nature = pid % 25;
-                                    if (natureList == null || natureList.Contains(nature))
-                                    {
-                                        ivs = createIVs(iv1, iv2);
-                                        if (ivs != null)
-                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seed, 1);
+                                            filterSeedGales2(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, seed, 3);
                                     }
                                 }
                             }

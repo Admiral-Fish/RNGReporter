@@ -128,9 +128,7 @@ namespace RNGReporter.Objects
             var seeds = new List<Seed>();
 
             uint ivs2 = spe | (spa << 5) | (spd << 10);
-            uint ivs2_2 = ivs2 ^ 0x8000;
             uint ivs1 = hp | (atk << 5) | (def << 10);
-            uint ivs1_2 = ivs1 ^ 0x8000;
 
             uint x_test = ivs2 << 16;
             uint x_testXD = ivs1 << 16;
@@ -147,7 +145,7 @@ namespace RNGReporter.Objects
                 var rngXDR = new XdRngR(seedXD);
                 uint rng1XD = rngXD.GetNext16BitNumber();
 
-                if (rng1XD == ivs2 || rng1XD == ivs2_2)
+                if ((rng1XD & 0x7FFF) == ivs2)
                 {
                     //Grab rest of RNG calls for XDColo
                     uint rng2XD = rngXD.GetNext16BitNumber();
@@ -182,7 +180,7 @@ namespace RNGReporter.Objects
                         var newSeed = new Seed
                         {
                             Method = "Colosseum/XD",
-                            Pid = pid,
+                            Pid = pidXor,
                             MonsterSeed = XDColoSeedXor,
                             Sid = sid
                         };
@@ -195,7 +193,7 @@ namespace RNGReporter.Objects
                 var rng = new PokeRngR(seed);
                 uint rng1 = rng.GetNext16BitNumber();
                 //Checks that ivs line up
-                if (rng1 == ivs1 || rng1 == ivs1_2)
+                if ((rng1 & 0x7FFF) == ivs1)
                 {
                     //  We have a max of 5 total RNG calls
                     //  to make a pokemon and we already have

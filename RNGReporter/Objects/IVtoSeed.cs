@@ -43,9 +43,7 @@ namespace RNGReporter.Objects
             var seeds = new List<Seed>();
 
             uint ivs1 = hp + (atk << 5) + (def << 10);
-            uint ivs1_2 = ivs1 ^ 0x8000;
             uint ivs2 = spe | (spa << 5) | (spd << 10);
-            uint ivs2_2 = ivs2 ^ 0x8000;
             uint x_testXD = ivs1 << 16;
 
             //  Now we want to start with IV2 and call the RNG for
@@ -62,7 +60,7 @@ namespace RNGReporter.Objects
                 uint rng1XD = rngXD.GetNext16BitNumber();
 
                 //Check if ivs line up
-                if (rng1XD == ivs2 || rng1XD == ivs2_2)
+                if ((rng1XD & 0x7FFF) == ivs2)
                 {
 
                     var rngXDR = new XdRngR(seed);
@@ -79,7 +77,7 @@ namespace RNGReporter.Objects
                     uint rng2XD = rngXD.GetNext16BitNumber();
                     uint rng3XD = rngXD.GetNext16BitNumber();
                     uint rng4XD = rngXD.GetNext16BitNumber();
-                    uint pid = (rng3XD << 16) + rng4XD;
+                    uint pid = (rng3XD << 16) | rng4XD;
 
                     //  Check Colosseum\XD
                     // [IVs] [IVs] [xxx] [PID] [PID]
@@ -795,10 +793,8 @@ namespace RNGReporter.Objects
             var seeds = new List<Seed>();
 
             uint ivs2 = spe | (spa << 5) | (spd << 10);
-            uint ivs2_2 = ivs2 ^ 0x8000;
 
             uint ivs1 = hp | (atk << 5) | (def << 10);
-            uint ivs1_2 = ivs1 ^ 0x8000;
 
             uint x_test = ivs2 << 16;
 
@@ -811,7 +807,7 @@ namespace RNGReporter.Objects
                 //  of the information we were provided 
                 //  is a match.
 
-                uint seed = x_test | (cnt & 0xFFFF);
+                uint seed = x_test | cnt;
 
                 var rng = new PokeRngR(seed);
 
@@ -823,7 +819,7 @@ namespace RNGReporter.Objects
                 uint rng1 = rng.GetNext16BitNumber();
 
                 //Check if ivs line up
-                if (rng1 == ivs1 || rng1 == ivs1_2)
+                if ((rng1 & 0x7FFF) == ivs1)
                 {
                     //  We have a max of 5 total RNG calls
                     //  to make a pokemon and we already have
@@ -831,7 +827,7 @@ namespace RNGReporter.Objects
                     uint rng2 = rng.GetNext16BitNumber();
                     uint rng3 = rng.GetNext16BitNumber();
                     uint rng4 = rng.GetNext16BitNumber();
-                    uint pid = (rng2 << 16) + rng3;
+                    uint pid = (rng2 << 16) | rng3;
                     uint method1Seed = rng.Seed;
 
                     //  Check Method 1

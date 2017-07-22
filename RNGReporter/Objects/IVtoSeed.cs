@@ -190,22 +190,25 @@ namespace RNGReporter.Objects
                 uint seed = x_test | cnt;
                 var rng = new PokeRngR(seed);
                 uint rng1 = rng.GetNext16BitNumber();
+
+                //  We have a max of 5 total RNG calls
+                //  to make a pokemon and we already have
+                //  one so lets go ahead and get 4 more.
+                uint rng2 = rng.GetNext16BitNumber();
+                uint rng3 = rng.GetNext16BitNumber();
+                uint rng4 = rng.GetNext16BitNumber();
+                uint method1Seed = rng.Seed;
+                uint method1SeedXor = method1Seed ^ 0x80000000;
+                sid = (rng2 ^ rng3 ^ id) & 0xFFF8;
+
+                rng.GetNext16BitNumber();
+                uint method234Seed = rng.Seed;
+                uint method234SeedXor = method234Seed ^ 0x80000000;
+
                 //Checks that ivs line up
                 if ((rng1 & 0x7FFF) == ivs1)
                 {
-                    //  We have a max of 5 total RNG calls
-                    //  to make a pokemon and we already have
-                    //  one so lets go ahead and get 4 more.
-                    uint rng2 = rng.GetNext16BitNumber();
-                    uint rng3 = rng.GetNext16BitNumber();
-                    uint rng4 = rng.GetNext16BitNumber();
-                    uint method1Seed = rng.Seed;
-                    uint method1SeedXor = method1Seed ^ 0x80000000;
-                    sid = (rng2 ^ rng3 ^ id) & 0xFFF8;
-
-                    rng.GetNext16BitNumber();
-                    uint method234Seed = rng.Seed;
-                    uint method234SeedXor = method234Seed ^ 0x80000000;
+                    
                     uint choppedPID;
 
                     //  Check Method 1
@@ -364,38 +367,6 @@ namespace RNGReporter.Objects
 
                         seeds.Add(newSeed);
                     } */
-
-                    //  Check Method 4
-                    //  [PID] [PID] [IVs] [xxxx] [IVs]
-                    //  [rng4] [rng3] [rng2] [xxxx] [START]
-                    if (pid % 25 == nature)
-                    {
-                        //  Build a seed to add to our collection
-                        var newSeed = new Seed
-                        {
-                            Method = "Method 4",
-                            Pid = pid,
-                            MonsterSeed = method234Seed,
-                            Sid = sid
-                        };
-                        seeds.Add(newSeed);
-                    }
-
-                    //  Check Method 4 XOR
-                    //  [PID] [PID] [IVs] [xxxx] [IVs]
-                    //  [rng4] [rng3] [rng2] [xxxx] [START]
-                    if (pidXor % 25 == nature)
-                    {
-                        //  Build a seed to add to our collection
-                        var newSeed = new Seed
-                        {
-                            Method = "Method 4",
-                            Pid = pid,
-                            MonsterSeed = method234SeedXor,
-                            Sid = sid
-                        };
-                        seeds.Add(newSeed);
-                    }
 
                     //  DPPt Cute Charm
                     if (rng3 / 0x5556 != 0)
@@ -586,15 +557,15 @@ namespace RNGReporter.Objects
                     }
 
                     //  DPPt Cute Charm XOR
-                    rng3 ^= 0x8000;
-                    rng2 ^= 0x8000;
-                    if (rng3 / 0x5556 != 0)
+                    uint rng3Xor = rng3 ^ 0x8000;
+                    uint rng2Xor = rng2 ^ 0x8000;
+                    if (rng3Xor / 0x5556 != 0)
                     {
                         //  Check DPPt Cute Charm
                         //  [CC Check] [PID] [IVs] [IVs]
                         //  [rng3] [rng2] [rng1] [START]
 
-                        choppedPID = rng2 / 0xA3E;
+                        choppedPID = rng2Xor / 0xA3E;
                         pass = choppedPID % 25 == nature;
                         if (pass)
                         {
@@ -682,13 +653,13 @@ namespace RNGReporter.Objects
                     }
 
                     //  HGSS Cute Charm XOR
-                    if (rng3 % 3 != 0)
+                    if (rng3Xor % 3 != 0)
                     {
                         //  Check HGSS Cute Charm
                         //  [CC Check] [PID] [IVs] [IVs]
                         //  [rng3] [rng2] [rng1] [START]
 
-                        choppedPID = rng2 % 25;
+                        choppedPID = rng2Xor % 25;
                         pass = choppedPID == nature;
                         if (pass)
                         {
@@ -773,6 +744,44 @@ namespace RNGReporter.Objects
                             };
                             seeds.Add(newSeed);
                         }
+                    }
+                }
+
+                if ((rng2 & 0x7FFF) == ivs1)
+                {
+                    //  Check Method 4
+                    //  [PID] [PID] [IVs] [xxxx] [IVs]
+                    //  [rng4] [rng3] [rng2] [xxxx] [START]
+                    pid = (rng3 << 16) + rng4;
+                    sid = (rng3 ^ rng4 ^ id) & 0xFFF8;
+                    if (pid % 25 == nature)
+                    {
+                        //  Build a seed to add to our collection
+                        var newSeed = new Seed
+                        {
+                            Method = "Method 4",
+                            Pid = pid,
+                            MonsterSeed = method234Seed,
+                            Sid = sid
+                        };
+                        seeds.Add(newSeed);
+                    }
+
+                    //  Check Method 4 XOR
+                    //  [PID] [PID] [IVs] [xxxx] [IVs]
+                    //  [rng4] [rng3] [rng2] [xxxx] [START]
+                    pidXor = pid ^ 0x80008000;
+                    if (pidXor % 25 == nature)
+                    {
+                        //  Build a seed to add to our collection
+                        var newSeed = new Seed
+                        {
+                            Method = "Method 4",
+                            Pid = pid,
+                            MonsterSeed = method234SeedXor,
+                            Sid = sid
+                        };
+                        seeds.Add(newSeed);
                     }
                 }
             }

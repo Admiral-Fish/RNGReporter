@@ -4193,6 +4193,7 @@ namespace RNGReporter.Objects
             int shiny)
         {
             frames = new List<Frame>();
+            rngList = new List<uint>();
 
             if (frameType == FrameType.Wondercard5thGen)
             {

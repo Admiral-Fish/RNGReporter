@@ -74,14 +74,13 @@ namespace RNGReporter
         private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
         private readonly String[] hiddenPowers = { "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark" };
 
+        bool breakForLoop = false;
 
         public TimeFinder3rd(ushort id, ushort sid)
         {
             this.id = id;
             this.sid = sid;
             InitializeComponent();
-
-            deadBatteryRadioButton.Checked = true;
         }
 
         public int TabPage
@@ -725,21 +724,56 @@ namespace RNGReporter
                 }
             }
         }
-
+        
         private void buttonShiny3rdGenerate_Click(object sender, EventArgs e)
         {
-            uint seed;
-
-            if (deadBatteryRadioButton.Checked == true)
+            uint seed = 0;
+            
+            if (checkBox1.Checked == true)
             {
                 // seed used by all Ruby\Sapphire cartridges when the internal battery is dead
                 seed = 0x05A0;
+
+                RubySapphire_Generate(seed);
             }
             else
             {
-                seed = uint.Parse(maskedTextBox21.Text, NumberStyles.HexNumber);
-            }
+                if (radioButton1.Checked == true)
+                {
+                    seed = uint.Parse(maskedTextBox21.Text, NumberStyles.HexNumber);
 
+                    RubySapphire_Generate(seed);
+                }
+                else
+                {
+                    for (uint hour = uint.Parse(minHour.Text); hour <= uint.Parse(maxHour.Text); ++hour)
+                    {
+                        for (uint minute = uint.Parse(minMinute.Text); minute <= uint.Parse(maxMinute.Text); ++minute)
+                        {
+                            DateTime shortDate = dateTimePicker1.Value;
+                            DateTime fullDate = shortDate.AddHours(hour).AddMinutes(minute);
+                            seed = Functions.CalculateSeedGen3(fullDate);
+
+                            RubySapphire_Generate(seed);
+
+                            if (breakForLoop == true)
+                            {
+                                break;
+                            }
+                        }
+
+                        if (breakForLoop == true)
+                        {
+                            breakForLoop = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void RubySapphire_Generate(uint seed)
+        {
             if (maskedTextBoxShiny3rdID.Text != "")
                 id = ushort.Parse(maskedTextBoxShiny3rdID.Text);
 
@@ -891,6 +925,7 @@ namespace RNGReporter
             if (parentPassCount < 3)
             {
                 MessageBox.Show("The parent IVs you have listed cannot produce your desired search results.");
+                breakForLoop = true;
                 return;
             }
 
@@ -916,6 +951,7 @@ namespace RNGReporter
             progressJob.Priority = ThreadPriority.Lowest;
             buttonShiny3rdGenerate.Enabled = false;
         }
+
 
         private void checkBoxShiny3rdShowInheritance_CheckedChanged(object sender, EventArgs e)
         {
@@ -2803,32 +2839,37 @@ namespace RNGReporter
             return (int)(30 + ((((hp >> 1) & 1) + 2 * ((atk >> 1) & 1) + 4 * ((def >> 1) & 1) + 8 * ((spe >> 1) & 1) + 16 * ((spa >> 1) & 1) + 32 * ((spd >> 1) & 1)) * 40 / 63));
         }
 
-        private void normalSpreadRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (deadBatteryRadioButton.Checked == true)
-            {
-                maskedTextBox21.ReadOnly = true;
-                maskedTextBox21.TabStop = false;
-            }
-            else
-            {
-                maskedTextBox21.ReadOnly = false;
-                maskedTextBox21.TabStop = true;
-            }
-
-        }
-        
-        private void maskedTextBox21_Enter(object sender, EventArgs e)
-        {
-            if (maskedTextBox21.ReadOnly == true)
-            {
-                label99.Focus();
-            }
-        }
-
         private uint calcHP(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
             return ((((hp & 1) + 2 * (atk & 1) + 4 * (def & 1) + 8 * (spe & 1) + 16 * (spa & 1) + 32 * (spd & 1)) * 15) / 63);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                minMinute.Enabled = maxMinute.Enabled = minHour.Enabled = maxHour.Enabled = false;
+                radioButton1.Enabled = radioButton2.Enabled = maskedTextBox21.Enabled = dateTimePicker1.Enabled = false;
+            }
+            else
+            {
+                minMinute.Enabled = maxMinute.Enabled = minHour.Enabled = maxHour.Enabled = true;
+                radioButton1.Enabled = radioButton2.Enabled = maskedTextBox21.Enabled = dateTimePicker1.Enabled = true;
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked == true)
+            {
+                maskedTextBox21.ReadOnly = dateTimePicker1.Enabled = false;
+                minMinute.ReadOnly = maxMinute.ReadOnly = minHour.ReadOnly = maxHour.ReadOnly = true;                
+            }
+            else
+            {
+                maskedTextBox21.ReadOnly = dateTimePicker1.Enabled = true;
+                minMinute.ReadOnly = maxMinute.ReadOnly = minHour.ReadOnly = maxHour.ReadOnly = false;
+            }
         }
 
         private void cancel_Click(object sender, EventArgs e)

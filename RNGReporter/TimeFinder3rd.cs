@@ -74,8 +74,6 @@ namespace RNGReporter
         private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
         private readonly String[] hiddenPowers = { "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark" };
 
-        bool breakForLoop = false;
-
         public TimeFinder3rd(ushort id, ushort sid)
         {
             this.id = id;
@@ -395,6 +393,76 @@ namespace RNGReporter
                         }
                     }
                     refreshQueue = true;
+                }
+            }
+        }
+
+        //Ruby/Sapphire generation
+        private void Generate3rdGenRSJob(uint minHour, uint maxHour, uint minMin, uint maxMin)
+        {
+            uint searchRange = ivGenerator.MaxResults * (maxHour - minHour + 1) * (maxMin - minMin + 1);
+
+            for (uint hour = minHour; hour <= maxHour; hour++)
+            {
+                for (uint min = minMin; min <= maxMin; min++)
+                {
+                    DateTime shortDate = dateTimePicker1.Value;
+                    DateTime fullDate = shortDate.AddHours(hour).AddMinutes(min);
+                    uint seed = Functions.CalculateSeedGen3(fullDate);
+                    ivGenerator.InitialSeed = seed;
+                    lowerGenerator.InitialSeed = seed;
+
+                    //  This is where we actually go ahead and call our 
+                    //  generator for a list of egg PIDs based on parameters
+                    //  that have been passed in.
+                    List<Frame> frames = lowerGenerator.Generate(frameCompare, id, sid);
+                    progressTotal += (ulong)frames.Count * searchRange;
+
+                    //  Now we need to iterate through each result heref
+                    //  and create a collection of the information that
+                    //  we are going to place into our grid.
+                    foreach (Frame frame in frames)
+                    {
+                        waitHandle.WaitOne();
+                        ivGenerator.StaticPID = frame.Pid;
+                        List<Frame> shinyFrames = ivGenerator.Generate(subFrameCompare, id, sid);
+
+                        progressSearched += searchRange;
+                        progressFound += (uint)shinyFrames.Count;
+
+                        foreach (Frame shinyFrame in shinyFrames)
+                        {
+                            var iframe = new IFrameRSEggPID
+                            {
+                                SeedTime = string.Format("{0:00}:{1:00}", hour, min),
+                                FrameLowerPID = frame.Number,
+                                FrameUpperPID = shinyFrame.Number,
+                                Pid = shinyFrame.Pid,
+                                Shiny = shinyFrame.Shiny,
+                                DisplayHp = shinyFrame.DisplayHpAlt,
+                                DisplayAtk = shinyFrame.DisplayAtkAlt,
+                                DisplayDef = shinyFrame.DisplayDefAlt,
+                                DisplaySpa = shinyFrame.DisplaySpaAlt,
+                                DisplaySpd = shinyFrame.DisplaySpdAlt,
+                                DisplaySpe = shinyFrame.DisplaySpeAlt,
+                                DisplayHpInh = shinyFrame.DisplayHp,
+                                DisplayAtkInh = shinyFrame.DisplayAtk,
+                                DisplayDefInh = shinyFrame.DisplayDef,
+                                DisplaySpaInh = shinyFrame.DisplaySpa,
+                                DisplaySpdInh = shinyFrame.DisplaySpd,
+                                DisplaySpeInh = shinyFrame.DisplaySpe
+                            };
+
+                            lock (threadLock)
+                            {
+                                if (iframe.FrameUpperPID > iframe.FrameLowerPID)
+                                {
+                                    iframesRSEgg.Add(iframe);
+                                }
+                            }
+                            refreshQueue = true;
+                        }
+                    }
                 }
             }
         }
@@ -728,8 +796,11 @@ namespace RNGReporter
         private void buttonShiny3rdGenerate_Click(object sender, EventArgs e)
         {
             uint seed = 0;
-            
-            if (checkBox1.Checked == true)
+
+            dataGridViewShinyRSResults.Columns[0].Visible = !checkBox1.Checked && radioButton2.Checked;
+
+
+            if (checkBox1.Checked)
             {
                 // seed used by all Ruby\Sapphire cartridges when the internal battery is dead
                 seed = 0x05A0;
@@ -738,7 +809,7 @@ namespace RNGReporter
             }
             else
             {
-                if (radioButton1.Checked == true)
+                if (radioButton1.Checked)
                 {
                     seed = uint.Parse(maskedTextBox21.Text, NumberStyles.HexNumber);
 
@@ -746,30 +817,189 @@ namespace RNGReporter
                 }
                 else
                 {
-                    for (uint hour = uint.Parse(minHour.Text); hour <= uint.Parse(maxHour.Text); ++hour)
-                    {
-                        for (uint minute = uint.Parse(minMinute.Text); minute <= uint.Parse(maxMinute.Text); ++minute)
-                        {
-                            DateTime shortDate = dateTimePicker1.Value;
-                            DateTime fullDate = shortDate.AddHours(hour).AddMinutes(minute);
-                            seed = Functions.CalculateSeedGen3(fullDate);
-
-                            RubySapphire_Generate(seed);
-
-                            if (breakForLoop == true)
-                            {
-                                break;
-                            }
-                        }
-
-                        if (breakForLoop == true)
-                        {
-                            breakForLoop = false;
-                            break;
-                        }
-                    }
+                    uint hourLow = uint.Parse(minHour.Text);
+                    uint hourHigh = uint.Parse(maxHour.Text);
+                    uint minLow = uint.Parse(minMinute.Text);
+                    uint minHigh = uint.Parse(maxMinute.Text);
+                    RubySapphire_Generate(hourLow, hourHigh, minLow, minHigh);
                 }
             }
+        }
+
+        private void RubySapphire_Generate(uint minHour, uint maxHour, uint minMin, uint maxMin)
+        {
+            if (maskedTextBoxShiny3rdID.Text != "")
+                id = ushort.Parse(maskedTextBoxShiny3rdID.Text);
+
+            if (maskedTextBoxShiny3rdSID.Text != "")
+                sid = ushort.Parse(maskedTextBoxShiny3rdSID.Text);
+
+            var parentA = new uint[6];
+            var parentB = new uint[6];
+
+            uint.TryParse(maskedTextBoxShiny3rdParentA_HP.Text, out parentA[0]);
+            uint.TryParse(maskedTextBoxShiny3rdParentA_Atk.Text, out parentA[1]);
+            uint.TryParse(maskedTextBoxShiny3rdParentA_Def.Text, out parentA[2]);
+            uint.TryParse(maskedTextBoxShiny3rdParentA_SpA.Text, out parentA[3]);
+            uint.TryParse(maskedTextBoxShiny3rdParentA_SpD.Text, out parentA[4]);
+            uint.TryParse(maskedTextBoxShiny3rdParentA_Spe.Text, out parentA[5]);
+
+            uint.TryParse(maskedTextBoxShiny3rdParentB_HP.Text, out parentB[0]);
+            uint.TryParse(maskedTextBoxShiny3rdParentB_Atk.Text, out parentB[1]);
+            uint.TryParse(maskedTextBoxShiny3rdParentB_Def.Text, out parentB[2]);
+            uint.TryParse(maskedTextBoxShiny3rdParentB_SpA.Text, out parentB[3]);
+            uint.TryParse(maskedTextBoxShiny3rdParentB_SpD.Text, out parentB[4]);
+            uint.TryParse(maskedTextBoxShiny3rdParentB_Spe.Text, out parentB[5]);
+
+            uint maxHeldFrame;
+            uint maxPickupFrame;
+            uint minHeldFrame;
+            uint minPickupFrame;
+
+            if (!uint.TryParse(maskedTextBox3rdHeldMinFrame.Text, out minHeldFrame))
+            {
+                maskedTextBox3rdHeldMinFrame.Focus();
+                maskedTextBox3rdHeldMinFrame.SelectAll();
+                return;
+            }
+
+            if (!uint.TryParse(maskedTextBox3rdPickupMinFrame.Text, out minPickupFrame))
+            {
+                maskedTextBox3rdPickupMinFrame.Focus();
+                maskedTextBox3rdPickupMinFrame.SelectAll();
+                return;
+            }
+
+            if (!uint.TryParse(maskedTextBox3rdHeldMaxFrame.Text, out maxHeldFrame))
+            {
+                maskedTextBox3rdHeldMaxFrame.Focus();
+                maskedTextBox3rdHeldMaxFrame.SelectAll();
+                return;
+            }
+
+            if (!uint.TryParse(maskedTextBox3rdPickupMaxFrame.Text, out maxPickupFrame))
+            {
+                maskedTextBox3rdPickupMaxFrame.Focus();
+                maskedTextBox3rdPickupMaxFrame.SelectAll();
+                return;
+            }
+
+            if (minHeldFrame > maxHeldFrame)
+            {
+                maskedTextBox3rdHeldMinFrame.Focus();
+                maskedTextBox3rdHeldMinFrame.SelectAll();
+                return;
+            }
+
+            if (minPickupFrame > maxPickupFrame)
+            {
+                maskedTextBox3rdPickupMinFrame.Focus();
+                maskedTextBox3rdPickupMinFrame.SelectAll();
+                return;
+            }
+
+            lowerGenerator = new FrameGenerator();
+            ivGenerator = new FrameGenerator();
+
+            if (comboBoxParentCompatibility.SelectedIndex == 1)
+                lowerGenerator.Compatibility = 50;
+            else if (comboBoxParentCompatibility.SelectedIndex == 2)
+                lowerGenerator.Compatibility = 70;
+            else
+                lowerGenerator.Compatibility = 20;
+
+            lowerGenerator.FrameType = FrameType.RSBredLower;
+            ivGenerator.FrameType = FrameType.RSBredUpper;
+
+            lowerGenerator.InitialFrame = minHeldFrame;
+            ivGenerator.InitialFrame = minPickupFrame;
+
+            lowerGenerator.MaxResults = maxHeldFrame - minHeldFrame + 1;
+            ivGenerator.MaxResults = maxPickupFrame - minPickupFrame + 1;
+
+            ivGenerator.ParentA = parentA;
+            ivGenerator.ParentB = parentB;
+
+            List<uint> natures = null;
+            if (comboBoxShiny3rdNature.Text != "Any" && comboBoxShiny3rdNature.CheckBoxItems.Count > 0)
+            {
+                natures = new List<uint>();
+                for (int i = 0; i < comboBoxShiny3rdNature.CheckBoxItems.Count; i++)
+                    if (comboBoxShiny3rdNature.CheckBoxItems[i].Checked)
+                        natures.Add((uint)((Nature)comboBoxShiny3rdNature.CheckBoxItems[i].ComboBoxItem).Number);
+            }
+
+            frameCompare = new FrameCompare(
+                0, CompareType.None,
+                0, CompareType.None,
+                0, CompareType.None,
+                0, CompareType.None,
+                0, CompareType.None,
+                0, CompareType.None,
+                null,
+                -1,
+                false,
+                false,
+                false,
+                null,
+                (GenderFilter)(comboBoxShiny3rdGender.SelectedItem));
+
+            subFrameCompare = new FrameCompare(
+                parentA[0],
+                parentA[1],
+                parentA[2],
+                parentA[3],
+                parentA[4],
+                parentA[5],
+                parentB[0],
+                parentB[1],
+                parentB[2],
+                parentB[3],
+                parentB[4],
+                parentB[5],
+                ivFiltersRSEgg.IVFilter,
+                natures,
+                (int)((ComboBoxItem)comboBoxShiny3rdAbility.SelectedItem).Reference,
+                checkBoxShiny3rdShinyOnly.Checked,
+                true,
+                new NoGenderFilter());
+
+            // Here we check the parent IVs
+            // To make sure they even have a chance of producing the desired spread
+            int parentPassCount = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                if (subFrameCompare.CompareIV(i, parentA[i]) || subFrameCompare.CompareIV(i, parentB[i]))
+                    parentPassCount++;
+            }
+
+            if (parentPassCount < 3)
+            {
+                MessageBox.Show("The parent IVs you have listed cannot produce your desired search results.");
+                return;
+            }
+
+            iframesRSEgg = new List<IFrameRSEggPID>();
+            listBindingEggRS = new BindingSource { DataSource = iframesRSEgg };
+
+            dataGridViewShinyRSResults.DataSource = listBindingEggRS;
+
+            progressSearched = 0;
+            progressFound = 0;
+            progressTotal = 0;
+
+            waitHandle = new EventWaitHandle(true, EventResetMode.ManualReset);
+
+            jobs = new Thread[1];
+            jobs[0] = new Thread(() => Generate3rdGenRSJob(minHour, maxHour, minMin, maxMin));
+            jobs[0].Start();
+
+            Thread.Sleep(200);
+
+            var progressJob = new Thread(() => ManageProgress(listBindingEggRS, dataGridViewShinyRSResults, lowerGenerator.FrameType, 0));
+            progressJob.Start();
+            progressJob.Priority = ThreadPriority.Lowest;
+            buttonShiny3rdGenerate.Enabled = false;
         }
 
         private void RubySapphire_Generate(uint seed)
@@ -925,7 +1155,6 @@ namespace RNGReporter
             if (parentPassCount < 3)
             {
                 MessageBox.Show("The parent IVs you have listed cannot produce your desired search results.");
-                breakForLoop = true;
                 return;
             }
 

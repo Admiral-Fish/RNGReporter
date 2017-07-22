@@ -93,6 +93,8 @@ namespace RNGReporter.Objects
             get { return (pid & 1).ToString(); }
         }
 
+        public string SeedTime { get; set; }
+
         public string DisplayHp { get; set; }
 
         public string DisplayAtk { get; set; }

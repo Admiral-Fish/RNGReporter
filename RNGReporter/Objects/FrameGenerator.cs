@@ -1463,6 +1463,7 @@ namespace RNGReporter.Objects
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
                     rng64.GetNext64BitNumber();
 
+                rngList.Clear();
                 for (int cnt = 0; cnt < 7; cnt++)
                     rngList.Add(rng64.GetNext32BitNumber());
 

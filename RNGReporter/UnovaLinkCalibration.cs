@@ -282,7 +282,7 @@ namespace RNGReporter
                         for (uint gxstat = gxstatMin; gxstat <= gxstatMax; ++gxstat)
                         {
                             array[7] = (upperMAC ^ (vframe*0x1000000) ^ gxstat);
-                            uint[] alpha = Functions.alphaSHA1(array, 8);
+                            uint[] alpha = Functions.alphaSHA1(array);
 
                             array[16] = Functions.RotateLeft(array[13] ^ array[8] ^ array[2] ^ array[0], 1);
                             array[18] = Functions.RotateLeft(array[15] ^ array[10] ^ array[4] ^ array[2], 1);

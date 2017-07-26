@@ -1105,7 +1105,7 @@ namespace RNGReporter.Objects
             var array = new uint[80];
             uint[] h = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
 
-            array[5] = Reorder((VCount << 16) + Timer0);
+            array[5] = Reorder((VCount << 16) | Timer0);
             array[6] = (uint) (MACaddress & 0xFFFF);
             if (softReset)
                 array[6] = array[6] ^ 0x01000000;
@@ -1125,34 +1125,65 @@ namespace RNGReporter.Objects
             uint e = h[4];
             uint f = 0;
             uint k = 0;
+            uint temp;
+            int i = 0;
 
-            for (int i = 0; i < 80; i++)
+            k = 0x5A827999;
+            for (; i < 16; i++)
             {
-                if (i < 20)
-                {
-                    f = (b & c) | ((~b) & d);
-                    k = 0x5A827999;
-                }
-                else if (i < 40 && i >= 20)
-                {
-                    f = b ^ c ^ d;
-                    k = 0x6ED9EBA1;
-                }
-                else if (i >= 40 && i < 60)
-                {
-                    f = (b & c) | (b & d) | (c & d);
-                    k = 0x8F1BBCDC;
-                }
-                else if (i >= 60)
-                {
-                    f = b ^ c ^ d;
-                    k = 0xCA62C1D6;
-                }
+                f = (b & c) | ((~b) & d);
+                temp = RotateLeft(a, 5) + f + e + k + array[i];
+                e = d;
+                d = c;
+                c = RotateRight(b, 2);
+                b = a;
+                a = temp;
+            }
 
-                if (i > 15)
-                    array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
+            for (; i < 20; i++)
+            {
+                f = (b & c) | ((~b) & d);
+                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
+                temp = RotateLeft(a, 5) + f + e + k + array[i];
+                e = d;
+                d = c;
+                c = RotateRight(b, 2);
+                b = a;
+                a = temp;
+            }
 
-                uint temp = RotateLeft(a, 5) + f + e + k + array[i];
+            k = 0x6ED9EBA1;
+            for (; i < 40; i++)
+            {
+                f = b ^ c ^ d;
+                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
+                temp = RotateLeft(a, 5) + f + e + k + array[i];
+                e = d;
+                d = c;
+                c = RotateRight(b, 2);
+                b = a;
+                a = temp;
+            }
+
+            k = 0x8F1BBCDC;
+            for (; i < 60; i++)
+            {
+                f = (b & c) | (b & d) | (c & d);
+                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
+                temp = RotateLeft(a, 5) + f + e + k + array[i];
+                e = d;
+                d = c;
+                c = RotateRight(b, 2);
+                b = a;
+                a = temp;
+            }
+
+            k = 0xCA62C1D6;
+            for (; i < 80; i++)
+            {
+                f = b ^ c ^ d;
+                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
+                temp = RotateLeft(a, 5) + f + e + k + array[i];
                 e = d;
                 d = c;
                 c = RotateRight(b, 2);
@@ -1236,6 +1267,7 @@ namespace RNGReporter.Objects
 
             return seed;
         }
+
         /* Failed attempt to speed up seed searching time
          * Based off PPRNG's code
          * look into fixing this later
@@ -1408,6 +1440,8 @@ namespace RNGReporter.Objects
         /// <returns> </returns>
         public static ulong EncryptSeed(uint[] array, uint[] alpha, uint startingRound)
         {
+            //Made this function a little messy to remove all the if statements
+
             uint h1 = 0x67452301;
             uint h2 = 0xEFCDAB89;
 
@@ -1420,12 +1454,32 @@ namespace RNGReporter.Objects
             uint k = 0;
             uint temp;
             uint i = startingRound;
+
+            k = 0x5A827999;
+            for (; i < 17; ++i)
+            {
+                f = (b & c) | ((~b) & d);
+                temp = RotateLeft(a, 5) + f + e + k + array[i];
+                e = d;
+                d = c;
+                c = RotateRight(b, 2);
+                b = a;
+                a = temp;
+            }
+
+            f = (b & c) | ((~b) & d);
+            array[17] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
+            temp = RotateLeft(a, 5) + f + e + k + array[i];
+            e = d;
+            d = c;
+            c = RotateRight(b, 2);
+            b = a;
+            a = temp;
+            i++;
+
             for (; i < 20; ++i)
             {
                 f = (b & c) | ((~b) & d);
-                k = 0x5A827999;
-                if (i == 17)
-                    array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
                 temp = RotateLeft(a, 5) + f + e + k + array[i];
                 e = d;
                 d = c;
@@ -1433,23 +1487,32 @@ namespace RNGReporter.Objects
                 b = a;
                 a = temp;
             }
+
+            k = 0x6ED9EBA1;
+            f = b ^ c ^ d;
+            array[20] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
+            temp = RotateLeft(a, 5) + f + e + k + array[i];
+            e = d;
+            d = c;
+            c = RotateRight(b, 2);
+            b = a;
+            a = temp;
+            i++;
+
+            for (; i < 23; ++i)
+            {
+                f = b ^ c ^ d;
+                temp = RotateLeft(a, 5) + f + e + k + array[i];
+                e = d;
+                d = c;
+                c = RotateRight(b, 2);
+                b = a;
+                a = temp;
+            }
+
             for (; i < 40; ++i)
             {
                 f = b ^ c ^ d;
-                k = 0x6ED9EBA1;
-                if (i > 27 || i == 20 || i == 23 || i == 25 || i == 26)
-                    array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-            for (;i < 60; ++i)
-            {
-                f = (b & c) | (b & d) | (c & d);
-                k = 0x8F1BBCDC;
                 array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
                 temp = RotateLeft(a, 5) + f + e + k + array[i];
                 e = d;
@@ -1458,10 +1521,24 @@ namespace RNGReporter.Objects
                 b = a;
                 a = temp;
             }
+
+            k = 0x8F1BBCDC;
+            for (; i < 60; ++i)
+            {
+                f = (b & c) | (b & d) | (c & d);
+                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
+                temp = RotateLeft(a, 5) + f + e + k + array[i];
+                e = d;
+                d = c;
+                c = RotateRight(b, 2);
+                b = a;
+                a = temp;
+            }
+
+            k = 0xCA62C1D6;
             for (; i < 79; ++i)
             {
                 f = b ^ c ^ d;
-                k = 0xCA62C1D6;
                 array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
                 temp = RotateLeft(a, 5) + f + e + k + array[i];
                 e = d;
@@ -1492,7 +1569,7 @@ namespace RNGReporter.Objects
         /// <param name="array"> Initial SHA-1 message input. </param>
         /// <param name="endRound"> The round of SHA-1 encryption from which to retrieve the SHA-1 array. </param>
         /// <returns> </returns>
-        public static uint[] alphaSHA1(uint[] array, uint endRound)
+        public static uint[] alphaSHA1(uint[] array)
         {
             var alpha = new uint[5];
             uint[] h = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
@@ -1503,34 +1580,12 @@ namespace RNGReporter.Objects
             uint d = h[3];
             uint e = h[4];
             uint f = 0;
-            uint k = 0;
+            uint k = 0x5A827999;
 
-            for (int i = 0; i <= endRound; i++)
+            //All functions calls seem to pass 8 for endRound so remove all the useless if checks
+            for (int i = 0; i <= 8; i++)
             {
-                if (i < 20)
-                {
-                    f = (b & c) | ((~b) & d);
-                    k = 0x5A827999;
-                }
-                else if (i < 40 && i >= 20)
-                {
-                    f = b ^ c ^ d;
-                    k = 0x6ED9EBA1;
-                }
-                else if (i >= 40 && i < 60)
-                {
-                    f = (b & c) | (b & d) | (c & d);
-                    k = 0x8F1BBCDC;
-                }
-                else if (i >= 60)
-                {
-                    f = b ^ c ^ d;
-                    k = 0xCA62C1D6;
-                }
-
-                if (i > 15)
-                    array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-
+                f = (b & c) | ((~b) & d);
                 uint temp = RotateLeft(a, 5) + f + e + k + array[i];
                 e = d;
                 d = c;
@@ -1613,11 +1668,7 @@ namespace RNGReporter.Objects
 
         public static uint CalculateSeedGen3(DateTime time)
         {
-            DateTime start;
-            if (time.Year <= 1999)
-                start = new DateTime(1900, 12, 31);
-            else
-                start = new DateTime(1999, 12, 31);
+            DateTime start = new DateTime(1999, 12, 31);
             TimeSpan span = time - start;
             var d = (uint) span.TotalDays;
             var h = (uint) time.Hour;

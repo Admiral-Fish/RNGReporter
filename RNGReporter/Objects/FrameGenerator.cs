@@ -1312,6 +1312,7 @@ namespace RNGReporter.Objects
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
                     mt.Nextuint();
 
+                rngList.Clear();
                 for (int i = 0; i < 7; i++)
                     rngList.Add(mt.Nextuint() >> 27);
 

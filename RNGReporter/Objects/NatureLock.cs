@@ -216,6 +216,9 @@ namespace RNGReporter.Objects
                 case 68: //Scyther
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(6, 0, 126) };
+                case 69: //Seedot 3
+                    type = ShadowType.FirstShadow;
+                    return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(0, 127, 255), new LockInfo(0, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) };
                 case 70: //Seedot 1
                     type = ShadowType.FirstShadow;
                     return new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(0, 127, 255), new LockInfo(18, 0, 126), new LockInfo(24, 0, 126), new LockInfo(6, 127, 255) };
@@ -286,7 +289,6 @@ namespace RNGReporter.Objects
                 case 43: //Mareep 3
                 case 49: //Moltres
                 case 64: //Rhydon
-                case 69: //To do seedot 3
                 case 73: //Shellder
                 case 84: //Swellow
                 case 87: //Tauros

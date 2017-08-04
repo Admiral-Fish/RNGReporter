@@ -20,15 +20,14 @@ namespace RNGReporter
         private List<DisplayList> displayList;
         private List<ShadowDisplay> shadowDisplay;
         private bool isSearching, galesFlag;
-        private uint searchNumber, genderFilter, abilityFilter;
+        private uint searchNumber, genderFilter, abilityFilter, k1, k2;
         private ShadowType shadow;
         private NatureLock natureLock = new NatureLock(0);
         private List<uint> natureList, seedList, hiddenPowerList;
         private uint[] ivsLower, ivsUpper, shinyval;
+        private byte[] low8;
+        private bool[] flags;
         private int natureLockIndex, cores;
-        private uint k1, k2;
-        private byte[] low8 = new byte[0x10000];
-        private bool[] flags = new bool[0x10000];
 
         public GameCube(int TID, int SID)
         {
@@ -279,21 +278,6 @@ namespace RNGReporter
         #region First search method
         private void generateGales()
         {
-            k2 = 0x343FD00;
-            low8 = new byte[0x10000];
-            flags = new bool[0x10000];
-
-            for (uint i = 0; i < 256; i++)
-            {
-                uint right = 0x343FD * i + 0x269EC3;
-                ushort val = (ushort)(right >> 16);
-                flags[val] = true;
-                low8[val] = (byte)i;
-                --val;
-                flags[val] = true;
-                low8[val] = (byte)i;
-            }
-
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
@@ -311,35 +295,40 @@ namespace RNGReporter
 
         private void checkSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
-            uint first = (hp | (atk << 5) | (def << 10)) << 16;
-            uint second = (spe | (spa << 5) | (spd << 10)) << 16;
-            checkSeedGales(hp, atk, def, spa, spd, spe, first, second);
-            checkSeedGales(hp, atk, def, spa, spd, spe, first ^ 0x80000000, second);
-        }
+            long first = hp | (atk << 5) | (def << 10);
+            long second = spe | (spa << 5) | (spd << 10);
+            long fullFirst;
+            uint fullSecond;
 
-        private void checkSeedGales(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint first, uint second)
-        {
-            k1 = second - first * 0x343FD;
-            uint pid1, pid2, pid, nature, galesSeed, xorSeed, xorPID, xorNature, cnt;
+            long t = second << 16;
+            t = t - 0x343fd0000 * first;
+            t = t - 0x259ec4;
+            t = (t % 0x80000000) + 0x80000000;
+            long k = (0x343fabc02 + t) / 0x80000000;
+            long test = t;
+            first <<= 16;
+            second <<= 16;
+
+            uint pid1, pid2, pid, nature, galesSeed, xorSeed, xorPID, xorNature;
+            long cnt;
             bool pass, xorPass;
 
             switch (shadow)
             {
                 case ShadowType.NoLock:
-                    for (cnt = 0; cnt < 256; ++cnt, k1 -= k2)
+                    for (cnt = 0; cnt < k; cnt++, test += 0x80000000)
                     {
-                        uint test = k1 >> 16;
-                        if (flags[test])
+                        if ((test % 0x343fd) < 0x10000)
                         {
-                            uint fullFirst = (first | (cnt << 8) | low8[test]);
-                            uint fullSecond = forwardXD(fullFirst);
+                            fullFirst = first | (test / 0x343fd);
+                            fullSecond = forwardXD((uint)fullFirst);
                             if ((fullSecond & 0x7FFF0000) == second)
                             {
                                 pid1 = forwardXD(forwardXD(fullSecond));
                                 pid2 = forwardXD(pid1);
                                 pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                                 nature = pid % 25;
-                                galesSeed = reverseXD(fullFirst);
+                                galesSeed = reverseXD((uint)fullFirst);
                                 pass = (natureList == null || natureList.Contains(nature));
 
                                 xorSeed = galesSeed ^ 0x80000000;
@@ -356,20 +345,19 @@ namespace RNGReporter
                     }
                     break;
                 case ShadowType.FirstShadow:
-                    for (cnt = 0; cnt < 256; ++cnt, k1 -= k2)
+                    for (cnt = 0; cnt < k; cnt++, test += 0x80000000)
                     {
-                        uint test = k1 >> 16;
-                        if (flags[test])
+                        if ((test % 0x343fd) < 0x10000)
                         {
-                            uint fullFirst = (first | (cnt << 8) | low8[test]);
-                            uint fullSecond = forwardXD(fullFirst);
+                            fullFirst = first | (test / 0x343fd);
+                            fullSecond = forwardXD((uint)fullFirst);
                             if ((fullSecond & 0x7FFF0000) == second)
                             {
                                 pid1 = forwardXD(forwardXD(fullSecond));
                                 pid2 = forwardXD(pid1);
                                 pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                                 nature = pid % 25;
-                                galesSeed = reverseXD(fullFirst);
+                                galesSeed = reverseXD((uint)fullFirst);
                                 pass = (natureList == null || natureList.Contains(nature));
 
                                 xorSeed = galesSeed ^ 0x80000000;
@@ -386,20 +374,19 @@ namespace RNGReporter
                     }
                     break;
                 case ShadowType.SingleLock:
-                    for (cnt = 0; cnt < 256; ++cnt, k1 -= k2)
+                    for (cnt = 0; cnt < k; cnt++, test += 0x80000000)
                     {
-                        uint test = k1 >> 16;
-                        if (flags[test])
+                        if ((test % 0x343fd) < 0x10000)
                         {
-                            uint fullFirst = (first | (cnt << 8) | low8[test]);
-                            uint fullSecond = forwardXD(fullFirst);
+                            fullFirst = first | (test / 0x343fd);
+                            fullSecond = forwardXD((uint)fullFirst);
                             if ((fullSecond & 0x7FFF0000) == second)
                             {
                                 pid1 = forwardXD(forwardXD(fullSecond));
                                 pid2 = forwardXD(pid1);
                                 pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                                 nature = pid % 25;
-                                galesSeed = reverseXD(fullFirst);
+                                galesSeed = reverseXD((uint)fullFirst);
                                 pass = (natureList == null || natureList.Contains(nature));
 
                                 xorSeed = galesSeed ^ 0x80000000;
@@ -416,20 +403,19 @@ namespace RNGReporter
                     }
                     break;
                 case ShadowType.Salamence:
-                    for (cnt = 0; cnt < 256; ++cnt, k1 -= k2)
+                    for (cnt = 0; cnt < k; cnt++, test += 0x80000000)
                     {
-                        uint test = k1 >> 16;
-                        if (flags[test])
+                        if ((test % 0x343fd) < 0x10000)
                         {
-                            uint fullFirst = (first | (cnt << 8) | low8[test]);
-                            uint fullSecond = forwardXD(fullFirst);
+                            fullFirst = first | (test / 0x343fd);
+                            fullSecond = forwardXD((uint)fullFirst);
                             if ((fullSecond & 0x7FFF0000) == second)
                             {
                                 pid1 = forwardXD(forwardXD(fullSecond));
                                 pid2 = forwardXD(pid1);
                                 pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                                 nature = pid % 25;
-                                galesSeed = reverseXD(fullFirst);
+                                galesSeed = reverseXD((uint)fullFirst);
                                 pass = (natureList == null || natureList.Contains(nature));
 
                                 xorSeed = galesSeed ^ 0x80000000;
@@ -454,20 +440,19 @@ namespace RNGReporter
                     }
                     break;
                 case ShadowType.SecondShadow:
-                    for (cnt = 0; cnt < 256; ++cnt, k1 -= k2)
+                    for (cnt = 0; cnt < k; cnt++, test += 0x80000000)
                     {
-                        uint test = k1 >> 16;
-                        if (flags[test])
+                        if ((test % 0x343fd) < 0x10000)
                         {
-                            uint fullFirst = (first | (cnt << 8) | low8[test]);
-                            uint fullSecond = forwardXD(fullFirst);
+                            fullFirst = first | (test / 0x343fd);
+                            fullSecond = forwardXD((uint)fullFirst);
                             if ((fullSecond & 0x7FFF0000) == second)
                             {
                                 pid1 = forwardXD(forwardXD(fullSecond));
                                 pid2 = forwardXD(pid1);
                                 pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                                 nature = pid % 25;
-                                galesSeed = reverseXD(fullFirst);
+                                galesSeed = reverseXD((uint)fullFirst);
                                 pass = (natureList == null || natureList.Contains(nature));
 
                                 xorSeed = galesSeed ^ 0x80000000;
@@ -928,21 +913,6 @@ namespace RNGReporter
         #region First search method
         private void generateColo()
         {
-            k2 = 0x343FD00;
-            low8 = new byte[0x10000];
-            flags = new bool[0x10000];
-
-            for (uint i = 0; i < 256; i++)
-            {
-                uint right = 0x343FD * i + 0x269EC3;
-                ushort val = (ushort)(right >> 16);
-                flags[val] = true;
-                low8[val] = (byte)i;
-                --val;
-                flags[val] = true;
-                low8[val] = (byte)i;
-            }
-
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
@@ -961,28 +931,33 @@ namespace RNGReporter
 
         private void checkSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
-            uint first = (hp | (atk << 5) | (def << 10)) << 16;
-            uint second = (spe | (spa << 5) | (spd << 10)) << 16;
-            checkSeed(hp, atk, def, spa, spd, spe, first, second);
-            checkSeed(hp, atk, def, spa, spd, spe, first ^ 0x80000000, second);
-        }
+            long first = hp | (atk << 5) | (def << 10);
+            long second = spe | (spa << 5) | (spd << 10);
+            long fullFirst;
+            uint fullSecond;
 
-        private void checkSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint first, uint second)
-        {
-            k1 = second - first * 0x343FD;
-            for (uint cnt = 0; cnt < 256; ++cnt, k1 -= k2)
+            long t = second << 16;
+            t = t - 0x343fd0000 * first;
+            t = t - 0x259ec4;
+            t = (t % 0x80000000) + 0x80000000;
+            long k = (0x343fabc02 + t) / 0x80000000;
+            long test = t;
+            first <<= 16;
+            second <<= 16;
+
+            for (long cnt = 0; cnt < k; cnt++, test += 0x80000000)
             {
-                uint test = k1 >> 16;
-                if (flags[test])
+                if ((test % 0x343fd) < 0x10000)
                 {
-                    uint fullFirst = (first | (cnt << 8) | low8[test]);
-                    if ((forwardXD(fullFirst) & 0x7FFF0000) == second)
+                    fullFirst = first | (test / 0x343fd);
+                    fullSecond = forwardXD((uint)fullFirst);
+                    if ((fullSecond & 0x7FFF0000) == second)
                     {
-                        uint pid1 = forwardXD(forwardXD(forwardXD(fullFirst)));
+                        uint pid1 = forwardXD(forwardXD(fullSecond));
                         uint pid2 = forwardXD(pid1);
                         uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                         uint nature = pid % 25;
-                        uint seed = reverseXD(fullFirst);
+                        uint seed = reverseXD((uint)fullFirst);
                         if (natureList == null || natureList.Contains(nature))
                             filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
 

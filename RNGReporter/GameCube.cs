@@ -26,6 +26,9 @@ namespace RNGReporter
         private List<uint> natureList, seedList, hiddenPowerList;
         private uint[] ivsLower, ivsUpper, shinyval;
         private int natureLockIndex, cores;
+        private uint k1, k2;
+        private byte[] low8 = new byte[0x10000];
+        private bool[] flags = new bool[0x10000];
 
         public GameCube(int TID, int SID)
         {
@@ -884,6 +887,21 @@ namespace RNGReporter
         #region First search method
         private void generateColo()
         {
+            k2 = 0x343FD00;
+            low8 = new byte[0x10000];
+            flags = new bool[0x10000];
+
+            for (uint i = 0; i < 256; i++)
+            {
+                uint right = 0x343FD * i;
+                ushort val = (ushort)(right >> 16);
+                flags[val] = true;
+                low8[val] = (byte)i;
+                --val;
+                flags[val] = true;
+                low8[val] = (byte)i;
+            }
+
             for (uint a = ivsLower[0]; a <= ivsUpper[0]; a++)
                 for (uint b = ivsLower[1]; b <= ivsUpper[1]; b++)
                     for (uint c = ivsLower[2]; c <= ivsUpper[2]; c++)
@@ -902,21 +920,21 @@ namespace RNGReporter
 
         private void checkSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
-            uint x8 = hp | (atk << 5) | (def << 10);
-            uint ex8 = spe | (spa << 5) | (spd << 10);
-            uint ivs_1b = x8 << 16;
+            uint first = (hp | (atk << 5) | (def << 10)) << 16;
+            uint second = (spe | (spa << 5) | (spd << 10)) << 16;
+            k1 = second - (first * 0x343FD + 0x269EC3);
 
-            for (uint cnt = 0; cnt <= 0xFFFF; cnt++)
+            for (uint cnt = 0; cnt < 256; ++cnt, k1 -= k2)
             {
-                uint seedb = ivs_1b | cnt;
-                uint ivs_2 = forwardXD(seedb);
-                if (((ivs_2 >> 16) & 0x7FFF) == ex8)
+                uint test = k1 >> 16;
+                if (flags[test])
                 {
-                    uint pid1 = forwardXD(forwardXD(ivs_2));
+                    uint fullFirst = (first | (cnt << 8) | low8[test]);
+                    uint pid1 = forwardXD(forwardXD(forwardXD(fullFirst)));
                     uint pid2 = forwardXD(pid1);
                     uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                     uint nature = pid % 25;
-                    uint seed = reverseXD(seedb);
+                    uint seed = reverseXD(fullFirst);
                     if (natureList == null || natureList.Contains(nature))
                         filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
 
@@ -925,114 +943,7 @@ namespace RNGReporter
                     if (natureList == null || natureList.Contains(nature))
                         filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
                 }
-                
             }
-
-            /*uint x_test = spe | (spa << 5) | (spd << 10);
-            uint y_test = hp | (atk << 5) | (def << 10);
-            uint y_compare = (y_test - 0x31) & 0xFFFF;
-            uint x8 = x_test << 16;
-            uint seed;
-            uint rng1;
-
-            // Any possible test seed will have at most
-            // a difference of 0x31 from the target seed.
-            // If it's close enough, we can then modify it
-            // to match.
-            if (y_test < 0x31)
-            {
-                for (uint cnt = 0xFFFF; cnt > 0xF2CC; cnt--)
-                {
-                    seed = x8 | cnt;
-
-                    // Do a quick search for matching seeds
-                    // with a lower 16-bits between 0xFFFF and 0xF2CD.
-                    // We'll take the closest matches and subtract 0xD33
-                    // until it produces the correct seed (or doesn't).
-
-                    // Best we can do until we find a way to
-                    // calculate them directly.
-
-                    rng1 = (reverseXD(seed) >> 16);
-
-                    // We don't have to worry about unsigned overflow
-                    // because y_test is never more than 0x7FFF
-                    if (rng1 <= y_compare)
-                    {
-                        rng1 &= 0x7FFF;
-                        while ((seed & 0xFFFF) > 0xD32 && rng1 > y_test)
-                        {
-                            seed = seed - 0xD33;
-                            rng1 = (reverseXD(seed) >> 16) & 0x7FFF;
-                        }
-                    }
-                    else
-                        rng1 &= 0x7FFF;
-
-                    if (rng1 == y_test)
-                    {
-                        uint pid1 = forwardXD(forwardXD(seed));
-                        uint pid2 = forwardXD(pid1);
-                        uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                        uint nature = pid % 25;
-                        seed = reverseXD(reverseXD(seed));
-                        if (natureList == null || natureList.Contains(nature))
-                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
-
-                        pid ^= 0x80008000;
-                        nature = pid % 25;
-                        if (natureList == null || natureList.Contains(nature))
-                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
-                    }
-                }
-            }
-            else
-            {
-                for (uint cnt = 0xFFFF; cnt > 0xF2CC; cnt--)
-                {
-                    seed = x8 | cnt;
-
-                    // Do a quick search for matching seeds
-                    // with a lower 16-bits between 0xFFFF and 0xF2CD.
-                    // We'll take the closest matches and subtract 0xD33
-                    // until it produces the correct seed (or doesn't).
-
-                    // Best we can do until we find a way to
-                    // calculate them directly.
-
-                    rng1 = (reverseXD(seed) >> 16) & 0x7FFF;
-
-                    // We don't have to worry about unsigned overflow
-                    // because y_test is never more than 0x7FFF
-                    if (rng1 >= y_compare)
-                    {
-                        rng1 &= 0x7FFF;
-                        while ((seed & 0xFFFF) > 0xD32 && rng1 < y_test)
-                        {
-                            seed = seed - 0xD33;
-                            rng1 = (reverseXD(seed) >> 16) & 0x7FFF;
-                        }
-                    }
-                    else
-                        rng1 &= 0x7FFF;
-
-                    if (rng1 == y_test)
-                    {
-                        uint pid1 = forwardXD(forwardXD(seed));
-                        uint pid2 = forwardXD(pid1);
-                        uint pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                        uint nature = pid % 25;
-                        seed = reverseXD(reverseXD(seed));
-                        if (natureList == null || natureList.Contains(nature))
-                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
-
-                        pid ^= 0x80008000;
-                        nature = pid % 25;
-                        if (natureList == null || natureList.Contains(nature))
-                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
-                    }
-                }
-            }*/
         }
 
         private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed)

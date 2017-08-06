@@ -57,6 +57,7 @@ namespace RNGReporter
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -66,7 +67,6 @@ namespace RNGReporter
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties7 = new RNGReporter.Controls.CheckBoxProperties();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties8 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.saveFileDialogTxt = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStripEggPid3rd = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.outputShiny3rdResultsToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -180,6 +180,8 @@ namespace RNGReporter
             this.label78 = new System.Windows.Forms.Label();
             this.label79 = new System.Windows.Forms.Label();
             this.comboBoxNatureXD = new RNGReporter.GlassComboBox();
+            this.contextMenuStripWild = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copySeed = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageCapture = new System.Windows.Forms.TabPage();
             this.label101 = new System.Windows.Forms.Label();
             this.rbEmerald = new System.Windows.Forms.RadioButton();
@@ -366,6 +368,25 @@ namespace RNGReporter
             this.label43 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.dataGridViewShinyRSResults = new RNGReporter.DoubleBufferedDataGridView();
+            this.Seed_Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdLowerPIDFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdLowerPIDTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdUpperPIDFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdUpperPIDTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdPID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Shiny3rdShinyDisplay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdNature = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdAbility = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdHP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdAtk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdDef = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdSpA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdSpD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiny3rdSpe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Shiny3rdFemale50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Shiny3rdFemale25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Shiny3rdFemale75 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Shiny3rdFemale125 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label27 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.maskedTextBox3rdPickupMinFrame = new RNGReporter.Controls.MaskedTextBox2();
@@ -543,31 +564,13 @@ namespace RNGReporter
             this.wildTID = new RNGReporter.Controls.MaskedTextBox2();
             this.wildSID = new RNGReporter.Controls.MaskedTextBox2();
             this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
-            this.Seed_Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdLowerPIDFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdLowerPIDTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdUpperPIDFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdUpperPIDTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdPID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Shiny3rdShinyDisplay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdNature = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdAbility = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdHP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdAtk = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdDef = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdSpA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdSpD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shiny3rdSpe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Shiny3rdFemale50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Shiny3rdFemale25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Shiny3rdFemale75 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Shiny3rdFemale125 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripEggPid3rd.SuspendLayout();
             this.tabPageXD.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewXDSearch)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewXDCalibration)).BeginInit();
+            this.contextMenuStripWild.SuspendLayout();
             this.tabPageCapture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCapValues)).BeginInit();
             this.tabPageIVEEgg.SuspendLayout();
@@ -1916,6 +1919,21 @@ namespace RNGReporter
             this.comboBoxNatureXD.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxNatureXD.Size = new System.Drawing.Size(112, 21);
             this.comboBoxNatureXD.TabIndex = 272;
+            // 
+            // contextMenuStripWild
+            // 
+            this.contextMenuStripWild.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copySeed});
+            this.contextMenuStripWild.Name = "contextMenuStripGrid";
+            this.contextMenuStripWild.Size = new System.Drawing.Size(200, 26);
+            this.contextMenuStripWild.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripWild_Opening);
+            // 
+            // copySeed
+            // 
+            this.copySeed.Name = "copySeed";
+            this.copySeed.Size = new System.Drawing.Size(199, 22);
+            this.copySeed.Text = "Copy Seed to Clipboard";
+            this.copySeed.Click += new System.EventHandler(this.copySeedToClipboard_Click);
             // 
             // tabPageCapture
             // 
@@ -4259,6 +4277,156 @@ namespace RNGReporter
             this.dataGridViewShinyRSResults.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewShiny3rdResults_CellFormatting);
             this.dataGridViewShinyRSResults.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewShiny3rdResults_MouseDown);
             // 
+            // Seed_Time
+            // 
+            this.Seed_Time.DataPropertyName = "SeedTime";
+            this.Seed_Time.HeaderText = "Seed Time";
+            this.Seed_Time.Name = "Seed_Time";
+            this.Seed_Time.ReadOnly = true;
+            // 
+            // shiny3rdLowerPIDFrame
+            // 
+            this.shiny3rdLowerPIDFrame.DataPropertyName = "FrameLowerPID";
+            this.shiny3rdLowerPIDFrame.HeaderText = "Egg Held Frame";
+            this.shiny3rdLowerPIDFrame.Name = "shiny3rdLowerPIDFrame";
+            this.shiny3rdLowerPIDFrame.ReadOnly = true;
+            // 
+            // shiny3rdLowerPIDTime
+            // 
+            this.shiny3rdLowerPIDTime.DataPropertyName = "TimeLowerPID";
+            this.shiny3rdLowerPIDTime.HeaderText = "Egg Held Time";
+            this.shiny3rdLowerPIDTime.Name = "shiny3rdLowerPIDTime";
+            this.shiny3rdLowerPIDTime.ReadOnly = true;
+            // 
+            // shiny3rdUpperPIDFrame
+            // 
+            this.shiny3rdUpperPIDFrame.DataPropertyName = "FrameUpperPID";
+            this.shiny3rdUpperPIDFrame.HeaderText = "Egg Pickup Frame";
+            this.shiny3rdUpperPIDFrame.Name = "shiny3rdUpperPIDFrame";
+            this.shiny3rdUpperPIDFrame.ReadOnly = true;
+            // 
+            // shiny3rdUpperPIDTime
+            // 
+            this.shiny3rdUpperPIDTime.DataPropertyName = "TimeUpperPID";
+            this.shiny3rdUpperPIDTime.HeaderText = "Egg Pickup Time";
+            this.shiny3rdUpperPIDTime.Name = "shiny3rdUpperPIDTime";
+            this.shiny3rdUpperPIDTime.ReadOnly = true;
+            // 
+            // shiny3rdPID
+            // 
+            this.shiny3rdPID.DataPropertyName = "Pid";
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.shiny3rdPID.DefaultCellStyle = dataGridViewCellStyle20;
+            this.shiny3rdPID.HeaderText = "PID";
+            this.shiny3rdPID.Name = "shiny3rdPID";
+            this.shiny3rdPID.ReadOnly = true;
+            this.shiny3rdPID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.shiny3rdPID.Width = 70;
+            // 
+            // Shiny3rdShinyDisplay
+            // 
+            this.Shiny3rdShinyDisplay.DataPropertyName = "ShinyDisplay";
+            this.Shiny3rdShinyDisplay.HeaderText = "!!!";
+            this.Shiny3rdShinyDisplay.Name = "Shiny3rdShinyDisplay";
+            this.Shiny3rdShinyDisplay.ReadOnly = true;
+            this.Shiny3rdShinyDisplay.Width = 20;
+            // 
+            // shiny3rdNature
+            // 
+            this.shiny3rdNature.DataPropertyName = "Nature";
+            this.shiny3rdNature.HeaderText = "Nature";
+            this.shiny3rdNature.Name = "shiny3rdNature";
+            this.shiny3rdNature.ReadOnly = true;
+            this.shiny3rdNature.Width = 75;
+            // 
+            // shiny3rdAbility
+            // 
+            this.shiny3rdAbility.DataPropertyName = "Ability";
+            this.shiny3rdAbility.HeaderText = "Ability";
+            this.shiny3rdAbility.Name = "shiny3rdAbility";
+            this.shiny3rdAbility.ReadOnly = true;
+            this.shiny3rdAbility.Width = 40;
+            // 
+            // shiny3rdHP
+            // 
+            this.shiny3rdHP.DataPropertyName = "DisplayHp";
+            this.shiny3rdHP.HeaderText = "HP";
+            this.shiny3rdHP.Name = "shiny3rdHP";
+            this.shiny3rdHP.ReadOnly = true;
+            this.shiny3rdHP.Width = 30;
+            // 
+            // shiny3rdAtk
+            // 
+            this.shiny3rdAtk.DataPropertyName = "DisplayAtk";
+            this.shiny3rdAtk.HeaderText = "Atk";
+            this.shiny3rdAtk.Name = "shiny3rdAtk";
+            this.shiny3rdAtk.ReadOnly = true;
+            this.shiny3rdAtk.Width = 30;
+            // 
+            // shiny3rdDef
+            // 
+            this.shiny3rdDef.DataPropertyName = "DisplayDef";
+            this.shiny3rdDef.HeaderText = "Def";
+            this.shiny3rdDef.Name = "shiny3rdDef";
+            this.shiny3rdDef.ReadOnly = true;
+            this.shiny3rdDef.Width = 30;
+            // 
+            // shiny3rdSpA
+            // 
+            this.shiny3rdSpA.DataPropertyName = "DisplaySpa";
+            this.shiny3rdSpA.HeaderText = "SpA";
+            this.shiny3rdSpA.Name = "shiny3rdSpA";
+            this.shiny3rdSpA.ReadOnly = true;
+            this.shiny3rdSpA.Width = 30;
+            // 
+            // shiny3rdSpD
+            // 
+            this.shiny3rdSpD.DataPropertyName = "DisplaySpd";
+            this.shiny3rdSpD.HeaderText = "SpD";
+            this.shiny3rdSpD.Name = "shiny3rdSpD";
+            this.shiny3rdSpD.ReadOnly = true;
+            this.shiny3rdSpD.Width = 30;
+            // 
+            // shiny3rdSpe
+            // 
+            this.shiny3rdSpe.DataPropertyName = "DisplaySpe";
+            this.shiny3rdSpe.HeaderText = "Spe";
+            this.shiny3rdSpe.Name = "shiny3rdSpe";
+            this.shiny3rdSpe.ReadOnly = true;
+            this.shiny3rdSpe.Width = 30;
+            // 
+            // Shiny3rdFemale50
+            // 
+            this.Shiny3rdFemale50.DataPropertyName = "Female50";
+            this.Shiny3rdFemale50.HeaderText = "50% F";
+            this.Shiny3rdFemale50.Name = "Shiny3rdFemale50";
+            this.Shiny3rdFemale50.ReadOnly = true;
+            this.Shiny3rdFemale50.Width = 50;
+            // 
+            // Shiny3rdFemale25
+            // 
+            this.Shiny3rdFemale25.DataPropertyName = "Female75";
+            this.Shiny3rdFemale25.HeaderText = "25% F";
+            this.Shiny3rdFemale25.Name = "Shiny3rdFemale25";
+            this.Shiny3rdFemale25.ReadOnly = true;
+            this.Shiny3rdFemale25.Width = 50;
+            // 
+            // Shiny3rdFemale75
+            // 
+            this.Shiny3rdFemale75.DataPropertyName = "Female75";
+            this.Shiny3rdFemale75.HeaderText = "75% F";
+            this.Shiny3rdFemale75.Name = "Shiny3rdFemale75";
+            this.Shiny3rdFemale75.ReadOnly = true;
+            this.Shiny3rdFemale75.Width = 50;
+            // 
+            // Shiny3rdFemale125
+            // 
+            this.Shiny3rdFemale125.DataPropertyName = "Female125";
+            this.Shiny3rdFemale125.HeaderText = "12.5%F";
+            this.Shiny3rdFemale125.Name = "Shiny3rdFemale125";
+            this.Shiny3rdFemale125.ReadOnly = true;
+            this.Shiny3rdFemale125.Width = 50;
+            // 
             // label27
             // 
             this.label27.AutoSize = true;
@@ -5622,6 +5790,7 @@ namespace RNGReporter
             this.dataGridViewTextBoxColumn37,
             this.dataGridViewTextBoxColumn40,
             this.dataGridViewTextBoxColumn41});
+            this.dataGridViewResult.ContextMenuStrip = this.contextMenuStripWild;
             this.dataGridViewResult.Location = new System.Drawing.Point(3, 186);
             this.dataGridViewResult.MultiSelect = false;
             this.dataGridViewResult.Name = "dataGridViewResult";
@@ -5636,6 +5805,7 @@ namespace RNGReporter
             this.dataGridViewResult.ShowRowErrors = false;
             this.dataGridViewResult.Size = new System.Drawing.Size(942, 289);
             this.dataGridViewResult.TabIndex = 438;
+            this.dataGridViewResult.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewValues_MouseDown);
             // 
             // dataGridViewTextBoxColumn0
             // 
@@ -6414,156 +6584,6 @@ namespace RNGReporter
             this.comboBoxNature.Size = new System.Drawing.Size(176, 21);
             this.comboBoxNature.TabIndex = 382;
             // 
-            // Seed_Time
-            // 
-            this.Seed_Time.DataPropertyName = "SeedTime";
-            this.Seed_Time.HeaderText = "Seed Time";
-            this.Seed_Time.Name = "Seed_Time";
-            this.Seed_Time.ReadOnly = true;
-            // 
-            // shiny3rdLowerPIDFrame
-            // 
-            this.shiny3rdLowerPIDFrame.DataPropertyName = "FrameLowerPID";
-            this.shiny3rdLowerPIDFrame.HeaderText = "Egg Held Frame";
-            this.shiny3rdLowerPIDFrame.Name = "shiny3rdLowerPIDFrame";
-            this.shiny3rdLowerPIDFrame.ReadOnly = true;
-            // 
-            // shiny3rdLowerPIDTime
-            // 
-            this.shiny3rdLowerPIDTime.DataPropertyName = "TimeLowerPID";
-            this.shiny3rdLowerPIDTime.HeaderText = "Egg Held Time";
-            this.shiny3rdLowerPIDTime.Name = "shiny3rdLowerPIDTime";
-            this.shiny3rdLowerPIDTime.ReadOnly = true;
-            // 
-            // shiny3rdUpperPIDFrame
-            // 
-            this.shiny3rdUpperPIDFrame.DataPropertyName = "FrameUpperPID";
-            this.shiny3rdUpperPIDFrame.HeaderText = "Egg Pickup Frame";
-            this.shiny3rdUpperPIDFrame.Name = "shiny3rdUpperPIDFrame";
-            this.shiny3rdUpperPIDFrame.ReadOnly = true;
-            // 
-            // shiny3rdUpperPIDTime
-            // 
-            this.shiny3rdUpperPIDTime.DataPropertyName = "TimeUpperPID";
-            this.shiny3rdUpperPIDTime.HeaderText = "Egg Pickup Time";
-            this.shiny3rdUpperPIDTime.Name = "shiny3rdUpperPIDTime";
-            this.shiny3rdUpperPIDTime.ReadOnly = true;
-            // 
-            // shiny3rdPID
-            // 
-            this.shiny3rdPID.DataPropertyName = "Pid";
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.shiny3rdPID.DefaultCellStyle = dataGridViewCellStyle20;
-            this.shiny3rdPID.HeaderText = "PID";
-            this.shiny3rdPID.Name = "shiny3rdPID";
-            this.shiny3rdPID.ReadOnly = true;
-            this.shiny3rdPID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.shiny3rdPID.Width = 70;
-            // 
-            // Shiny3rdShinyDisplay
-            // 
-            this.Shiny3rdShinyDisplay.DataPropertyName = "ShinyDisplay";
-            this.Shiny3rdShinyDisplay.HeaderText = "!!!";
-            this.Shiny3rdShinyDisplay.Name = "Shiny3rdShinyDisplay";
-            this.Shiny3rdShinyDisplay.ReadOnly = true;
-            this.Shiny3rdShinyDisplay.Width = 20;
-            // 
-            // shiny3rdNature
-            // 
-            this.shiny3rdNature.DataPropertyName = "Nature";
-            this.shiny3rdNature.HeaderText = "Nature";
-            this.shiny3rdNature.Name = "shiny3rdNature";
-            this.shiny3rdNature.ReadOnly = true;
-            this.shiny3rdNature.Width = 75;
-            // 
-            // shiny3rdAbility
-            // 
-            this.shiny3rdAbility.DataPropertyName = "Ability";
-            this.shiny3rdAbility.HeaderText = "Ability";
-            this.shiny3rdAbility.Name = "shiny3rdAbility";
-            this.shiny3rdAbility.ReadOnly = true;
-            this.shiny3rdAbility.Width = 40;
-            // 
-            // shiny3rdHP
-            // 
-            this.shiny3rdHP.DataPropertyName = "DisplayHp";
-            this.shiny3rdHP.HeaderText = "HP";
-            this.shiny3rdHP.Name = "shiny3rdHP";
-            this.shiny3rdHP.ReadOnly = true;
-            this.shiny3rdHP.Width = 30;
-            // 
-            // shiny3rdAtk
-            // 
-            this.shiny3rdAtk.DataPropertyName = "DisplayAtk";
-            this.shiny3rdAtk.HeaderText = "Atk";
-            this.shiny3rdAtk.Name = "shiny3rdAtk";
-            this.shiny3rdAtk.ReadOnly = true;
-            this.shiny3rdAtk.Width = 30;
-            // 
-            // shiny3rdDef
-            // 
-            this.shiny3rdDef.DataPropertyName = "DisplayDef";
-            this.shiny3rdDef.HeaderText = "Def";
-            this.shiny3rdDef.Name = "shiny3rdDef";
-            this.shiny3rdDef.ReadOnly = true;
-            this.shiny3rdDef.Width = 30;
-            // 
-            // shiny3rdSpA
-            // 
-            this.shiny3rdSpA.DataPropertyName = "DisplaySpa";
-            this.shiny3rdSpA.HeaderText = "SpA";
-            this.shiny3rdSpA.Name = "shiny3rdSpA";
-            this.shiny3rdSpA.ReadOnly = true;
-            this.shiny3rdSpA.Width = 30;
-            // 
-            // shiny3rdSpD
-            // 
-            this.shiny3rdSpD.DataPropertyName = "DisplaySpd";
-            this.shiny3rdSpD.HeaderText = "SpD";
-            this.shiny3rdSpD.Name = "shiny3rdSpD";
-            this.shiny3rdSpD.ReadOnly = true;
-            this.shiny3rdSpD.Width = 30;
-            // 
-            // shiny3rdSpe
-            // 
-            this.shiny3rdSpe.DataPropertyName = "DisplaySpe";
-            this.shiny3rdSpe.HeaderText = "Spe";
-            this.shiny3rdSpe.Name = "shiny3rdSpe";
-            this.shiny3rdSpe.ReadOnly = true;
-            this.shiny3rdSpe.Width = 30;
-            // 
-            // Shiny3rdFemale50
-            // 
-            this.Shiny3rdFemale50.DataPropertyName = "Female50";
-            this.Shiny3rdFemale50.HeaderText = "50% F";
-            this.Shiny3rdFemale50.Name = "Shiny3rdFemale50";
-            this.Shiny3rdFemale50.ReadOnly = true;
-            this.Shiny3rdFemale50.Width = 50;
-            // 
-            // Shiny3rdFemale25
-            // 
-            this.Shiny3rdFemale25.DataPropertyName = "Female75";
-            this.Shiny3rdFemale25.HeaderText = "25% F";
-            this.Shiny3rdFemale25.Name = "Shiny3rdFemale25";
-            this.Shiny3rdFemale25.ReadOnly = true;
-            this.Shiny3rdFemale25.Width = 50;
-            // 
-            // Shiny3rdFemale75
-            // 
-            this.Shiny3rdFemale75.DataPropertyName = "Female75";
-            this.Shiny3rdFemale75.HeaderText = "75% F";
-            this.Shiny3rdFemale75.Name = "Shiny3rdFemale75";
-            this.Shiny3rdFemale75.ReadOnly = true;
-            this.Shiny3rdFemale75.Width = 50;
-            // 
-            // Shiny3rdFemale125
-            // 
-            this.Shiny3rdFemale125.DataPropertyName = "Female125";
-            this.Shiny3rdFemale125.HeaderText = "12.5%F";
-            this.Shiny3rdFemale125.Name = "Shiny3rdFemale125";
-            this.Shiny3rdFemale125.ReadOnly = true;
-            this.Shiny3rdFemale125.Width = 50;
-            // 
             // TimeFinder3rd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -6582,6 +6602,7 @@ namespace RNGReporter
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewXDCalibration)).EndInit();
+            this.contextMenuStripWild.ResumeLayout(false);
             this.tabPageCapture.ResumeLayout(false);
             this.tabPageCapture.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCapValues)).EndInit();
@@ -6611,6 +6632,7 @@ namespace RNGReporter
 
         private System.Windows.Forms.SaveFileDialog saveFileDialogTxt;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripEggPid3rd;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripWild;
         private System.Windows.Forms.ToolStripMenuItem outputShiny3rdResultsToTXTToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageXD;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -6767,6 +6789,7 @@ namespace RNGReporter
         private GlassButton btnAnySlot;
         private System.Windows.Forms.Label label54;
         private GlassComboBox cbEncounterType;
+        private System.Windows.Forms.ToolStripMenuItem copySeed;
         private CheckBoxComboBox cbEncounterSlot;
         private System.Windows.Forms.Label label52;
         private GlassComboBox cbMethod;

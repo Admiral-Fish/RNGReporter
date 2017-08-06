@@ -1070,6 +1070,17 @@ namespace RNGReporter
             if (natures != null)
                 incrementFound = incrementFound*(uint) natures.Count;
 
+            for (uint i = 0; i < 256; i++)
+            {
+                uint right = 0x41c64e6d * i + 0x6073;
+                ushort val = (ushort)(right >> 16);
+                generator.flags[val] = true;
+                generator.low8[val] = (byte)i;
+                --val;
+                generator.flags[val] = true;
+                generator.low8[val] = (byte)i;
+            }
+
             foreach (uint hp in hpList)
             {
                 foreach (uint atk in atkList)
@@ -1083,9 +1094,14 @@ namespace RNGReporter
                                 foreach (uint spe in speList)
                                 {
                                     waitHandle.WaitOne();
+                                    uint second = spe | (spa << 5) | (spd << 10);
+                                    uint first = (hp | (atk << 5) | (def << 10)) << 16;
                                     List<Frame> frames = generator.Generate(frameCompare, hp, atk, def, spa, spd, spe,
                                                                             natures,
-                                                                            minEfgh, maxEfgh, id, sid);
+                                                                            minEfgh, maxEfgh, id, sid, first, second);
+                                    frames.AddRange(generator.Generate(frameCompare, hp, atk, def, spa, spd, spe,
+                                                                            natures,
+                                                                            minEfgh, maxEfgh, id, sid, first ^ 0x80000000, second));
 
                                     foreach (Frame frame in frames)
                                     {

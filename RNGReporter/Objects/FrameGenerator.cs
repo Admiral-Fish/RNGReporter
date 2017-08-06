@@ -163,6 +163,8 @@ namespace RNGReporter.Objects
         }
 
 
+        public byte[] low8 = new byte[0x10000];
+        public bool[] flags = new bool[0x10000];
         public List<Frame> Generate(
             FrameCompare frameCompare,
             uint hp,
@@ -175,87 +177,38 @@ namespace RNGReporter.Objects
             uint minEfgh,
             uint maxEfgh,
             uint id,
-            uint sid)
+            uint sid,
+            uint first,
+            uint second)
         {
             frames = new List<Frame>();
             var candidates = new List<Frame>();
 
             var rng = new PokeRngR(0);
 
-            uint x_test = spe | (spa << 5) | (spd << 10);
-            uint y_test = hp | (atk << 5) | (def << 10);
+            uint k1 = (second << 16) - first * 0x41c64e6d;
 
-            #region
-
-            // Experimentally derived
-            // Any possible test seed will have at most
-            // a difference of 0x31 from the target seed.
-            // If it's close enough, we can then modify it
-            // to match.
-
-
-            /*
-            for (uint cnt = 0xFFFF; cnt > 0xF2CC; cnt--)
+            for (uint cnt = 0; cnt < 256; cnt++, k1 -= 0xc64e6d00)
             {
-                uint seed = (x_test << 16) | cnt;                
+                uint test = k1 >> 16;
+                if (!flags[test])
+                    continue;
 
-                // Do a quick search for matching seeds
-                // with a lower 16-bits between 0xFFFF and 0xF2CD.
-                // We'll take the closest matches and subtract 0xD33
-                // until it produces the correct seed (or doesn't).
+                uint rng1 = (first | (cnt << 8) | low8[test]);
 
-                // Best we can do until we find a way to
-                // calculate them directly.
-
-                rng.Seed = seed;
-                uint rng1 = rng.GetNext16BitNumber();
-
-                // We don't have to worry about unsigned overflow
-                // because y_test is never more than 0x7FFF
-                if (y_test < 0x31)
-                {
-                    if (rng1 <= (y_test - 0x31))
-                    {
-                        while ((seed & 0xFFFF) > 0xD32 && (rng1 & 0x7FFF) < y_test)
-                        {
-                            seed = seed - 0xD33;
-                            rng.Seed = seed;
-                            rng1 = rng.GetNext16BitNumber();
-                        }
-                    }
-                }
-                else
-                {
-                    if (rng1 >= (y_test - 0x31))
-                    {
-                        while ((seed & 0xFFFF) > 0xD32 && (rng1 & 0x7FFF) < y_test)
-                        {
-                            seed = seed - 0xD33;
-                            rng.Seed = seed;
-                            rng1 = rng.GetNext16BitNumber();
-                        }
-                    }
-                }
-                */
-
-            #endregion
-
-            for (uint cnt = 0x0; cnt < 0xFFFF; cnt++)
-            {
-                uint seed = (x_test << 16) | cnt;
-
-                rng.Seed = seed;
-                uint rng1 = rng.GetNext16BitNumber();
+                rng.Seed = rng1;
+                uint seed = rng1 * 0x41c64e6d + 0x6073;
                 // Check to see if the next frame yields
-                // the HP, Attack, and Defense IVs we're searching for
+                // the Spa, Spd, and Spe IVs we're searching for
                 // If not, skip 'em.
-                if ((rng1 & 0x7FFF) != y_test)
+                if (((seed >> 16) & 0x7fff) != second)
                     continue;
 
                 //  We have a max of 5 total RNG calls
                 //  to make a pokemon and we already have
                 //  one so lets go ahead and get 4 more.
                 uint seedWondercard = rng.GetNext32BitNumber();
+                rng1 >>= 16;
                 var rng2 = seedWondercard >> 16;
                 uint rng3 = rng.GetNext16BitNumber();
                 uint rng4 = rng.GetNext16BitNumber();
@@ -281,7 +234,7 @@ namespace RNGReporter.Objects
                                                     0,
                                                     seedWondercard,
                                                     0, 0,
-                                                    rng1, x_test,
+                                                    rng1, second,
                                                     id, sid,
                                                     0, 0);
 
@@ -332,7 +285,7 @@ namespace RNGReporter.Objects
                                                             0,
                                                             testRng.Seed,
                                                             chainedPIDLower, chainedPIDUpper,
-                                                            rng1, x_test,
+                                                            rng1, second,
                                                             id, sid,
                                                             0, 0);
 
@@ -353,7 +306,7 @@ namespace RNGReporter.Objects
                                                             0,
                                                             method1Seed,
                                                             rng3, rng2,
-                                                            rng1, x_test,
+                                                            rng1, second,
                                                             id, sid,
                                                             0, 0);
 
@@ -453,7 +406,7 @@ namespace RNGReporter.Objects
                                                                         0,
                                                                         testSeed,
                                                                         rng3, rng2,
-                                                                        rng1, x_test,
+                                                                        rng1, second,
                                                                         id, sid,
                                                                         0, 0);
 
@@ -501,7 +454,7 @@ namespace RNGReporter.Objects
                                                                             0,
                                                                             testSeed,
                                                                             rng3, rng2,
-                                                                            rng1, x_test,
+                                                                            rng1, second,
                                                                             id, sid,
                                                                             0, 0);
 
@@ -580,7 +533,7 @@ namespace RNGReporter.Objects
                                                                         0,
                                                                         testSeed,
                                                                         rng3, rng2,
-                                                                        rng1, x_test,
+                                                                        rng1, second,
                                                                         id, sid,
                                                                         0, 0);
 
@@ -665,7 +618,7 @@ namespace RNGReporter.Objects
                                                                     frameType, EncounterType, 0,
                                                                     CCSeed,
                                                                     choppedPID + buffer, 0,
-                                                                    rng1, x_test,
+                                                                    rng1, second,
                                                                     id, sid,
                                                                     0, 0);
 
@@ -794,7 +747,7 @@ namespace RNGReporter.Objects
                                                                         0,
                                                                         testSeed,
                                                                         rng3, rng2,
-                                                                        rng1, x_test,
+                                                                        rng1, second,
                                                                         id, sid,
                                                                         0, 0);
 
@@ -842,7 +795,7 @@ namespace RNGReporter.Objects
                                                                             0,
                                                                             testSeed,
                                                                             rng3, rng2,
-                                                                            rng1, x_test,
+                                                                            rng1, second,
                                                                             id, sid,
                                                                             0, 0);
 
@@ -926,7 +879,7 @@ namespace RNGReporter.Objects
                                                                         0,
                                                                         testSeed,
                                                                         rng3, rng2,
-                                                                        rng1, x_test,
+                                                                        rng1, second,
                                                                         id, sid,
                                                                         0, 0);
 
@@ -1013,7 +966,7 @@ namespace RNGReporter.Objects
                                                                     frameType, EncounterType, 0,
                                                                     CCSeed,
                                                                     choppedPID + buffer, 0,
-                                                                    rng1, x_test,
+                                                                    rng1, second,
                                                                     id, sid,
                                                                     0, 0);
 

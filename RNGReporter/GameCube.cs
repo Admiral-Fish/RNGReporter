@@ -1145,7 +1145,7 @@ namespace RNGReporter
                     }
                     break;
                 case 8:
-                    if (method > 22)
+                    if (method > 100)
                     {
                         searchThread = new Thread[8];
                         for (int i = 0; i < 8; i++)
@@ -1186,13 +1186,20 @@ namespace RNGReporter
 
         private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
-            uint x16 = spd << 27;
-            uint upper = x16 | 0x7ffffff;
+            uint last = spd << 27;
+            long t = spa << 27;
+            t = t - 0xB9B33155 * (last);
+            t = t - 0x9970f642;
+            t = (t % 0x100000000) + 0x100000000;
+            long kmax = (0x5cd9989f64cceaa - t) / 0x100000000;
             var rng = new XdRngR(0);
 
-            while (x16 < upper)
+            for (long k = 0; k  < kmax; k++, t += 0x100000000)
             {
-                rng.Seed = ++x16;
+                if ((t % 0xB9B33155) >= 0x8000000)
+                    continue;
+
+                rng.Seed = last | (uint)(t / 0xB9B33155);
                 if (rng.GetNext16BitNumber() >> 11 == spa)
                 {
                     if (rng.GetNext16BitNumber() >> 11 == spe)

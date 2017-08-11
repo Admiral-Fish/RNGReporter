@@ -1095,7 +1095,7 @@ namespace RNGReporter
             switch (cores)
             {
                 case 1:
-                    if (method > 94)
+                    if (method > 282)
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateChannel2(0, 64, 0));
@@ -1109,7 +1109,7 @@ namespace RNGReporter
                     }
                     break;
                 case 2:
-                    if (method > 48)
+                    if (method > 144)
                     {
                         searchThread = new Thread[2];
                         for (int i = 0; i < 1; i++)
@@ -1127,7 +1127,7 @@ namespace RNGReporter
                     }
                     break;
                 case 4:
-                    if (method > 26)
+                    if (method > 78)
                     {
                         searchThread = new Thread[4];
                         for (int i = 0; i < 4; i++)
@@ -1145,7 +1145,7 @@ namespace RNGReporter
                     }
                     break;
                 case 8:
-                    if (method > 100)
+                    if (method > 66)
                     {
                         searchThread = new Thread[8];
                         for (int i = 0; i < 8; i++)

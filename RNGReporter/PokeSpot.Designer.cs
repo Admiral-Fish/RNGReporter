@@ -190,7 +190,7 @@
             this.textBoxSeed.Location = new System.Drawing.Point(100, 131);
             this.textBoxSeed.Mask = "AAAAAAAA";
             this.textBoxSeed.Name = "textBoxSeed";
-            this.textBoxSeed.Size = new System.Drawing.Size(64, 20);
+            this.textBoxSeed.Size = new System.Drawing.Size(76, 20);
             this.textBoxSeed.TabIndex = 303;
             // 
             // dataGridViewResult
@@ -412,7 +412,7 @@
             this.maxFrame.Location = new System.Drawing.Point(100, 158);
             this.maxFrame.Mask = "0000000000";
             this.maxFrame.Name = "maxFrame";
-            this.maxFrame.Size = new System.Drawing.Size(64, 20);
+            this.maxFrame.Size = new System.Drawing.Size(76, 20);
             this.maxFrame.TabIndex = 334;
             this.maxFrame.Text = "3000000";
             this.maxFrame.ValidatingType = typeof(int);

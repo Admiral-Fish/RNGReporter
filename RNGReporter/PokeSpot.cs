@@ -93,10 +93,9 @@ namespace RNGReporter.Objects
 
             j = 5;
 
-            for (uint x = 1; x < frame + 1; x++, rngList[j] = rng.GetNext32BitNumber())
+            for (uint x = 1; x <= frame; x++, rngList[j] = rng.GetNext32BitNumber())
             {
-                if (++j > 5)
-                    j = 0;
+                j = ++j % 6;
                 filterPokeSpot(x);
             }
         }

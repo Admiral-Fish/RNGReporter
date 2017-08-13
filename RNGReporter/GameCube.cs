@@ -585,8 +585,7 @@ namespace RNGReporter
                         {
                             for (uint n = 0; n < 1048576; n++, rand[j] = rng.GetNext32BitNumber())
                             {
-                                if (++j > 5)
-                                    j = 0;
+                                j = ++j % 6;
                                 ivs = createIVs(rand[j >= 5 ? j - 5 : j + 1] >> 16, rand[j >= 4 ? j - 4 : j + 2] >> 16);
                                 if (ivs != null)
                                 {
@@ -1053,9 +1052,7 @@ namespace RNGReporter
                 {
                     for (uint n = 0; n < 1048576; n++, seedShort[j] = rng.GetNext16BitNumber(), seedLong[j] = rng.Seed)
                     {
-                        if (++j > 5)
-                            j = 0;
-
+                        j = ++j % 6;
                         ivs = createIVs(seedShort[j >= 5 ? j - 5 : j + 1], seedShort[j >= 4 ? j - 4 : j + 2]);
                         if (ivs != null)
                         {
@@ -1234,7 +1231,6 @@ namespace RNGReporter
         #endregion
 
         #region Search 2
-        //Credits to Zari and amab for this
         private void generateChannel2(uint seed, uint num1, int shinyIndex)
         {
             uint[] seedShort = new uint[13];
@@ -1259,8 +1255,7 @@ namespace RNGReporter
                 {
                     for (uint n = 0; n < 1048576; n++, seedShort[j] = rng.GetNext16BitNumber(), seedLong[j] = rng.Seed)
                     {
-                        if (++j > 12)
-                            j = 0;
+                        j = ++j % 13;
 
                         pid1 = seedShort[j >= 11 ? j - 11 : j + 2];
                         pid2 = seedShort[j >= 10 ? j - 10 : j + 3];
@@ -1560,9 +1555,7 @@ namespace RNGReporter
                 {
                     for (uint n = 0; n < 1048576; n++, seedShort[j] = rng.GetNext16BitNumber(), seedLong[j] = rng.Seed)
                     {
-                        if (++j > 4)
-                            j = 0;
-
+                        j = ++j % 5;
                         ivs = createIVs(seedShort[j >= 2 ? j - 2 : j + 3], seedShort[j >= 1 ? j - 1 : j + 4]);
                         if (ivs != null)
                         {

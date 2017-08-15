@@ -1092,7 +1092,7 @@ namespace RNGReporter
             switch (cores)
             {
                 case 1:
-                    if (method > 846)
+                    if (method > 964)
                     {
                         searchThread = new Thread[1];
                         searchThread[0] = new Thread(() => generateChannel2(0, 64, 0));
@@ -1106,7 +1106,7 @@ namespace RNGReporter
                     }
                     break;
                 case 2:
-                    if (method > 432)
+                    if (method > 492)
                     {
                         searchThread = new Thread[2];
                         for (int i = 0; i < 1; i++)
@@ -1124,7 +1124,7 @@ namespace RNGReporter
                     }
                     break;
                 case 4:
-                    if (method > 234)
+                    if (method > 266)
                     {
                         searchThread = new Thread[4];
                         for (int i = 0; i < 4; i++)
@@ -1142,7 +1142,7 @@ namespace RNGReporter
                     }
                     break;
                 case 8:
-                    if (method > 198)
+                    if (method > 225)
                     {
                         searchThread = new Thread[8];
                         for (int i = 0; i < 8; i++)
@@ -1183,48 +1183,54 @@ namespace RNGReporter
 
         private void checkSeedChannel(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
-            uint last = spd << 27;
-            long t = hp << 27;
-            t = t - ((long)0x2D4673C5 * last);
-            t = t - 0xEAEB36E;
-            t = (t % 0x100000000) + 0x100000000;
-            long kmax = (0x16a339e02b98c3a - t) / 0x100000000;
+            uint first = hp << 27;
+            long t = spd << 27;
+            t = t - ((long)0x284A930D * first);
+            t = t - 0x9A974C78;
+            t = t % 0x100000000;
+            t = t < 0 ? t + 0x100000000 : t;
+            long kmax = (0x142549847b56cf2 - t) / 0x100000000;
             var rng = new XdRngR(0);
+            uint temp;
 
             for (long k = 0; k  < kmax; k++, t += 0x100000000)
             {
-                if ((t % 0x2D4673C5) >= 0x8000000)
+                if ((t % 0x284A930D) >= 0x8000000)
                     continue;
 
-                rng.Seed = last | (uint)(t / 0x2D4673C5);
-                if (rng.GetNext16BitNumber() >> 11 == spa)
+                rng.Seed = first | (uint)(t / 0x284A930D);
+                temp = forwardXD(rng.Seed);
+                if (temp >> 27 != atk)
+                    continue;
+
+                temp = forwardXD(temp);
+                if (temp >> 27 != def)
+                    continue;
+
+                temp = forwardXD(temp);
+                if (temp >> 27 != spe)
+                    continue;
+
+                temp = forwardXD(temp);
+                if (temp >> 27 != spa)
+                    continue;
+
+                temp = forwardXD(temp);
+                if (temp >> 27 != spd)
+                    continue;
+
+                rng.GetNext32BitNumber(3);
+                uint pid2 = rng.GetNext16BitNumber();
+                uint pid1 = rng.GetNext16BitNumber();
+                uint sid = rng.GetNext16BitNumber();
+                uint pid = (pid1 << 16) | pid2;
+                if ((pid2 > 7 ? 0 : 1) != (pid1 ^ sid ^ 40122))
+                    pid ^= 0x80000000;
+                uint nature = pid % 25;
+                if (natureList == null || natureList.Contains(nature))
                 {
-                    if (rng.GetNext16BitNumber() >> 11 == spe)
-                    {
-                        if (rng.GetNext16BitNumber() >> 11 == def)
-                        {
-                            if (rng.GetNext16BitNumber() >> 11 == atk)
-                            {
-                                if (rng.GetNext16BitNumber() >> 11 == hp)
-                                {
-                                    rng.GetNext32BitNumber(3);
-                                    uint pid2 = rng.GetNext16BitNumber();
-                                    uint pid1 = rng.GetNext16BitNumber();
-                                    uint sid = rng.GetNext16BitNumber();
-                                    uint pid = (pid1 << 16) | pid2;
-                                    if ((pid2 > 7 ? 0 : 1) != (pid1 ^ sid ^ 40122))
-                                        pid ^= 0x80000000;
-                                    uint nature = pid % 25;
-                                    if (natureList == null || natureList.Contains(nature))
-                                    {
-                                        uint seed = rng.GetNext32BitNumber();
-                                        shinyval[0] = (40122 ^ (sid)) >> 3;
-                                        filterSeedChannel(hp, atk, def, spa, spd, spe, seed, pid, nature, 0);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    shinyval[0] = (40122 ^ (sid)) >> 3;
+                    filterSeedChannel(hp, atk, def, spa, spd, spe, rng.GetNext32BitNumber(), pid, nature, 0);
                 }
             }
         }

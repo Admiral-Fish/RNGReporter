@@ -944,7 +944,7 @@ namespace RNGReporter
 
             long t = ((second - 0x343fd * first) - 0x259ec4) % 0x80000000;
             t = t < 0 ? t + 0x80000000 : t;
-            long kmax = (0x343fabc02 + t) / 0x80000000;
+            long kmax = (0x343fabc02 - t) / 0x80000000;
             long test = t;
 
             uint pid, pid1, pid2, nature, seed;

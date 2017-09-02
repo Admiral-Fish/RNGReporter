@@ -140,7 +140,6 @@
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.btnTails);
             this.Controls.Add(this.btnHeads);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SearchFlips";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Search Coin Flips";

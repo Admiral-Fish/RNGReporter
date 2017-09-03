@@ -4163,6 +4163,7 @@ namespace RNGReporter.Objects
                 for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
                 {
                     uint pid = rngList[30];
+                    pid ^= 0x10000;
                     switch (shiny)
                     {
                         case 0:

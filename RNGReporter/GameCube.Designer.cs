@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties2 = new RNGReporter.Controls.CheckBoxProperties();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
             RNGReporter.Controls.CheckBoxProperties checkBoxProperties4 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties1 = new RNGReporter.Controls.CheckBoxProperties();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties5 = new RNGReporter.Controls.CheckBoxProperties();
+            RNGReporter.Controls.CheckBoxProperties checkBoxProperties3 = new RNGReporter.Controls.CheckBoxProperties();
             this.Shiny_Check = new System.Windows.Forms.CheckBox();
             this.L_ball = new System.Windows.Forms.Label();
             this.genderType = new System.Windows.Forms.ComboBox();
@@ -57,7 +57,7 @@
             this.searchMethod = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.shadowPokemon = new System.Windows.Forms.ComboBox();
-            this.galesCheck = new System.Windows.Forms.CheckBox();
+            this.shadowCheck = new System.Windows.Forms.CheckBox();
             this.wshMkr = new System.Windows.Forms.CheckBox();
             this.hpLogic = new System.Windows.Forms.ComboBox();
             this.atkLogic = new System.Windows.Forms.ComboBox();
@@ -65,8 +65,37 @@
             this.spaLogic = new System.Windows.Forms.ComboBox();
             this.spdLogic = new System.Windows.Forms.ComboBox();
             this.speLogic = new System.Windows.Forms.ComboBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label21 = new System.Windows.Forms.Label();
+            this.comboBoxMethodShadow = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboBoxShadow = new System.Windows.Forms.ComboBox();
+            this.comboBoxAbilityShadow = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboBoxGenderShadow = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.hpLogicShadow = new System.Windows.Forms.ComboBox();
+            this.atkLogicShadow = new System.Windows.Forms.ComboBox();
+            this.speLogicShadow = new System.Windows.Forms.ComboBox();
+            this.defLogicShadow = new System.Windows.Forms.ComboBox();
+            this.spdLogicShadow = new System.Windows.Forms.ComboBox();
+            this.spaLogicShadow = new System.Windows.Forms.ComboBox();
             this.comboBoxHiddenPower = new RNGReporter.Controls.CheckBoxComboBox();
-            this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
             this.dataGridViewResult = new RNGReporter.DoubleBufferedDataGridView();
             this.dataGridViewTextBoxColumn0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,47 +115,45 @@
             this.f50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.f75 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reason = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.spe30Above = new RNGReporter.GlassButton();
-            this.spe30Quick = new RNGReporter.GlassButton();
-            this.spe31Quick = new RNGReporter.GlassButton();
-            this.spd30Above = new RNGReporter.GlassButton();
-            this.spd30Quick = new RNGReporter.GlassButton();
-            this.spd31Quick = new RNGReporter.GlassButton();
-            this.spa30Above = new RNGReporter.GlassButton();
-            this.spa30Quick = new RNGReporter.GlassButton();
-            this.spa31Quick = new RNGReporter.GlassButton();
-            this.def30Above = new RNGReporter.GlassButton();
-            this.def30Quick = new RNGReporter.GlassButton();
-            this.def31Quick = new RNGReporter.GlassButton();
-            this.atk30Above = new RNGReporter.GlassButton();
-            this.atk30Quick = new RNGReporter.GlassButton();
-            this.atk31Quick = new RNGReporter.GlassButton();
-            this.hp30Above = new RNGReporter.GlassButton();
-            this.hp30Quick = new RNGReporter.GlassButton();
-            this.hp31Quick = new RNGReporter.GlassButton();
+            this.id = new RNGReporter.Controls.MaskedTextBox2();
             this.cancel = new RNGReporter.GlassButton();
             this.search = new RNGReporter.GlassButton();
-            this.anyNature = new RNGReporter.GlassButton();
-            this.anyGender = new RNGReporter.GlassButton();
-            this.anyAbility = new RNGReporter.GlassButton();
-            this.anyHiddenPower = new RNGReporter.GlassButton();
-            this.hpValue = new RNGReporter.Controls.MaskedTextBox2();
-            this.atkValue = new RNGReporter.Controls.MaskedTextBox2();
-            this.defValue = new RNGReporter.Controls.MaskedTextBox2();
-            this.spaValue = new RNGReporter.Controls.MaskedTextBox2();
-            this.spdValue = new RNGReporter.Controls.MaskedTextBox2();
-            this.speValue = new RNGReporter.Controls.MaskedTextBox2();
             this.sid = new RNGReporter.Controls.MaskedTextBox2();
-            this.id = new RNGReporter.Controls.MaskedTextBox2();
-            this.hpClear = new RNGReporter.GlassButton();
-            this.atkClear = new RNGReporter.GlassButton();
-            this.defClear = new RNGReporter.GlassButton();
-            this.spaClear = new RNGReporter.GlassButton();
-            this.spdClear = new RNGReporter.GlassButton();
             this.speClear = new RNGReporter.GlassButton();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.spdClear = new RNGReporter.GlassButton();
+            this.spaClear = new RNGReporter.GlassButton();
+            this.defClear = new RNGReporter.GlassButton();
+            this.atkClear = new RNGReporter.GlassButton();
+            this.hpClear = new RNGReporter.GlassButton();
+            this.speValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.spdValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.spaValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.defValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.atkValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.hpValue = new RNGReporter.Controls.MaskedTextBox2();
+            this.anyHiddenPower = new RNGReporter.GlassButton();
+            this.anyAbility = new RNGReporter.GlassButton();
+            this.anyGender = new RNGReporter.GlassButton();
+            this.anyNature = new RNGReporter.GlassButton();
+            this.comboBoxNature = new RNGReporter.Controls.CheckBoxComboBox();
+            this.hp31Quick = new RNGReporter.GlassButton();
+            this.hp30Quick = new RNGReporter.GlassButton();
+            this.spe30Above = new RNGReporter.GlassButton();
+            this.hp30Above = new RNGReporter.GlassButton();
+            this.spe30Quick = new RNGReporter.GlassButton();
+            this.spe31Quick = new RNGReporter.GlassButton();
+            this.atk31Quick = new RNGReporter.GlassButton();
+            this.atk30Quick = new RNGReporter.GlassButton();
+            this.spd30Above = new RNGReporter.GlassButton();
+            this.atk30Above = new RNGReporter.GlassButton();
+            this.spd30Quick = new RNGReporter.GlassButton();
+            this.spd31Quick = new RNGReporter.GlassButton();
+            this.def31Quick = new RNGReporter.GlassButton();
+            this.def30Quick = new RNGReporter.GlassButton();
+            this.spa30Above = new RNGReporter.GlassButton();
+            this.def30Above = new RNGReporter.GlassButton();
+            this.spa30Quick = new RNGReporter.GlassButton();
+            this.spa31Quick = new RNGReporter.GlassButton();
             this.generateShadow = new RNGReporter.GlassButton();
             this.dataGridShadow = new RNGReporter.DoubleBufferedDataGridView();
             this.Frame = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -145,77 +172,52 @@
             this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label21 = new System.Windows.Forms.Label();
-            this.comboBoxMethodShadow = new System.Windows.Forms.ComboBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.textBoxSeed = new RNGReporter.Controls.MaskedTextBox2();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.maskedTextBoxStartingFrame = new RNGReporter.Controls.MaskedTextBox2();
             this.maskedTextBoxMaxFrames = new RNGReporter.Controls.MaskedTextBox2();
-            this.label15 = new System.Windows.Forms.Label();
-            this.comboBoxShadow = new System.Windows.Forms.ComboBox();
             this.checkBoxHPShadow = new RNGReporter.Controls.CheckBoxComboBox();
-            this.comboBoxAbilityShadow = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.comboBoxGenderShadow = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.anyHPShadow = new RNGReporter.GlassButton();
             this.anyAbilityShadow = new RNGReporter.GlassButton();
             this.anyGenderShadow = new RNGReporter.GlassButton();
             this.anyNatureShadow = new RNGReporter.GlassButton();
             this.checkBoxNatureShadow = new RNGReporter.Controls.CheckBoxComboBox();
             this.speClearShadow = new RNGReporter.GlassButton();
-            this.label4 = new System.Windows.Forms.Label();
             this.spdClearShadow = new RNGReporter.GlassButton();
-            this.label6 = new System.Windows.Forms.Label();
             this.spaClearShadow = new RNGReporter.GlassButton();
-            this.label7 = new System.Windows.Forms.Label();
             this.defClearShadow = new RNGReporter.GlassButton();
-            this.label8 = new System.Windows.Forms.Label();
             this.atkClearShadow = new RNGReporter.GlassButton();
-            this.label9 = new System.Windows.Forms.Label();
             this.hpClearShadow = new RNGReporter.GlassButton();
-            this.label10 = new System.Windows.Forms.Label();
             this.speShadow = new RNGReporter.Controls.MaskedTextBox2();
             this.spdShadow = new RNGReporter.Controls.MaskedTextBox2();
             this.spaShadow = new RNGReporter.Controls.MaskedTextBox2();
             this.defShadow = new RNGReporter.Controls.MaskedTextBox2();
             this.atkShadow = new RNGReporter.Controls.MaskedTextBox2();
             this.hpShadow = new RNGReporter.Controls.MaskedTextBox2();
-            this.hpLogicShadow = new System.Windows.Forms.ComboBox();
             this.hpMaxShadow = new RNGReporter.GlassButton();
             this.hpNearMaxShadow = new RNGReporter.GlassButton();
             this.speAlmostMaxShadow = new RNGReporter.GlassButton();
             this.hpAlmostMaxShadow = new RNGReporter.GlassButton();
             this.speNearMaxShadow = new RNGReporter.GlassButton();
-            this.atkLogicShadow = new System.Windows.Forms.ComboBox();
             this.speMaxShadow = new RNGReporter.GlassButton();
             this.atkMaxShadow = new RNGReporter.GlassButton();
-            this.speLogicShadow = new System.Windows.Forms.ComboBox();
             this.atkNearMaxShadow = new RNGReporter.GlassButton();
             this.spdAlmostMaxShadow = new RNGReporter.GlassButton();
             this.atkAlmostMaxShadow = new RNGReporter.GlassButton();
             this.spdNearMaxShadow = new RNGReporter.GlassButton();
-            this.defLogicShadow = new System.Windows.Forms.ComboBox();
             this.spdMaxShadow = new RNGReporter.GlassButton();
             this.defMaxShadow = new RNGReporter.GlassButton();
-            this.spdLogicShadow = new System.Windows.Forms.ComboBox();
             this.defNearMaxShadow = new RNGReporter.GlassButton();
             this.spaAlmostMaxShadow = new RNGReporter.GlassButton();
             this.defAlmostMaxShadow = new RNGReporter.GlassButton();
             this.spaNearMaxShadow = new RNGReporter.GlassButton();
-            this.spaLogicShadow = new System.Windows.Forms.ComboBox();
             this.spaMaxShadow = new RNGReporter.GlassButton();
+            this.comboBoxGame = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.contextMenuStripGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridShadow)).BeginInit();
             this.SuspendLayout();
             // 
@@ -410,7 +412,8 @@
             this.searchMethod.FormattingEnabled = true;
             this.searchMethod.Items.AddRange(new object[] {
             "Reverse Method 1",
-            "Gales / Colo",
+            "Gales",
+            "Colo",
             "Channel"});
             this.searchMethod.Location = new System.Drawing.Point(128, 248);
             this.searchMethod.Name = "searchMethod";
@@ -431,119 +434,22 @@
             // 
             this.shadowPokemon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.shadowPokemon.FormattingEnabled = true;
-            this.shadowPokemon.Items.AddRange(new object[] {
-            "Altaria",
-            "Arbok",
-            "Articuno",
-            "Baltoy (Citadark)",
-            "Baltoy (Initial)",
-            "Baltoy (Phenac)",
-            "Banette",
-            "Beedrill",
-            "Butterfree",
-            "Carvanha",
-            "Chansey",
-            "Delcatty",
-            "Dodrio",
-            "Dragonite",
-            "Dugtrio",
-            "Duskull",
-            "Electabuzz",
-            "Exeggutor",
-            "Farfetch\'d",
-            "Golduck",
-            "Grimer",
-            "Growlithe",
-            "Gulpin (Citadark)",
-            "Gulpin (Initial)",
-            "Gulpin (Phenac)",
-            "Hitmonchan",
-            "Hitmonlee",
-            "Houndour (Citadark)",
-            "Houndour (Initial)",
-            "Houndour (Phenac)",
-            "Hypno",
-            "Kangaskhan",
-            "Lapras",
-            "Ledyba",
-            "Lickitung",
-            "Lugia",
-            "Lunatone",
-            "Magcargo",
-            "Magmar",
-            "Magneton",
-            "Makuhita",
-            "Makuhita (Colo)",
-            "Manectric",
-            "Mareep (Citadark)",
-            "Mareep (Initial)",
-            "Mareep (Phenac)",
-            "Marowak",
-            "Mawile",
-            "Meowth",
-            "Moltres",
-            "Mr. Mime",
-            "Natu",
-            "Nosepass",
-            "Numel",
-            "Paras",
-            "Pidgeotto",
-            "Pineco",
-            "Pinsir",
-            "Poliwrath",
-            "Poochyena",
-            "Primeape",
-            "Ralts",
-            "Rapidash",
-            "Raticate",
-            "Rhydon",
-            "Roselia",
-            "Sableye",
-            "Salamence",
-            "Scyther",
-            "Seedot (Citadark)",
-            "Seedot (Initial)",
-            "Seedot (Phenac)",
-            "Seel",
-            "Shellder",
-            "Shroomish",
-            "Snorlax",
-            "Snorunt",
-            "Solrock",
-            "Spearow",
-            "Spheal (Citadark)",
-            "Spheal (Initial)",
-            "Spheal (Phenac)",
-            "Spinarak",
-            "Starmie",
-            "Swellow",
-            "Swinub",
-            "Tangela",
-            "Tauros",
-            "Teddiursa",
-            "Togepi",
-            "Venomoth",
-            "Voltorb",
-            "Vulpix",
-            "Weepinbell",
-            "Zangoose",
-            "Zapdos"});
             this.shadowPokemon.Location = new System.Drawing.Point(809, 35);
             this.shadowPokemon.Name = "shadowPokemon";
             this.shadowPokemon.Size = new System.Drawing.Size(174, 21);
             this.shadowPokemon.TabIndex = 271;
             this.shadowPokemon.SelectionChangeCommitted += new System.EventHandler(this.shadowPokemon_SelectionChangeCommitted);
             // 
-            // galesCheck
+            // shadowCheck
             // 
-            this.galesCheck.AutoSize = true;
-            this.galesCheck.Location = new System.Drawing.Point(736, 37);
-            this.galesCheck.Name = "galesCheck";
-            this.galesCheck.Size = new System.Drawing.Size(70, 17);
-            this.galesCheck.TabIndex = 272;
-            this.galesCheck.Text = "Shadows";
-            this.galesCheck.UseVisualStyleBackColor = true;
-            this.galesCheck.CheckedChanged += new System.EventHandler(this.galesCheck_CheckedChanged);
+            this.shadowCheck.AutoSize = true;
+            this.shadowCheck.Location = new System.Drawing.Point(736, 37);
+            this.shadowCheck.Name = "shadowCheck";
+            this.shadowCheck.Size = new System.Drawing.Size(70, 17);
+            this.shadowCheck.TabIndex = 272;
+            this.shadowCheck.Text = "Shadows";
+            this.shadowCheck.UseVisualStyleBackColor = true;
+            this.shadowCheck.CheckedChanged += new System.EventHandler(this.galesCheck_CheckedChanged);
             // 
             // wshMkr
             // 
@@ -633,11 +539,475 @@
             this.speLogic.Size = new System.Drawing.Size(41, 21);
             this.speLogic.TabIndex = 313;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(15, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1117, 578);
+            this.tabControl1.TabIndex = 338;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.comboBoxHiddenPower);
+            this.tabPage1.Controls.Add(this.abilityType);
+            this.tabPage1.Controls.Add(this.dataGridViewResult);
+            this.tabPage1.Controls.Add(this.id);
+            this.tabPage1.Controls.Add(this.cancel);
+            this.tabPage1.Controls.Add(this.search);
+            this.tabPage1.Controls.Add(this.sid);
+            this.tabPage1.Controls.Add(this.speClear);
+            this.tabPage1.Controls.Add(this.L_search_H);
+            this.tabPage1.Controls.Add(this.spdClear);
+            this.tabPage1.Controls.Add(this.L_search_A);
+            this.tabPage1.Controls.Add(this.spaClear);
+            this.tabPage1.Controls.Add(this.wshMkr);
+            this.tabPage1.Controls.Add(this.L_search_B);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.defClear);
+            this.tabPage1.Controls.Add(this.searchMethod);
+            this.tabPage1.Controls.Add(this.L_search_C);
+            this.tabPage1.Controls.Add(this.atkClear);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.L_search_D);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.hpClear);
+            this.tabPage1.Controls.Add(this.Shiny_Check);
+            this.tabPage1.Controls.Add(this.L_search_S);
+            this.tabPage1.Controls.Add(this.L_ability);
+            this.tabPage1.Controls.Add(this.L_sex);
+            this.tabPage1.Controls.Add(this.speValue);
+            this.tabPage1.Controls.Add(this.genderType);
+            this.tabPage1.Controls.Add(this.spdValue);
+            this.tabPage1.Controls.Add(this.L_ball);
+            this.tabPage1.Controls.Add(this.spaValue);
+            this.tabPage1.Controls.Add(this.L_mezapa);
+            this.tabPage1.Controls.Add(this.defValue);
+            this.tabPage1.Controls.Add(this.shadowPokemon);
+            this.tabPage1.Controls.Add(this.atkValue);
+            this.tabPage1.Controls.Add(this.shadowCheck);
+            this.tabPage1.Controls.Add(this.hpValue);
+            this.tabPage1.Controls.Add(this.hpLogic);
+            this.tabPage1.Controls.Add(this.anyHiddenPower);
+            this.tabPage1.Controls.Add(this.anyAbility);
+            this.tabPage1.Controls.Add(this.anyGender);
+            this.tabPage1.Controls.Add(this.anyNature);
+            this.tabPage1.Controls.Add(this.comboBoxNature);
+            this.tabPage1.Controls.Add(this.hp31Quick);
+            this.tabPage1.Controls.Add(this.hp30Quick);
+            this.tabPage1.Controls.Add(this.spe30Above);
+            this.tabPage1.Controls.Add(this.hp30Above);
+            this.tabPage1.Controls.Add(this.spe30Quick);
+            this.tabPage1.Controls.Add(this.atkLogic);
+            this.tabPage1.Controls.Add(this.spe31Quick);
+            this.tabPage1.Controls.Add(this.atk31Quick);
+            this.tabPage1.Controls.Add(this.speLogic);
+            this.tabPage1.Controls.Add(this.atk30Quick);
+            this.tabPage1.Controls.Add(this.spd30Above);
+            this.tabPage1.Controls.Add(this.atk30Above);
+            this.tabPage1.Controls.Add(this.spd30Quick);
+            this.tabPage1.Controls.Add(this.defLogic);
+            this.tabPage1.Controls.Add(this.spd31Quick);
+            this.tabPage1.Controls.Add(this.def31Quick);
+            this.tabPage1.Controls.Add(this.spdLogic);
+            this.tabPage1.Controls.Add(this.def30Quick);
+            this.tabPage1.Controls.Add(this.spa30Above);
+            this.tabPage1.Controls.Add(this.def30Above);
+            this.tabPage1.Controls.Add(this.spa30Quick);
+            this.tabPage1.Controls.Add(this.spaLogic);
+            this.tabPage1.Controls.Add(this.spa31Quick);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1109, 552);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Spread Finder";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.comboBoxGame);
+            this.tabPage2.Controls.Add(this.generateShadow);
+            this.tabPage2.Controls.Add(this.dataGridShadow);
+            this.tabPage2.Controls.Add(this.label21);
+            this.tabPage2.Controls.Add(this.comboBoxMethodShadow);
+            this.tabPage2.Controls.Add(this.label20);
+            this.tabPage2.Controls.Add(this.label19);
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.label17);
+            this.tabPage2.Controls.Add(this.label18);
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.comboBoxShadow);
+            this.tabPage2.Controls.Add(this.comboBoxAbilityShadow);
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.comboBoxGenderShadow);
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Controls.Add(this.label9);
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.hpLogicShadow);
+            this.tabPage2.Controls.Add(this.atkLogicShadow);
+            this.tabPage2.Controls.Add(this.speLogicShadow);
+            this.tabPage2.Controls.Add(this.defLogicShadow);
+            this.tabPage2.Controls.Add(this.spdLogicShadow);
+            this.tabPage2.Controls.Add(this.spaLogicShadow);
+            this.tabPage2.Controls.Add(this.textBoxSeed);
+            this.tabPage2.Controls.Add(this.maskedTextBoxStartingFrame);
+            this.tabPage2.Controls.Add(this.maskedTextBoxMaxFrames);
+            this.tabPage2.Controls.Add(this.checkBoxHPShadow);
+            this.tabPage2.Controls.Add(this.anyHPShadow);
+            this.tabPage2.Controls.Add(this.anyAbilityShadow);
+            this.tabPage2.Controls.Add(this.anyGenderShadow);
+            this.tabPage2.Controls.Add(this.anyNatureShadow);
+            this.tabPage2.Controls.Add(this.checkBoxNatureShadow);
+            this.tabPage2.Controls.Add(this.speClearShadow);
+            this.tabPage2.Controls.Add(this.spdClearShadow);
+            this.tabPage2.Controls.Add(this.spaClearShadow);
+            this.tabPage2.Controls.Add(this.defClearShadow);
+            this.tabPage2.Controls.Add(this.atkClearShadow);
+            this.tabPage2.Controls.Add(this.hpClearShadow);
+            this.tabPage2.Controls.Add(this.speShadow);
+            this.tabPage2.Controls.Add(this.spdShadow);
+            this.tabPage2.Controls.Add(this.spaShadow);
+            this.tabPage2.Controls.Add(this.defShadow);
+            this.tabPage2.Controls.Add(this.atkShadow);
+            this.tabPage2.Controls.Add(this.hpShadow);
+            this.tabPage2.Controls.Add(this.hpMaxShadow);
+            this.tabPage2.Controls.Add(this.hpNearMaxShadow);
+            this.tabPage2.Controls.Add(this.speAlmostMaxShadow);
+            this.tabPage2.Controls.Add(this.hpAlmostMaxShadow);
+            this.tabPage2.Controls.Add(this.speNearMaxShadow);
+            this.tabPage2.Controls.Add(this.speMaxShadow);
+            this.tabPage2.Controls.Add(this.atkMaxShadow);
+            this.tabPage2.Controls.Add(this.atkNearMaxShadow);
+            this.tabPage2.Controls.Add(this.spdAlmostMaxShadow);
+            this.tabPage2.Controls.Add(this.atkAlmostMaxShadow);
+            this.tabPage2.Controls.Add(this.spdNearMaxShadow);
+            this.tabPage2.Controls.Add(this.spdMaxShadow);
+            this.tabPage2.Controls.Add(this.defMaxShadow);
+            this.tabPage2.Controls.Add(this.defNearMaxShadow);
+            this.tabPage2.Controls.Add(this.spaAlmostMaxShadow);
+            this.tabPage2.Controls.Add(this.defAlmostMaxShadow);
+            this.tabPage2.Controls.Add(this.spaNearMaxShadow);
+            this.tabPage2.Controls.Add(this.spaMaxShadow);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1109, 552);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Shadow Checker";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            this.label21.Location = new System.Drawing.Point(50, 153);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(57, 20);
+            this.label21.TabIndex = 403;
+            this.label21.Text = "Method";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboBoxMethodShadow
+            // 
+            this.comboBoxMethodShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMethodShadow.FormattingEnabled = true;
+            this.comboBoxMethodShadow.Items.AddRange(new object[] {
+            "Set",
+            "Unset",
+            "Shiny Skip"});
+            this.comboBoxMethodShadow.Location = new System.Drawing.Point(113, 152);
+            this.comboBoxMethodShadow.Name = "comboBoxMethodShadow";
+            this.comboBoxMethodShadow.Size = new System.Drawing.Size(174, 21);
+            this.comboBoxMethodShadow.TabIndex = 402;
+            // 
+            // label20
+            // 
+            this.label20.Location = new System.Drawing.Point(758, 184);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(199, 20);
+            this.label20.TabIndex = 401;
+            this.label20.Text = "any shiny changes from TID and SID";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(763, 169);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(199, 20);
+            this.label19.TabIndex = 400;
+            this.label19.Text = "Shadow Checker does not account for";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label16.Location = new System.Drawing.Point(47, 77);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(60, 13);
+            this.label16.TabIndex = 399;
+            this.label16.Text = "Seed (Hex)";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label17.Location = new System.Drawing.Point(32, 50);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(75, 13);
+            this.label17.TabIndex = 396;
+            this.label17.Text = "Starting Frame";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label18.Location = new System.Drawing.Point(42, 24);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(65, 13);
+            this.label18.TabIndex = 394;
+            this.label18.Text = "Max Results";
+            // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(50, 128);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(57, 20);
+            this.label15.TabIndex = 393;
+            this.label15.Text = "Shadow";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboBoxShadow
+            // 
+            this.comboBoxShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxShadow.FormattingEnabled = true;
+            this.comboBoxShadow.Location = new System.Drawing.Point(113, 126);
+            this.comboBoxShadow.Name = "comboBoxShadow";
+            this.comboBoxShadow.Size = new System.Drawing.Size(174, 21);
+            this.comboBoxShadow.TabIndex = 392;
+            this.comboBoxShadow.SelectionChangeCommitted += new System.EventHandler(this.comboBoxShadow_SelectionChangeCommitted);
+            // 
+            // comboBoxAbilityShadow
+            // 
+            this.comboBoxAbilityShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAbilityShadow.FormattingEnabled = true;
+            this.comboBoxAbilityShadow.Items.AddRange(new object[] {
+            "Any",
+            "Ability 0",
+            "Ability 1"});
+            this.comboBoxAbilityShadow.Location = new System.Drawing.Point(774, 95);
+            this.comboBoxAbilityShadow.Name = "comboBoxAbilityShadow";
+            this.comboBoxAbilityShadow.Size = new System.Drawing.Size(188, 21);
+            this.comboBoxAbilityShadow.TabIndex = 380;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(715, 96);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(57, 20);
+            this.label11.TabIndex = 382;
+            this.label11.Text = "Ability";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(715, 60);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(57, 20);
+            this.label12.TabIndex = 383;
+            this.label12.Text = "Gender";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboBoxGenderShadow
+            // 
+            this.comboBoxGenderShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxGenderShadow.FormattingEnabled = true;
+            this.comboBoxGenderShadow.Items.AddRange(new object[] {
+            "Don\'t Care / Genderless",
+            "Male (50% Male / 50% Female)",
+            "Female (50% Male / 50% Female)",
+            "Male (25% Male / 75% Female)",
+            "Female (25% Male / 75% Female)",
+            "Male (75% Male / 25% Female)",
+            "Female (75% Male / 25% Female)",
+            "Male (87.5% Male / 12.5% Female)",
+            "Female (87.5% Male / 12.5% Female)",
+            "Male (100% Male)",
+            "Female (100% Female)"});
+            this.comboBoxGenderShadow.Location = new System.Drawing.Point(774, 60);
+            this.comboBoxGenderShadow.Name = "comboBoxGenderShadow";
+            this.comboBoxGenderShadow.Size = new System.Drawing.Size(188, 21);
+            this.comboBoxGenderShadow.TabIndex = 381;
+            // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(715, 130);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(57, 20);
+            this.label13.TabIndex = 384;
+            this.label13.Text = "HP";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(715, 26);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(57, 20);
+            this.label14.TabIndex = 385;
+            this.label14.Text = "Nature";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(328, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 20);
+            this.label4.TabIndex = 338;
+            this.label4.Text = "HP";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(328, 47);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(40, 20);
+            this.label6.TabIndex = 339;
+            this.label6.Text = "Atk";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(328, 82);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(40, 20);
+            this.label7.TabIndex = 340;
+            this.label7.Text = "Def";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(328, 117);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(40, 20);
+            this.label8.TabIndex = 341;
+            this.label8.Text = "SpA";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(328, 151);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(40, 20);
+            this.label9.TabIndex = 342;
+            this.label9.Text = "SpD";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(328, 186);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(40, 20);
+            this.label10.TabIndex = 343;
+            this.label10.Text = "Spe";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // hpLogicShadow
+            // 
+            this.hpLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.hpLogicShadow.FormattingEnabled = true;
+            this.hpLogicShadow.Items.AddRange(new object[] {
+            "None",
+            "==",
+            ">=",
+            "<="});
+            this.hpLogicShadow.Location = new System.Drawing.Point(409, 13);
+            this.hpLogicShadow.Name = "hpLogicShadow";
+            this.hpLogicShadow.Size = new System.Drawing.Size(54, 21);
+            this.hpLogicShadow.TabIndex = 344;
+            // 
+            // atkLogicShadow
+            // 
+            this.atkLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.atkLogicShadow.FormattingEnabled = true;
+            this.atkLogicShadow.Items.AddRange(new object[] {
+            "None",
+            "==",
+            ">=",
+            "<="});
+            this.atkLogicShadow.Location = new System.Drawing.Point(409, 46);
+            this.atkLogicShadow.Name = "atkLogicShadow";
+            this.atkLogicShadow.Size = new System.Drawing.Size(54, 21);
+            this.atkLogicShadow.TabIndex = 348;
+            // 
+            // speLogicShadow
+            // 
+            this.speLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.speLogicShadow.FormattingEnabled = true;
+            this.speLogicShadow.Items.AddRange(new object[] {
+            "None",
+            "==",
+            ">=",
+            "<="});
+            this.speLogicShadow.Location = new System.Drawing.Point(409, 185);
+            this.speLogicShadow.Name = "speLogicShadow";
+            this.speLogicShadow.Size = new System.Drawing.Size(54, 21);
+            this.speLogicShadow.TabIndex = 364;
+            // 
+            // defLogicShadow
+            // 
+            this.defLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.defLogicShadow.FormattingEnabled = true;
+            this.defLogicShadow.Items.AddRange(new object[] {
+            "None",
+            "==",
+            ">=",
+            "<="});
+            this.defLogicShadow.Location = new System.Drawing.Point(409, 82);
+            this.defLogicShadow.Name = "defLogicShadow";
+            this.defLogicShadow.Size = new System.Drawing.Size(54, 21);
+            this.defLogicShadow.TabIndex = 352;
+            // 
+            // spdLogicShadow
+            // 
+            this.spdLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.spdLogicShadow.FormattingEnabled = true;
+            this.spdLogicShadow.Items.AddRange(new object[] {
+            "None",
+            "==",
+            ">=",
+            "<="});
+            this.spdLogicShadow.Location = new System.Drawing.Point(409, 150);
+            this.spdLogicShadow.Name = "spdLogicShadow";
+            this.spdLogicShadow.Size = new System.Drawing.Size(54, 21);
+            this.spdLogicShadow.TabIndex = 360;
+            // 
+            // spaLogicShadow
+            // 
+            this.spaLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.spaLogicShadow.FormattingEnabled = true;
+            this.spaLogicShadow.Items.AddRange(new object[] {
+            "None",
+            "==",
+            ">=",
+            "<="});
+            this.spaLogicShadow.Location = new System.Drawing.Point(409, 116);
+            this.spaLogicShadow.Name = "spaLogicShadow";
+            this.spaLogicShadow.Size = new System.Drawing.Size(54, 21);
+            this.spaLogicShadow.TabIndex = 356;
+            // 
             // comboBoxHiddenPower
             // 
             this.comboBoxHiddenPower.BlankText = "Any";
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxHiddenPower.CheckBoxProperties = checkBoxProperties4;
             this.comboBoxHiddenPower.DisplayMemberSingleItem = "";
             this.comboBoxHiddenPower.DropDownHeight = 300;
             this.comboBoxHiddenPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -646,20 +1016,6 @@
             this.comboBoxHiddenPower.Name = "comboBoxHiddenPower";
             this.comboBoxHiddenPower.Size = new System.Drawing.Size(188, 21);
             this.comboBoxHiddenPower.TabIndex = 319;
-            // 
-            // comboBoxNature
-            // 
-            this.comboBoxNature.BlankText = "Any";
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxNature.CheckBoxProperties = checkBoxProperties2;
-            this.comboBoxNature.DisplayMemberSingleItem = "";
-            this.comboBoxNature.DropDownHeight = 300;
-            this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxNature.FormattingEnabled = true;
-            this.comboBoxNature.Location = new System.Drawing.Point(455, 37);
-            this.comboBoxNature.Name = "comboBoxNature";
-            this.comboBoxNature.Size = new System.Drawing.Size(188, 21);
-            this.comboBoxNature.TabIndex = 318;
             // 
             // dataGridViewResult
             // 
@@ -719,8 +1075,8 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "PID";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTextBoxColumn1.HeaderText = "PID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -854,239 +1210,17 @@
             this.Reason.ReadOnly = true;
             this.Reason.Width = 125;
             // 
-            // spe30Above
+            // id
             // 
-            this.spe30Above.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spe30Above.ForeColor = System.Drawing.Color.Black;
-            this.spe30Above.Location = new System.Drawing.Point(256, 202);
-            this.spe30Above.Name = "spe30Above";
-            this.spe30Above.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spe30Above.ShineColor = System.Drawing.SystemColors.Window;
-            this.spe30Above.Size = new System.Drawing.Size(44, 23);
-            this.spe30Above.TabIndex = 316;
-            this.spe30Above.Text = ">=30";
-            this.spe30Above.Click += new System.EventHandler(this.spe30Above_Click);
-            // 
-            // spe30Quick
-            // 
-            this.spe30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spe30Quick.ForeColor = System.Drawing.Color.Black;
-            this.spe30Quick.Location = new System.Drawing.Point(206, 202);
-            this.spe30Quick.Name = "spe30Quick";
-            this.spe30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spe30Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.spe30Quick.Size = new System.Drawing.Size(44, 23);
-            this.spe30Quick.TabIndex = 315;
-            this.spe30Quick.Text = "==30";
-            this.spe30Quick.Click += new System.EventHandler(this.spe30Quick_Click);
-            // 
-            // spe31Quick
-            // 
-            this.spe31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spe31Quick.ForeColor = System.Drawing.Color.Black;
-            this.spe31Quick.Location = new System.Drawing.Point(156, 202);
-            this.spe31Quick.Name = "spe31Quick";
-            this.spe31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spe31Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.spe31Quick.Size = new System.Drawing.Size(44, 23);
-            this.spe31Quick.TabIndex = 314;
-            this.spe31Quick.Text = "==31";
-            this.spe31Quick.Click += new System.EventHandler(this.spe31Quick_Click);
-            // 
-            // spd30Above
-            // 
-            this.spd30Above.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spd30Above.ForeColor = System.Drawing.Color.Black;
-            this.spd30Above.Location = new System.Drawing.Point(256, 167);
-            this.spd30Above.Name = "spd30Above";
-            this.spd30Above.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spd30Above.ShineColor = System.Drawing.SystemColors.Window;
-            this.spd30Above.Size = new System.Drawing.Size(44, 23);
-            this.spd30Above.TabIndex = 312;
-            this.spd30Above.Text = ">=30";
-            this.spd30Above.Click += new System.EventHandler(this.spd30Above_Click);
-            // 
-            // spd30Quick
-            // 
-            this.spd30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spd30Quick.ForeColor = System.Drawing.Color.Black;
-            this.spd30Quick.Location = new System.Drawing.Point(206, 167);
-            this.spd30Quick.Name = "spd30Quick";
-            this.spd30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spd30Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.spd30Quick.Size = new System.Drawing.Size(44, 23);
-            this.spd30Quick.TabIndex = 311;
-            this.spd30Quick.Text = "==30";
-            this.spd30Quick.Click += new System.EventHandler(this.spd30Quick_Click);
-            // 
-            // spd31Quick
-            // 
-            this.spd31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spd31Quick.ForeColor = System.Drawing.Color.Black;
-            this.spd31Quick.Location = new System.Drawing.Point(156, 167);
-            this.spd31Quick.Name = "spd31Quick";
-            this.spd31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spd31Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.spd31Quick.Size = new System.Drawing.Size(44, 23);
-            this.spd31Quick.TabIndex = 310;
-            this.spd31Quick.Text = "==31";
-            this.spd31Quick.Click += new System.EventHandler(this.spd31Quick_Click);
-            // 
-            // spa30Above
-            // 
-            this.spa30Above.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spa30Above.ForeColor = System.Drawing.Color.Black;
-            this.spa30Above.Location = new System.Drawing.Point(256, 133);
-            this.spa30Above.Name = "spa30Above";
-            this.spa30Above.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spa30Above.ShineColor = System.Drawing.SystemColors.Window;
-            this.spa30Above.Size = new System.Drawing.Size(44, 23);
-            this.spa30Above.TabIndex = 308;
-            this.spa30Above.Text = ">=30";
-            this.spa30Above.Click += new System.EventHandler(this.spa30Above_Click);
-            // 
-            // spa30Quick
-            // 
-            this.spa30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spa30Quick.ForeColor = System.Drawing.Color.Black;
-            this.spa30Quick.Location = new System.Drawing.Point(206, 133);
-            this.spa30Quick.Name = "spa30Quick";
-            this.spa30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spa30Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.spa30Quick.Size = new System.Drawing.Size(44, 23);
-            this.spa30Quick.TabIndex = 307;
-            this.spa30Quick.Text = "==30";
-            this.spa30Quick.Click += new System.EventHandler(this.spa30Quick_Click);
-            // 
-            // spa31Quick
-            // 
-            this.spa31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spa31Quick.ForeColor = System.Drawing.Color.Black;
-            this.spa31Quick.Location = new System.Drawing.Point(156, 133);
-            this.spa31Quick.Name = "spa31Quick";
-            this.spa31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spa31Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.spa31Quick.Size = new System.Drawing.Size(44, 23);
-            this.spa31Quick.TabIndex = 306;
-            this.spa31Quick.Text = "==31";
-            this.spa31Quick.Click += new System.EventHandler(this.spa31Quick_Click);
-            // 
-            // def30Above
-            // 
-            this.def30Above.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.def30Above.ForeColor = System.Drawing.Color.Black;
-            this.def30Above.Location = new System.Drawing.Point(256, 99);
-            this.def30Above.Name = "def30Above";
-            this.def30Above.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.def30Above.ShineColor = System.Drawing.SystemColors.Window;
-            this.def30Above.Size = new System.Drawing.Size(44, 23);
-            this.def30Above.TabIndex = 304;
-            this.def30Above.Text = ">=30";
-            this.def30Above.Click += new System.EventHandler(this.def30Above_Click);
-            // 
-            // def30Quick
-            // 
-            this.def30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.def30Quick.ForeColor = System.Drawing.Color.Black;
-            this.def30Quick.Location = new System.Drawing.Point(206, 99);
-            this.def30Quick.Name = "def30Quick";
-            this.def30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.def30Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.def30Quick.Size = new System.Drawing.Size(44, 23);
-            this.def30Quick.TabIndex = 303;
-            this.def30Quick.Text = "==30";
-            this.def30Quick.Click += new System.EventHandler(this.def30Quick_Click);
-            // 
-            // def31Quick
-            // 
-            this.def31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.def31Quick.ForeColor = System.Drawing.Color.Black;
-            this.def31Quick.Location = new System.Drawing.Point(156, 99);
-            this.def31Quick.Name = "def31Quick";
-            this.def31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.def31Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.def31Quick.Size = new System.Drawing.Size(44, 23);
-            this.def31Quick.TabIndex = 302;
-            this.def31Quick.Text = "==31";
-            this.def31Quick.Click += new System.EventHandler(this.def31Quick_Click);
-            // 
-            // atk30Above
-            // 
-            this.atk30Above.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.atk30Above.ForeColor = System.Drawing.Color.Black;
-            this.atk30Above.Location = new System.Drawing.Point(256, 63);
-            this.atk30Above.Name = "atk30Above";
-            this.atk30Above.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.atk30Above.ShineColor = System.Drawing.SystemColors.Window;
-            this.atk30Above.Size = new System.Drawing.Size(44, 23);
-            this.atk30Above.TabIndex = 300;
-            this.atk30Above.Text = ">=30";
-            this.atk30Above.Click += new System.EventHandler(this.atk30Above_Click);
-            // 
-            // atk30Quick
-            // 
-            this.atk30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.atk30Quick.ForeColor = System.Drawing.Color.Black;
-            this.atk30Quick.Location = new System.Drawing.Point(206, 63);
-            this.atk30Quick.Name = "atk30Quick";
-            this.atk30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.atk30Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.atk30Quick.Size = new System.Drawing.Size(44, 23);
-            this.atk30Quick.TabIndex = 299;
-            this.atk30Quick.Text = "==30";
-            this.atk30Quick.Click += new System.EventHandler(this.atk30Quick_Click);
-            // 
-            // atk31Quick
-            // 
-            this.atk31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.atk31Quick.ForeColor = System.Drawing.Color.Black;
-            this.atk31Quick.Location = new System.Drawing.Point(156, 63);
-            this.atk31Quick.Name = "atk31Quick";
-            this.atk31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.atk31Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.atk31Quick.Size = new System.Drawing.Size(44, 23);
-            this.atk31Quick.TabIndex = 298;
-            this.atk31Quick.Text = "==31";
-            this.atk31Quick.Click += new System.EventHandler(this.atk31Quick_Click);
-            // 
-            // hp30Above
-            // 
-            this.hp30Above.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.hp30Above.ForeColor = System.Drawing.Color.Black;
-            this.hp30Above.Location = new System.Drawing.Point(256, 30);
-            this.hp30Above.Name = "hp30Above";
-            this.hp30Above.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.hp30Above.ShineColor = System.Drawing.SystemColors.Window;
-            this.hp30Above.Size = new System.Drawing.Size(44, 23);
-            this.hp30Above.TabIndex = 296;
-            this.hp30Above.Text = ">=30";
-            this.hp30Above.Click += new System.EventHandler(this.hp30Above_Click);
-            // 
-            // hp30Quick
-            // 
-            this.hp30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.hp30Quick.ForeColor = System.Drawing.Color.Black;
-            this.hp30Quick.Location = new System.Drawing.Point(206, 30);
-            this.hp30Quick.Name = "hp30Quick";
-            this.hp30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.hp30Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.hp30Quick.Size = new System.Drawing.Size(44, 23);
-            this.hp30Quick.TabIndex = 295;
-            this.hp30Quick.Text = "==30";
-            this.hp30Quick.Click += new System.EventHandler(this.hp30Quick_Click);
-            // 
-            // hp31Quick
-            // 
-            this.hp31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.hp31Quick.ForeColor = System.Drawing.Color.Black;
-            this.hp31Quick.Location = new System.Drawing.Point(156, 30);
-            this.hp31Quick.Name = "hp31Quick";
-            this.hp31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.hp31Quick.ShineColor = System.Drawing.SystemColors.Window;
-            this.hp31Quick.Size = new System.Drawing.Size(44, 23);
-            this.hp31Quick.TabIndex = 294;
-            this.hp31Quick.Text = "==31";
-            this.hp31Quick.Click += new System.EventHandler(this.hp31Quick_Click);
+            this.id.Hex = false;
+            this.id.Location = new System.Drawing.Point(492, 200);
+            this.id.Mask = "00000";
+            this.id.Name = "id";
+            this.id.Size = new System.Drawing.Size(39, 20);
+            this.id.TabIndex = 331;
+            this.id.Tag = "id/sid";
+            this.id.Text = "0";
+            this.id.ValidatingType = typeof(int);
             // 
             // cancel
             // 
@@ -1114,130 +1248,6 @@
             this.search.Text = "Search";
             this.search.Click += new System.EventHandler(this.search_Click);
             // 
-            // anyNature
-            // 
-            this.anyNature.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.anyNature.ForeColor = System.Drawing.Color.Black;
-            this.anyNature.Location = new System.Drawing.Point(649, 35);
-            this.anyNature.Name = "anyNature";
-            this.anyNature.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.anyNature.ShineColor = System.Drawing.SystemColors.Window;
-            this.anyNature.Size = new System.Drawing.Size(33, 23);
-            this.anyNature.TabIndex = 291;
-            this.anyNature.Text = "Any";
-            this.anyNature.Click += new System.EventHandler(this.anyNature_Click);
-            // 
-            // anyGender
-            // 
-            this.anyGender.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.anyGender.ForeColor = System.Drawing.Color.Black;
-            this.anyGender.Location = new System.Drawing.Point(649, 69);
-            this.anyGender.Name = "anyGender";
-            this.anyGender.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.anyGender.ShineColor = System.Drawing.SystemColors.Window;
-            this.anyGender.Size = new System.Drawing.Size(33, 23);
-            this.anyGender.TabIndex = 290;
-            this.anyGender.Text = "Any";
-            this.anyGender.Click += new System.EventHandler(this.anyGender_Click);
-            // 
-            // anyAbility
-            // 
-            this.anyAbility.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.anyAbility.ForeColor = System.Drawing.Color.Black;
-            this.anyAbility.Location = new System.Drawing.Point(649, 105);
-            this.anyAbility.Name = "anyAbility";
-            this.anyAbility.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.anyAbility.ShineColor = System.Drawing.SystemColors.Window;
-            this.anyAbility.Size = new System.Drawing.Size(33, 23);
-            this.anyAbility.TabIndex = 289;
-            this.anyAbility.Text = "Any";
-            this.anyAbility.Click += new System.EventHandler(this.anyAbility_Click);
-            // 
-            // anyHiddenPower
-            // 
-            this.anyHiddenPower.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.anyHiddenPower.ForeColor = System.Drawing.Color.Black;
-            this.anyHiddenPower.Location = new System.Drawing.Point(649, 139);
-            this.anyHiddenPower.Name = "anyHiddenPower";
-            this.anyHiddenPower.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.anyHiddenPower.ShineColor = System.Drawing.SystemColors.Window;
-            this.anyHiddenPower.Size = new System.Drawing.Size(33, 23);
-            this.anyHiddenPower.TabIndex = 288;
-            this.anyHiddenPower.Text = "Any";
-            this.anyHiddenPower.Click += new System.EventHandler(this.anyHiddenPower_Click);
-            // 
-            // hpValue
-            // 
-            this.hpValue.Hex = false;
-            this.hpValue.Location = new System.Drawing.Point(79, 31);
-            this.hpValue.Mask = "00";
-            this.hpValue.Name = "hpValue";
-            this.hpValue.Size = new System.Drawing.Size(24, 20);
-            this.hpValue.TabIndex = 324;
-            this.hpValue.Tag = "ivs";
-            this.hpValue.Text = "31";
-            this.hpValue.ValidatingType = typeof(int);
-            // 
-            // atkValue
-            // 
-            this.atkValue.Hex = false;
-            this.atkValue.Location = new System.Drawing.Point(79, 64);
-            this.atkValue.Mask = "00";
-            this.atkValue.Name = "atkValue";
-            this.atkValue.Size = new System.Drawing.Size(24, 20);
-            this.atkValue.TabIndex = 325;
-            this.atkValue.Tag = "ivs";
-            this.atkValue.Text = "31";
-            this.atkValue.ValidatingType = typeof(int);
-            // 
-            // defValue
-            // 
-            this.defValue.Hex = false;
-            this.defValue.Location = new System.Drawing.Point(79, 100);
-            this.defValue.Mask = "00";
-            this.defValue.Name = "defValue";
-            this.defValue.Size = new System.Drawing.Size(24, 20);
-            this.defValue.TabIndex = 326;
-            this.defValue.Tag = "ivs";
-            this.defValue.Text = "31";
-            this.defValue.ValidatingType = typeof(int);
-            // 
-            // spaValue
-            // 
-            this.spaValue.Hex = false;
-            this.spaValue.Location = new System.Drawing.Point(79, 134);
-            this.spaValue.Mask = "00";
-            this.spaValue.Name = "spaValue";
-            this.spaValue.Size = new System.Drawing.Size(24, 20);
-            this.spaValue.TabIndex = 327;
-            this.spaValue.Tag = "ivs";
-            this.spaValue.Text = "0";
-            this.spaValue.ValidatingType = typeof(int);
-            // 
-            // spdValue
-            // 
-            this.spdValue.Hex = false;
-            this.spdValue.Location = new System.Drawing.Point(79, 168);
-            this.spdValue.Mask = "00";
-            this.spdValue.Name = "spdValue";
-            this.spdValue.Size = new System.Drawing.Size(24, 20);
-            this.spdValue.TabIndex = 328;
-            this.spdValue.Tag = "ivs";
-            this.spdValue.Text = "31";
-            this.spdValue.ValidatingType = typeof(int);
-            // 
-            // speValue
-            // 
-            this.speValue.Hex = false;
-            this.speValue.Location = new System.Drawing.Point(79, 203);
-            this.speValue.Mask = "00";
-            this.speValue.Name = "speValue";
-            this.speValue.Size = new System.Drawing.Size(24, 20);
-            this.speValue.TabIndex = 329;
-            this.speValue.Tag = "ivs";
-            this.speValue.Text = "31";
-            this.speValue.ValidatingType = typeof(int);
-            // 
             // sid
             // 
             this.sid.Hex = false;
@@ -1249,83 +1259,6 @@
             this.sid.Tag = "id/sid";
             this.sid.Text = "0";
             this.sid.ValidatingType = typeof(int);
-            // 
-            // id
-            // 
-            this.id.Hex = false;
-            this.id.Location = new System.Drawing.Point(492, 200);
-            this.id.Mask = "00000";
-            this.id.Name = "id";
-            this.id.Size = new System.Drawing.Size(39, 20);
-            this.id.TabIndex = 331;
-            this.id.Tag = "id/sid";
-            this.id.Text = "0";
-            this.id.ValidatingType = typeof(int);
-            // 
-            // hpClear
-            // 
-            this.hpClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.hpClear.ForeColor = System.Drawing.Color.Black;
-            this.hpClear.Location = new System.Drawing.Point(306, 30);
-            this.hpClear.Name = "hpClear";
-            this.hpClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.hpClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.hpClear.Size = new System.Drawing.Size(44, 23);
-            this.hpClear.TabIndex = 332;
-            this.hpClear.Text = "Clear";
-            this.hpClear.Click += new System.EventHandler(this.hpClear_Click);
-            // 
-            // atkClear
-            // 
-            this.atkClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.atkClear.ForeColor = System.Drawing.Color.Black;
-            this.atkClear.Location = new System.Drawing.Point(306, 63);
-            this.atkClear.Name = "atkClear";
-            this.atkClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.atkClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.atkClear.Size = new System.Drawing.Size(44, 23);
-            this.atkClear.TabIndex = 333;
-            this.atkClear.Text = "Clear";
-            this.atkClear.Click += new System.EventHandler(this.atkClear_Click);
-            // 
-            // defClear
-            // 
-            this.defClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.defClear.ForeColor = System.Drawing.Color.Black;
-            this.defClear.Location = new System.Drawing.Point(306, 99);
-            this.defClear.Name = "defClear";
-            this.defClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.defClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.defClear.Size = new System.Drawing.Size(44, 23);
-            this.defClear.TabIndex = 334;
-            this.defClear.Text = "Clear";
-            this.defClear.Click += new System.EventHandler(this.defClear_Click);
-            // 
-            // spaClear
-            // 
-            this.spaClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spaClear.ForeColor = System.Drawing.Color.Black;
-            this.spaClear.Location = new System.Drawing.Point(306, 133);
-            this.spaClear.Name = "spaClear";
-            this.spaClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spaClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.spaClear.Size = new System.Drawing.Size(44, 23);
-            this.spaClear.TabIndex = 335;
-            this.spaClear.Text = "Clear";
-            this.spaClear.Click += new System.EventHandler(this.spaClear_Click);
-            // 
-            // spdClear
-            // 
-            this.spdClear.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.spdClear.ForeColor = System.Drawing.Color.Black;
-            this.spdClear.Location = new System.Drawing.Point(306, 167);
-            this.spdClear.Name = "spdClear";
-            this.spdClear.OuterBorderColor = System.Drawing.Color.Transparent;
-            this.spdClear.ShineColor = System.Drawing.SystemColors.Window;
-            this.spdClear.Size = new System.Drawing.Size(44, 23);
-            this.spdClear.TabIndex = 336;
-            this.spdClear.Text = "Clear";
-            this.spdClear.Click += new System.EventHandler(this.spdClear_Click);
             // 
             // speClear
             // 
@@ -1340,170 +1273,442 @@
             this.speClear.Text = "Clear";
             this.speClear.Click += new System.EventHandler(this.speClear_Click);
             // 
-            // tabControl1
+            // spdClear
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(15, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1117, 578);
-            this.tabControl1.TabIndex = 338;
+            this.spdClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spdClear.ForeColor = System.Drawing.Color.Black;
+            this.spdClear.Location = new System.Drawing.Point(306, 167);
+            this.spdClear.Name = "spdClear";
+            this.spdClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spdClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.spdClear.Size = new System.Drawing.Size(44, 23);
+            this.spdClear.TabIndex = 336;
+            this.spdClear.Text = "Clear";
+            this.spdClear.Click += new System.EventHandler(this.spdClear_Click);
             // 
-            // tabPage1
+            // spaClear
             // 
-            this.tabPage1.Controls.Add(this.comboBoxHiddenPower);
-            this.tabPage1.Controls.Add(this.abilityType);
-            this.tabPage1.Controls.Add(this.dataGridViewResult);
-            this.tabPage1.Controls.Add(this.id);
-            this.tabPage1.Controls.Add(this.cancel);
-            this.tabPage1.Controls.Add(this.search);
-            this.tabPage1.Controls.Add(this.sid);
-            this.tabPage1.Controls.Add(this.speClear);
-            this.tabPage1.Controls.Add(this.L_search_H);
-            this.tabPage1.Controls.Add(this.spdClear);
-            this.tabPage1.Controls.Add(this.L_search_A);
-            this.tabPage1.Controls.Add(this.spaClear);
-            this.tabPage1.Controls.Add(this.wshMkr);
-            this.tabPage1.Controls.Add(this.L_search_B);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.defClear);
-            this.tabPage1.Controls.Add(this.searchMethod);
-            this.tabPage1.Controls.Add(this.L_search_C);
-            this.tabPage1.Controls.Add(this.atkClear);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.L_search_D);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.hpClear);
-            this.tabPage1.Controls.Add(this.Shiny_Check);
-            this.tabPage1.Controls.Add(this.L_search_S);
-            this.tabPage1.Controls.Add(this.L_ability);
-            this.tabPage1.Controls.Add(this.L_sex);
-            this.tabPage1.Controls.Add(this.speValue);
-            this.tabPage1.Controls.Add(this.genderType);
-            this.tabPage1.Controls.Add(this.spdValue);
-            this.tabPage1.Controls.Add(this.L_ball);
-            this.tabPage1.Controls.Add(this.spaValue);
-            this.tabPage1.Controls.Add(this.L_mezapa);
-            this.tabPage1.Controls.Add(this.defValue);
-            this.tabPage1.Controls.Add(this.shadowPokemon);
-            this.tabPage1.Controls.Add(this.atkValue);
-            this.tabPage1.Controls.Add(this.galesCheck);
-            this.tabPage1.Controls.Add(this.hpValue);
-            this.tabPage1.Controls.Add(this.hpLogic);
-            this.tabPage1.Controls.Add(this.anyHiddenPower);
-            this.tabPage1.Controls.Add(this.anyAbility);
-            this.tabPage1.Controls.Add(this.anyGender);
-            this.tabPage1.Controls.Add(this.anyNature);
-            this.tabPage1.Controls.Add(this.comboBoxNature);
-            this.tabPage1.Controls.Add(this.hp31Quick);
-            this.tabPage1.Controls.Add(this.hp30Quick);
-            this.tabPage1.Controls.Add(this.spe30Above);
-            this.tabPage1.Controls.Add(this.hp30Above);
-            this.tabPage1.Controls.Add(this.spe30Quick);
-            this.tabPage1.Controls.Add(this.atkLogic);
-            this.tabPage1.Controls.Add(this.spe31Quick);
-            this.tabPage1.Controls.Add(this.atk31Quick);
-            this.tabPage1.Controls.Add(this.speLogic);
-            this.tabPage1.Controls.Add(this.atk30Quick);
-            this.tabPage1.Controls.Add(this.spd30Above);
-            this.tabPage1.Controls.Add(this.atk30Above);
-            this.tabPage1.Controls.Add(this.spd30Quick);
-            this.tabPage1.Controls.Add(this.defLogic);
-            this.tabPage1.Controls.Add(this.spd31Quick);
-            this.tabPage1.Controls.Add(this.def31Quick);
-            this.tabPage1.Controls.Add(this.spdLogic);
-            this.tabPage1.Controls.Add(this.def30Quick);
-            this.tabPage1.Controls.Add(this.spa30Above);
-            this.tabPage1.Controls.Add(this.def30Above);
-            this.tabPage1.Controls.Add(this.spa30Quick);
-            this.tabPage1.Controls.Add(this.spaLogic);
-            this.tabPage1.Controls.Add(this.spa31Quick);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1109, 552);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Spread Finder";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.spaClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spaClear.ForeColor = System.Drawing.Color.Black;
+            this.spaClear.Location = new System.Drawing.Point(306, 133);
+            this.spaClear.Name = "spaClear";
+            this.spaClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spaClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.spaClear.Size = new System.Drawing.Size(44, 23);
+            this.spaClear.TabIndex = 335;
+            this.spaClear.Text = "Clear";
+            this.spaClear.Click += new System.EventHandler(this.spaClear_Click);
             // 
-            // tabPage2
+            // defClear
             // 
-            this.tabPage2.Controls.Add(this.generateShadow);
-            this.tabPage2.Controls.Add(this.dataGridShadow);
-            this.tabPage2.Controls.Add(this.label21);
-            this.tabPage2.Controls.Add(this.comboBoxMethodShadow);
-            this.tabPage2.Controls.Add(this.label20);
-            this.tabPage2.Controls.Add(this.label19);
-            this.tabPage2.Controls.Add(this.textBoxSeed);
-            this.tabPage2.Controls.Add(this.label16);
-            this.tabPage2.Controls.Add(this.label17);
-            this.tabPage2.Controls.Add(this.label18);
-            this.tabPage2.Controls.Add(this.maskedTextBoxStartingFrame);
-            this.tabPage2.Controls.Add(this.maskedTextBoxMaxFrames);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.comboBoxShadow);
-            this.tabPage2.Controls.Add(this.checkBoxHPShadow);
-            this.tabPage2.Controls.Add(this.comboBoxAbilityShadow);
-            this.tabPage2.Controls.Add(this.label11);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.comboBoxGenderShadow);
-            this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.anyHPShadow);
-            this.tabPage2.Controls.Add(this.anyAbilityShadow);
-            this.tabPage2.Controls.Add(this.anyGenderShadow);
-            this.tabPage2.Controls.Add(this.anyNatureShadow);
-            this.tabPage2.Controls.Add(this.checkBoxNatureShadow);
-            this.tabPage2.Controls.Add(this.speClearShadow);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.spdClearShadow);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.spaClearShadow);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.defClearShadow);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.atkClearShadow);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.hpClearShadow);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.speShadow);
-            this.tabPage2.Controls.Add(this.spdShadow);
-            this.tabPage2.Controls.Add(this.spaShadow);
-            this.tabPage2.Controls.Add(this.defShadow);
-            this.tabPage2.Controls.Add(this.atkShadow);
-            this.tabPage2.Controls.Add(this.hpShadow);
-            this.tabPage2.Controls.Add(this.hpLogicShadow);
-            this.tabPage2.Controls.Add(this.hpMaxShadow);
-            this.tabPage2.Controls.Add(this.hpNearMaxShadow);
-            this.tabPage2.Controls.Add(this.speAlmostMaxShadow);
-            this.tabPage2.Controls.Add(this.hpAlmostMaxShadow);
-            this.tabPage2.Controls.Add(this.speNearMaxShadow);
-            this.tabPage2.Controls.Add(this.atkLogicShadow);
-            this.tabPage2.Controls.Add(this.speMaxShadow);
-            this.tabPage2.Controls.Add(this.atkMaxShadow);
-            this.tabPage2.Controls.Add(this.speLogicShadow);
-            this.tabPage2.Controls.Add(this.atkNearMaxShadow);
-            this.tabPage2.Controls.Add(this.spdAlmostMaxShadow);
-            this.tabPage2.Controls.Add(this.atkAlmostMaxShadow);
-            this.tabPage2.Controls.Add(this.spdNearMaxShadow);
-            this.tabPage2.Controls.Add(this.defLogicShadow);
-            this.tabPage2.Controls.Add(this.spdMaxShadow);
-            this.tabPage2.Controls.Add(this.defMaxShadow);
-            this.tabPage2.Controls.Add(this.spdLogicShadow);
-            this.tabPage2.Controls.Add(this.defNearMaxShadow);
-            this.tabPage2.Controls.Add(this.spaAlmostMaxShadow);
-            this.tabPage2.Controls.Add(this.defAlmostMaxShadow);
-            this.tabPage2.Controls.Add(this.spaNearMaxShadow);
-            this.tabPage2.Controls.Add(this.spaLogicShadow);
-            this.tabPage2.Controls.Add(this.spaMaxShadow);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1109, 552);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Shadow Checker";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.defClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.defClear.ForeColor = System.Drawing.Color.Black;
+            this.defClear.Location = new System.Drawing.Point(306, 99);
+            this.defClear.Name = "defClear";
+            this.defClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.defClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.defClear.Size = new System.Drawing.Size(44, 23);
+            this.defClear.TabIndex = 334;
+            this.defClear.Text = "Clear";
+            this.defClear.Click += new System.EventHandler(this.defClear_Click);
+            // 
+            // atkClear
+            // 
+            this.atkClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.atkClear.ForeColor = System.Drawing.Color.Black;
+            this.atkClear.Location = new System.Drawing.Point(306, 63);
+            this.atkClear.Name = "atkClear";
+            this.atkClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.atkClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.atkClear.Size = new System.Drawing.Size(44, 23);
+            this.atkClear.TabIndex = 333;
+            this.atkClear.Text = "Clear";
+            this.atkClear.Click += new System.EventHandler(this.atkClear_Click);
+            // 
+            // hpClear
+            // 
+            this.hpClear.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.hpClear.ForeColor = System.Drawing.Color.Black;
+            this.hpClear.Location = new System.Drawing.Point(306, 30);
+            this.hpClear.Name = "hpClear";
+            this.hpClear.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.hpClear.ShineColor = System.Drawing.SystemColors.Window;
+            this.hpClear.Size = new System.Drawing.Size(44, 23);
+            this.hpClear.TabIndex = 332;
+            this.hpClear.Text = "Clear";
+            this.hpClear.Click += new System.EventHandler(this.hpClear_Click);
+            // 
+            // speValue
+            // 
+            this.speValue.Hex = false;
+            this.speValue.Location = new System.Drawing.Point(79, 203);
+            this.speValue.Mask = "00";
+            this.speValue.Name = "speValue";
+            this.speValue.Size = new System.Drawing.Size(24, 20);
+            this.speValue.TabIndex = 329;
+            this.speValue.Tag = "ivs";
+            this.speValue.Text = "31";
+            this.speValue.ValidatingType = typeof(int);
+            // 
+            // spdValue
+            // 
+            this.spdValue.Hex = false;
+            this.spdValue.Location = new System.Drawing.Point(79, 168);
+            this.spdValue.Mask = "00";
+            this.spdValue.Name = "spdValue";
+            this.spdValue.Size = new System.Drawing.Size(24, 20);
+            this.spdValue.TabIndex = 328;
+            this.spdValue.Tag = "ivs";
+            this.spdValue.Text = "31";
+            this.spdValue.ValidatingType = typeof(int);
+            // 
+            // spaValue
+            // 
+            this.spaValue.Hex = false;
+            this.spaValue.Location = new System.Drawing.Point(79, 134);
+            this.spaValue.Mask = "00";
+            this.spaValue.Name = "spaValue";
+            this.spaValue.Size = new System.Drawing.Size(24, 20);
+            this.spaValue.TabIndex = 327;
+            this.spaValue.Tag = "ivs";
+            this.spaValue.Text = "0";
+            this.spaValue.ValidatingType = typeof(int);
+            // 
+            // defValue
+            // 
+            this.defValue.Hex = false;
+            this.defValue.Location = new System.Drawing.Point(79, 100);
+            this.defValue.Mask = "00";
+            this.defValue.Name = "defValue";
+            this.defValue.Size = new System.Drawing.Size(24, 20);
+            this.defValue.TabIndex = 326;
+            this.defValue.Tag = "ivs";
+            this.defValue.Text = "31";
+            this.defValue.ValidatingType = typeof(int);
+            // 
+            // atkValue
+            // 
+            this.atkValue.Hex = false;
+            this.atkValue.Location = new System.Drawing.Point(79, 64);
+            this.atkValue.Mask = "00";
+            this.atkValue.Name = "atkValue";
+            this.atkValue.Size = new System.Drawing.Size(24, 20);
+            this.atkValue.TabIndex = 325;
+            this.atkValue.Tag = "ivs";
+            this.atkValue.Text = "31";
+            this.atkValue.ValidatingType = typeof(int);
+            // 
+            // hpValue
+            // 
+            this.hpValue.Hex = false;
+            this.hpValue.Location = new System.Drawing.Point(79, 31);
+            this.hpValue.Mask = "00";
+            this.hpValue.Name = "hpValue";
+            this.hpValue.Size = new System.Drawing.Size(24, 20);
+            this.hpValue.TabIndex = 324;
+            this.hpValue.Tag = "ivs";
+            this.hpValue.Text = "31";
+            this.hpValue.ValidatingType = typeof(int);
+            // 
+            // anyHiddenPower
+            // 
+            this.anyHiddenPower.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyHiddenPower.ForeColor = System.Drawing.Color.Black;
+            this.anyHiddenPower.Location = new System.Drawing.Point(649, 139);
+            this.anyHiddenPower.Name = "anyHiddenPower";
+            this.anyHiddenPower.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyHiddenPower.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyHiddenPower.Size = new System.Drawing.Size(33, 23);
+            this.anyHiddenPower.TabIndex = 288;
+            this.anyHiddenPower.Text = "Any";
+            this.anyHiddenPower.Click += new System.EventHandler(this.anyHiddenPower_Click);
+            // 
+            // anyAbility
+            // 
+            this.anyAbility.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyAbility.ForeColor = System.Drawing.Color.Black;
+            this.anyAbility.Location = new System.Drawing.Point(649, 105);
+            this.anyAbility.Name = "anyAbility";
+            this.anyAbility.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyAbility.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyAbility.Size = new System.Drawing.Size(33, 23);
+            this.anyAbility.TabIndex = 289;
+            this.anyAbility.Text = "Any";
+            this.anyAbility.Click += new System.EventHandler(this.anyAbility_Click);
+            // 
+            // anyGender
+            // 
+            this.anyGender.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyGender.ForeColor = System.Drawing.Color.Black;
+            this.anyGender.Location = new System.Drawing.Point(649, 69);
+            this.anyGender.Name = "anyGender";
+            this.anyGender.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyGender.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyGender.Size = new System.Drawing.Size(33, 23);
+            this.anyGender.TabIndex = 290;
+            this.anyGender.Text = "Any";
+            this.anyGender.Click += new System.EventHandler(this.anyGender_Click);
+            // 
+            // anyNature
+            // 
+            this.anyNature.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.anyNature.ForeColor = System.Drawing.Color.Black;
+            this.anyNature.Location = new System.Drawing.Point(649, 35);
+            this.anyNature.Name = "anyNature";
+            this.anyNature.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.anyNature.ShineColor = System.Drawing.SystemColors.Window;
+            this.anyNature.Size = new System.Drawing.Size(33, 23);
+            this.anyNature.TabIndex = 291;
+            this.anyNature.Text = "Any";
+            this.anyNature.Click += new System.EventHandler(this.anyNature_Click);
+            // 
+            // comboBoxNature
+            // 
+            this.comboBoxNature.BlankText = "Any";
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxNature.CheckBoxProperties = checkBoxProperties1;
+            this.comboBoxNature.DisplayMemberSingleItem = "";
+            this.comboBoxNature.DropDownHeight = 300;
+            this.comboBoxNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNature.FormattingEnabled = true;
+            this.comboBoxNature.Location = new System.Drawing.Point(455, 37);
+            this.comboBoxNature.Name = "comboBoxNature";
+            this.comboBoxNature.Size = new System.Drawing.Size(188, 21);
+            this.comboBoxNature.TabIndex = 318;
+            // 
+            // hp31Quick
+            // 
+            this.hp31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.hp31Quick.ForeColor = System.Drawing.Color.Black;
+            this.hp31Quick.Location = new System.Drawing.Point(156, 30);
+            this.hp31Quick.Name = "hp31Quick";
+            this.hp31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.hp31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.hp31Quick.Size = new System.Drawing.Size(44, 23);
+            this.hp31Quick.TabIndex = 294;
+            this.hp31Quick.Text = "==31";
+            this.hp31Quick.Click += new System.EventHandler(this.hp31Quick_Click);
+            // 
+            // hp30Quick
+            // 
+            this.hp30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.hp30Quick.ForeColor = System.Drawing.Color.Black;
+            this.hp30Quick.Location = new System.Drawing.Point(206, 30);
+            this.hp30Quick.Name = "hp30Quick";
+            this.hp30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.hp30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.hp30Quick.Size = new System.Drawing.Size(44, 23);
+            this.hp30Quick.TabIndex = 295;
+            this.hp30Quick.Text = "==30";
+            this.hp30Quick.Click += new System.EventHandler(this.hp30Quick_Click);
+            // 
+            // spe30Above
+            // 
+            this.spe30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spe30Above.ForeColor = System.Drawing.Color.Black;
+            this.spe30Above.Location = new System.Drawing.Point(256, 202);
+            this.spe30Above.Name = "spe30Above";
+            this.spe30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spe30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.spe30Above.Size = new System.Drawing.Size(44, 23);
+            this.spe30Above.TabIndex = 316;
+            this.spe30Above.Text = ">=30";
+            this.spe30Above.Click += new System.EventHandler(this.spe30Above_Click);
+            // 
+            // hp30Above
+            // 
+            this.hp30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.hp30Above.ForeColor = System.Drawing.Color.Black;
+            this.hp30Above.Location = new System.Drawing.Point(256, 30);
+            this.hp30Above.Name = "hp30Above";
+            this.hp30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.hp30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.hp30Above.Size = new System.Drawing.Size(44, 23);
+            this.hp30Above.TabIndex = 296;
+            this.hp30Above.Text = ">=30";
+            this.hp30Above.Click += new System.EventHandler(this.hp30Above_Click);
+            // 
+            // spe30Quick
+            // 
+            this.spe30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spe30Quick.ForeColor = System.Drawing.Color.Black;
+            this.spe30Quick.Location = new System.Drawing.Point(206, 202);
+            this.spe30Quick.Name = "spe30Quick";
+            this.spe30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spe30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spe30Quick.Size = new System.Drawing.Size(44, 23);
+            this.spe30Quick.TabIndex = 315;
+            this.spe30Quick.Text = "==30";
+            this.spe30Quick.Click += new System.EventHandler(this.spe30Quick_Click);
+            // 
+            // spe31Quick
+            // 
+            this.spe31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spe31Quick.ForeColor = System.Drawing.Color.Black;
+            this.spe31Quick.Location = new System.Drawing.Point(156, 202);
+            this.spe31Quick.Name = "spe31Quick";
+            this.spe31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spe31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spe31Quick.Size = new System.Drawing.Size(44, 23);
+            this.spe31Quick.TabIndex = 314;
+            this.spe31Quick.Text = "==31";
+            this.spe31Quick.Click += new System.EventHandler(this.spe31Quick_Click);
+            // 
+            // atk31Quick
+            // 
+            this.atk31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.atk31Quick.ForeColor = System.Drawing.Color.Black;
+            this.atk31Quick.Location = new System.Drawing.Point(156, 63);
+            this.atk31Quick.Name = "atk31Quick";
+            this.atk31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.atk31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.atk31Quick.Size = new System.Drawing.Size(44, 23);
+            this.atk31Quick.TabIndex = 298;
+            this.atk31Quick.Text = "==31";
+            this.atk31Quick.Click += new System.EventHandler(this.atk31Quick_Click);
+            // 
+            // atk30Quick
+            // 
+            this.atk30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.atk30Quick.ForeColor = System.Drawing.Color.Black;
+            this.atk30Quick.Location = new System.Drawing.Point(206, 63);
+            this.atk30Quick.Name = "atk30Quick";
+            this.atk30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.atk30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.atk30Quick.Size = new System.Drawing.Size(44, 23);
+            this.atk30Quick.TabIndex = 299;
+            this.atk30Quick.Text = "==30";
+            this.atk30Quick.Click += new System.EventHandler(this.atk30Quick_Click);
+            // 
+            // spd30Above
+            // 
+            this.spd30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spd30Above.ForeColor = System.Drawing.Color.Black;
+            this.spd30Above.Location = new System.Drawing.Point(256, 167);
+            this.spd30Above.Name = "spd30Above";
+            this.spd30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spd30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.spd30Above.Size = new System.Drawing.Size(44, 23);
+            this.spd30Above.TabIndex = 312;
+            this.spd30Above.Text = ">=30";
+            this.spd30Above.Click += new System.EventHandler(this.spd30Above_Click);
+            // 
+            // atk30Above
+            // 
+            this.atk30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.atk30Above.ForeColor = System.Drawing.Color.Black;
+            this.atk30Above.Location = new System.Drawing.Point(256, 63);
+            this.atk30Above.Name = "atk30Above";
+            this.atk30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.atk30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.atk30Above.Size = new System.Drawing.Size(44, 23);
+            this.atk30Above.TabIndex = 300;
+            this.atk30Above.Text = ">=30";
+            this.atk30Above.Click += new System.EventHandler(this.atk30Above_Click);
+            // 
+            // spd30Quick
+            // 
+            this.spd30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spd30Quick.ForeColor = System.Drawing.Color.Black;
+            this.spd30Quick.Location = new System.Drawing.Point(206, 167);
+            this.spd30Quick.Name = "spd30Quick";
+            this.spd30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spd30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spd30Quick.Size = new System.Drawing.Size(44, 23);
+            this.spd30Quick.TabIndex = 311;
+            this.spd30Quick.Text = "==30";
+            this.spd30Quick.Click += new System.EventHandler(this.spd30Quick_Click);
+            // 
+            // spd31Quick
+            // 
+            this.spd31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spd31Quick.ForeColor = System.Drawing.Color.Black;
+            this.spd31Quick.Location = new System.Drawing.Point(156, 167);
+            this.spd31Quick.Name = "spd31Quick";
+            this.spd31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spd31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spd31Quick.Size = new System.Drawing.Size(44, 23);
+            this.spd31Quick.TabIndex = 310;
+            this.spd31Quick.Text = "==31";
+            this.spd31Quick.Click += new System.EventHandler(this.spd31Quick_Click);
+            // 
+            // def31Quick
+            // 
+            this.def31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.def31Quick.ForeColor = System.Drawing.Color.Black;
+            this.def31Quick.Location = new System.Drawing.Point(156, 99);
+            this.def31Quick.Name = "def31Quick";
+            this.def31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.def31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.def31Quick.Size = new System.Drawing.Size(44, 23);
+            this.def31Quick.TabIndex = 302;
+            this.def31Quick.Text = "==31";
+            this.def31Quick.Click += new System.EventHandler(this.def31Quick_Click);
+            // 
+            // def30Quick
+            // 
+            this.def30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.def30Quick.ForeColor = System.Drawing.Color.Black;
+            this.def30Quick.Location = new System.Drawing.Point(206, 99);
+            this.def30Quick.Name = "def30Quick";
+            this.def30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.def30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.def30Quick.Size = new System.Drawing.Size(44, 23);
+            this.def30Quick.TabIndex = 303;
+            this.def30Quick.Text = "==30";
+            this.def30Quick.Click += new System.EventHandler(this.def30Quick_Click);
+            // 
+            // spa30Above
+            // 
+            this.spa30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spa30Above.ForeColor = System.Drawing.Color.Black;
+            this.spa30Above.Location = new System.Drawing.Point(256, 133);
+            this.spa30Above.Name = "spa30Above";
+            this.spa30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spa30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.spa30Above.Size = new System.Drawing.Size(44, 23);
+            this.spa30Above.TabIndex = 308;
+            this.spa30Above.Text = ">=30";
+            this.spa30Above.Click += new System.EventHandler(this.spa30Above_Click);
+            // 
+            // def30Above
+            // 
+            this.def30Above.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.def30Above.ForeColor = System.Drawing.Color.Black;
+            this.def30Above.Location = new System.Drawing.Point(256, 99);
+            this.def30Above.Name = "def30Above";
+            this.def30Above.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.def30Above.ShineColor = System.Drawing.SystemColors.Window;
+            this.def30Above.Size = new System.Drawing.Size(44, 23);
+            this.def30Above.TabIndex = 304;
+            this.def30Above.Text = ">=30";
+            this.def30Above.Click += new System.EventHandler(this.def30Above_Click);
+            // 
+            // spa30Quick
+            // 
+            this.spa30Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spa30Quick.ForeColor = System.Drawing.Color.Black;
+            this.spa30Quick.Location = new System.Drawing.Point(206, 133);
+            this.spa30Quick.Name = "spa30Quick";
+            this.spa30Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spa30Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spa30Quick.Size = new System.Drawing.Size(44, 23);
+            this.spa30Quick.TabIndex = 307;
+            this.spa30Quick.Text = "==30";
+            this.spa30Quick.Click += new System.EventHandler(this.spa30Quick_Click);
+            // 
+            // spa31Quick
+            // 
+            this.spa31Quick.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.spa31Quick.ForeColor = System.Drawing.Color.Black;
+            this.spa31Quick.Location = new System.Drawing.Point(156, 133);
+            this.spa31Quick.Name = "spa31Quick";
+            this.spa31Quick.OuterBorderColor = System.Drawing.Color.Transparent;
+            this.spa31Quick.ShineColor = System.Drawing.SystemColors.Window;
+            this.spa31Quick.Size = new System.Drawing.Size(44, 23);
+            this.spa31Quick.TabIndex = 306;
+            this.spa31Quick.Text = "==31";
+            this.spa31Quick.Click += new System.EventHandler(this.spa31Quick_Click);
             // 
             // generateShadow
             // 
@@ -1571,8 +1776,8 @@
             // dataGridViewTextBoxColumn13
             // 
             this.dataGridViewTextBoxColumn13.DataPropertyName = "PID";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.75F);
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 8.75F);
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn13.HeaderText = "PID";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -1690,89 +1895,19 @@
             this.dataGridViewTextBoxColumn28.ReadOnly = true;
             this.dataGridViewTextBoxColumn28.Width = 50;
             // 
-            // label21
-            // 
-            this.label21.Location = new System.Drawing.Point(50, 153);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(57, 20);
-            this.label21.TabIndex = 403;
-            this.label21.Text = "Method";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // comboBoxMethodShadow
-            // 
-            this.comboBoxMethodShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMethodShadow.FormattingEnabled = true;
-            this.comboBoxMethodShadow.Items.AddRange(new object[] {
-            "Set",
-            "Unset",
-            "Shiny Skip"});
-            this.comboBoxMethodShadow.Location = new System.Drawing.Point(113, 152);
-            this.comboBoxMethodShadow.Name = "comboBoxMethodShadow";
-            this.comboBoxMethodShadow.Size = new System.Drawing.Size(174, 21);
-            this.comboBoxMethodShadow.TabIndex = 402;
-            // 
-            // label20
-            // 
-            this.label20.Location = new System.Drawing.Point(758, 184);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(199, 20);
-            this.label20.TabIndex = 401;
-            this.label20.Text = "any shiny changes from TID and SID";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label19
-            // 
-            this.label19.Location = new System.Drawing.Point(763, 169);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(199, 20);
-            this.label19.TabIndex = 400;
-            this.label19.Text = "Shadow Checker does not account for";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // textBoxSeed
             // 
             this.textBoxSeed.Hex = true;
-            this.textBoxSeed.Location = new System.Drawing.Point(113, 100);
+            this.textBoxSeed.Location = new System.Drawing.Point(113, 73);
             this.textBoxSeed.Mask = "AAAAAAAA";
             this.textBoxSeed.Name = "textBoxSeed";
             this.textBoxSeed.Size = new System.Drawing.Size(85, 20);
             this.textBoxSeed.TabIndex = 398;
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label16.Location = new System.Drawing.Point(47, 104);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(60, 13);
-            this.label16.TabIndex = 399;
-            this.label16.Text = "Seed (Hex)";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label17.Location = new System.Drawing.Point(32, 77);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(75, 13);
-            this.label17.TabIndex = 396;
-            this.label17.Text = "Starting Frame";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label18.Location = new System.Drawing.Point(42, 51);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(65, 13);
-            this.label18.TabIndex = 394;
-            this.label18.Text = "Max Results";
-            // 
             // maskedTextBoxStartingFrame
             // 
             this.maskedTextBoxStartingFrame.Hex = false;
-            this.maskedTextBoxStartingFrame.Location = new System.Drawing.Point(113, 74);
+            this.maskedTextBoxStartingFrame.Location = new System.Drawing.Point(113, 47);
             this.maskedTextBoxStartingFrame.Mask = "0000000000";
             this.maskedTextBoxStartingFrame.Name = "maskedTextBoxStartingFrame";
             this.maskedTextBoxStartingFrame.Size = new System.Drawing.Size(85, 20);
@@ -1783,134 +1918,18 @@
             // maskedTextBoxMaxFrames
             // 
             this.maskedTextBoxMaxFrames.Hex = false;
-            this.maskedTextBoxMaxFrames.Location = new System.Drawing.Point(113, 48);
+            this.maskedTextBoxMaxFrames.Location = new System.Drawing.Point(113, 21);
             this.maskedTextBoxMaxFrames.Mask = "0000000000";
             this.maskedTextBoxMaxFrames.Name = "maskedTextBoxMaxFrames";
             this.maskedTextBoxMaxFrames.Size = new System.Drawing.Size(85, 20);
             this.maskedTextBoxMaxFrames.TabIndex = 395;
             this.maskedTextBoxMaxFrames.Text = "100000";
             // 
-            // label15
-            // 
-            this.label15.Location = new System.Drawing.Point(47, 128);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(57, 20);
-            this.label15.TabIndex = 393;
-            this.label15.Text = "Shadow";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // comboBoxShadow
-            // 
-            this.comboBoxShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxShadow.FormattingEnabled = true;
-            this.comboBoxShadow.Items.AddRange(new object[] {
-            "Altaria",
-            "Arbok",
-            "Articuno",
-            "Baltoy (Citadark)",
-            "Baltoy (Initial)",
-            "Baltoy (Phenac)",
-            "Banette",
-            "Beedrill",
-            "Butterfree",
-            "Carvanha",
-            "Chansey",
-            "Delcatty",
-            "Dodrio",
-            "Dragonite",
-            "Dugtrio",
-            "Duskull",
-            "Electabuzz",
-            "Exeggutor",
-            "Farfetch\'d",
-            "Golduck",
-            "Grimer",
-            "Growlithe",
-            "Gulpin (Citadark)",
-            "Gulpin (Initial)",
-            "Gulpin (Phenac)",
-            "Hitmonchan",
-            "Hitmonlee",
-            "Houndour (Citadark)",
-            "Houndour (Initial)",
-            "Houndour (Phenac)",
-            "Hypno",
-            "Kangaskhan",
-            "Lapras",
-            "Ledyba",
-            "Lickitung",
-            "Lugia",
-            "Lunatone",
-            "Magcargo",
-            "Magmar",
-            "Magneton",
-            "Makuhita",
-            "Makuhita (Colo)",
-            "Manectric",
-            "Mareep (Citadark)",
-            "Mareep (Initial)",
-            "Mareep (Phenac)",
-            "Marowak",
-            "Mawile",
-            "Meowth",
-            "Moltres",
-            "Mr. Mime",
-            "Natu",
-            "Nosepass",
-            "Numel",
-            "Paras",
-            "Pidgeotto",
-            "Pineco",
-            "Pinsir",
-            "Poliwrath",
-            "Poochyena",
-            "Primeape",
-            "Ralts",
-            "Rapidash",
-            "Raticate",
-            "Rhydon",
-            "Roselia",
-            "Sableye",
-            "Salamence",
-            "Scyther",
-            "Seedot (Citadark)",
-            "Seedot (Initial)",
-            "Seedot (Phenac)",
-            "Seel",
-            "Shellder",
-            "Shroomish",
-            "Snorlax",
-            "Snorunt",
-            "Solrock",
-            "Spearow",
-            "Spheal (Citadark)",
-            "Spheal (Initial)",
-            "Spheal (Phenac)",
-            "Spinarak",
-            "Starmie",
-            "Swellow",
-            "Swinub",
-            "Tangela",
-            "Tauros",
-            "Teddiursa",
-            "Togepi",
-            "Venomoth",
-            "Voltorb",
-            "Vulpix",
-            "Weepinbell",
-            "Zangoose",
-            "Zapdos"});
-            this.comboBoxShadow.Location = new System.Drawing.Point(113, 126);
-            this.comboBoxShadow.Name = "comboBoxShadow";
-            this.comboBoxShadow.Size = new System.Drawing.Size(174, 21);
-            this.comboBoxShadow.TabIndex = 392;
-            this.comboBoxShadow.SelectionChangeCommitted += new System.EventHandler(this.comboBoxShadow_SelectionChangeCommitted);
-            // 
             // checkBoxHPShadow
             // 
             this.checkBoxHPShadow.BlankText = "Any";
-            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBoxHPShadow.CheckBoxProperties = checkBoxProperties3;
+            checkBoxProperties5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBoxHPShadow.CheckBoxProperties = checkBoxProperties5;
             this.checkBoxHPShadow.DisplayMemberSingleItem = "";
             this.checkBoxHPShadow.DropDownHeight = 300;
             this.checkBoxHPShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1919,76 +1938,6 @@
             this.checkBoxHPShadow.Name = "checkBoxHPShadow";
             this.checkBoxHPShadow.Size = new System.Drawing.Size(188, 21);
             this.checkBoxHPShadow.TabIndex = 391;
-            // 
-            // comboBoxAbilityShadow
-            // 
-            this.comboBoxAbilityShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAbilityShadow.FormattingEnabled = true;
-            this.comboBoxAbilityShadow.Items.AddRange(new object[] {
-            "Any",
-            "Ability 0",
-            "Ability 1"});
-            this.comboBoxAbilityShadow.Location = new System.Drawing.Point(774, 95);
-            this.comboBoxAbilityShadow.Name = "comboBoxAbilityShadow";
-            this.comboBoxAbilityShadow.Size = new System.Drawing.Size(188, 21);
-            this.comboBoxAbilityShadow.TabIndex = 380;
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(715, 96);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(57, 20);
-            this.label11.TabIndex = 382;
-            this.label11.Text = "Ability";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(715, 60);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(57, 20);
-            this.label12.TabIndex = 383;
-            this.label12.Text = "Gender";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // comboBoxGenderShadow
-            // 
-            this.comboBoxGenderShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxGenderShadow.FormattingEnabled = true;
-            this.comboBoxGenderShadow.Items.AddRange(new object[] {
-            "Don\'t Care / Genderless",
-            "Male (50% Male / 50% Female)",
-            "Female (50% Male / 50% Female)",
-            "Male (25% Male / 75% Female)",
-            "Female (25% Male / 75% Female)",
-            "Male (75% Male / 25% Female)",
-            "Female (75% Male / 25% Female)",
-            "Male (87.5% Male / 12.5% Female)",
-            "Female (87.5% Male / 12.5% Female)",
-            "Male (100% Male)",
-            "Female (100% Female)"});
-            this.comboBoxGenderShadow.Location = new System.Drawing.Point(774, 60);
-            this.comboBoxGenderShadow.Name = "comboBoxGenderShadow";
-            this.comboBoxGenderShadow.Size = new System.Drawing.Size(188, 21);
-            this.comboBoxGenderShadow.TabIndex = 381;
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(715, 130);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(57, 20);
-            this.label13.TabIndex = 384;
-            this.label13.Text = "HP";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(715, 26);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(57, 20);
-            this.label14.TabIndex = 385;
-            this.label14.Text = "Nature";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // anyHPShadow
             // 
@@ -2045,8 +1994,8 @@
             // checkBoxNatureShadow
             // 
             this.checkBoxNatureShadow.BlankText = "Any";
-            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBoxNatureShadow.CheckBoxProperties = checkBoxProperties4;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBoxNatureShadow.CheckBoxProperties = checkBoxProperties3;
             this.checkBoxNatureShadow.DisplayMemberSingleItem = "";
             this.checkBoxNatureShadow.DropDownHeight = 300;
             this.checkBoxNatureShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2069,15 +2018,6 @@
             this.speClearShadow.Text = "Clear";
             this.speClearShadow.Click += new System.EventHandler(this.speClearShadow_Click);
             // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(328, 13);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 20);
-            this.label4.TabIndex = 338;
-            this.label4.Text = "HP";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // spdClearShadow
             // 
             this.spdClearShadow.BackColor = System.Drawing.Color.AntiqueWhite;
@@ -2090,15 +2030,6 @@
             this.spdClearShadow.TabIndex = 378;
             this.spdClearShadow.Text = "Clear";
             this.spdClearShadow.Click += new System.EventHandler(this.spdClearShadow_Click);
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(328, 47);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 20);
-            this.label6.TabIndex = 339;
-            this.label6.Text = "Atk";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // spaClearShadow
             // 
@@ -2113,15 +2044,6 @@
             this.spaClearShadow.Text = "Clear";
             this.spaClearShadow.Click += new System.EventHandler(this.spaClearShadow_Click);
             // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(328, 82);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(40, 20);
-            this.label7.TabIndex = 340;
-            this.label7.Text = "Def";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // defClearShadow
             // 
             this.defClearShadow.BackColor = System.Drawing.Color.AntiqueWhite;
@@ -2134,15 +2056,6 @@
             this.defClearShadow.TabIndex = 376;
             this.defClearShadow.Text = "Clear";
             this.defClearShadow.Click += new System.EventHandler(this.defClearShadow_Click);
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(328, 117);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(40, 20);
-            this.label8.TabIndex = 341;
-            this.label8.Text = "SpA";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // atkClearShadow
             // 
@@ -2157,15 +2070,6 @@
             this.atkClearShadow.Text = "Clear";
             this.atkClearShadow.Click += new System.EventHandler(this.atkClearShadow_Click);
             // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(328, 151);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 20);
-            this.label9.TabIndex = 342;
-            this.label9.Text = "SpD";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // hpClearShadow
             // 
             this.hpClearShadow.BackColor = System.Drawing.Color.AntiqueWhite;
@@ -2178,15 +2082,6 @@
             this.hpClearShadow.TabIndex = 374;
             this.hpClearShadow.Text = "Clear";
             this.hpClearShadow.Click += new System.EventHandler(this.hpClearShadow_Click);
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(328, 186);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 20);
-            this.label10.TabIndex = 343;
-            this.label10.Text = "Spe";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // speShadow
             // 
@@ -2254,20 +2149,6 @@
             this.hpShadow.Tag = "ivs";
             this.hpShadow.ValidatingType = typeof(int);
             // 
-            // hpLogicShadow
-            // 
-            this.hpLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.hpLogicShadow.FormattingEnabled = true;
-            this.hpLogicShadow.Items.AddRange(new object[] {
-            "None",
-            "==",
-            ">=",
-            "<="});
-            this.hpLogicShadow.Location = new System.Drawing.Point(409, 13);
-            this.hpLogicShadow.Name = "hpLogicShadow";
-            this.hpLogicShadow.Size = new System.Drawing.Size(54, 21);
-            this.hpLogicShadow.TabIndex = 344;
-            // 
             // hpMaxShadow
             // 
             this.hpMaxShadow.BackColor = System.Drawing.Color.AntiqueWhite;
@@ -2333,20 +2214,6 @@
             this.speNearMaxShadow.Text = "==30";
             this.speNearMaxShadow.Click += new System.EventHandler(this.speNearMaxShadow_Click);
             // 
-            // atkLogicShadow
-            // 
-            this.atkLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.atkLogicShadow.FormattingEnabled = true;
-            this.atkLogicShadow.Items.AddRange(new object[] {
-            "None",
-            "==",
-            ">=",
-            "<="});
-            this.atkLogicShadow.Location = new System.Drawing.Point(409, 46);
-            this.atkLogicShadow.Name = "atkLogicShadow";
-            this.atkLogicShadow.Size = new System.Drawing.Size(54, 21);
-            this.atkLogicShadow.TabIndex = 348;
-            // 
             // speMaxShadow
             // 
             this.speMaxShadow.BackColor = System.Drawing.Color.AntiqueWhite;
@@ -2372,20 +2239,6 @@
             this.atkMaxShadow.TabIndex = 349;
             this.atkMaxShadow.Text = "==31";
             this.atkMaxShadow.Click += new System.EventHandler(this.atkMaxShadow_Click);
-            // 
-            // speLogicShadow
-            // 
-            this.speLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.speLogicShadow.FormattingEnabled = true;
-            this.speLogicShadow.Items.AddRange(new object[] {
-            "None",
-            "==",
-            ">=",
-            "<="});
-            this.speLogicShadow.Location = new System.Drawing.Point(409, 185);
-            this.speLogicShadow.Name = "speLogicShadow";
-            this.speLogicShadow.Size = new System.Drawing.Size(54, 21);
-            this.speLogicShadow.TabIndex = 364;
             // 
             // atkNearMaxShadow
             // 
@@ -2439,20 +2292,6 @@
             this.spdNearMaxShadow.Text = "==30";
             this.spdNearMaxShadow.Click += new System.EventHandler(this.spdNearMaxShadow_Click);
             // 
-            // defLogicShadow
-            // 
-            this.defLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.defLogicShadow.FormattingEnabled = true;
-            this.defLogicShadow.Items.AddRange(new object[] {
-            "None",
-            "==",
-            ">=",
-            "<="});
-            this.defLogicShadow.Location = new System.Drawing.Point(409, 82);
-            this.defLogicShadow.Name = "defLogicShadow";
-            this.defLogicShadow.Size = new System.Drawing.Size(54, 21);
-            this.defLogicShadow.TabIndex = 352;
-            // 
             // spdMaxShadow
             // 
             this.spdMaxShadow.BackColor = System.Drawing.Color.AntiqueWhite;
@@ -2478,20 +2317,6 @@
             this.defMaxShadow.TabIndex = 353;
             this.defMaxShadow.Text = "==31";
             this.defMaxShadow.Click += new System.EventHandler(this.defMaxShadow_Click);
-            // 
-            // spdLogicShadow
-            // 
-            this.spdLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.spdLogicShadow.FormattingEnabled = true;
-            this.spdLogicShadow.Items.AddRange(new object[] {
-            "None",
-            "==",
-            ">=",
-            "<="});
-            this.spdLogicShadow.Location = new System.Drawing.Point(409, 150);
-            this.spdLogicShadow.Name = "spdLogicShadow";
-            this.spdLogicShadow.Size = new System.Drawing.Size(54, 21);
-            this.spdLogicShadow.TabIndex = 360;
             // 
             // defNearMaxShadow
             // 
@@ -2545,20 +2370,6 @@
             this.spaNearMaxShadow.Text = "==30";
             this.spaNearMaxShadow.Click += new System.EventHandler(this.spaNearMaxShadow_Click);
             // 
-            // spaLogicShadow
-            // 
-            this.spaLogicShadow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.spaLogicShadow.FormattingEnabled = true;
-            this.spaLogicShadow.Items.AddRange(new object[] {
-            "None",
-            "==",
-            ">=",
-            "<="});
-            this.spaLogicShadow.Location = new System.Drawing.Point(409, 116);
-            this.spaLogicShadow.Name = "spaLogicShadow";
-            this.spaLogicShadow.Size = new System.Drawing.Size(54, 21);
-            this.spaLogicShadow.TabIndex = 356;
-            // 
             // spaMaxShadow
             // 
             this.spaMaxShadow.BackColor = System.Drawing.Color.AntiqueWhite;
@@ -2571,6 +2382,28 @@
             this.spaMaxShadow.TabIndex = 357;
             this.spaMaxShadow.Text = "==31";
             this.spaMaxShadow.Click += new System.EventHandler(this.spaMaxShadow_Click);
+            // 
+            // comboBoxGame
+            // 
+            this.comboBoxGame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxGame.FormattingEnabled = true;
+            this.comboBoxGame.Items.AddRange(new object[] {
+            "Gales",
+            "Colo"});
+            this.comboBoxGame.Location = new System.Drawing.Point(113, 99);
+            this.comboBoxGame.Name = "comboBoxGame";
+            this.comboBoxGame.Size = new System.Drawing.Size(174, 21);
+            this.comboBoxGame.TabIndex = 406;
+            this.comboBoxGame.SelectedIndexChanged += new System.EventHandler(this.comboBoxGame_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(67, 99);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(37, 20);
+            this.label5.TabIndex = 407;
+            this.label5.Text = "Game";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // GameCube
             // 
@@ -2585,12 +2418,12 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameCube_FormClosing);
             this.Load += new System.EventHandler(this.GameCube_Load);
             this.contextMenuStripGrid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridShadow)).EndInit();
             this.ResumeLayout(false);
 
@@ -2620,7 +2453,7 @@
         private System.Windows.Forms.ComboBox searchMethod;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox shadowPokemon;
-        private System.Windows.Forms.CheckBox galesCheck;
+        private System.Windows.Forms.CheckBox shadowCheck;
         private System.Windows.Forms.CheckBox wshMkr;
         private System.Windows.Forms.ComboBox hpLogic;
         private GlassButton anyHiddenPower;
@@ -2774,6 +2607,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn f50;
         private System.Windows.Forms.DataGridViewTextBoxColumn f75;
         private System.Windows.Forms.DataGridViewTextBoxColumn Reason;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBoxGame;
     }
 }
 

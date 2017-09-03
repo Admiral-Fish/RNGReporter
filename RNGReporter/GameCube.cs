@@ -255,7 +255,7 @@ namespace RNGReporter
                 if ((test % 0x343fd) < 0x10000)
                 {
                     fullFirst = (uint)(first | (test / 0x343fd));
-                    pid1 = forwardXD(forwardXD(forwardXD(fullFirst)));
+                    pid1 = pid1 = fullFirst * 0x45C82BE5 + 0xD2F65B55; // Advances prng 3 times
                     pid2 = forwardXD(pid1);
                     antipid1 = forwardXD(pid2);
                     antipid2 = forwardXD(antipid1);
@@ -564,7 +564,7 @@ namespace RNGReporter
                 if ((test % 0x343fd) < 0x10000)
                 {
                     fullFirst = (uint)(first | (test / 0x343fd));
-                    pid1 = forwardXD(forwardXD(forwardXD(fullFirst)));
+                    pid1 = pid1 = fullFirst * 0x45C82BE5 + 0xD2F65B55; // Advances prng 3 times
                     pid2 = forwardXD(pid1);
                     pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                     nature = pid % 25;
@@ -685,7 +685,7 @@ namespace RNGReporter
                 if ((test % 0x343fd) < 0x10000)
                 {
                     fullFirst = (uint)(first | (test / 0x343fd));
-                    pid1 = forwardXD(forwardXD(forwardXD(fullFirst)));
+                    pid1 = fullFirst * 0x45C82BE5 + 0xD2F65B55; // Advances prng 3 times
                     pid2 = forwardXD(pid1);
                     pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                     nature = pid % 25;

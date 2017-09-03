@@ -238,8 +238,7 @@ namespace RNGReporter
         {
             long first = (hp | (atk << 5) | (def << 10)) << 16;
             long second = (spe | (spa << 5) | (spd << 10)) << 16;
-            long fullFirst;
-            uint fullSecond;
+            uint fullFirst;
             XdRng rng = new XdRng(0);
 
             long t = ((second - 0x343fd * first) - 0x259ec4) % 0x80000000;
@@ -255,174 +254,170 @@ namespace RNGReporter
             {
                 if ((test % 0x343fd) < 0x10000)
                 {
-                    fullFirst = first | (test / 0x343fd);
-                    fullSecond = forwardXD((uint)fullFirst);
-                    if ((fullSecond & 0x7FFF0000) == second)
+                    fullFirst = (uint)(first | (test / 0x343fd));
+                    pid1 = forwardXD(forwardXD(forwardXD(fullFirst)));
+                    pid2 = forwardXD(pid1);
+                    antipid1 = forwardXD(pid2);
+                    antipid2 = forwardXD(antipid1);
+                    pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                    antipid = (antipid1 & 0xFFFF0000) | (antipid2 >> 16);
+                    nature = pid % 25;
+                    galesSeed = reverseXD(fullFirst);
+                    pass = (natureList == null || natureList.Contains(nature));
+
+                    xorSeed = galesSeed ^ 0x80000000;
+                    xorPID = pid ^ 0x80008000;
+                    xorNature = xorPID % 25;
+                    xorPass = (natureList == null || natureList.Contains(xorNature));
+
+                    antipid = getAntiPID(pid1, pid2, pid);
+                    antiNature = antipid % 25;
+                    antiPass = (natureList == null || natureList.Contains(antiNature));
+
+                    antipidXor = antipid ^ 0x80008000;
+                    antiNatureXor = antipidXor % 25;
+                    antiXorPass = (natureList == null || natureList.Contains(antiNatureXor));
+
+                    switch (shadow)
                     {
-                        pid1 = forwardXD(forwardXD(fullSecond));
-                        pid2 = forwardXD(pid1);
-                        antipid1 = forwardXD(pid2);
-                        antipid2 = forwardXD(antipid1);
-                        pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                        antipid = (antipid1 & 0xFFFF0000) | (antipid2 >> 16);
-                        nature = pid % 25;
-                        galesSeed = reverseXD((uint)fullFirst);
-                        pass = (natureList == null || natureList.Contains(nature));
-
-                        xorSeed = galesSeed ^ 0x80000000;
-                        xorPID = pid ^ 0x80008000;
-                        xorNature = xorPID % 25;
-                        xorPass = (natureList == null || natureList.Contains(xorNature));
-
-                        antipid = getAntiPID(pid1, pid2, pid);
-                        antiNature = antipid % 25;
-                        antiPass = (natureList == null || natureList.Contains(antiNature));
-
-                        antipidXor = antipid ^ 0x80008000;
-                        antiNatureXor = antipidXor % 25;
-                        antiXorPass = (natureList == null || natureList.Contains(antiNatureXor));
-
-                        switch (shadow)
-                        {
-                            case ShadowType.NoLock:
-                                if (pass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
-                                if (antiPass)
+                        case ShadowType.NoLock:
+                            if (pass)
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
+                            if (antiPass)
+                                filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
+                            if (xorPass)
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
+                            if (antiXorPass)
+                                filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
+                            break;
+                        case ShadowType.FirstShadow:
+                            if (pass && natureLock.firstShadow(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
+                                antiNature = antipid % 25;
+                                if (natureList == null || natureList.Contains(antiNature))
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
-                                if (xorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
-                                if (antiXorPass)
+                            }
+                            else if (xorPass && natureLock.firstShadow(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
+                                antipidXor = antipid ^ 0x80008000;
+                                antiNatureXor = antipidXor % 25;
+                                if (natureList == null || natureList.Contains(antiNatureXor))
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
-                                break;
-                            case ShadowType.FirstShadow:
-                                if (pass && natureLock.firstShadow(galesSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
-                                    antiNature = antipid % 25;
-                                    if (natureList == null || natureList.Contains(antiNature))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
-                                }
-                                else if (xorPass && natureLock.firstShadow(xorSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
-                                    antipidXor = antipid ^ 0x80008000;
-                                    antiNatureXor = antipidXor % 25;
-                                    if (natureList == null || natureList.Contains(antiNatureXor))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
-                                }
-                                break;
-                            case ShadowType.SingleLock:
-                                if (pass && natureLock.singleNL(galesSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
-                                    antiNature = antipid % 25;
-                                    if (natureList == null || natureList.Contains(antiNature))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
-                                }
-                                else if (xorPass && natureLock.singleNL(xorSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
-                                    antipidXor = antipid ^ 0x80008000;
-                                    antiNatureXor = antipidXor % 25;
-                                    if (natureList == null || natureList.Contains(antiNatureXor))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
-                                }
-                                break;
-                            case ShadowType.Salamence:
-                                if (pass && natureLock.salamenceSet(galesSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
-                                    antiNature = antipid % 25;
-                                    if (natureList == null || natureList.Contains(antiNature))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 1, true);
-                                }
-                                else if (xorPass && natureLock.salamenceSet(xorSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
-                                    antipidXor = antipid ^ 0x80008000;
-                                    antiNatureXor = antipidXor % 25;
-                                    if (natureList == null || natureList.Contains(antiNatureXor))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 1, true);
-                                }
-                                else if (pass && natureLock.salamenceUnset(galesSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
-                                    antiNature = antipid % 25;
-                                    if (natureList == null || natureList.Contains(antiNature))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 2, true);
-                                }
-                                else if (xorPass && natureLock.salamenceUnset(xorSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
-                                    antipidXor = antipid ^ 0x80008000;
-                                    antiNatureXor = antipidXor % 25;
-                                    if (natureList == null || natureList.Contains(antiNatureXor))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
-                                }
-                                else if (pass && natureLock.salamenceShinySkip(galesSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3, false);
-                                    antiNature = antipid % 25;
-                                    if (natureList == null || natureList.Contains(antiNature))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 3, true);
-                                }
-                                else if (xorPass && natureLock.salamenceShinySkip(xorSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3, false);
-                                    antipidXor = antipid ^ 0x80008000;
-                                    antiNatureXor = antipidXor % 25;
-                                    if (natureList == null || natureList.Contains(antiNatureXor))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 3, true);
-                                }
-                                break;
-                            case ShadowType.SecondShadow:
-                                if (pass && natureLock.secondShadowSet(galesSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
-                                    antiNature = antipid % 25;
-                                    if (natureList == null || natureList.Contains(antiNature))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 1, true);
-                                }
-                                else if (xorPass && natureLock.secondShadowSet(xorSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
-                                    antipidXor = antipid ^ 0x80008000;
-                                    antiNatureXor = antipidXor % 25;
-                                    if (natureList == null || natureList.Contains(antiNatureXor))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 1, true);
-                                }
-                                else if (pass && natureLock.secondShadowUnset(galesSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
-                                    antiNature = antipid % 25;
-                                    if (natureList == null || natureList.Contains(antiNature))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 2, true);
-                                }
-                                else if (xorPass && natureLock.secondShadowUnset(xorSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
-                                    antipidXor = antipid ^ 0x80008000;
-                                    antiNatureXor = antipidXor % 25;
-                                    if (natureList == null || natureList.Contains(antiNatureXor))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
-                                }
-                                else if (pass && natureLock.secondShadowShinySkip(galesSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3, false);
-                                    antiNature = antipid % 25;
-                                    if (natureList == null || natureList.Contains(antiNature))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 3, true);
-                                }
-                                else if (xorPass && natureLock.secondShadowShinySkip(xorSeed))
-                                {
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3, false);
-                                    antipidXor = antipid ^ 0x80008000;
-                                    antiNatureXor = antipidXor % 25;
-                                    if (natureList == null || natureList.Contains(antiNatureXor))
-                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 3, true);
-                                }
-                                break;
-                        }
+                            }
+                            break;
+                        case ShadowType.SingleLock:
+                            if (pass && natureLock.singleNL(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
+                                antiNature = antipid % 25;
+                                if (natureList == null || natureList.Contains(antiNature))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
+                            }
+                            else if (xorPass && natureLock.singleNL(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
+                                antipidXor = antipid ^ 0x80008000;
+                                antiNatureXor = antipidXor % 25;
+                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
+                            }
+                            break;
+                        case ShadowType.Salamence:
+                            if (pass && natureLock.salamenceSet(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
+                                antiNature = antipid % 25;
+                                if (natureList == null || natureList.Contains(antiNature))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 1, true);
+                            }
+                            else if (xorPass && natureLock.salamenceSet(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
+                                antipidXor = antipid ^ 0x80008000;
+                                antiNatureXor = antipidXor % 25;
+                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 1, true);
+                            }
+                            else if (pass && natureLock.salamenceUnset(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
+                                antiNature = antipid % 25;
+                                if (natureList == null || natureList.Contains(antiNature))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 2, true);
+                            }
+                            else if (xorPass && natureLock.salamenceUnset(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
+                                antipidXor = antipid ^ 0x80008000;
+                                antiNatureXor = antipidXor % 25;
+                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
+                            }
+                            else if (pass && natureLock.salamenceShinySkip(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3, false);
+                                antiNature = antipid % 25;
+                                if (natureList == null || natureList.Contains(antiNature))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 3, true);
+                            }
+                            else if (xorPass && natureLock.salamenceShinySkip(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3, false);
+                                antipidXor = antipid ^ 0x80008000;
+                                antiNatureXor = antipidXor % 25;
+                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 3, true);
+                            }
+                            break;
+                        case ShadowType.SecondShadow:
+                            if (pass && natureLock.secondShadowSet(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
+                                antiNature = antipid % 25;
+                                if (natureList == null || natureList.Contains(antiNature))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 1, true);
+                            }
+                            else if (xorPass && natureLock.secondShadowSet(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
+                                antipidXor = antipid ^ 0x80008000;
+                                antiNatureXor = antipidXor % 25;
+                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 1, true);
+                            }
+                            else if (pass && natureLock.secondShadowUnset(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
+                                antiNature = antipid % 25;
+                                if (natureList == null || natureList.Contains(antiNature))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 2, true);
+                            }
+                            else if (xorPass && natureLock.secondShadowUnset(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
+                                antipidXor = antipid ^ 0x80008000;
+                                antiNatureXor = antipidXor % 25;
+                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
+                            }
+                            else if (pass && natureLock.secondShadowShinySkip(galesSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3, false);
+                                antiNature = antipid % 25;
+                                if (natureList == null || natureList.Contains(antiNature))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 3, true);
+                            }
+                            else if (xorPass && natureLock.secondShadowShinySkip(xorSeed))
+                            {
+                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3, false);
+                                antipidXor = antipid ^ 0x80008000;
+                                antiNatureXor = antipidXor % 25;
+                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 3, true);
+                            }
+                            break;
                     }
                 }
             }
@@ -553,8 +548,7 @@ namespace RNGReporter
         {
             long first = (hp | (atk << 5) | (def << 10)) << 16;
             long second = (spe | (spa << 5) | (spd << 10)) << 16;
-            long fullFirst;
-            uint fullSecond;
+            uint fullFirst;
 
             long t = ((second - 0x343fd * first) - 0x259ec4) % 0x80000000;
             t = t < 0 ? t + 0x80000000 : t;
@@ -569,27 +563,23 @@ namespace RNGReporter
             {
                 if ((test % 0x343fd) < 0x10000)
                 {
-                    fullFirst = first | (test / 0x343fd);
-                    fullSecond = forwardXD((uint)fullFirst);
-                    if ((fullSecond & 0x7FFF0000) == second)
-                    {
-                        pid1 = forwardXD(forwardXD(fullSecond));
-                        pid2 = forwardXD(pid1);
-                        pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                        nature = pid % 25;
-                        seed = reverseXD((uint)fullFirst);
-                        pass = (natureList == null || natureList.Contains(nature));
+                    fullFirst = (uint)(first | (test / 0x343fd));
+                    pid1 = forwardXD(forwardXD(forwardXD(fullFirst)));
+                    pid2 = forwardXD(pid1);
+                    pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                    nature = pid % 25;
+                    seed = reverseXD(fullFirst);
+                    pass = (natureList == null || natureList.Contains(nature));
 
-                        xorSeed = seed ^ 0x80000000;
-                        xorPID = pid ^ 0x80008000;
-                        xorNature = xorPID % 25;
-                        xorPass = (natureList == null || natureList.Contains(xorNature));
+                    xorSeed = seed ^ 0x80000000;
+                    xorPID = pid ^ 0x80008000;
+                    xorNature = xorPID % 25;
+                    xorPass = (natureList == null || natureList.Contains(xorNature));
 
-                        if (pass && natureLock.firstShadow(seed))
-                            filterSeedColo(hp, atk, def, spa, spd, spe, pid, nature, seed, 0);
-                        else if (xorPass && natureLock.firstShadow(xorSeed))
-                            filterSeedColo(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
-                    }
+                    if (pass && natureLock.firstShadow(seed))
+                        filterSeedColo(hp, atk, def, spa, spd, spe, pid, nature, seed, 0);
+                    else if (xorPass && natureLock.firstShadow(xorSeed))
+                        filterSeedColo(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
                 }
             }
         }
@@ -681,8 +671,7 @@ namespace RNGReporter
         {
             long first = (hp | (atk << 5) | (def << 10)) << 16;
             long second = (spe | (spa << 5) | (spd << 10)) << 16;
-            long fullFirst;
-            uint fullSecond;
+            uint fullFirst;
 
             long t = ((second - 0x343fd * first) - 0x259ec4) % 0x80000000;
             t = t < 0 ? t + 0x80000000 : t;
@@ -695,23 +684,19 @@ namespace RNGReporter
             {
                 if ((test % 0x343fd) < 0x10000)
                 {
-                    fullFirst = first | (test / 0x343fd);
-                    fullSecond = forwardXD((uint)fullFirst);
-                    if ((fullSecond & 0x7FFF0000) == second)
-                    {
-                        pid1 = forwardXD(forwardXD(fullSecond));
-                        pid2 = forwardXD(pid1);
-                        pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
-                        nature = pid % 25;
-                        seed = reverseXD((uint)fullFirst);
-                        if (natureList == null || natureList.Contains(nature))
-                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
+                    fullFirst = (uint)(first | (test / 0x343fd));
+                    pid1 = forwardXD(forwardXD(forwardXD(fullFirst)));
+                    pid2 = forwardXD(pid1);
+                    pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                    nature = pid % 25;
+                    seed = reverseXD(fullFirst);
+                    if (natureList == null || natureList.Contains(nature))
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed);
 
-                        pid ^= 0x80008000;
-                        nature = pid % 25;
-                        if (natureList == null || natureList.Contains(nature))
-                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
-                    }
+                    pid ^= 0x80008000;
+                    nature = pid % 25;
+                    if (natureList == null || natureList.Contains(nature))
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed ^ 0x80000000);
                 }
             }
         }
@@ -908,10 +893,6 @@ namespace RNGReporter
 
                 temp = forwardXD(temp);
                 if (temp >> 27 != spa)
-                    continue;
-
-                temp = forwardXD(temp);
-                if (temp >> 27 != spd)
                     continue;
 
                 rng.GetNext32BitNumber(3);

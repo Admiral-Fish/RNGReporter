@@ -231,6 +231,7 @@ namespace RNGReporter
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeedGales(a, b, c, d, e, f);
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -541,6 +542,7 @@ namespace RNGReporter
                                 for (uint f = ivsLower[5]; f <= ivsUpper[5]; f++)
                                     checkSeedColo(a, b, c, d, e, f);
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -664,6 +666,7 @@ namespace RNGReporter
                                     checkSeed(a, b, c, d, e, f);
             
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -859,6 +862,7 @@ namespace RNGReporter
                                     checkSeedChannel(a, b, c, d, e, f);
             
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -984,6 +988,7 @@ namespace RNGReporter
                 }
             }
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 
@@ -1076,6 +1081,7 @@ namespace RNGReporter
                                     checkSeedR(a, b, c, d, e, f);
             
             isSearching = false;
+            Invoke(new Action(() => { binding.ResetBindings(false); }));
             status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
 

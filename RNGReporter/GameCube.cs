@@ -23,7 +23,7 @@ namespace RNGReporter
         private uint searchNumber, genderFilter, abilityFilter, k1, k2 = 0xc64e6d00;
         private ShadowType shadow;
         private NatureLock natureLock = new NatureLock(0);
-        private List<uint> natureList, seedList, hiddenPowerList;
+        private List<uint> natureList, hiddenPowerList;
         private uint[] ivsLower, ivsUpper, shinyval;
         private byte[] low8 = new byte[0x10000];
         private bool[] flags = new bool[0x10000];
@@ -39,7 +39,6 @@ namespace RNGReporter
             shadowDisplay = new List<ShadowDisplay>();
             binding = new BindingSource { DataSource = displayList };
             bindingShadow = new BindingSource { DataSource = shadowDisplay };
-            seedList = new List<uint>();
             abilityType.SelectedIndex = 0;
             genderType.SelectedIndex = 0;
             searchMethod.SelectedIndex = 0;
@@ -153,7 +152,6 @@ namespace RNGReporter
                 genderFilter = (uint)genderType.SelectedIndex;
 
                 displayList.Clear();
-                seedList.Clear();
                 binding.ResetBindings(false);
                 status.Text = "Searching";
                 isSearching = true;
@@ -244,7 +242,7 @@ namespace RNGReporter
 
             long t = ((second - 0x343fd * first) - 0x259ec4) % 0x80000000;
             t = t < 0 ? t + 0x80000000 : t;
-            long kmax = (0x343fabc02 + t) / 0x80000000;
+            long kmax = (0x343fabc02 - t) / 0x80000000;
             long test = t;
 
             uint pid1, pid2, pid, nature, galesSeed, xorSeed, xorPID, xorNature, antipid1, antipid2, antipid, antipidXor, antiNature, antiNatureXor;
@@ -261,6 +259,7 @@ namespace RNGReporter
                     antipid1 = forwardXD(pid2);
                     antipid2 = forwardXD(antipid1);
                     pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
+                    shinyval[7] = ((pid1 >> 16) ^ (pid2 >> 16)) >> 3;
                     antipid = (antipid1 & 0xFFFF0000) | (antipid2 >> 16);
                     nature = pid % 25;
                     galesSeed = reverseXD(fullFirst);
@@ -271,7 +270,7 @@ namespace RNGReporter
                     xorNature = xorPID % 25;
                     xorPass = (natureList == null || natureList.Contains(xorNature));
 
-                    antipid = getAntiPID(pid1, pid2, pid);
+                    antipid = getAntiPID(pid1, pid2);
                     antiNature = antipid % 25;
                     antiPass = (natureList == null || natureList.Contains(antiNature));
 
@@ -357,20 +356,9 @@ namespace RNGReporter
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
                             }
                             else if (pass && natureLock.salamenceShinySkip(galesSeed))
-                            {
                                 filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3, false);
-                                antiNature = antipid % 25;
-                                if (natureList == null || natureList.Contains(antiNature))
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 3, true);
-                            }
                             else if (xorPass && natureLock.salamenceShinySkip(xorSeed))
-                            {
                                 filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3, false);
-                                antipidXor = antipid ^ 0x80008000;
-                                antiNatureXor = antipidXor % 25;
-                                if (natureList == null || natureList.Contains(antiNatureXor))
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 3, true);
-                            }
                             break;
                         case ShadowType.SecondShadow:
                             if (pass && natureLock.secondShadowSet(galesSeed))
@@ -404,27 +392,16 @@ namespace RNGReporter
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
                             }
                             else if (pass && natureLock.secondShadowShinySkip(galesSeed))
-                            {
                                 filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3, false);
-                                antiNature = antipid % 25;
-                                if (natureList == null || natureList.Contains(antiNature))
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 3, true);
-                            }
                             else if (xorPass && natureLock.secondShadowShinySkip(xorSeed))
-                            {
                                 filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3, false);
-                                antipidXor = antipid ^ 0x80008000;
-                                antiNatureXor = antipidXor % 25;
-                                if (natureList == null || natureList.Contains(antiNatureXor))
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 3, true);
-                            }
                             break;
                     }
                 }
             }
         }
 
-        private uint getAntiPID(uint pid1, uint pid2, uint pid)
+        private uint getAntiPID(uint pid1, uint pid2)
         {
             uint anti1, anti2;
 
@@ -491,11 +468,11 @@ namespace RNGReporter
 
             String reason = "";
             if (num == 0)
-                reason = "Pass NL";
+                reason = anti ? "Pass NL (Anti-Shiny)" : "Pass NL";
             else if (num == 1)
-                reason = "1st shadow set";
+                reason = anti ? "1st shadow set (Anti-Shiny)" : "1st shadow set";
             else if (num == 2)
-                reason = "1st shadow unset";
+                reason = anti ? "1st shadow unset (Anti-Shiny)" : "1st shadow unset";
             else
             {
                 reason = "Shiny skip";
@@ -505,13 +482,13 @@ namespace RNGReporter
                 uint tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
                 while (tsv == tsvtemp)
                 {
-                    tsvtemp = tsv;
-                    tsv = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
+                    tsv = tsvtemp;
+                    tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
                 }
-                reason = reason + " (TSV: " + tsv + ")";
+                reason = reason + " (TSV: " + tsvtemp + ")";
+                if (tsvtemp == shinyval[7])
+                    reason += " (Anti-Shiny)";
             }
-            if (anti)
-                reason += " (AntiShiny)";
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, "", seed, reason, 0);
         }
         #endregion
@@ -554,7 +531,7 @@ namespace RNGReporter
 
             long t = ((second - 0x343fd * first) - 0x259ec4) % 0x80000000;
             t = t < 0 ? t + 0x80000000 : t;
-            long kmax = (0x343fabc02 + t) / 0x80000000;
+            long kmax = (0x343fabc02 - t) / 0x80000000;
             long test = t;
 
             uint pid1, pid2, pid, nature, seed, xorSeed, xorPID, xorNature;

@@ -245,7 +245,7 @@ namespace RNGReporter
             long kmax = (0x343fabc02 - t) / 0x80000000;
             long test = t;
 
-            uint pid1, pid2, pid, nature, galesSeed, xorSeed, xorPID, xorNature, antipid1, antipid2, antipid, antipidXor, antiNature, antiNatureXor;
+            uint pid1, pid2, pid, nature, galesSeed, xorSeed, xorPID, xorNature, antipid, antipidXor, antiNature, antiNatureXor;
             long k;
             bool pass, xorPass, antiPass, antiXorPass;
 
@@ -256,11 +256,8 @@ namespace RNGReporter
                     fullFirst = (uint)(first | (test / 0x343fd));
                     pid1 = pid1 = fullFirst * 0x45C82BE5 + 0xD2F65B55; // Advances prng 3 times
                     pid2 = forwardXD(pid1);
-                    antipid1 = forwardXD(pid2);
-                    antipid2 = forwardXD(antipid1);
                     pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                     shinyval[7] = ((pid1 >> 16) ^ (pid2 >> 16)) >> 3;
-                    antipid = (antipid1 & 0xFFFF0000) | (antipid2 >> 16);
                     nature = pid % 25;
                     galesSeed = reverseXD(fullFirst);
                     pass = (natureList == null || natureList.Contains(nature));

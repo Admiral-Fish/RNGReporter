@@ -353,9 +353,9 @@ namespace RNGReporter
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
                             }
                             else if (pass && natureLock.salamenceShinySkip(galesSeed))
-                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3, false);
+                                filterShinySkip(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, antipid, antiNature);
                             else if (xorPass && natureLock.salamenceShinySkip(xorSeed))
-                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3, false);
+                                filterShinySkip(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, antipidXor, antiNatureXor);
                             break;
                         case ShadowType.SecondShadow:
                             if (pass && natureLock.secondShadowSet(galesSeed))
@@ -389,9 +389,9 @@ namespace RNGReporter
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
                             }
                             else if (pass && natureLock.secondShadowShinySkip(galesSeed))
-                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 3, false);
+                                filterShinySkip(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, antipid, antiNature);
                             else if (xorPass && natureLock.secondShadowShinySkip(xorSeed))
-                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 3, false);
+                                filterShinySkip(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, antipidXor, antiNatureXor);
                             break;
                     }
                 }
@@ -468,23 +468,73 @@ namespace RNGReporter
                 reason = anti ? "Pass NL (Anti-Shiny)" : "Pass NL";
             else if (num == 1)
                 reason = anti ? "1st shadow set (Anti-Shiny)" : "1st shadow set";
-            else if (num == 2)
-                reason = anti ? "1st shadow unset (Anti-Shiny)" : "1st shadow unset";
             else
+                reason = anti ? "1st shadow unset (Anti-Shiny)" : "1st shadow unset";
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, "", seed, reason, 0);
+        }
+
+        private void filterShinySkip(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed, uint antipid, uint antinature)
+        {
+            uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
+            if (hiddenPowerList != null && !hiddenPowerList.Contains(actualHP))
+                return;
+
+            var reverse = new XdRngR(seed);
+            reverse.GetNext32BitNumber();
+            uint tsv = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
+            uint tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
+            while (tsv == tsvtemp)
             {
-                reason = "Shiny skip";
-                var reverse = new XdRngR(seed);
-                reverse.GetNext32BitNumber();
-                uint tsv = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
-                uint tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
-                while (tsv == tsvtemp)
-                {
-                    tsv = tsvtemp;
-                    tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
-                }
-                reason = reason + " (TSV: " + tsvtemp + ")";
-                if (tsvtemp == shinyval[7])
-                    reason += " (Anti-Shiny)";
+                tsv = tsvtemp;
+                tsvtemp = (reverse.GetNext16BitNumber() ^ reverse.GetNext16BitNumber()) >> 3;
+            }
+            String reason = "Shiny skip (TSV: " + tsvtemp + ")";
+            if (tsvtemp == shinyval[7])
+            {
+                reason += " (Anti-Shiny)";
+                pid = antipid;
+                nature = antinature;
+            }
+
+            uint ability = pid & 1;
+            if (abilityFilter != 0 && (ability != (abilityFilter - 1)))
+                return;
+
+            uint gender = pid & 255;
+            switch (genderFilter)
+            {
+                case 1:
+                    if (gender < 127)
+                        return;
+                    break;
+                case 2:
+                    if (gender > 126)
+                        return;
+                    break;
+                case 3:
+                    if (gender < 191)
+                        return;
+                    break;
+                case 4:
+                    if (gender > 190)
+                        return;
+                    break;
+                case 5:
+                    if (gender < 64)
+                        return;
+                    break;
+                case 6:
+                    if (gender > 63)
+                        return;
+                    break;
+                case 7:
+                    if (gender < 31)
+                        return;
+                    break;
+                case 8:
+                    if (gender > 30)
+                        return;
+                    break;
             }
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, "", seed, reason, 0);
         }

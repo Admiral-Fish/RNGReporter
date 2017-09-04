@@ -288,109 +288,103 @@ namespace RNGReporter
                                 filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
                             break;
                         case ShadowType.FirstShadow:
-                            if (pass && natureLock.firstShadow(galesSeed))
+                            if (natureLock.firstShadow(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
-                                antiNature = antipid % 25;
-                                if (natureList == null || natureList.Contains(antiNature))
+                                if (pass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
+                                if (antiPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
                             }
-                            else if (xorPass && natureLock.firstShadow(xorSeed))
+                            else if (natureLock.firstShadow(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
-                                antipidXor = antipid ^ 0x80008000;
-                                antiNatureXor = antipidXor % 25;
-                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                if (xorPass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
+                                if (antiXorPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
                             }
                             break;
                         case ShadowType.SingleLock:
-                            if (pass && natureLock.singleNL(galesSeed))
+                            if (natureLock.singleNL(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
-                                antiNature = antipid % 25;
-                                if (natureList == null || natureList.Contains(antiNature))
+                                if (pass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
+                                if (antiPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
                             }
-                            else if (xorPass && natureLock.singleNL(xorSeed))
+                            else if (natureLock.singleNL(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
-                                antipidXor = antipid ^ 0x80008000;
-                                antiNatureXor = antipidXor % 25;
-                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                if (xorPass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
+                                if (antiXorPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
                             }
                             break;
                         case ShadowType.Salamence:
-                            if (pass && natureLock.salamenceSet(galesSeed))
+                            if (natureLock.salamenceSet(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
-                                antiNature = antipid % 25;
-                                if (natureList == null || natureList.Contains(antiNature))
+                                if (pass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
+                                if (antiPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 1, true);
                             }
-                            else if (xorPass && natureLock.salamenceSet(xorSeed))
+                            else if (natureLock.salamenceSet(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
-                                antipidXor = antipid ^ 0x80008000;
-                                antiNatureXor = antipidXor % 25;
-                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                if (xorPass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
+                                if (antiXorPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 1, true);
                             }
-                            else if (pass && natureLock.salamenceUnset(galesSeed))
+                            else if (natureLock.salamenceUnset(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
-                                antiNature = antipid % 25;
-                                if (natureList == null || natureList.Contains(antiNature))
+                                if (pass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
+                                if (antiPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 2, true);
                             }
-                            else if (xorPass && natureLock.salamenceUnset(xorSeed))
+                            else if (natureLock.salamenceUnset(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
-                                antipidXor = antipid ^ 0x80008000;
-                                antiNatureXor = antipidXor % 25;
-                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                if (xorPass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
+                                if (antiXorPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
                             }
-                            else if (pass && natureLock.salamenceShinySkip(galesSeed))
+                            else if (natureLock.salamenceShinySkip(galesSeed))
                                 filterShinySkip(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, antipid, antiNature);
-                            else if (xorPass && natureLock.salamenceShinySkip(xorSeed))
+                            else if (natureLock.salamenceShinySkip(xorSeed))
                                 filterShinySkip(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, antipidXor, antiNatureXor);
                             break;
                         case ShadowType.SecondShadow:
-                            if (pass && natureLock.secondShadowSet(galesSeed))
+                            if (natureLock.secondShadowSet(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
-                                antiNature = antipid % 25;
-                                if (natureList == null || natureList.Contains(antiNature))
+                                if (pass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
+                                if (antiPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 1, true);
                             }
-                            else if (xorPass && natureLock.secondShadowSet(xorSeed))
+                            else if (natureLock.secondShadowSet(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
-                                antipidXor = antipid ^ 0x80008000;
-                                antiNatureXor = antipidXor % 25;
-                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                if (xorPass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
+                                if (antiXorPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 1, true);
                             }
-                            else if (pass && natureLock.secondShadowUnset(galesSeed))
+                            else if (natureLock.secondShadowUnset(galesSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
-                                antiNature = antipid % 25;
-                                if (natureList == null || natureList.Contains(antiNature))
+                                if (pass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
+                                if (antiPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 2, true);
                             }
-                            else if (xorPass && natureLock.secondShadowUnset(xorSeed))
+                            else if (natureLock.secondShadowUnset(xorSeed))
                             {
-                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
-                                antipidXor = antipid ^ 0x80008000;
-                                antiNatureXor = antipidXor % 25;
-                                if (natureList == null || natureList.Contains(antiNatureXor))
+                                if (xorPass)
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
+                                if (antiXorPass)
                                     filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
                             }
-                            else if (pass && natureLock.secondShadowShinySkip(galesSeed))
+                            else if (natureLock.secondShadowShinySkip(galesSeed))
                                 filterShinySkip(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, antipid, antiNature);
-                            else if (xorPass && natureLock.secondShadowShinySkip(xorSeed))
+                            else if (natureLock.secondShadowShinySkip(xorSeed))
                                 filterShinySkip(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, antipidXor, antiNatureXor);
                             break;
                     }
@@ -495,6 +489,9 @@ namespace RNGReporter
                 pid = antipid;
                 nature = antinature;
             }
+
+            if (natureList != null || !natureList.Contains(nature))
+                return;
 
             uint ability = pid & 1;
             if (abilityFilter != 0 && (ability != (abilityFilter - 1)))

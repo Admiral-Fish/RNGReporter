@@ -10,9 +10,10 @@ namespace RNGReporter.Objects
     {
         private readonly String[] Natures = { "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky" };
         private List<PokeSpotDisplay> displayList;
-        private List<uint> natureList, spotList;
+        private List<uint> natureList;
+        private List<String> spotList;
         private uint[] rngList;
-        private uint genderFilter, abilityFilter, shinyNum, shinyval, currentCall, call1, call2, call3, call2Calc;
+        private uint genderFilter, abilityFilter, shinyNum, shinyval, call1, call2, call3;
         private int j;
         private bool shinyCheck;
 
@@ -63,16 +64,16 @@ namespace RNGReporter.Objects
                 natureList = (from t in comboBoxNature.CheckBoxItems where t.Checked select (uint)((Nature)t.ComboBoxItem).Number).ToList();
 
             spotList = null;
-            List<uint> temp = new List<uint>();
+            List<String> temp = new List<String>();
             if (comboBoxSpotType.Text != "Any" && comboBoxSpotType.CheckBoxItems.Count > 0)
-                for (int x = 1; x < 5; x++)
+                for (int x = 1; x < 4; x++)
                     if (comboBoxSpotType.CheckBoxItems[x].Checked)
-                        temp.Add((uint)(x - 1));
+                        temp.Add(comboBoxSpotType.CheckBoxItems[x].Text);
 
             if (temp.Count != 0)
                 spotList = temp;
             else
-                spotList = new List<uint> { 0, 1, 2, 3 };
+                spotList = new List<String> { "Common", "Uncommon", "Rare" };
 
             genderFilter = (uint)genderType.SelectedIndex;
             abilityFilter = (uint)abilityType.SelectedIndex;
@@ -121,10 +122,8 @@ namespace RNGReporter.Objects
 
             uint ability = pid & 1;
             if (abilityFilter != 0)
-            {
                 if (ability != (abilityFilter - 1))
                     return;
-            }
 
             uint gender = pid & 255;
             switch (genderFilter)
@@ -168,78 +167,41 @@ namespace RNGReporter.Objects
 
         private void calcPokeSpot(uint pid, uint frame, uint nature, uint gender, uint ability, String shiny)
         {
-            call1 = rngList[j >= 5 ? j -5 : j + 1] >> 16;
-            currentCall = call1 % 3;
+            call1 = rngList[j >= 5 ? j - 5 : j + 1] >> 16;
 
-            if (currentCall == 0)
+            if (call1 % 3 == 0)
             {
                 String spotType = "";
                 call2 = rngList[j >= 4 ? j - 4 : j + 2] >> 16;
-                call3 = rngList[j >= 3 ? j - 3 : j + 3] >> 16;
 
-                if (shiny == "")
-                {
-                    if (shinyNum == shinyval)
-                        shiny = "!!!";
-                }
-
-                currentCall = call3 % 100;
-                call2Calc = call2 % 100;
-
-                foreach (uint x in spotList)
-                {
-                    if (x == 0)
-                    {
-                        if (call2Calc > 9)
-                            if (currentCall < 50)
-                                spotType = "Common";
-                    }
-                    else if (x == 1)
-                    {
-                        if (call2Calc > 9)
-                            if (currentCall > 49 && currentCall < 85)
-                                spotType = "Uncommon";
-                    }
-                    else if (x == 2)
-                    {
-                        if (call2Calc > 9)
-                            if (currentCall > 84)
-                                spotType = "Rare";
-                    }
-                    else
-                    { 
-                        if (call2Calc < 10)
-                            spotType = "Munchlax";
-                    }
-                }
-
-                if (spotType.Equals(""))
+                // Munchlax isn't catchable and provides a frame skip
+                if (call2 % 100 < 10)
                     return;
 
-                String stringNature = Natures[nature];
-                char gender1;
-                char gender2;
-                char gender3;
-                char gender4;
+                call3 = (rngList[j >= 3 ? j - 3 : j + 3] >> 16) % 100;
+                if (call3 < 50)
+                    spotType = "Common";
+                else if (call3 > 49 && call3 < 85)
+                    spotType = "Uncommon";
+                else if (call3 > 84)
+                    spotType = "Rare";
 
-                gender1 = gender < 31 ? 'F' : 'M';
-                gender2 = gender < 64 ? 'F' : 'M';
-                gender3 = gender < 126 ? 'F' : 'M';
-                gender4 = gender < 191 ? 'F' : 'M';
+                if (!spotList.Contains(spotType))
+                    return;
 
                 displayList.Add(new PokeSpotDisplay
                 {
-                    Seed = rngList[j].ToString("x").ToUpper(),
+                    Seed = rngList[j].ToString("X"),
                     Frame = (int)frame,
-                    PID = pid.ToString("x").ToUpper(),
-                    Shiny = shiny,
+                    PID = pid.ToString("X"),
+                    Shiny = shiny == "" ? shinyNum == shinyval ? "!!!" : shiny : shiny,
                     Type = spotType,
-                    Nature = stringNature,
+                    Nature = Natures[nature],
                     Ability = (int)ability,
-                    Eighth = gender1,
-                    Quarter = gender2,
-                    Half = gender3,
-                    Three_Fourths = gender4
+                    Eighth = gender < 31 ? 'F' : 'M',
+                    Quarter = gender < 64 ? 'F' : 'M',
+                    Half = gender < 126 ? 'F' : 'M',
+                    Three_Fourths = gender < 191 ? 'F' : 'M'
                 });
             }
         }
@@ -270,8 +232,7 @@ namespace RNGReporter.Objects
                 {
                     "Common",
                     "Uncommon",
-                    "Rare",
-                    "Munchlax"
+                    "Rare"
                 };
         }
     }

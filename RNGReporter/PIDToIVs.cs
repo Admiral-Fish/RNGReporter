@@ -12,12 +12,24 @@ namespace RNGReporter
         private List<PIDIVS> results;
         private MainForm mainForm;
         private readonly String[] Method = { "XD/Colo", "Channel" };
+        private bool[] flags = new bool[0x10000];
+        private byte[] low8 = new byte[0x10000];
 
         public PIDToIVs(MainForm mainForm)
         {
             InitializeComponent();
             dataGridViewValues.AutoGenerateColumns = true;
             this.mainForm = mainForm;
+            for (uint i = 0; i < 256; i++)
+            {
+                uint right = 0x41c64e6d * i + 0x6073;
+                ushort val = (ushort)(right >> 16);
+                flags[val] = true;
+                low8[val] = (byte)i;
+                --val;
+                flags[val] = true;
+                low8[val] = (byte)i;
+            }
         }
 
         private void PIDToIVs_FormClosing(object sender, FormClosingEventArgs e)
@@ -44,34 +56,39 @@ namespace RNGReporter
 
         private void calcMethod124(uint pid)
         {
-            uint pidl = pid & 0xFFFF;
-            uint pidh = pid >> 16;
+            uint pidl = (pid & 0xFFFF) << 16;
+            uint pidh = pid & 0xFFFF0000;
 
-            uint test = pidh << 16;
-            for (uint x = 0; x <= 0xFFFF; x++)
+            uint k1 = pidh - pidl * 0x41c64e6d;
+            for (uint cnt = 0; cnt < 256; ++cnt, k1 -= 0xc64e6d00)
             {
-                uint testseed = test | x;
-                uint prevseed = reverse(testseed);
-                uint temp = prevseed >> 16;
-                if (temp == pidl)
-                    addSeed(reverse(prevseed), forward(testseed));
+                uint test = k1 >> 16;
+                if (flags[test])
+                {
+                    uint fullFirst = (pidl | (cnt << 8) | low8[test]);
+                    uint fullSecond = forward(fullFirst);
+                    if ((fullSecond & 0xFFFF0000) == pidh)
+                        addSeed(reverse(fullFirst), forward(fullSecond));
+                }
             }
         }
 
         private void calcMethodXD(uint pid)
         {
-            uint pidl = pid & 0xFFFF;
-            uint pidh = pid >> 16;
+            long first = pid & 0xFFFF0000;
+            long second = (pid & 0xFFFF) << 16;
+            uint fullFirst;
 
-            uint test = pidl << 16;
-            for (uint x = 0; x <= 0xFFFF; x++)
+            long t = ((second - 0x343fd * first) - 0x259ec4) % 0x100000000;
+            t = t < 0 ? t + 0x100000000 : t;
+            long kmax = (0x343fabc02 - t) / 0x100000000;
+
+            for (long k = 0; k <= kmax; k++, t += 0x100000000)
             {
-                uint testseed = test | x;
-                uint prevseed = reverseXD(testseed);
-                uint temp = prevseed >> 16;
-                if (temp == pidh)
+                if ((t % 0x343fd) < 0x10000)
                 {
-                    uint iv2 = reverseXD(reverseXD(prevseed));
+                    fullFirst = (uint)(first | (t / 0x343fd));
+                    uint iv2 = reverseXD(reverseXD(fullFirst));
                     uint iv1 = reverseXD(iv2);
                     addSeedGC(reverseXD(iv1), iv1, iv2, 0);
                 }
@@ -80,19 +97,21 @@ namespace RNGReporter
 
         private void calcMethodChannel(uint pid)
         {
-            uint pidl = pid & 0xFFFF;
-            uint pidh = (pid >> 16) ^ 0x8000;
+            long first = (pid & 0xFFFF0000) ^ 0x80000000;
+            long second = (pid & 0xFFFF) << 16;
+            uint fullFirst;
 
-            uint test = pidl << 16;
-            for (uint x = 0; x <= 0xFFFF; x++)
+            long t = ((second - 0x343fd * first) - 0x259ec4) % 0x100000000;
+            t = t < 0 ? t + 0x100000000 : t;
+            long kmax = (0x343fabc02 - t) / 0x100000000;
+
+            for (long k = 0; k <= kmax; k++, t += 0x100000000)
             {
-                uint testseed = test | x;
-                uint prevseed = reverseXD(testseed);
-                uint temp = prevseed >> 16;
-                if (temp == pidh)
+                if ((t % 0x343fd) < 0x10000)
                 {
-                    uint seed = reverseXD(reverseXD(prevseed));
-                    addSeedGC(seed, forwardXD(forwardXD(forwardXD(forwardXD(testseed)))), 0, 1);
+                    fullFirst = (uint)(first | (t / 0x343fd));
+                    uint seed = reverseXD(reverseXD(fullFirst));
+                    addSeedGC(seed, fullFirst * 0x284A930D + 0xA2974C77, 0, 1);
                 }
             }
         }

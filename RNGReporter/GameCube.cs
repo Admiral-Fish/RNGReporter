@@ -490,8 +490,9 @@ namespace RNGReporter
                 nature = antinature;
             }
 
-            if (natureList != null || !natureList.Contains(nature))
-                return;
+            if (natureList != null)
+                if (!natureList.Contains(nature))
+                    return;
 
             uint ability = pid & 1;
             if (abilityFilter != 0 && (ability != (abilityFilter - 1)))

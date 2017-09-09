@@ -148,7 +148,9 @@ namespace RNGReporter.Objects
 
         private List<LockInfo[]> coloInfo = new List<LockInfo[]>()
         {
-            new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) } // Makuhita
+            new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(0, 126, 255) }, // Heracross
+            new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) }, // Makuhita
+            new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(12, 0, 126), new LockInfo(6, 127, 255 ) } // Murkrow
         };
 
         private LockInfo[] natureLockListGales(int natureLockIndex)

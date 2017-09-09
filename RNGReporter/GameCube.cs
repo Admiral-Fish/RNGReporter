@@ -2107,7 +2107,9 @@ namespace RNGReporter
         {
             return new String[]
             {
-                "Makuhita"
+                "Heracross",
+                "Makuhita",
+                "Murkrow"
             };
         }
 

@@ -448,28 +448,6 @@ namespace RNGReporter.Objects
             return (gender >= genderLower && gender <= genderUpper && pid % 25 == nature);
         }
 
-        public bool salamenceShinySkip(uint seed)
-        {
-            reverse.Seed = seed;
-            reverse.GetNext32BitNumber(1);
-
-            //Check how many advances from shiny skip and build PID
-            psv = getPSVReverse();
-            psvtemp = getPSVReverse();
-            while (psv == psvtemp)
-            {
-                psvtemp = psv;
-                psv = getPSVReverse();
-            }
-
-            reverse.GetNext32BitNumber(5);
-            pid = getPIDReverse();
-
-            //Backwards nature lock check
-            gender = pid & 255;
-            return (gender >= genderLower && gender <= genderUpper && pid % 25 == nature);
-        }
-
         public bool firstShadow(uint seed)
         {
             reverse.Seed = seed;
@@ -570,62 +548,6 @@ namespace RNGReporter.Objects
             reverse.GetNext32BitNumber(6);
 
             //Build temp pid first to not waste time populating if first nl fails
-            pidOriginal = getPIDReverse();
-
-            //Backwards nature lock check
-            gender = pidOriginal & 255;
-            if (!(gender >= lockInfo[0].genderLower && gender <= lockInfo[0].genderUpper && pidOriginal % 25 == lockInfo[0].nature))
-                return false;
-
-            //Backwards nature lock check loop
-            for (x = 1; x < backCount; x++)
-            {
-                reverse.GetNext32BitNumber(3);
-                pid = getPIDReverse();
-                getCurrLock();
-                if (nature != 500)
-                {
-                    gender = pid & 255;
-                    if (!(gender >= genderLower && gender <= genderUpper && pid % 25 == nature))
-                        countBackTwo();
-                }
-            }
-
-            forward.Seed = reverse.Seed;
-            forward.GetNext32BitNumber();
-
-            //Forwards nature lock check loop
-            for (x = frontCount; x >= 0; x--)
-            {
-                forward.GetNext32BitNumber(3);
-                pid = getPIDForward();
-                getCurrLock();
-                if (nature != 500)
-                {
-                    gender = pid & 255;
-                    if (!(gender >= genderLower && gender <= genderUpper && pid % 25 == nature))
-                        countForwardTwo();
-                }
-            }
-
-            return pidOriginal == pid;
-        }
-
-        public bool secondShadowShinySkip(uint seed)
-        {
-            reverse.Seed = seed;
-            reverse.GetNext32BitNumber(1);
-
-            //Check how many advances from shiny skip and build initial pid for first nl
-            psv = getPSVReverse();
-            psvtemp = getPSVReverse();
-            while (psv == psvtemp)
-            {
-                psvtemp = psv;
-                psv = getPSVReverse();
-            }
-
-            reverse.GetNext32BitNumber(5);
             pidOriginal = getPIDReverse();
 
             //Backwards nature lock check

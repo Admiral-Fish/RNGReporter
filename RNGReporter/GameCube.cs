@@ -19,7 +19,7 @@ namespace RNGReporter
         private BindingSource binding, bindingShadow;
         private List<DisplayList> displayList;
         private List<ShadowDisplay> shadowDisplay;
-        private bool isSearching, galesFlag;
+        private bool isSearching, shinyLock;
         private uint searchNumber, genderFilter, abilityFilter, k1, k2 = 0xc64e6d00;
         private ShadowType shadow;
         private NatureLock natureLock = new NatureLock(0);
@@ -118,7 +118,7 @@ namespace RNGReporter
             }
 
             getIVs(out ivsLower, out ivsUpper);
-            galesFlag = false;
+            shinyLock = false;
 
             if (ivsLower[0] > ivsUpper[0])
                 MessageBox.Show("HP: Lower limit > Upper limit");
@@ -165,7 +165,7 @@ namespace RNGReporter
                 }
                 searchNumber = (uint)searchMethod.SelectedIndex;
 
-                dataGridViewResult.Columns[17].Visible = shadowCheck.Checked && (searchMethod.SelectedIndex == 1 || searchMethod.SelectedIndex == 2);
+                dataGridViewResult.Columns[17].Visible = shadowCheck.Checked && ((searchMethod.SelectedIndex == 1 && shadowPokemon.SelectedIndex != 17) || (searchMethod.SelectedIndex == 2 && shadowPokemon.SelectedIndex != 0));
 
                 getSearch();
             }
@@ -207,7 +207,7 @@ namespace RNGReporter
         private void getGalesShadowMethod()
         {
             natureLockIndex = shadowPokemon.SelectedIndex;
-            galesFlag = true;
+            shinyLock = shadowPokemon.SelectedIndex != 17;
             natureLock.changeLockGales(natureLockIndex);
             shadow = natureLock.getType();
 
@@ -277,6 +277,22 @@ namespace RNGReporter
 
                     switch (shadow)
                     {
+                        case ShadowType.Eevee:
+                            if (pass)
+                            {
+                                uint tid = reverseXD(reverseXD(galesSeed));
+                                uint sid = reverseXD(tid);
+                                shinyval[0] = ((tid >> 16) ^ (sid >> 16)) >> 3;
+                                filterSeedEevee(hp, atk, def, spa, spd, spe, pid, nature, galesSeed);
+                            }
+                            if (xorPass)
+                            {
+                                uint tid = reverseXD(reverseXD(xorSeed));
+                                uint sid = reverseXD(tid);
+                                shinyval[0] = ((tid >> 16) ^ (sid >> 16)) >> 3;
+                                filterSeedEevee(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed);
+                            }
+                            break;
                         case ShadowType.NoLock:
                             if (pass)
                                 filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
@@ -535,13 +551,70 @@ namespace RNGReporter
             }
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, "", seed, reason, 0);
         }
+
+        private void filterSeedEevee(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed)
+        {
+            String shiny = "";
+            if (Shiny_Check.Checked)
+            {
+                if (!isShiny(pid, 0))
+                    return;
+                shiny = "!!!";
+            }
+
+            uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
+            if (hiddenPowerList != null && !hiddenPowerList.Contains(actualHP))
+                return;
+
+            uint ability = pid & 1;
+            if (abilityFilter != 0 && (ability != (abilityFilter - 1)))
+                return;
+
+            uint gender = pid & 255;
+            switch (genderFilter)
+            {
+                case 1:
+                    if (gender < 127)
+                        return;
+                    break;
+                case 2:
+                    if (gender > 126)
+                        return;
+                    break;
+                case 3:
+                    if (gender < 191)
+                        return;
+                    break;
+                case 4:
+                    if (gender > 190)
+                        return;
+                    break;
+                case 5:
+                    if (gender < 64)
+                        return;
+                    break;
+                case 6:
+                    if (gender > 63)
+                        return;
+                    break;
+                case 7:
+                    if (gender < 31)
+                        return;
+                    break;
+                case 8:
+                    if (gender > 30)
+                        return;
+                    break;
+            }
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "", 0);
+        }
         #endregion
 
         #region Colo Shadow Search
         private void getColoShadowMethod()
         {
             natureLockIndex = shadowPokemon.SelectedIndex;
-            galesFlag = false;
+            shinyLock = shadowPokemon.SelectedIndex != 0;
             natureLock.changeLockColo(natureLockIndex);
             shadow = natureLock.getType();
 
@@ -599,12 +672,48 @@ namespace RNGReporter
                     xorNature = xorPID % 25;
                     xorPass = (natureList == null || natureList.Contains(xorNature));
 
-                    if (pass && natureLock.firstShadow(seed))
-                        filterSeedColo(hp, atk, def, spa, spd, spe, pid, nature, seed, 0);
-                    else if (xorPass && natureLock.firstShadow(xorSeed))
-                        filterSeedColo(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
+                    switch (shadow)
+                    {
+                        case ShadowType.Celebi:
+                            uint celebiPID = getCelebiPID(pid1, pid2);
+                            if (celebiPID != pid)
+                            {
+                                uint celebiNature = celebiPID % 25;
+                                if (natureList == null || natureList.Contains(celebiNature))
+                                    filterSeedCelebi(hp, atk, def, spa, spd, spe, celebiPID, celebiNature, seed, 0);
+                                celebiPID ^= 0x80008000;
+                                celebiNature = celebiPID % 25;
+                                if (natureList == null || natureList.Contains(celebiNature))
+                                    filterSeedCelebi(hp, atk, def, spa, spd, spe, celebiPID, celebiNature, xorSeed, 0);
+                            }
+                            else
+                            {
+                                if (pass)
+                                    filterSeedCelebi(hp, atk, def, spa, spd, spe, pid, nature, seed, 0);
+                                if (xorPass)
+                                    filterSeedCelebi(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
+                            }
+                            break;
+                        case ShadowType.FirstShadow:
+                            if (pass && natureLock.firstShadow(seed))
+                                filterSeedColo(hp, atk, def, spa, spd, spe, pid, nature, seed, 0);
+                            else if (xorPass && natureLock.firstShadow(xorSeed))
+                                filterSeedColo(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
+                            break;
+                    }
                 }
             }
+        }
+
+        private uint getCelebiPID(uint pid1, uint pid2)
+        {
+            while ((((pid1 >> 16) ^ (pid2 >> 16)) >> 3) == 3890)
+            {
+                pid1 = forwardXD(pid2);
+                pid2 = forwardXD(pid1);
+            }
+
+            return (pid1 & 0xFFFF0000) | (pid2 >> 16);
         }
 
         private void filterSeedColo(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed, int num)
@@ -662,6 +771,55 @@ namespace RNGReporter
                     break;
             }
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "Pass NL", 0);
+        }
+
+        private void filterSeedCelebi(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed, int num)
+        {
+            uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
+            if (hiddenPowerList != null && !hiddenPowerList.Contains(actualHP))
+                return;
+
+            uint ability = pid & 1;
+            if (abilityFilter != 0 && (ability != (abilityFilter - 1)))
+                return;
+
+            uint gender = pid & 255;
+            switch (genderFilter)
+            {
+                case 1:
+                    if (gender < 127)
+                        return;
+                    break;
+                case 2:
+                    if (gender > 126)
+                        return;
+                    break;
+                case 3:
+                    if (gender < 191)
+                        return;
+                    break;
+                case 4:
+                    if (gender > 190)
+                        return;
+                    break;
+                case 5:
+                    if (gender < 64)
+                        return;
+                    break;
+                case 6:
+                    if (gender > 63)
+                        return;
+                    break;
+                case 7:
+                    if (gender < 31)
+                        return;
+                    break;
+                case 8:
+                    if (gender > 30)
+                        return;
+                    break;
+            }
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, "", seed, "", 0);
         }
         #endregion
 
@@ -1177,7 +1335,7 @@ namespace RNGReporter
             {
                 Seed = seed.ToString("X"),
                 PID = pid.ToString("X"),
-                Shiny = !galesFlag ? shiny == "" ? isShiny(pid, shinyIndex) ? "!!!" : "" : shiny : shiny,
+                Shiny = !shinyLock ? shiny == "" ? isShiny(pid, shinyIndex) ? "!!!" : "" : shiny : shiny,
                 Nature = Natures[nature],
                 Ability = ability,
                 Hp = hp,
@@ -2012,6 +2170,7 @@ namespace RNGReporter
                 "Dugtrio",
                 "Duskull",
                 "Electabuzz",
+                "Eevee",
                 "Exeggutor",
                 "Farfetch'd",
                 "Golduck",
@@ -2107,6 +2266,7 @@ namespace RNGReporter
         {
             return new String[]
             {
+                "Celebi",
                 "Heracross",
                 "Makuhita",
                 "Murkrow"
@@ -2128,7 +2288,12 @@ namespace RNGReporter
         private void galesCheck_CheckedChanged(object sender, EventArgs e)
         {
             if (shadowCheck.Checked)
-                Shiny_Check.Visible = searchMethod.SelectedIndex == 2;
+            {
+                if (searchMethod.SelectedIndex == 2)
+                    Shiny_Check.Visible = shadowPokemon.SelectedIndex != 0;
+                else
+                    Shiny_Check.Visible = shadowPokemon.SelectedIndex == 17;
+            }
             else
                 Shiny_Check.Visible = true;
         }
@@ -2136,7 +2301,13 @@ namespace RNGReporter
         private void shadowPokemon_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (shadowCheck.Checked)
-                Shiny_Check.Visible = searchMethod.SelectedIndex == 2;
+            {
+                if (searchMethod.SelectedIndex == 2)
+                    Shiny_Check.Visible = shadowPokemon.SelectedIndex != 0;
+                else
+                    Shiny_Check.Visible = shadowPokemon.SelectedIndex == 17;
+            }
+
         }
 
         private void searchMethod_SelectionChangeCommitted(object sender, EventArgs e)
@@ -2153,7 +2324,7 @@ namespace RNGReporter
             {
                 wshMkr.Visible = false;
                 Shiny_Check.Visible = true;
-                if (shadowCheck.Checked)
+                if (shadowCheck.Checked && shadowPokemon.SelectedIndex != 17)
                     Shiny_Check.Visible = false;
                 shadowPokemon.Visible = true;
                 shadowCheck.Visible = true;
@@ -2163,6 +2334,8 @@ namespace RNGReporter
             {
                 wshMkr.Visible = false;
                 Shiny_Check.Visible = true;
+                if (shadowCheck.Checked && shadowPokemon.SelectedIndex != 0)
+                    Shiny_Check.Visible = false;
                 shadowPokemon.Visible = true;
                 shadowCheck.Visible = true;
                 shadowPokemon.DataSource = coloShadows();
@@ -2180,7 +2353,7 @@ namespace RNGReporter
         {
             if (comboBoxGame.SelectedIndex == 0)
             {
-                List<int> secondShadows = new List<int> { 0, 6, 8, 10, 21, 30, 32, 37, 49, 56, 65, 66, 74, 92 };
+                List<int> secondShadows = new List<int> { 0, 6, 8, 10, 22, 31, 33, 38, 50, 57, 66, 67, 75, 93 };
                 if (secondShadows.Contains(comboBoxShadow.SelectedIndex))
                 {
                     comboBoxMethodShadow.Visible = true;

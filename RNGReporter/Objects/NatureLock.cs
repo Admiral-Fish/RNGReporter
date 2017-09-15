@@ -73,7 +73,7 @@ namespace RNGReporter.Objects
             new LockInfo[] { new LockInfo(12, 127, 255), new LockInfo(6, 0, 126), new LockInfo(18, 127, 255), new LockInfo(0, 127, 255) }, // Dugtrio
             new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(18, 0, 126), new LockInfo(12, 127, 255) }, // Duskull
             new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 63, 255) }, // Electabuzz
-            null, // Exeggutor
+            null, null, // Eevee, Exeggutor
             new LockInfo[] { new LockInfo(24, 127, 255), new LockInfo(0, 0, 126), new LockInfo(12, 127, 255) }, // Farfetch'd
             new LockInfo[] { new LockInfo(18, 0, 126), new LockInfo(6, 0, 126), new LockInfo(24, 127, 255) }, // Golduck
             new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(12, 127, 255) }, // Grimer
@@ -148,6 +148,7 @@ namespace RNGReporter.Objects
 
         private List<LockInfo[]> coloInfo = new List<LockInfo[]>()
         {
+            null, // Celebi
             new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(0, 126, 255) }, // Heracross
             new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) }, // Makuhita
             new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(12, 0, 126), new LockInfo(6, 127, 255 ) } // Murkrow
@@ -157,217 +158,62 @@ namespace RNGReporter.Objects
         {
             switch (natureLockIndex)
             {
-                case 0: //Altaria
-                    type = ShadowType.SecondShadow;
+                case 17: // Eevee
+                    type = ShadowType.Eevee;
                     break;
                 case 1: //Arbok
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 6: //Banette
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 8: //Butterfree
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 10: //Chansey
-                    type = ShadowType.SecondShadow;
-                    break;
                 case 11: //Delcatty
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 12: //Dodrio
-                    type = ShadowType.SingleLock;
-                    break;
                 case 13: //Dragonite
-                    type = ShadowType.FirstShadow;
-                    break;
                 case 14: //Dugtrio
-                    type = ShadowType.FirstShadow;
-                    break;
                 case 15: //Duskull
-                    type = ShadowType.FirstShadow;
-                    break;
                 case 16: //Electabuzz
+                case 19: //Farfetch'd  
+                case 20: //Golduck
+                case 21: //Grimer
+                case 23: //Gulpin 3
+                case 24: //Gulpin 1
+                case 25: //Gulpin 2
+                case 26: //Hitmonchan
+                case 27: //Hitmonlee
+                case 32: //Kangaskhan
+                case 35: //Lickitung
+                case 37: //Lunatone
+                case 39: //Magmar
+                case 40: //Magneton
+                case 41: //Makuhita
+                case 46: //Marowak
+                case 47: //Mawile
+                case 48: //Meowth
+                case 51: //Natu
+                case 52: //Nosepass
+                case 53: //Numel
+                case 54: //Paras
+                case 55: //Pidgeotto
+                case 58: //Poliwrath
+                case 60: //Primeape
+                case 61: //Ralts
+                case 62: //Rapidash
+                case 63: //Raticate
+                case 65: //Roselia
+                case 68: //Scyther
+                case 69: //Seedot 3
+                case 70: //Seedot 1
+                case 71: //Seedot 2
+                case 72: //Seel
+                case 74: //Shroomish
+                case 77: //Solrock
+                case 78: //Spearow
+                case 79: //Spheal 3
+                case 80: //Spheal 1
+                case 81: //Spheal 2
+                case 82: //Spinarak
+                case 83: //Starmie
+                case 85: //Swinub
+                case 86: //Tangela
+                case 90: //Venomoth
+                case 91: //Voltorb
+                case 92: //Vulpix
                     type = ShadowType.FirstShadow;
-                    break;
-                case 18: //Farfetch'd  
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 19: //Golduck
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 20: //Grimer
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 21: //Growlithe
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 22: //Gulpin 3
-                case 23: //Gulpin 1
-                case 24: //Gulpin 2
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 25: //Hitmonchan
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 26: //Hitmonlee
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 30: //Hypno
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 31: //Kangaskhan
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 32: //Lapras
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 33: //Ledyba
-                    type = ShadowType.SingleLock;
-                    break;
-                case 34: //Lickitung
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 36: //Lunatone
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 37: //Marcargo
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 38: //Magmar
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 39: //Magneton
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 40: //Makuhita
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 41: //Manectric
-                    type = ShadowType.SingleLock;
-                    break;
-                case 45: //Marowak
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 46: //Mawile
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 47: //Meowth
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 49: //Mr. Mime
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 50: //Natu
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 51: //Nosepass
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 52: //Numel
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 53: //Paras
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 54: //Pidgeotto
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 55: //Pineco
-                    type = ShadowType.SingleLock;
-                    break;
-                case 56: //Pinsir
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 57: //Poliwrath
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 58: //Poochyena
-                    type = ShadowType.SingleLock;
-                    break;
-                case 59: //Primeape
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 60: //Ralts
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 61: //Rapidash
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 62: //Raticate
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 64: //Roselia
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 65: //Sableye
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 66: //Salamence
-                    type = ShadowType.Salamence;
-                    break;
-                case 67: //Scyther
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 68: //Seedot 3
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 69: //Seedot 1
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 70: //Seedot 2
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 71: //Seel
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 73: //Shroomish
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 74: //Snorlax
-                    type = ShadowType.SecondShadow;
-                    break;
-                case 75: //Snorunt
-                    type = ShadowType.SingleLock;
-                    break;
-                case 76: //Solrock
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 77: //Spearow
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 78: //Spheal 3
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 79: //Spheal 1
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 80: //Spheal 2
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 81: //Spinarak
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 82: //Starmie
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 84: //Swinub
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 85: //Tangela
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 89: //Venomoth
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 90: //Voltorb
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 91: //Vulpix
-                    type = ShadowType.FirstShadow;
-                    break;
-                case 92: //Weepinbell
-                    type = ShadowType.SecondShadow;
                     break;
                 case 2: //Articuno 
                 case 3: //Baltoy 3
@@ -375,24 +221,50 @@ namespace RNGReporter.Objects
                 case 5: //Baltoy 2
                 case 7: //Beedrill
                 case 9: //Carvanha
-                case 17: //Exeggutor
-                case 27: //Houndour 3
-                case 28: //Houndour 1
-                case 29: //Houndour 2
-                case 35: //Lugia
-                case 42: //Mareep 3
-                case 43: //Mareep 1
-                case 44: //Mareep 2
-                case 48: //Moltres
-                case 63: //Rhydon
-                case 72: //Shellder
-                case 83: //Swellow
-                case 86: //Tauros
-                case 87: //Teddiursa
-                case 88: //Togepi
-                case 93: //Zangoose
+                case 18: //Exeggutor
+                case 28: //Houndour 3
+                case 29: //Houndour 1
+                case 30: //Houndour 2
+                case 36: //Lugia
+                case 43: //Mareep 3
+                case 44: //Mareep 1
+                case 45: //Mareep 2
+                case 49: //Moltres
+                case 64: //Rhydon
+                case 73: //Shellder
+                case 84: //Swellow
+                case 87: //Tauros
+                case 88: //Teddiursa
+                case 89: //Togepi
+                case 94: //Zangoose
                 default: //Zapdos 
                     type = ShadowType.NoLock;
+                    break;
+                case 67: //Salamence
+                    type = ShadowType.Salamence;
+                    break;
+                case 0: //Altaria
+                case 6: //Banette
+                case 8: //Butterfree
+                case 10: //Chansey
+                case 22: //Growlithe
+                case 31: //Hypno
+                case 33: //Lapras
+                case 38: //Marcargo
+                case 50: //Mr. Mime
+                case 57: //Pinsir
+                case 66: //Sableye
+                case 75: //Snorlax
+                case 93: //Weepinbell
+                    type = ShadowType.SecondShadow;
+                    break;
+                case 12: //Dodrio
+                case 34: //Ledyba
+                case 42: //Manectric
+                case 56: //Pineco
+                case 59: //Poochyena
+                case 76: //Snorunt
+                    type = ShadowType.SingleLock;
                     break;
             }
             return galesInfo[natureLockIndex];
@@ -402,7 +274,12 @@ namespace RNGReporter.Objects
         {
             switch (natureLockIndex)
             {
-                case 0: // Makuhita
+                case 0: // Celebi
+                    type = ShadowType.Celebi;
+                    break;
+                case 1: // Heracross
+                case 2: // Makuhita
+                case 3: // Murkrow
                     type = ShadowType.FirstShadow;
                     break;
             }
@@ -845,7 +722,9 @@ namespace RNGReporter.Objects
             SingleLock,
             FirstShadow,
             Salamence,
-            SecondShadow
+            SecondShadow,
+            Eevee,
+            Celebi
         }
     }
 

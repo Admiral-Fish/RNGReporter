@@ -27,9 +27,9 @@ namespace RNGReporter.Objects
         protected Frame frame;
         protected FrameType frameType = FrameType.Method1;
         protected List<Frame> frames;
-        private uint lastseed;
         protected uint maxResults;
         protected IRNG mt;
+        protected GenericRng rng;
         protected BWRng rng64 = new BWRng(0);
         protected List<uint> rngList;
 
@@ -184,7 +184,7 @@ namespace RNGReporter.Objects
             frames = new List<Frame>();
             var candidates = new List<Frame>();
 
-            var rng = new PokeRngR(0);
+            rng = new PokeRngR(0);
 
             uint k1 = (second << 16) - first * 0x41c64e6d;
 
@@ -1069,7 +1069,7 @@ namespace RNGReporter.Objects
             uint nature)
         {
             var frames = new List<Frame>();
-            var rngXD = new XdRng(0);
+            rng = new XdRng(0);
 
             for (uint hp = minhp; hp <= maxhp; hp++)
             {
@@ -1099,19 +1099,19 @@ namespace RNGReporter.Objects
 
                                         uint seed = (x_test << 16) | cnt;
 
-                                        rngXD.Seed = seed;
+                                        rng.Seed = seed;
 
                                         //  We have a max of 5 total RNG calls
                                         //  to make a pokemon and we already have
                                         //  one so lets go ahead and get 4 more.
-                                        uint rng1XD = rngXD.GetNext16BitNumber();
+                                        uint rng1XD = rng.GetNext16BitNumber();
                                         if ((rng1XD & 0x7FFF) != y_test)
                                             continue;
 
                                         // this second call isn't used for anything we know of
-                                        uint rng2XD = rngXD.GetNext16BitNumber();
-                                        uint rng3XD = rngXD.GetNext16BitNumber();
-                                        uint rng4XD = rngXD.GetNext16BitNumber();
+                                        uint rng2XD = rng.GetNext16BitNumber();
+                                        uint rng3XD = rng.GetNext16BitNumber();
+                                        uint rng4XD = rng.GetNext16BitNumber();
 
                                         uint XDColoSeed = seed*0xB9B33155 + 0xA170F641;
 
@@ -3597,7 +3597,7 @@ namespace RNGReporter.Objects
             }
             else if (frameType == FrameType.ColoXD)
             {
-                var rng = new XdRng((uint) InitialSeed);
+                rng = new XdRng((uint) InitialSeed);
                 rngList = new List<uint>();
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
@@ -3628,7 +3628,7 @@ namespace RNGReporter.Objects
             }
             else if(frameType == FrameType.Channel)
             {
-                var rng = new XdRng((uint)InitialSeed);
+                rng = new XdRng((uint)InitialSeed);
                 rngList = new List<uint>();
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
@@ -3666,7 +3666,7 @@ namespace RNGReporter.Objects
                 //  We are going to grab our initial set of rngs here and
                 //  then start our loop so that we can iterate as many 
                 //  times as we have to.
-                var rng = new PokeRng((uint) InitialSeed);
+                rng = new PokeRng((uint) InitialSeed);
                 rngList = new List<uint>();
 
                 for (uint cnt = 1; cnt < InitialFrame; cnt++)
@@ -3675,7 +3675,7 @@ namespace RNGReporter.Objects
                 for (uint cnt = 0; cnt < 20; cnt++)
                     rngList.Add(rng.GetNext16BitNumber());
 
-                lastseed = rng.Seed;
+                
 
                 for (uint cnt = 0; cnt < maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng.GetNext16BitNumber()))
                 {
@@ -4095,13 +4095,14 @@ namespace RNGReporter.Objects
             if (!useEverstone)
             {
                 // generate lower
-                if (rngList[i] > 0xFFFD)
-                    pid = (rngList[i] + 3)%0xFFFF;
+                pid = rngList[i];
+                if (pid > 0xFFFD)
+                    pid -= 0xFFFC;
                 else
-                    pid = (rngList[i] & 0xFFFF) + 1;
+                    pid++;
 
                 // generate upper
-                pid += trng.GetNext16BitNumber()*0x10000;
+                pid |= trng.GetNext32BitNumber() & 0xFFFF0000;
 
                 return pid;
             }
@@ -4118,12 +4119,12 @@ namespace RNGReporter.Objects
                     AddToRngList();
 
                 // generate lower
-                pid = (rngList[i++] & 0xFFFF);
+                pid = rngList[i++];
 
                 // generate upper
-                pid += trng.GetNext16BitNumber()*0x10000;
+                pid |= trng.GetNext32BitNumber() & 0xFFFF0000;
                 ++total;
-            } while (pid%0x19 != SynchNature);
+            } while (pid % 0x19 != SynchNature);
 
             return pid;
         }
@@ -4131,14 +4132,11 @@ namespace RNGReporter.Objects
         private void AddToRngList()
         {
             int i = rngList.Count;
+            int max = i + 20;
 
-            // seed the new RNG with the last seed
-            var rng = new PokeRng(lastseed);
             // add in the new elements
-            for (; i < rngList.Count + 20; ++i)
+            for (; i < max; ++i)
                 rngList.Add(rng.GetNext16BitNumber());
-
-            lastseed = rng.Seed;
         }
 
         public List<Frame> GenerateWonderCard(

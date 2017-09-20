@@ -777,7 +777,7 @@ namespace RNGReporter.Objects
                         var newSeed = new Seed
                         {
                             Method = "Method 4",
-                            Pid = pid,
+                            Pid = pidXor,
                             MonsterSeed = method234SeedXor,
                             Sid = sid
                         };

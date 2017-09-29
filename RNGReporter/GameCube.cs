@@ -245,9 +245,9 @@ namespace RNGReporter
             long kmax = (0x343fabc02 - t) / 0x80000000;
             long test = t;
 
-            uint pid1, pid2, pid, nature, galesSeed, xorSeed, xorPID, xorNature, antipid, antipidXor, antiNature, antiNatureXor;
+            uint pid1, pid2, pid, nature, seed, antipid, antiNature;
             long k;
-            bool pass, xorPass, antiPass, antiXorPass;
+            bool pass, antiPass, setPass = false, unsetPass = false, skipPass = false, nlPass = false;
 
             for (k = 0; k <= kmax; k++, test += 0x80000000)
             {
@@ -259,150 +259,110 @@ namespace RNGReporter
                     pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                     shinyval[7] = ((pid1 >> 16) ^ (pid2 >> 16)) >> 3;
                     nature = pid % 25;
-                    galesSeed = reverseXD(fullFirst);
+                    seed = reverseXD(fullFirst);
                     pass = (natureList == null || natureList.Contains(nature));
-
-                    xorSeed = galesSeed ^ 0x80000000;
-                    xorPID = pid ^ 0x80008000;
-                    xorNature = xorPID % 25;
-                    xorPass = (natureList == null || natureList.Contains(xorNature));
 
                     antipid = getAntiPID(pid1, pid2);
                     antiNature = antipid % 25;
                     antiPass = (natureList == null || natureList.Contains(antiNature));
 
-                    antipidXor = antipid ^ 0x80008000;
-                    antiNatureXor = antipidXor % 25;
-                    antiXorPass = (natureList == null || natureList.Contains(antiNatureXor));
-
-                    switch (shadow)
+                    for (int i = 0; i < 2; i++)
                     {
-                        case ShadowType.Eevee:
-                            if (pass)
-                            {
-                                uint tid = reverseXD(reverseXD(galesSeed));
-                                uint sid = reverseXD(tid);
-                                shinyval[0] = ((tid >> 16) ^ (sid >> 16)) >> 3;
-                                filterSeedEevee(hp, atk, def, spa, spd, spe, pid, nature, galesSeed);
-                            }
-                            if (xorPass)
-                            {
-                                uint tid = reverseXD(reverseXD(xorSeed));
-                                uint sid = reverseXD(tid);
-                                shinyval[0] = ((tid >> 16) ^ (sid >> 16)) >> 3;
-                                filterSeedEevee(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed);
-                            }
-                            break;
-                        case ShadowType.NoLock:
-                            if (pass)
-                                filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
-                            if (antiPass)
-                                filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
-                            if (xorPass)
-                                filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
-                            if (antiXorPass)
-                                filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
-                            break;
-                        case ShadowType.FirstShadow:
-                            if (natureLock.firstShadow(galesSeed))
-                            {
+                        if (i == 1)
+                        {
+                            seed ^= 0x80000000;
+                            pid ^= 0x80008000;
+                            nature = pid % 25;
+                            antipid ^= 0x80008000;
+                            antiNature = antipid % 25;
+                            pass = (natureList == null || natureList.Contains(nature));
+                            antiPass = (natureList == null || natureList.Contains(antiNature));
+                        }
+
+                        switch (shadow)
+                        {
+                            case ShadowType.Eevee:
                                 if (pass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
-                                if (antiPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
-                            }
-                            else if (natureLock.firstShadow(xorSeed))
-                            {
-                                if (xorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
-                                if (antiXorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
-                            }
-                            break;
-                        case ShadowType.SingleLock:
-                            if (natureLock.singleNL(galesSeed))
-                            {
+                                {
+                                    uint tid = reverseXD(reverseXD(seed));
+                                    uint sid = reverseXD(tid);
+                                    shinyval[0] = ((tid >> 16) ^ (sid >> 16)) >> 3;
+                                    filterSeedEevee(hp, atk, def, spa, spd, spe, pid, nature, seed);
+                                }
+                                break;
+                            case ShadowType.NoLock:
                                 if (pass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 0, false);
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, seed, 0, false);
                                 if (antiPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 0, true);
-                            }
-                            else if (natureLock.singleNL(xorSeed))
-                            {
-                                if (xorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0, false);
-                                if (antiXorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 0, true);
-                            }
-                            break;
-                        case ShadowType.Salamence:
-                            if (natureLock.salamenceSet(galesSeed))
-                            {
-                                if (pass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
-                                if (antiPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 1, true);
-                            }
-                            else if (natureLock.salamenceSet(xorSeed))
-                            {
-                                if (xorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
-                                if (antiXorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 1, true);
-                            }
-                            else if (natureLock.salamenceUnset(galesSeed))
-                            {
-                                if (pass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
-                                if (antiPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 2, true);
-                            }
-                            else if (natureLock.salamenceUnset(xorSeed))
-                            {
-                                if (xorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
-                                if (antiXorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
-                            }
-                            else if (natureLock.salamenceShinySkip(galesSeed))
-                                filterShinySkip(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, antipid, antiNature);
-                            else if (natureLock.salamenceShinySkip(xorSeed))
-                                filterShinySkip(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, antipidXor, antiNatureXor);
-                            break;
-                        case ShadowType.SecondShadow:
-                            if (natureLock.secondShadowSet(galesSeed))
-                            {
-                                if (pass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 1, false);
-                                if (antiPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 1, true);
-                            }
-                            else if (natureLock.secondShadowSet(xorSeed))
-                            {
-                                if (xorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 1, false);
-                                if (antiXorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 1, true);
-                            }
-                            else if (natureLock.secondShadowUnset(galesSeed))
-                            {
-                                if (pass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, 2, false);
-                                if (antiPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, galesSeed, 2, true);
-                            }
-                            else if (natureLock.secondShadowUnset(xorSeed))
-                            {
-                                if (xorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 2, false);
-                                if (antiXorPass)
-                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipidXor, antiNatureXor, xorSeed, 2, true);
-                            }
-                            else if (natureLock.secondShadowShinySkip(galesSeed))
-                                filterShinySkip(hp, atk, def, spa, spd, spe, pid, nature, galesSeed, antipid, antiNature);
-                            else if (natureLock.secondShadowShinySkip(xorSeed))
-                                filterShinySkip(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, antipidXor, antiNatureXor);
-                            break;
+                                    filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, seed, 0, true);
+                                break;
+                            case ShadowType.FirstShadow:
+                                if (!nlPass && natureLock.firstShadow(seed))
+                                {
+                                    nlPass = true;
+                                    if (pass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, seed, 0, false);
+                                    if (antiPass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, seed, 0, true);
+                                }
+                                break;
+                            case ShadowType.SingleLock:
+                                if (!nlPass && natureLock.singleNL(seed))
+                                {
+                                    nlPass = true;
+                                    if (pass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, seed, 0, false);
+                                    if (antiPass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, seed, 0, true);
+                                }
+                                break;
+                            case ShadowType.Salamence:
+                                if (!setPass && natureLock.salamenceSet(seed))
+                                {
+                                    setPass = true;
+                                    if (pass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, seed, 1, false);
+                                    if (antiPass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, seed, 1, true);
+                                }
+                                else if (!unsetPass && natureLock.salamenceUnset(seed))
+                                {
+                                    unsetPass = true;
+                                    if (pass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, seed, 2, false);
+                                    if (antiPass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, seed, 2, true);
+                                }
+                                else if (!skipPass && natureLock.salamenceShinySkip(seed))
+                                {
+                                    skipPass = true;
+                                    filterShinySkip(hp, atk, def, spa, spd, spe, pid, nature, seed, antipid, antiNature);
+                                }
+                                break;
+                            case ShadowType.SecondShadow:
+                                if (!setPass && natureLock.secondShadowSet(seed))
+                                {
+                                    setPass = true;
+                                    if (pass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, seed, 1, false);
+                                    if (antiPass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, seed, 1, true);
+                                }
+                                else if (!unsetPass && natureLock.secondShadowUnset(seed))
+                                {
+                                    unsetPass = true;
+                                    if (pass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, pid, nature, seed, 2, false);
+                                    if (antiPass)
+                                        filterSeedGales(hp, atk, def, spa, spd, spe, antipid, antiNature, seed, 2, true);
+                                }
+                                else if (!skipPass && natureLock.secondShadowShinySkip(seed))
+                                {
+                                    skipPass = true;
+                                    filterShinySkip(hp, atk, def, spa, spd, spe, pid, nature, seed, antipid, antiNature);
+                                }
+                                break;
+                        }
                     }
                 }
             }

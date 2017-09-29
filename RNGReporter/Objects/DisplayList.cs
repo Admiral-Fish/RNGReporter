@@ -86,6 +86,8 @@ namespace RNGReporter
 
         public int Slot { get; set; }
 
+        public String Lead { get; set; }
+
         public String PID { get; set; }
 
         public String Shiny { get; set; }

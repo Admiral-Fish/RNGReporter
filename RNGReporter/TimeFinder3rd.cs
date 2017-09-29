@@ -2078,6 +2078,7 @@ namespace RNGReporter
         #region Wild Encounter Slots Time Finder
         private byte[] low8;
         private bool[] flags;
+        private bool synch;
         #region Search Settings
         private void searchWild_Click(object sender, EventArgs e)
         {
@@ -2139,9 +2140,17 @@ namespace RNGReporter
                     hiddenPowerList = temp;
 
                 if (methodNum == 0 || methodNum == 1 || methodNum == 2)
+                {
                     dataGridViewResult.Columns[1].Visible = false;
+                    dataGridViewResult.Columns[2].Visible = false;
+                }
                 else
+                {
                     dataGridViewResult.Columns[1].Visible = true;
+                    dataGridViewResult.Columns[2].Visible = true;
+                }
+
+                synch = checkBoxWildSynch.Checked;
 
                 searchThread = new Thread(() => getSearch(ivsLower, ivsUpper, methodNum));
                 searchThread.Start();
@@ -2153,38 +2162,20 @@ namespace RNGReporter
 
         private void getSearch(uint[] ivsLower, uint[] ivsUpper, int num)
         {
-            uint method = 1;
-
-            for (int x = 0; x < 6; x++)
+            if (num == 0 || num == 3)
             {
-                uint temp = ivsUpper[x] - ivsLower[x] + 1;
-                method *= temp;
+                fillCache();
+                methodH1IV(ivsLower, ivsUpper, num);
             }
-
-            if (method > 76871)
+            else if (num == 1 || num == 4)
             {
-                if (num == 0 || num == 1 || num == 2)
-                    method124Frame(ivsLower, ivsUpper, num);
-                else
-                    methodH124Frame(ivsLower, ivsUpper, num);
+                fillCache();
+                methodH2IV(ivsLower, ivsUpper, num);
             }
             else
             {
-                if (num == 0 || num == 3)
-                {
-                    fillCache();
-                    methodH1IV(ivsLower, ivsUpper, num);
-                }
-                else if (num == 1 || num == 4)
-                {
-                    fillCache();
-                    methodH2IV(ivsLower, ivsUpper, num);
-                }
-                else
-                {
-                    fillCacheSkip();
-                    methodH4IV(ivsLower, ivsUpper, num);
-                }
+                fillCacheSkip();
+                methodH4IV(ivsLower, ivsUpper, num);
             }
         }
         #endregion
@@ -2222,122 +2213,45 @@ namespace RNGReporter
         private void checkSeed1(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, int method, uint first, uint second)
         {
             uint k = second - first * 0x41c64e6d;
+            var rng = new PokeRngR(0);
             for (uint cnt = 0; cnt < 256; cnt++, k -= 0xc64e6d00)
             {
                 uint test = k >> 16;
                 if (!flags[test])
                     continue;
 
-                uint fullFirst = (first | (cnt << 8) | low8[test]);
-                if ((forward(fullFirst) & 0x7FFF0000) != second)
+                uint rng1 = (first | (cnt << 8) | low8[test]);
+                rng.Seed = rng1;
+                if ((forward(rng1) & 0x7FFF0000) != second)
                     continue;
 
-                uint pid2 = reverse(fullFirst);
-                uint pid1 = reverse(pid2);
-                uint seed = reverse(pid1);
-                uint pid = (pid2 & 0xFFFF0000) | (pid1 >> 16);
+                uint rng2 = rng.GetNext16BitNumber();
+                uint rng3 = rng.GetNext16BitNumber();
+                uint rng4 = rng.GetNext16BitNumber();
+                uint seed = rng.Seed;
+                uint pid = (rng2 << 16) | (rng3);
                 uint nature = pid % 25;
 
-                uint xorSeed = seed ^ 0x80000000;
-                uint xorPID = pid ^ 0x80008000;
-                uint xorNature = xorPID % 25;
+                for (int i = 0; i < 2; i++)
+                {
+                    if (i == 1)
+                    {
+                        seed ^= 0x80000000;
+                        pid ^= 0x80008000;
+                        nature = pid % 25;
+                    }
 
-                if (method == 0)
-                {
-                    if (natureList == null || natureList.Contains(nature))
-                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed, method, 0);
-                    if (natureList == null || natureList.Contains(xorNature))
-                        filterSeed(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, method, 0);
-                }
-                else
-                {
-                    if (natureList == null || natureList.Contains(nature))
+                    if (method == 0)
                     {
-                        getEncounterSlot(seed, pid, out int slot, out seed);
-                        if (validatePID(seed) == pid)
-                        {
-                            if (slotsList == null || slotsList.Contains((uint)slot))
-                                filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed, method, slot);
-                        }
+                        if (natureList == null || natureList.Contains(nature))
+                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed, method, 0, "");
                     }
-                    if (natureList == null || natureList.Contains(xorNature))
+                    else
                     {
-                        getEncounterSlot(xorSeed, xorPID, out int slot, out xorSeed);
-                        if (validatePID(xorSeed) == xorPID)
-                        {
-                            if (slotsList == null || slotsList.Contains((uint)slot))
-                                filterSeed(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, method, slot);
-                        }
+                        checkEncounterSlots(hp, atk, def, spa, spd, spe, pid, nature, seed, method);
                     }
-                    
                 }
             }
-        }
-        #endregion
-
-        #region Method H124 Frame
-        private void methodH124Frame(uint[] ivsLower, uint[] ivsUpper, int method)
-        {
-            uint s = 0;
-            uint srange = 1048576;
-            isSearching = true;
-
-            abilityFilter = getAbility();
-            genderFilter = getGender();
-
-            for (uint z = 0; z < 32; z++)
-            {
-                for (uint h = 0; h < 64; h++)
-                {
-                    populate(s, srange + 1000);
-                    for (uint n = 0; n < srange; n++)
-                    {
-                        for (uint sisterSeed = 0; sisterSeed < 2; sisterSeed++)
-                        {
-                            int slot = EncounterSlotCalc.encounterSlot(sisterSeed == 0 ? slist[(int)n + 1] : slist[(int)n + 1] ^ 0x80000000, FrameType.MethodH1, encounterType);
-                            if (slotsList == null || slotsList.Contains((uint)slot))
-                            {
-                                uint pid = 0;
-                                uint nature = (sisterSeed == 0 ? slist[(int)n + 3] : slist[(int)n + 3] ^ 0x80000000) >> 16;
-                                nature = nature - 25 * (nature / 25);
-                                if (natureList == null || natureList.Contains(nature))
-                                {
-                                    int count = 3;
-                                    bool flag = true;
-                                    uint pid1, pid2;
-                                    while (flag)
-                                    {
-                                        pid1 = sisterSeed == 0 ? rlist[(int)(n + 1 + count)] : rlist[(int)(n + 1 + count)] ^ 0x8000;
-                                        pid2 = sisterSeed == 0 ? rlist[(int)(n + 2 + count)] : rlist[(int)(n + 2 + count)] ^ 0x8000;
-                                        pid = (pid2 << 16) | pid1;
-                                        if ((pid - 25 * (pid / 25)) == nature)
-                                            flag = false;
-                                        else
-                                            count += 2;
-                                    }
-                                    uint[] ivs;
-                                    if (method == 3)
-                                        ivs = createIVs(sisterSeed == 0 ? rlist[(int)(n + 3 + count)] : rlist[(int)(n + 3 + count)] ^ 0x8000, sisterSeed == 0 ? rlist[(int)(n + 4 + count)] : rlist[(int)(n + 4 + count)] ^ 0x8000, ivsLower, ivsUpper);
-                                    else if (method == 4)
-                                        ivs = createIVs(sisterSeed == 0 ? rlist[(int)(n + 4 + count)] : rlist[(int)(n + 4 + count)] ^ 0x8000, sisterSeed == 0 ? rlist[(int)(n + 5 + count)] : rlist[(int)(n + 5 + count)] ^ 0x8000, ivsLower, ivsUpper);
-                                    else
-                                        ivs = createIVs(sisterSeed == 0 ? rlist[(int)(n + 3 + count)] : rlist[(int)(n + 3 + count)] ^ 0x8000, sisterSeed == 0 ? rlist[(int)(n + 5 + count)] : rlist[(int)(n + 4 + count)] ^ 0x8000, ivsLower, ivsUpper);
-                                    if (ivs != null)
-                                    {
-                                        filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, sisterSeed == 0 ? slist[(int)n] : slist[(int)n] ^ 0x80000000, method, slot);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    refresh = true;
-                    s = slist[(int)srange];
-                    slist.Clear();
-                    rlist.Clear();
-                }
-            }
-            isSearching = false;
-            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
         }
         #endregion
 
@@ -2390,38 +2304,24 @@ namespace RNGReporter
                 uint pid = (pid2 & 0xFFFF0000) | (pid1 >> 16);
                 uint nature = pid % 25;
 
-                uint xorSeed = seed ^ 0x80000000;
-                uint xorPID = pid ^ 0x80008000;
-                uint xorNature = xorPID % 25;
-
-                if (method == 1)
+                for (int i = 0; i < 2; i++)
                 {
-                    if (natureList == null || natureList.Contains(nature))
-                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed, method, 0);
-                    if (natureList == null || natureList.Contains(xorNature))
-                        filterSeed(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, method, 0);
-                }
-                else
-                {
-                    if (natureList == null || natureList.Contains(nature))
+                    if (i == 1)
                     {
-                        getEncounterSlot(seed, pid, out int slot, out seed);
-                        if (validatePID(seed) == pid)
-                        {
-                            if (slotsList == null || slotsList.Contains((uint)slot))
-                                filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed, method, slot);
-                        }
-                    }
-                    if (natureList == null || natureList.Contains(xorNature))
-                    {
-                        getEncounterSlot(xorSeed, xorPID, out int slot, out xorSeed);
-                        if (validatePID(xorSeed) == xorPID)
-                        {
-                            if (slotsList == null || slotsList.Contains((uint)slot))
-                                filterSeed(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, method, slot);
-                        }
+                        seed ^= 0x80000000;
+                        pid ^= 0x80008000;
+                        nature = pid % 25;
                     }
 
+                    if (method == 1)
+                    {
+                        if (natureList == null || natureList.Contains(nature))
+                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed, method, 0, "");
+                    }
+                    else
+                    {
+                        checkEncounterSlots(hp, atk, def, spa, spd, spe, pid, nature, seed, method);
+                    }
                 }
             }
         }
@@ -2480,126 +2380,80 @@ namespace RNGReporter
                 uint xorPID = pid ^ 0x80008000;
                 uint xorNature = xorPID % 25;
 
-                if (method == 2)
+                for (int i = 0; i < 2; i++)
                 {
-                    if (natureList == null || natureList.Contains(nature))
-                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed, method, 0);
-                    if (natureList == null || natureList.Contains(xorNature))
-                        filterSeed(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, method, 0);
-                }
-                else
-                {
-                    if (natureList == null || natureList.Contains(nature))
+                    if (i == 1)
                     {
-                        getEncounterSlot(seed, pid, out int slot, out seed);
-                        if (validatePID(seed) == pid)
-                        {
-                            if (slotsList == null || slotsList.Contains((uint)slot))
-                                filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed, method, slot);
-                        }
+                        seed ^= 0x80000000;
+                        pid ^= 0x80008000;
+                        nature = pid % 25;
                     }
-                    if (natureList == null || natureList.Contains(xorNature))
+
+                    if (method == 2)
                     {
-                        getEncounterSlot(xorSeed, xorPID, out int slot, out xorSeed);
-                        if (validatePID(xorSeed) == xorPID)
-                        {
-                            if (slotsList == null || slotsList.Contains((uint)slot))
-                                filterSeed(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, method, slot);
-                        }
+                        if (natureList == null || natureList.Contains(nature))
+                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, seed, method, 0, "");
+                    }
+                    else
+                    {
+                        checkEncounterSlots(hp, atk, def, spa, spd, spe, pid, nature, seed, method);
                     }
                 }
             }
         }
         #endregion
 
-        #region Method 124 Frame
-        private void method124Frame(uint[] ivsLower, uint[] ivsUpper, int method)
+        private void checkEncounterSlots(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed, int method)
         {
-            uint s = 0;
-            uint srange = 1048576;
-            isSearching = true;
-
-            abilityFilter = getAbility();
-            genderFilter = getGender();
-
-            for (uint z = 0; z < 32; z++)
+            if (natureList == null || natureList.Contains(nature))
             {
-                for (uint h = 0; h < 64; h++)
-                {
-                    populate(s, srange);
-                    for (uint n = 0; n < srange; n++)
-                    {
-                        uint[] ivs;
-                        if (method == 0)
-                            ivs = createIVs(rlist[(int)(n + 3)], rlist[(int)(n + 4)], ivsLower, ivsUpper);
-                        else if (method == 1)
-                            ivs = createIVs(rlist[(int)(n + 4)], rlist[(int)(n + 5)], ivsLower, ivsUpper);
-                        else
-                            ivs = createIVs(rlist[(int)(n + 3)], rlist[(int)(n + 5)], ivsLower, ivsUpper);
-                        if (ivs != null)
-                        {
-                            uint pid = pidChk(n);
-                            uint nature = pid - 25 * (pid / 25);
-                            if (natureList == null || natureList.Contains(nature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, slist[(int)(n)], method, 0);
+                var testRNG = new PokeRngR(seed);
+                uint testPID;
+                uint nextRNG = seed >> 16;
+                uint nextRNG2 = testRNG.GetNext16BitNumber();
+                uint slot = 0;
 
-                            pid ^= 0x80008000;
-                            nature = pid - 25 * (pid / 25);
-                            if (natureList == null || natureList.Contains(nature))
-                                filterSeed(ivs[0], ivs[1], ivs[2], ivs[3], ivs[4], ivs[5], pid, nature, slist[(int)(n)] ^ 0x80000000, method, 0);
+                do
+                {
+                    // Check normal
+                    if (nextRNG % 25 == nature)
+                    {
+                        uint testSeed = testRNG.Seed;
+
+                        slot = testSeed * 0xeeb9eb65 + 0xa3561a1;
+                        testSeed = slot * 0xeeb9eb65 + 0xa3561a1;
+
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, testSeed, method, EncounterSlotCalc.encounterSlot(slot, FrameType.MethodH1, encounterType), "None");
+
+                        // Check failed synch
+                        if (synch && (nextRNG2 & 1) == 1)
+                        {
+                            slot = slot * 0xeeb9eb65 + 0xa3561a1;
+                            testSeed = testSeed * 0xeeb9eb65 + 0xa3561a1;
+
+                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, testSeed, method, EncounterSlotCalc.encounterSlot(slot, FrameType.MethodH1, encounterType), "Synch");
                         }
                     }
-                    refresh = true;
-                    s = slist[(int)srange];
-                    slist.Clear();
-                    rlist.Clear();
+                    // Check synch
+                    else if (synch && (nextRNG & 1) == 0)
+                    {
+                        uint testSeed = testRNG.Seed;
+
+                        slot = testSeed * 0xeeb9eb65 + 0xa3561a1;
+                        testSeed = slot * 0xeeb9eb65 + 0xa3561a1;
+
+                        filterSeed(hp, atk, def, spa, spd, spe, pid, nature, testSeed, method, EncounterSlotCalc.encounterSlot(slot, FrameType.MethodH1, encounterType), "Synch");
+                    }
+
+                    testPID = (nextRNG << 16) | (nextRNG2);
+                    nextRNG = testRNG.GetNext16BitNumber();
+                    nextRNG2 = testRNG.GetNext16BitNumber();
                 }
+                while (testPID % 25 != nature);
             }
-            isSearching = false;
-            status.Invoke((MethodInvoker)(() => status.Text = "Done. - Awaiting Command"));
-        }
-        private uint[] createIVs(uint iv1, uint ivs2, uint[] ivsLower, uint[] ivsUpper)
-        {
-            uint[] ivs = new uint[6];
-
-            for (int x = 0; x < 3; x++)
-            {
-                int q = x * 5;
-                uint iv = (iv1 >> q) & 31;
-                if (iv >= ivsLower[x] && iv <= ivsUpper[x])
-                    ivs[x] = iv;
-                else
-                    return null;
-            }
-
-            uint iV = (ivs2 >> 5) & 31;
-            if (iV >= ivsLower[3] && iV <= ivsUpper[3])
-                ivs[3] = iV;
-            else
-                return null;
-
-            iV = (ivs2 >> 10) & 31;
-            if (iV >= ivsLower[4] && iV <= ivsUpper[4])
-                ivs[4] = iV;
-            else
-                return null;
-
-            iV = ivs2 & 31;
-            if (iV >= ivsLower[5] && iV <= ivsUpper[5])
-                ivs[5] = iV;
-            else
-                return null;
-
-            return ivs;
         }
 
-        private uint pidChk(uint frame)
-        {
-            return (rlist[(int)(frame + 2)] << 16) | rlist[(int)(frame + 1)];
-        }
-        #endregion
-
-        private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed, int method, int slot)
+        private void filterSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed, int method, int slot, String lead)
         {
             String shiny = "";
             if (checkBoxShiny.Checked)
@@ -2608,6 +2462,11 @@ namespace RNGReporter
                     return;
                 shiny = "!!!";
             }
+
+            if (method == 3 || method == 4 || method == 5)
+                if (slotsList != null)
+                    if (!slotsList.Contains((uint)slot))
+                        return;
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
             if (hiddenPowerList != null && (!hiddenPowerList.Contains(actualHP)))
@@ -2654,10 +2513,10 @@ namespace RNGReporter
                         return;
                     break;
             }
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, slot);
+            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, slot, lead);
         }
 
-        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, int slot)
+        private void addSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint nature, uint ability, uint gender, uint hP, uint pid, String shiny, uint seed, int slot, String lead)
         {
             if (shiny == "")
                 if (isShiny(pid))
@@ -2667,6 +2526,7 @@ namespace RNGReporter
             {
                 Seed = seed.ToString("X"),
                 Slot = slot,
+                Lead = lead,
                 PID = pid.ToString("X"),
                 Shiny = shiny,
                 Nature = Natures[nature],
@@ -2698,6 +2558,7 @@ namespace RNGReporter
                 comboBoxSlots.Visible = false;
                 label5.Visible = false;
                 anySlots.Visible = false;
+                checkBoxWildSynch.Visible = false;
             }
             else
             {
@@ -2706,6 +2567,7 @@ namespace RNGReporter
                 comboBoxSlots.Visible = true;
                 label5.Visible = true;
                 anySlots.Visible = true;
+                checkBoxWildSynch.Visible = true;
             }
         }
 
@@ -2772,37 +2634,6 @@ namespace RNGReporter
                 flags[val] = true;
                 low8[val] = (byte)i;
             }
-        }
-
-        private void getEncounterSlot(uint initialSeed, uint pid, out int slot, out uint seed)
-        {
-            uint nature = pid % 25;
-            var rng = new PokeRngR(initialSeed);
-            rng.GetNext32BitNumber();
-            uint searchNature = rng.GetNext16BitNumber() % 25;
-
-            while (searchNature != nature)
-            {
-                rng.GetNext32BitNumber();
-                searchNature = rng.GetNext16BitNumber() % 25;
-            }
-
-            rng.GetNext32BitNumber(2);
-            slot = EncounterSlotCalc.encounterSlot(rng.Seed, FrameType.MethodH1, encounterType);
-            seed = rng.GetNext32BitNumber();
-        }
-
-        private uint validatePID(uint seed)
-        {
-            var rng = new PokeRng(seed);
-            rng.GetNext32BitNumber(2);
-            uint nature = rng.GetNext16BitNumber() % 25;
-            uint pid = rng.GetNext16BitNumber() | (rng.GetNext32BitNumber() & 0xFFFF0000);
-
-            while (pid % 25 != nature)
-                pid = rng.GetNext16BitNumber() | (rng.GetNext32BitNumber() & 0xFFFF0000);
-
-            return pid;
         }
 
         private EncounterType getEncounterType(int num)
@@ -3090,27 +2921,12 @@ namespace RNGReporter
 
         private uint forward(uint seed)
         {
-            return ((seed * 0x41c64e6d + 0x6073) & 0xFFFFFFFF);
+            return seed * 0x41c64e6d + 0x6073;
         }
 
         private uint reverse(uint seed)
         {
-            return ((seed * 0xeeb9eb65 + 0xa3561a1) & 0xFFFFFFFF);
-        }
-
-        private uint populateRNGR(uint seed)
-        {
-            seed = forward(seed);
-            slist.Add(seed);
-            rlist.Add((seed >> 16));
-            return seed;
-        }
-
-        private void populate(uint seed, uint srange)
-        {
-            uint s = seed;
-            for (uint x = 0; x < (srange + 10); x++)
-                s = populateRNGR(s);
+            return seed * 0xeeb9eb65 + 0xa3561a1;
         }
 
         private void updateGUI()

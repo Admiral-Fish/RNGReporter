@@ -61,7 +61,7 @@ namespace RNGReporter
         private List<WildSlots> wildSlots;
         private bool isSearching;
         private List<uint> natureList;
-        private List<uint> slotsList;
+        private List<int> slotsList;
         private EncounterType encounterType;
         private Thread searchThread;
         private bool refresh;
@@ -2120,8 +2120,8 @@ namespace RNGReporter
                 slotsList = null;
                 if (comboBoxSlots.Text != "Any" && comboBoxSlots.CheckBoxItems.Count > 0)
                 {
-                    slotsList = new List<uint>();
-                    for (uint i = 0; i < comboBoxSlots.CheckBoxItems.Count; i++)
+                    slotsList = new List<int>();
+                    for (int i = 0; i < comboBoxSlots.CheckBoxItems.Count; i++)
                     {
                         if (comboBoxSlots.CheckBoxItems[(int)i].Checked)
                             // We have to subtract 1 because this custom control contains a hidden item for text display
@@ -2465,7 +2465,7 @@ namespace RNGReporter
 
             if (method == 3 || method == 4 || method == 5)
                 if (slotsList != null)
-                    if (!slotsList.Contains((uint)slot))
+                    if (!slotsList.Contains(slot))
                         return;
 
             uint actualHP = calcHP(hp, atk, def, spa, spd, spe);

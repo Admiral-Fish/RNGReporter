@@ -2078,7 +2078,7 @@ namespace RNGReporter
         #region Wild Encounter Slots Time Finder
         private byte[] low8;
         private bool[] flags;
-        private bool synch;
+        private bool synchCharm;
         #region Search Settings
         private void searchWild_Click(object sender, EventArgs e)
         {
@@ -2150,7 +2150,7 @@ namespace RNGReporter
                     dataGridViewResult.Columns[2].Visible = true;
                 }
 
-                synch = checkBoxWildSynch.Checked;
+                synchCharm = checkBoxWildSynchCharm.Checked;
 
                 searchThread = new Thread(() => getSearch(ivsLower, ivsUpper, methodNum));
                 searchThread.Start();
@@ -2425,17 +2425,20 @@ namespace RNGReporter
 
                         filterSeed(hp, atk, def, spa, spd, spe, pid, nature, testSeed, method, EncounterSlotCalc.encounterSlot(slot, FrameType.MethodH1, encounterType), "None");
 
-                        // Check failed synch
-                        if (synch && (nextRNG2 & 1) == 1)
-                        {
-                            slot = slot * 0xeeb9eb65 + 0xa3561a1;
-                            testSeed = testSeed * 0xeeb9eb65 + 0xa3561a1;
+                        // Change so no conflict between failed synch and cute charm
+                        slot = slot * 0xeeb9eb65 + 0xa3561a1;
+                        testSeed = testSeed * 0xeeb9eb65 + 0xa3561a1;
 
+                        // Check failed synch
+                        if (synchCharm && (nextRNG2 & 1) == 1)
                             filterSeed(hp, atk, def, spa, spd, spe, pid, nature, testSeed, method, EncounterSlotCalc.encounterSlot(slot, FrameType.MethodH1, encounterType), "Synch");
-                        }
+
+                        // Check Cute Charm
+                        if (synchCharm && (nextRNG2 % 3) > 0)
+                            filterSeed(hp, atk, def, spa, spd, spe, pid, nature, testSeed, method, EncounterSlotCalc.encounterSlot(slot, FrameType.MethodH1, encounterType), "Cute Charm");
                     }
                     // Check synch
-                    else if (synch && (nextRNG & 1) == 0)
+                    else if (synchCharm && (nextRNG & 1) == 0)
                     {
                         uint testSeed = testRNG.Seed;
 
@@ -2558,7 +2561,7 @@ namespace RNGReporter
                 comboBoxSlots.Visible = false;
                 label5.Visible = false;
                 anySlots.Visible = false;
-                checkBoxWildSynch.Visible = false;
+                checkBoxWildSynchCharm.Visible = false;
             }
             else
             {
@@ -2567,7 +2570,7 @@ namespace RNGReporter
                 comboBoxSlots.Visible = true;
                 label5.Visible = true;
                 anySlots.Visible = true;
-                checkBoxWildSynch.Visible = true;
+                checkBoxWildSynchCharm.Visible = true;
             }
         }
 

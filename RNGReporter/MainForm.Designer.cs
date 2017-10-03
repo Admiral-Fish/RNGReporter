@@ -1035,15 +1035,6 @@ namespace RNGReporter
             // comboBoxCPUCount
             // 
             this.comboBoxCPUCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxCPUCount.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
             this.comboBoxCPUCount.Name = "comboBoxCPUCount";
             this.comboBoxCPUCount.Size = new System.Drawing.Size(121, 23);
             this.comboBoxCPUCount.SelectedIndexChanged += new System.EventHandler(this.comboBoxCPUCount_SelectedIndexChanged);

@@ -158,6 +158,9 @@ namespace RNGReporter
             Location = Settings.Default.MyLoc;
             WindowState = Settings.Default.MyState;
 
+            for (int i = 1; i <= Environment.ProcessorCount; i++)
+                comboBoxCPUCount.Items.Add(i);
+
             comboBoxCPUCount.SelectedIndex = Settings.Default.CPUs - 1;
             comboBoxMethod.SelectedIndex = 0;
             comboBoxNature.SelectedIndex = 0;

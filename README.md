@@ -4,7 +4,7 @@
 I will no longer be actively developing RNG Reporter. I will attempt to fix any bugs that are found. Checkout [PokeFinder](https://github.com/Admiral-Fish/PokeFinder) for a WIP cross platform RNG tool.
 
 # Credits
-Original RNGReporter dev team for creating RNGReporter. 
+Original RNGReporter dev team(mingot, slashmolder, omegadonut) for creating RNGReporter. 
 
 Credits to amab for all the Channel Jirachi logic and Pokespot RNG. 
 

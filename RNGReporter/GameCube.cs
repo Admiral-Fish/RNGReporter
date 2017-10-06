@@ -247,7 +247,7 @@ namespace RNGReporter
 
             uint pid1, pid2, pid, nature, seed, antipid, antiNature;
             long k;
-            bool pass, antiPass, setPass = false, unsetPass = false, skipPass = false, nlPass = false;
+            bool pass, antiPass;
 
             for (k = 0; k <= kmax; k++, test += 0x80000000)
             {
@@ -266,6 +266,7 @@ namespace RNGReporter
                     antiNature = antipid % 25;
                     antiPass = (natureList == null || natureList.Contains(antiNature));
 
+                    bool setPass = false, unsetPass = false, skipPass = false, nlPass = false;
                     for (int i = 0; i < 2; i++)
                     {
                         if (i == 1)

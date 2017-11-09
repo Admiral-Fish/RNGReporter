@@ -529,7 +529,7 @@ namespace RNGReporter
                 }
                 //////////////////////////////////////////////////////////////////////////////////
 
-                //  Call Custom 7 ////////////////////////////////////////////////////////////////
+                //  Call Custom 10 ////////////////////////////////////////////////////////////////
                 if (calcCustom10)
                 {
                     ulong customLValue10 = CustomCalcs(comboBoxLValue10, frame, frames);
@@ -604,6 +604,12 @@ namespace RNGReporter
                     return frame.Custom6;
                 case "Custom 7":
                     return frame.Custom7;
+                case "Custom 8":
+                    return frame.Custom8;
+                case "Custom 9":
+                    return frame.Custom9;
+                case "Custom 10":
+                    return frame.Custom10;
                 case "Previous 1":
                     return frames.Count == 0 ? 0 : frames[frames.Count - 1].Custom1;
                 case "Previous 2":
@@ -618,6 +624,12 @@ namespace RNGReporter
                     return frames.Count == 0 ? 0 : frames[frames.Count - 1].Custom6;
                 case "Previous 7":
                     return frames.Count == 0 ? 0 : frames[frames.Count - 1].Custom7;
+                case "Previous 8":
+                    return frames.Count == 0 ? 0 : frames[frames.Count - 1].Custom8;
+                case "Previous 9":
+                    return frames.Count == 0 ? 0 : frames[frames.Count - 1].Custom9;
+                case "Previous 10":
+                    return frames.Count == 0 ? 0 : frames[frames.Count - 1].Custom10;
                 default:
                     return 0;
             }

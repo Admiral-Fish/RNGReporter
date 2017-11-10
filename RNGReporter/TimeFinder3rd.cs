@@ -1609,24 +1609,6 @@ namespace RNGReporter
                 true,
                 new NoGenderFilter());
 
-            // Here we check the parent IVs
-            // To make sure they even have a chance of producing the desired spread
-            int parentPassCount = 0;
-            for (int i = 0; i < 6; i++)
-            {
-                if (subFrameCompare.CompareIV(i, parentA[i]) ||
-                    subFrameCompare.CompareIV(i, parentB[i]))
-                {
-                    parentPassCount++;
-                }
-            }
-
-            if (parentPassCount < 3)
-            {
-                MessageBox.Show("The parent IVs you have listed cannot produce your desired search results.");
-                return;
-            }
-
             iframesEEggIV = new List<IFrameEEggPID>();
             listBindingEggEIV = new BindingSource { DataSource = iframesEEggIV };
 

@@ -633,48 +633,12 @@ namespace RNGReporter
                     xorNature = xorPID % 25;
                     xorPass = (natureList == null || natureList.Contains(xorNature));
 
-                    switch (shadow)
-                    {
-                        case ShadowType.Celebi:
-                            uint celebiPID = getCelebiPID(pid1, pid2);
-                            if (celebiPID != pid)
-                            {
-                                uint celebiNature = celebiPID % 25;
-                                if (natureList == null || natureList.Contains(celebiNature))
-                                    filterSeedCelebi(hp, atk, def, spa, spd, spe, celebiPID, celebiNature, seed, 0);
-                                celebiPID ^= 0x80008000;
-                                celebiNature = celebiPID % 25;
-                                if (natureList == null || natureList.Contains(celebiNature))
-                                    filterSeedCelebi(hp, atk, def, spa, spd, spe, celebiPID, celebiNature, xorSeed, 0);
-                            }
-                            else
-                            {
-                                if (pass)
-                                    filterSeedCelebi(hp, atk, def, spa, spd, spe, pid, nature, seed, 0);
-                                if (xorPass)
-                                    filterSeedCelebi(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
-                            }
-                            break;
-                        case ShadowType.FirstShadow:
-                            if (pass && natureLock.firstShadow(seed))
-                                filterSeedColo(hp, atk, def, spa, spd, spe, pid, nature, seed, 0);
-                            else if (xorPass && natureLock.firstShadow(xorSeed))
-                                filterSeedColo(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
-                            break;
-                    }
+                    if (pass && natureLock.firstShadow(seed))
+                        filterSeedColo(hp, atk, def, spa, spd, spe, pid, nature, seed, 0);
+                    else if (xorPass && natureLock.firstShadow(xorSeed))
+                        filterSeedColo(hp, atk, def, spa, spd, spe, xorPID, xorNature, xorSeed, 0);
                 }
             }
-        }
-
-        private uint getCelebiPID(uint pid1, uint pid2)
-        {
-            while ((((pid1 >> 16) ^ (pid2 >> 16)) >> 3) == 3890)
-            {
-                pid1 = forwardXD(pid2);
-                pid2 = forwardXD(pid1);
-            }
-
-            return (pid1 & 0xFFFF0000) | (pid2 >> 16);
         }
 
         private void filterSeedColo(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed, int num)
@@ -732,55 +696,6 @@ namespace RNGReporter
                     break;
             }
             addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, shiny, seed, "Pass NL", 0);
-        }
-
-        private void filterSeedCelebi(uint hp, uint atk, uint def, uint spa, uint spd, uint spe, uint pid, uint nature, uint seed, int num)
-        {
-            uint actualHP = calcHP(hp, atk, def, spa, spd, spe);
-            if (hiddenPowerList != null && !hiddenPowerList.Contains(actualHP))
-                return;
-
-            uint ability = pid & 1;
-            if (abilityFilter != 0 && (ability != (abilityFilter - 1)))
-                return;
-
-            uint gender = pid & 255;
-            switch (genderFilter)
-            {
-                case 1:
-                    if (gender < 127)
-                        return;
-                    break;
-                case 2:
-                    if (gender > 126)
-                        return;
-                    break;
-                case 3:
-                    if (gender < 191)
-                        return;
-                    break;
-                case 4:
-                    if (gender > 190)
-                        return;
-                    break;
-                case 5:
-                    if (gender < 64)
-                        return;
-                    break;
-                case 6:
-                    if (gender > 63)
-                        return;
-                    break;
-                case 7:
-                    if (gender < 31)
-                        return;
-                    break;
-                case 8:
-                    if (gender > 30)
-                        return;
-                    break;
-            }
-            addSeed(hp, atk, def, spa, spd, spe, nature, ability, gender, actualHP, pid, "", seed, "", 0);
         }
         #endregion
 
@@ -2227,10 +2142,11 @@ namespace RNGReporter
         {
             return new String[]
             {
-                "Celebi",
+                "Gligar",
                 "Heracross",
                 "Makuhita",
-                "Murkrow"
+                "Murkrow",
+                "Ursaring"
             };
         }
 

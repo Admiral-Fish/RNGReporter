@@ -148,10 +148,11 @@ namespace RNGReporter.Objects
 
         private List<LockInfo[]> coloInfo = new List<LockInfo[]>()
         {
-            null, // Celebi
-            new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(0, 126, 255) }, // Heracross
+            new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(6, 0, 190), new LockInfo(12, 127, 255) }, // Gligar
+            new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(0, 127, 255) }, // Heracross
             new LockInfo[] { new LockInfo(0, 0, 126), new LockInfo(24, 127, 255) }, // Makuhita
-            new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(12, 0, 126), new LockInfo(6, 127, 255 ) } // Murkrow
+            new LockInfo[] { new LockInfo(18, 127, 255), new LockInfo(12, 0, 126), new LockInfo(6, 127, 255 ) }, // Murkrow
+            new LockInfo[] { new LockInfo(21, 0, 126), new LockInfo(16, 31, 255), new LockInfo(20, 0, 63) } // Ursaring
         };
 
         private LockInfo[] natureLockListGales(int natureLockIndex)
@@ -274,12 +275,11 @@ namespace RNGReporter.Objects
         {
             switch (natureLockIndex)
             {
-                case 0: // Celebi
-                    type = ShadowType.Celebi;
-                    break;
+                case 0: // Gligar
                 case 1: // Heracross
                 case 2: // Makuhita
                 case 3: // Murkrow
+                case 4: // Ursaring
                     type = ShadowType.FirstShadow;
                     break;
             }
@@ -723,8 +723,7 @@ namespace RNGReporter.Objects
             FirstShadow,
             Salamence,
             SecondShadow,
-            Eevee,
-            Celebi
+            Eevee
         }
     }
 

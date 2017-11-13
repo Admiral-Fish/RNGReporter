@@ -727,18 +727,17 @@ namespace RNGReporter
 
         private void checkSeed(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {
-            long first = (hp | (atk << 5) | (def << 10)) << 16;
-            long second = (spe | (spa << 5) | (spd << 10)) << 16;
+            uint first = (hp | (atk << 5) | (def << 10)) << 16;
+            uint second = (spe | (spa << 5) | (spd << 10)) << 16;
             uint fullFirst;
 
-            long t = ((second - 0x343fd * first) - 0x259ec4) % 0x80000000;
-            t = t < 0 ? t + 0x80000000 : t;
-            long kmax = (0x343fabc02 - t) / 0x80000000;
+            uint t = ((second - 0x343fd * first) - 0x259ec4);
+            uint kmax = (uint)((0x343fabc02 - t) / 0x80000000);
             long test = t;
 
             uint pid, pid1, pid2, nature, seed;
 
-            for (long k = 0; k <= kmax; k++, test += 0x80000000)
+            for (uint k = 0; k <= kmax; k++, test += 0x80000000)
             {
                 if ((test % 0x343fd) < 0x10000)
                 {
@@ -925,14 +924,14 @@ namespace RNGReporter
         {
             uint first = hp << 27;
 
-            long t = (((spd << 27) - ((long)0x284A930D * first)) - 0x9A974C78) % 0x100000000;
-            t = t < 0 ? t + 0x100000000 : t;
-            long kmax = (0x142549847b56cf2 - t) / 0x100000000;
+            uint test = (((spd << 27) - (0x284A930D * first)) - 0x9A974C78);
+            uint kmax = (uint)((0x142549847b56cf2 - test) / 0x100000000);
+            long t = test;
 
             var rng = new XdRngR(0);
             uint temp, pid2, pid1, pid, sid, nature;
 
-            for (long k = 0; k <= kmax; k++, t += 0x100000000)
+            for (uint k = 0; k <= kmax; k++, t += 0x100000000)
             {
                 if ((t % 0x284A930D) >= 0x8000000)
                     continue;

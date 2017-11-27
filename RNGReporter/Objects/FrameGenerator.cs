@@ -681,10 +681,7 @@ namespace RNGReporter.Objects
                                             testSeed = testSeed*0xeeb9eb65 + 0xa3561a1;
                                             slot = nextRng2;
                                             if (EncounterType == EncounterType.WildSurfing ||
-                                                EncounterType == EncounterType.BugCatchingContestPreDex ||
-                                                EncounterType == EncounterType.BugBugCatchingContestTues ||
-                                                EncounterType == EncounterType.BugCatchingContestThurs ||
-                                                EncounterType == EncounterType.BugCatchingContestSat ||
+                                                EncounterType == EncounterType.BugCatchingContest  ||
                                                 EncounterType == EncounterType.Headbutt)
                                             {
                                                 slot = testSeed;
@@ -817,10 +814,7 @@ namespace RNGReporter.Objects
                                             testSeed = testSeed*0xeeb9eb65 + 0xa3561a1;
                                             slot = nextRng2;
                                             if (EncounterType == EncounterType.WildSurfing ||
-                                                EncounterType == EncounterType.BugCatchingContestPreDex ||
-                                                EncounterType == EncounterType.BugBugCatchingContestTues ||
-                                                EncounterType == EncounterType.BugCatchingContestThurs ||
-                                                EncounterType == EncounterType.BugCatchingContestSat ||
+                                                EncounterType == EncounterType.BugCatchingContest  ||
                                                 EncounterType == EncounterType.Headbutt)
                                             {
                                                 slot = testSeed;
@@ -910,10 +904,7 @@ namespace RNGReporter.Objects
                                     CCSeed = method1Seed*0xeeb9eb65 + 0xa3561a1;
                                     slot = method1Seed;
                                     if (EncounterType == EncounterType.WildSurfing ||
-                                        EncounterType == EncounterType.BugCatchingContestPreDex ||
-                                        EncounterType == EncounterType.BugBugCatchingContestTues ||
-                                        EncounterType == EncounterType.BugCatchingContestThurs ||
-                                        EncounterType == EncounterType.BugCatchingContestSat)
+                                        EncounterType == EncounterType.BugCatchingContest)
                                     {
                                         CCSeed = CCSeed*0xeeb9eb65 + 0xa3561a1;
                                         slot = slot*0xeeb9eb65 + 0xa3561a1;
@@ -3425,10 +3416,7 @@ namespace RNGReporter.Objects
                         offset++;
                     }
                     else if (EncounterType == EncounterType.WildSurfing || EncounterType == EncounterType.Headbutt ||
-                             EncounterType == EncounterType.BugCatchingContestPreDex ||
-                            EncounterType == EncounterType.BugBugCatchingContestTues ||
-                            EncounterType == EncounterType.BugCatchingContestThurs ||
-                            EncounterType == EncounterType.BugCatchingContestSat)
+                             EncounterType == EncounterType.BugCatchingContest)
                     {
                         encounterSlot = EncounterSlotCalc.encounterSlot(rng2.Seed, frameType, EncounterType);
                         firstRng = rng2.GetNext16BitNumber();
@@ -3537,10 +3525,7 @@ namespace RNGReporter.Objects
                                 id, sid, offset - 2,
                                 encounterSlot);
 
-                        if (EncounterType == EncounterType.BugCatchingContestPreDex ||
-                            EncounterType == EncounterType.BugBugCatchingContestTues ||
-                            EncounterType == EncounterType.BugCatchingContestThurs ||
-                            EncounterType == EncounterType.BugCatchingContestSat ||
+                        if (EncounterType == EncounterType.BugCatchingContest ||
                             EncounterType == EncounterType.SafariZone)
                             frame.Synchable = true;
 

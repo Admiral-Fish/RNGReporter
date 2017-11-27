@@ -154,12 +154,8 @@ namespace RNGReporter
             this.maskedTextBoxShinyMinDelay = new RNGReporter.Controls.MaskedTextBox2();
             this.maskedTextBoxShinyYear = new RNGReporter.Controls.MaskedTextBox2();
             this.tabPageCapture = new System.Windows.Forms.TabPage();
-            this.preDexRadioButton = new System.Windows.Forms.RadioButton();
             this.ivFiltersCapture = new RNGReporter.Controls.IVFilters();
-            this.saturdayRadioButton = new System.Windows.Forms.RadioButton();
             this.comboBoxCapGenderRatio = new RNGReporter.GlassComboBox();
-            this.thursdayRadioButton = new System.Windows.Forms.RadioButton();
-            this.tuesdayRadioButton = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxCapGender = new RNGReporter.GlassComboBox();
             this.label31 = new System.Windows.Forms.Label();
@@ -1409,12 +1405,8 @@ namespace RNGReporter
             // 
             // tabPageCapture
             // 
-            this.tabPageCapture.Controls.Add(this.preDexRadioButton);
             this.tabPageCapture.Controls.Add(this.ivFiltersCapture);
-            this.tabPageCapture.Controls.Add(this.saturdayRadioButton);
             this.tabPageCapture.Controls.Add(this.comboBoxCapGenderRatio);
-            this.tabPageCapture.Controls.Add(this.thursdayRadioButton);
-            this.tabPageCapture.Controls.Add(this.tuesdayRadioButton);
             this.tabPageCapture.Controls.Add(this.label2);
             this.tabPageCapture.Controls.Add(this.comboBoxCapGender);
             this.tabPageCapture.Controls.Add(this.label31);
@@ -1453,36 +1445,12 @@ namespace RNGReporter
             this.tabPageCapture.Text = "Capture";
             this.tabPageCapture.UseVisualStyleBackColor = true;
             // 
-            // preDexRadioButton
-            // 
-            this.preDexRadioButton.AutoSize = true;
-            this.preDexRadioButton.Checked = true;
-            this.preDexRadioButton.Location = new System.Drawing.Point(100, 137);
-            this.preDexRadioButton.Name = "preDexRadioButton";
-            this.preDexRadioButton.Size = new System.Drawing.Size(63, 17);
-            this.preDexRadioButton.TabIndex = 340;
-            this.preDexRadioButton.TabStop = true;
-            this.preDexRadioButton.Text = "Pre Dex";
-            this.preDexRadioButton.UseVisualStyleBackColor = true;
-            this.preDexRadioButton.Visible = false;
-            // 
             // ivFiltersCapture
             // 
             this.ivFiltersCapture.Location = new System.Drawing.Point(367, 6);
             this.ivFiltersCapture.Name = "ivFiltersCapture";
             this.ivFiltersCapture.Size = new System.Drawing.Size(315, 166);
             this.ivFiltersCapture.TabIndex = 325;
-            // 
-            // saturdayRadioButton
-            // 
-            this.saturdayRadioButton.AutoSize = true;
-            this.saturdayRadioButton.Location = new System.Drawing.Point(238, 160);
-            this.saturdayRadioButton.Name = "saturdayRadioButton";
-            this.saturdayRadioButton.Size = new System.Drawing.Size(119, 17);
-            this.saturdayRadioButton.TabIndex = 339;
-            this.saturdayRadioButton.Text = "Post Dex - Saturday";
-            this.saturdayRadioButton.UseVisualStyleBackColor = true;
-            this.saturdayRadioButton.Visible = false;
             // 
             // comboBoxCapGenderRatio
             // 
@@ -1506,28 +1474,6 @@ namespace RNGReporter
         " filter out unwanted\r\nCute Charm results.\r\n");
             this.comboBoxCapGenderRatio.SelectedIndexChanged += new System.EventHandler(this.comboBoxCapGenderRatio_SelectedIndexChanged);
             this.comboBoxCapGenderRatio.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboBoxCapGenderRatio_MouseDown);
-            // 
-            // thursdayRadioButton
-            // 
-            this.thursdayRadioButton.AutoSize = true;
-            this.thursdayRadioButton.Location = new System.Drawing.Point(100, 160);
-            this.thursdayRadioButton.Name = "thursdayRadioButton";
-            this.thursdayRadioButton.Size = new System.Drawing.Size(121, 17);
-            this.thursdayRadioButton.TabIndex = 338;
-            this.thursdayRadioButton.Text = "Post Dex - Thursday";
-            this.thursdayRadioButton.UseVisualStyleBackColor = true;
-            this.thursdayRadioButton.Visible = false;
-            // 
-            // tuesdayRadioButton
-            // 
-            this.tuesdayRadioButton.AutoSize = true;
-            this.tuesdayRadioButton.Location = new System.Drawing.Point(238, 137);
-            this.tuesdayRadioButton.Name = "tuesdayRadioButton";
-            this.tuesdayRadioButton.Size = new System.Drawing.Size(118, 17);
-            this.tuesdayRadioButton.TabIndex = 337;
-            this.tuesdayRadioButton.Text = "Post Dex - Tuesday";
-            this.tuesdayRadioButton.UseVisualStyleBackColor = true;
-            this.tuesdayRadioButton.Visible = false;
             // 
             // label2
             // 
@@ -1910,7 +1856,6 @@ namespace RNGReporter
             this.comboBoxEncounterType.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxEncounterType.Size = new System.Drawing.Size(156, 21);
             this.comboBoxEncounterType.TabIndex = 6;
-            this.comboBoxEncounterType.SelectedIndexChanged += new System.EventHandler(this.comboBoxEncounterType_SelectedIndexChanged);
             // 
             // comboBoxEncounterSlot
             // 
@@ -2395,9 +2340,5 @@ namespace RNGReporter
         private System.Windows.Forms.DataGridViewTextBoxColumn f125;
         private System.Windows.Forms.DataGridViewTextBoxColumn f25;
         private System.Windows.Forms.DataGridViewTextBoxColumn f75;
-        private System.Windows.Forms.RadioButton preDexRadioButton;
-        private System.Windows.Forms.RadioButton saturdayRadioButton;
-        private System.Windows.Forms.RadioButton thursdayRadioButton;
-        private System.Windows.Forms.RadioButton tuesdayRadioButton;
     }
 }

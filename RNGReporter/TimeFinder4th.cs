@@ -862,18 +862,6 @@ namespace RNGReporter
                 MaxResults = maxOffset
             };
 
-            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest")
-            {
-                if (preDexRadioButton.Checked)
-                    generator.EncounterType = EncounterType.BugCatchingContestPreDex;
-                else if (tuesdayRadioButton.Checked)
-                    generator.EncounterType = EncounterType.BugBugCatchingContestTues;
-                else if (thursdayRadioButton.Checked)
-                    generator.EncounterType = EncounterType.BugCatchingContestThurs;
-                else if (saturdayRadioButton.Checked)
-                    generator.EncounterType = EncounterType.BugCatchingContestSat;
-            }
-
             // Now that each combo box item is a custom object containing the FrameType reference
             // We can simply retrieve the FrameType from the selected item
 
@@ -2308,13 +2296,5 @@ namespace RNGReporter
         private delegate void UpdateGridDelegate(BindingSource bindingSource);
 
         #endregion
-
-        private void comboBoxEncounterType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest")
-                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = true;
-            else
-                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = false;
-        }
     }
 }

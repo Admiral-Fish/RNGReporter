@@ -129,30 +129,6 @@ namespace RNGReporter.Objects
                             };
                         return CalcSlot(percent, ranges);
                     }
-                case EncounterType.BugCatchingContestPreDex:
-                case EncounterType.BugBugCatchingContestTues:
-                    {
-                        Range[] ranges =
-                            {
-                                new Range(80, 99), new Range(60, 79), new Range(50, 59),
-                                new Range(40, 49), new Range(10, 14), new Range(15, 19),
-                                new Range(30, 39), new Range(20, 29), new Range(5, 9),
-                                new Range(0, 4)
-                            };
-                        return CalcSlot(percent, ranges);
-                    }
-                case EncounterType.BugCatchingContestThurs:
-                case EncounterType.BugCatchingContestSat:
-                    {
-                        Range[] ranges =
-                            {
-                                new Range(80, 99), new Range(50, 59), new Range(60, 79),
-                                new Range(40, 49), new Range(30, 39), new Range(20, 29),
-                                new Range(15, 19), new Range(10, 14), new Range(5, 9),
-                                new Range(0, 4)
-                            };
-                        return CalcSlot(percent, ranges);
-                    }
                 case EncounterType.SafariZone:
                     return (int) ((result >> 16)%10);
                 case EncounterType.Headbutt:

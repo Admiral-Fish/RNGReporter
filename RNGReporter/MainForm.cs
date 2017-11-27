@@ -434,18 +434,6 @@ namespace RNGReporter
             generator.MaleOnlySpecies = cbNidoBeat.Checked;
             generator.ShinyCharm = cbShinyCharm.Checked;
 
-            if (generator.EncounterType == EncounterType.BugCatchingContest && generator.FrameType == FrameType.MethodK)
-            {
-                if (preDexRadioButton.Checked)
-                    generator.EncounterType = EncounterType.BugCatchingContestPreDex;
-                else if (tuesdayRadioButton.Checked)
-                    generator.EncounterType = EncounterType.BugBugCatchingContestTues;
-                else if (thursdayRadioButton.Checked)
-                    generator.EncounterType = EncounterType.BugCatchingContestThurs;
-                else if (saturdayRadioButton.Checked)
-                    generator.EncounterType = EncounterType.BugCatchingContestSat;
-            }
-
             // this is for PIDRNG encounter slots
             generator.isBW2 = checkBoxBW2.Visible && checkBoxBW2.Checked;
 
@@ -2310,15 +2298,6 @@ namespace RNGReporter
             {
                 comboBoxEncounterType.Enabled = false;
             }
-
-            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest" && comboBoxMethod.SelectedItem.ToString() == "Method K (HGSS)")
-            {
-                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = true;
-            }
-            else
-            {
-                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = false;
-            }
         }
 
         private void buttonRoamerMap_Click(object sender, EventArgs e)
@@ -3175,14 +3154,6 @@ namespace RNGReporter
         {
             var ivsToFrame = new IVstoFrame();
             ivsToFrame.Show();
-        }
-
-        private void comboBoxEncounterType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxEncounterType.SelectedItem.ToString() == "Bug-Catching Contest" && comboBoxMethod.SelectedItem.ToString() == "Method K (HGSS)")
-                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = true;
-            else
-                preDexRadioButton.Visible = saturdayRadioButton.Visible = thursdayRadioButton.Visible = tuesdayRadioButton.Visible = false;
         }
     }
 }

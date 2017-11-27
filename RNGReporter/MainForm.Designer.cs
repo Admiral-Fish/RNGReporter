@@ -163,10 +163,6 @@ namespace RNGReporter
             this.cbNidoBeat = new System.Windows.Forms.CheckBox();
             this.cbShinyCharm = new System.Windows.Forms.CheckBox();
             this.checkBoxMemoryLink = new System.Windows.Forms.CheckBox();
-            this.tuesdayRadioButton = new System.Windows.Forms.RadioButton();
-            this.thursdayRadioButton = new System.Windows.Forms.RadioButton();
-            this.saturdayRadioButton = new System.Windows.Forms.RadioButton();
-            this.preDexRadioButton = new System.Windows.Forms.RadioButton();
             this.buttonRoamerMap = new RNGReporter.GlassButton();
             this.maskedTextBoxERoute = new RNGReporter.Controls.MaskedTextBox2();
             this.maskedTextBoxRRoute = new RNGReporter.Controls.MaskedTextBox2();
@@ -1353,56 +1349,6 @@ namespace RNGReporter
             this.checkBoxMemoryLink.UseVisualStyleBackColor = true;
             this.checkBoxMemoryLink.Visible = false;
             // 
-            // tuesdayRadioButton
-            // 
-            this.tuesdayRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.tuesdayRadioButton.AutoSize = true;
-            this.tuesdayRadioButton.Location = new System.Drawing.Point(865, 467);
-            this.tuesdayRadioButton.Name = "tuesdayRadioButton";
-            this.tuesdayRadioButton.Size = new System.Drawing.Size(118, 17);
-            this.tuesdayRadioButton.TabIndex = 333;
-            this.tuesdayRadioButton.Text = "Post Dex - Tuesday";
-            this.tuesdayRadioButton.UseVisualStyleBackColor = true;
-            this.tuesdayRadioButton.Visible = false;
-            // 
-            // thursdayRadioButton
-            // 
-            this.thursdayRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.thursdayRadioButton.AutoSize = true;
-            this.thursdayRadioButton.Location = new System.Drawing.Point(727, 490);
-            this.thursdayRadioButton.Name = "thursdayRadioButton";
-            this.thursdayRadioButton.Size = new System.Drawing.Size(121, 17);
-            this.thursdayRadioButton.TabIndex = 334;
-            this.thursdayRadioButton.Text = "Post Dex - Thursday";
-            this.thursdayRadioButton.UseVisualStyleBackColor = true;
-            this.thursdayRadioButton.Visible = false;
-            // 
-            // saturdayRadioButton
-            // 
-            this.saturdayRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saturdayRadioButton.AutoSize = true;
-            this.saturdayRadioButton.Location = new System.Drawing.Point(865, 490);
-            this.saturdayRadioButton.Name = "saturdayRadioButton";
-            this.saturdayRadioButton.Size = new System.Drawing.Size(119, 17);
-            this.saturdayRadioButton.TabIndex = 335;
-            this.saturdayRadioButton.Text = "Post Dex - Saturday";
-            this.saturdayRadioButton.UseVisualStyleBackColor = true;
-            this.saturdayRadioButton.Visible = false;
-            // 
-            // preDexRadioButton
-            // 
-            this.preDexRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.preDexRadioButton.AutoSize = true;
-            this.preDexRadioButton.Checked = true;
-            this.preDexRadioButton.Location = new System.Drawing.Point(727, 467);
-            this.preDexRadioButton.Name = "preDexRadioButton";
-            this.preDexRadioButton.Size = new System.Drawing.Size(63, 17);
-            this.preDexRadioButton.TabIndex = 336;
-            this.preDexRadioButton.TabStop = true;
-            this.preDexRadioButton.Text = "Pre Dex";
-            this.preDexRadioButton.UseVisualStyleBackColor = true;
-            this.preDexRadioButton.Visible = false;
-            // 
             // buttonRoamerMap
             // 
             this.buttonRoamerMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1562,7 +1508,6 @@ namespace RNGReporter
             this.comboBoxEncounterType.ShineColor = System.Drawing.SystemColors.Window;
             this.comboBoxEncounterType.Size = new System.Drawing.Size(153, 21);
             this.comboBoxEncounterType.TabIndex = 2;
-            this.comboBoxEncounterType.SelectedIndexChanged += new System.EventHandler(this.comboBoxEncounterType_SelectedIndexChanged);
             // 
             // comboBoxSynchNatures
             // 
@@ -2040,10 +1985,6 @@ namespace RNGReporter
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1012, 516);
-            this.Controls.Add(this.preDexRadioButton);
-            this.Controls.Add(this.saturdayRadioButton);
-            this.Controls.Add(this.thursdayRadioButton);
-            this.Controls.Add(this.tuesdayRadioButton);
             this.Controls.Add(this.buttonRoamerMap);
             this.Controls.Add(this.labelRoamerRoutes);
             this.Controls.Add(this.labelElmForSeed);
@@ -2302,9 +2243,5 @@ namespace RNGReporter
         private System.Windows.Forms.ToolStripMenuItem pIDToIVsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pokespotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iVsToFrameToolStripMenuItem;
-        private System.Windows.Forms.RadioButton tuesdayRadioButton;
-        private System.Windows.Forms.RadioButton thursdayRadioButton;
-        private System.Windows.Forms.RadioButton saturdayRadioButton;
-        private System.Windows.Forms.RadioButton preDexRadioButton;
     }
 }

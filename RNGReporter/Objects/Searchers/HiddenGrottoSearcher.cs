@@ -246,7 +246,7 @@ namespace RNGReporter.Objects.Searchers
                                         array[9] = Functions.seedSecond(second) | Functions.seedMinute(minute) |
                                                    Functions.seedHour(hour, searchParams.Profile.DSType);
 
-                                        ulong seed = Functions.EncryptSeed(array, alpha, 9);
+                                        ulong seed = Functions.EncryptSeed(array, alpha);
                                         List<Hollow> hollows = generator.Generate(seed, searchParams.Profile);
                                         foreach (Hollow t in hollows)
                                         {

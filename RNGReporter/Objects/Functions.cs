@@ -1438,7 +1438,7 @@ namespace RNGReporter.Objects
         /// <param name="alpha"> Precalculated array of SHA-1 variables. </param>
         /// <param name="startingRound"> Round from which to continue SHA-1 encryption. </param>
         /// <returns> </returns>
-        public static ulong EncryptSeed(uint[] array, uint[] alpha, uint startingRound)
+        public static ulong EncryptSeed(uint[] array, uint[] alpha)
         {
             //Made this function a little messy to remove all the if statements
 
@@ -1453,7 +1453,7 @@ namespace RNGReporter.Objects
             uint f;
             uint k = 0;
             uint temp;
-            uint i = startingRound;
+            uint i = 9;
 
             k = 0x5A827999;
             for (; i < 17; ++i)

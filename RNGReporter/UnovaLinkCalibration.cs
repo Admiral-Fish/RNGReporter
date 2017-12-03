@@ -296,7 +296,7 @@ namespace RNGReporter
                             {
                                 array[9] = Functions.seedSecond(second) | Functions.seedMinute(date.Minute) |
                                            Functions.seedHour(date.Hour, dstype);
-                                ulong seed = Functions.EncryptSeed(array, alpha, 9);
+                                ulong seed = Functions.EncryptSeed(array, alpha);
                                 // it appears to have the same initial seed as in the main game
                                 // pressing Unova link does the same probability table calls
                                 uint initial = Functions.initialPIDRNG(seed, version, memorylink);

@@ -180,7 +180,7 @@ namespace RNGReporter.Objects.Searchers
                                         array[9] = Functions.seedSecond(second) | Functions.seedMinute(minute) |
                                                    Functions.seedHour(hour, searchParams.Profile.DSType);
 
-                                        ulong seed = Functions.EncryptSeed(array, alpha, 9);
+                                        ulong seed = Functions.EncryptSeed(array, alpha);
                                         List<DreamRadarFrame> frames = generator.Generate(seed, searchParams.Profile);
                                         // todo: remove the need to use a loop like this
                                         /*foreach (DreamRadarFrame t in frames)

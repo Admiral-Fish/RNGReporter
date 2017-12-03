@@ -1188,7 +1188,7 @@ namespace RNGReporter
                                         array[9] = Functions.seedSecond(second) | Functions.seedMinute(minute) |
                                                    Functions.seedHour(hour, profile.DSType);
 
-                                        ulong seed = Functions.EncryptSeed(array, alpha, 9);
+                                        ulong seed = Functions.EncryptSeed(array, alpha);
 
                                         List<Frame> frames;
                                         if (generators[listIndex].FrameType == FrameType.Method5Standard)
@@ -1476,7 +1476,7 @@ namespace RNGReporter
                                         array[9] = Functions.seedSecond(second) | Functions.seedMinute(minute) |
                                                    Functions.seedHour(hour, profile.DSType);
 
-                                        ulong seed = Functions.EncryptSeed(array, alpha, 9);
+                                        ulong seed = Functions.EncryptSeed(array, alpha);
 
                                         // Set this to our seed here
                                         generators[listIndex].InitialSeed = seed;

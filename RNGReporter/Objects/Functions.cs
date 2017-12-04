@@ -1097,181 +1097,6 @@ namespace RNGReporter.Objects
                    (uint) dateTime.DayOfWeek;
         }
 
-        public static ulong EncryptSeed(DateTime dateTime, ulong MACaddress, Version version, Language language,
-                                        DSType dstype,
-                                        bool softReset, uint VCount, uint Timer0, uint GxStat, uint VFrame,
-                                        uint buttonMashed)
-        {
-            var array = new uint[80];
-            uint[] h = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
-
-            array[5] = Reorder((VCount << 16) | Timer0);
-            array[6] = (uint) (MACaddress & 0xFFFF);
-            if (softReset)
-                array[6] = array[6] ^ 0x01000000;
-            array[7] = (uint) ((MACaddress >> 16) ^ (VFrame << 24) ^ GxStat);
-            array[8] = seedDate(dateTime);
-            array[9] = seedTime(dateTime, dstype);
-            array[12] = buttonMashed;
-            array[13] = 0x80000000;
-            array[15] = 0x000001A0;
-
-            // Get the version-unique part of the message
-            Array.Copy(Nazos.Nazo(version, language, dstype), array, 5);
-            uint a = h[0];
-            uint b = h[1];
-            uint c = h[2];
-            uint d = h[3];
-            uint e = h[4];
-            uint f = 0;
-            uint k = 0;
-            uint temp;
-            int i = 0;
-
-            k = 0x5A827999;
-            for (; i < 16; i++)
-            {
-                f = (b & c) | ((~b) & d);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            for (; i < 20; i++)
-            {
-                f = (b & c) | ((~b) & d);
-                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            k = 0x6ED9EBA1;
-            for (; i < 40; i++)
-            {
-                f = b ^ c ^ d;
-                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            k = 0x8F1BBCDC;
-            for (; i < 60; i++)
-            {
-                f = (b & c) | (b & d) | (c & d);
-                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            k = 0xCA62C1D6;
-            for (; i < 80; i++)
-            {
-                f = b ^ c ^ d;
-                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            // SHA-1 calculates all the h[x], but we only need the first two for seeds
-            h[0] += a;
-            h[1] += b;
-            ulong part1 = Reorder(h[0]);
-            ulong part2 = Reorder(h[1]);
-
-            ulong seed = 0x6C078965*part1;
-            seed = seed + ((0x6C078965*part2) << 32);
-            seed = seed + ((0x5D588B65*part1) << 32);
-            seed = seed + 0x269EC3;
-
-            return seed;
-        }
-
-        public static ulong EncryptSeed(uint[] array)
-        {
-            uint[] h = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
-
-            uint a = h[0];
-            uint b = h[1];
-            uint c = h[2];
-            uint d = h[3];
-            uint e = h[4];
-            uint f = 0;
-            uint k = 0;
-            uint temp;
-
-            for (int i = 0; i < 79; i++)
-            {
-                if (i < 20)
-                {
-                    //f = (b & c) | ((~b) & d);
-                    f = d ^ (b & (c ^ d));
-                    k = 0x5A827999;
-                }
-                else if (i < 40 && i >= 20)
-                {
-                    f = b ^ c ^ d;
-                    k = 0x6ED9EBA1;
-                }
-                else if (i >= 40 && i < 60)
-                {
-                    f = (b & c) | (b & d) | (c & d);
-                    k = 0x8F1BBCDC;
-                }
-                else if (i >= 60)
-                {
-                    f = b ^ c ^ d;
-                    k = 0xCA62C1D6;
-                }
-
-                if (i > 15)
-                    array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-            f = b ^ c ^ d;
-
-            array[79] = RotateLeft(array[76] ^ array[71] ^ array[65] ^ array[63], 1);
-            temp = RotateLeft(a, 5) + f + e + k + array[79];
-
-            ulong part1 = Reorder(h[0] + temp);
-            ulong part2 = Reorder(h[1] + a);
-
-            ulong seed = 0x6C078965*part1;
-            seed += (0x6C078965*part2) << 32;
-            seed += (0x5D588B65*part1) << 32;
-            seed += 0x269EC3;
-
-            return seed;
-        }
-
-        /* Failed attempt to speed up seed searching time
-         * Based off PPRNG's code
-         * look into fixing this later
-
         const uint K0 = 0x5A827999;
         const uint K1 = 0x6ED9EBA1;
         const uint K2 = 0x8F1BBCDC;
@@ -1287,53 +1112,69 @@ namespace RNGReporter.Objects
 
         private delegate void del2(uint i);
 
-        public static ulong EncryptSeed(uint[] message)
+        public static ulong EncryptSeed(DateTime dateTime, ulong MACaddress, Version version, Language language,
+                                        DSType dstype,
+                                        bool softReset, uint VCount, uint Timer0, uint GxStat, uint VFrame,
+                                        uint buttonMashed)
         {
-            uint[] w = new uint[16];
-            uint temp = 0;
+            var message = new uint[80];
 
+            message[5] = Reorder((VCount << 16) | Timer0);
+            message[6] = (uint) (MACaddress & 0xFFFF);
+            if (softReset)
+                message[6] = message[6] ^ 0x01000000;
+            message[7] = (uint) ((MACaddress >> 16) ^ (VFrame << 24) ^ GxStat);
+            message[8] = seedDate(dateTime);
+            message[9] = seedTime(dateTime, dstype);
+            message[12] = buttonMashed;
+            message[13] = 0x80000000;
+            message[15] = 0x000001A0;
+
+            // Get the version-unique part of the message
+            Array.Copy(Nazos.Nazo(version, language, dstype), message, 5);
             uint a = H0;
             uint b = H1;
             uint c = H2;
             uint d = H3;
             uint e = H4;
+            uint temp = 0;
+
             del Section1Calc = () => temp = ((a << 5) | (a >> 27)) + ((b & c) | (~b & d)) + e + K0 + temp;
             del Section2Calc = () => temp = ((a << 5) | (a >> 27)) + (b ^ c ^ d) + e + K1 + temp;
-            del Section3Calc = () => temp = ((a << 5) | (a >> 27)) + ((b & c) | ((b | c) & d)) + e + K2 + temp;
+            del Section3Calc = () => temp = ((a << 5) | (a >> 27)) + ((b & c) | (b & d) | (c & d)) + e + K2 + temp;
             del Section4Calc = () => temp = ((a << 5) | (a >> 27)) + (b ^ c ^ d) + e + K3 + temp;
             del UpdateVars = () =>
-                {
-                    e = d;
-                    d = c;
-                    c = (b << 30) | (b >> 2);
-                    b = a;
-                    a = temp;
-                };
+            {
+                e = d;
+                d = c;
+                c = (b << 30) | (b >> 2);
+                b = a;
+                a = temp;
+            };
 
             del2 CalcW = I =>
-                {
-                    temp = w[(I - 3) & 0xf] ^ w[(I - 8) & 0xf] ^ w[(I - 14) & 0xf] ^ w[(I - 16) & 0xf];
-            w[I & 0xf] = temp = (temp << 1) | (temp >> 31);
-        };
+            {
+                temp = message[I - 3] ^ message[I - 8] ^ message[I - 14] ^ message[I - 16];
+                message[I] = temp = (temp << 1) | (temp >> 31);
+            };
 
-        // Section 1: 0-19
-            w[0] = temp = message[0]; Section1Calc(); UpdateVars();
-            w[1] = temp = message[1]; Section1Calc(); UpdateVars();
-            w[2] = temp = message[2]; Section1Calc(); UpdateVars();
-            w[3] = temp = message[3]; Section1Calc(); UpdateVars();
-            w[4] = temp = message[4]; Section1Calc(); UpdateVars();
-            w[5] = temp = message[5]; Section1Calc(); UpdateVars();
-            w[6] = temp = message[6]; Section1Calc(); UpdateVars();
-            w[7] = temp = message[7]; Section1Calc(); UpdateVars();
-            w[8] = temp = message[8]; Section1Calc(); UpdateVars();
-            w[9] = temp = message[9]; Section1Calc(); UpdateVars();
-            w[10] = temp = message[10]; Section1Calc(); UpdateVars();
-            w[11] = temp = message[11]; Section1Calc(); UpdateVars();
-            w[12] = temp = message[12]; Section1Calc(); UpdateVars();
-            w[13] = temp = message[13]; Section1Calc(); UpdateVars();
-            w[14] = temp = message[14]; Section1Calc(); UpdateVars();
-            w[15] = temp = message[15]; Section1Calc(); UpdateVars();
-
+            // Section 1: 0-19
+            temp = message[0]; Section1Calc(); UpdateVars();
+            temp = message[1]; Section1Calc(); UpdateVars();
+            temp = message[2]; Section1Calc(); UpdateVars();
+            temp = message[3]; Section1Calc(); UpdateVars();
+            temp = message[4]; Section1Calc(); UpdateVars();
+            temp = message[5]; Section1Calc(); UpdateVars();
+            temp = message[6]; Section1Calc(); UpdateVars();
+            temp = message[7]; Section1Calc(); UpdateVars();
+            temp = message[8]; Section1Calc(); UpdateVars();
+            temp = message[9]; Section1Calc(); UpdateVars();
+            temp = message[10]; Section1Calc(); UpdateVars();
+            temp = message[11]; Section1Calc(); UpdateVars();
+            temp = message[12]; Section1Calc(); UpdateVars();
+            temp = message[13]; Section1Calc(); UpdateVars();
+            temp = message[14]; Section1Calc(); UpdateVars();
+            temp = message[15]; Section1Calc(); UpdateVars();
             CalcW(16); Section1Calc(); UpdateVars();
             CalcW(17); Section1Calc(); UpdateVars();
             CalcW(18); Section1Calc(); UpdateVars();
@@ -1403,196 +1244,47 @@ namespace RNGReporter.Objects
             CalcW(76); Section4Calc(); UpdateVars();
             CalcW(77); Section4Calc(); UpdateVars();
             CalcW(78); Section4Calc(); UpdateVars();
-            CalcW(79); Section4Calc(); UpdateVars();
+            CalcW(79); Section4Calc();
 
-            ulong seed = 0x6C078965 * message[0];
-            seed += (0x6C078965 * message[1]) << 32;
-            seed += (0x5D588B65 * message[1]) << 32;
-            seed += 0x269EC3;
+            // SHA-1 calculates all the h[x], but we only need the first two for seeds
+            ulong part1 = Reorder(temp + H0);
+            ulong part2 = Reorder(a + H1);
 
-            return seed;
-        }
-        
-        // Uses the Native SHA1CryptoServiceProvider
-        public static ulong EncryptSeedNative(uint[] array, SHA1 sha1)
-        {
-            // convert to byte array
-            var buffer = new byte[13 * 4];
-            Buffer.BlockCopy(array, 0, buffer, 0, buffer.Length);
-            byte[] digest = sha1.ComputeHash(buffer);
-            // back to uint
-            var decoded = new uint[2];
-            Buffer.BlockCopy(digest, 0, decoded, 0, 8);
-
-            ulong seed = 0x6C078965 * (ulong)decoded[0];
-            seed = seed + ((0x6C078965 * (ulong)decoded[1]) << 32);
-            seed = seed + ((0x5D588B65 * (ulong)decoded[0]) << 32);
-            seed = seed + 0x269EC3;
-            return seed;
-        }J*/
-         
-        /// <summary>
-        ///     Seed encryption method that uses dynamic programming to eliminate the initial steps of the process, as all the seeds generated with a similar date\time will have the same initial steps.
-        /// </summary>
-        /// <param name="array"> SHA-1 input array. </param>
-        /// <param name="alpha"> Precalculated array of SHA-1 variables. </param>
-        /// <param name="startingRound"> Round from which to continue SHA-1 encryption. </param>
-        /// <returns> </returns>
-        public static ulong EncryptSeed(uint[] array, uint[] alpha)
-        {
-            //Made this function a little messy to remove all the if statements
-
-            uint h1 = 0x67452301;
-            uint h2 = 0xEFCDAB89;
-
-            uint a = alpha[0];
-            uint b = alpha[1];
-            uint c = alpha[2];
-            uint d = alpha[3];
-            uint e = alpha[4];
-            uint f;
-            uint k = 0;
-            uint temp;
-            uint i = 9;
-
-            k = 0x5A827999;
-            for (; i < 17; ++i)
-            {
-                f = (b & c) | ((~b) & d);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            f = (b & c) | ((~b) & d);
-            array[17] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-            temp = RotateLeft(a, 5) + f + e + k + array[i];
-            e = d;
-            d = c;
-            c = RotateRight(b, 2);
-            b = a;
-            a = temp;
-            i++;
-
-            for (; i < 20; ++i)
-            {
-                f = (b & c) | ((~b) & d);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            k = 0x6ED9EBA1;
-            f = b ^ c ^ d;
-            array[20] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-            temp = RotateLeft(a, 5) + f + e + k + array[i];
-            e = d;
-            d = c;
-            c = RotateRight(b, 2);
-            b = a;
-            a = temp;
-            i++;
-
-            for (; i < 23; ++i)
-            {
-                f = b ^ c ^ d;
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            for (; i < 40; ++i)
-            {
-                f = b ^ c ^ d;
-                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            k = 0x8F1BBCDC;
-            for (; i < 60; ++i)
-            {
-                f = (b & c) | (b & d) | (c & d);
-                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-
-            k = 0xCA62C1D6;
-            for (; i < 79; ++i)
-            {
-                f = b ^ c ^ d;
-                array[i] = RotateLeft(array[i - 3] ^ array[i - 8] ^ array[i - 14] ^ array[i - 16], 1);
-                temp = RotateLeft(a, 5) + f + e + k + array[i];
-                e = d;
-                d = c;
-                c = RotateRight(b, 2);
-                b = a;
-                a = temp;
-            }
-            f = b ^ c ^ d;
-
-            array[79] = RotateLeft(array[76] ^ array[71] ^ array[65] ^ array[63], 1);
-            temp = RotateLeft(a, 5) + f + e + k + array[79];
-
-            ulong part1 = Reorder(h1 + temp);
-            ulong part2 = Reorder(h2 + a);
-
-            ulong seed = 0x6C078965*part1;
-            seed = seed + ((0x6C078965*part2) << 32);
-            seed = seed + ((0x5D588B65*part1) << 32);
-            seed = seed + 0x269EC3;
+            ulong seed = (part2 << 32) | part1;
+            seed = seed * 0x5d588b656c078965 + 0x269ec3;
 
             return seed;
         }
 
-        /// <summary>
-        ///     Precomputes the initial steps of a SHA-1 seed encryption.
-        /// </summary>
-        /// <param name="array"> Initial SHA-1 message input. </param>
-        /// <param name="endRound"> The round of SHA-1 encryption from which to retrieve the SHA-1 array. </param>
-        /// <returns> </returns>
-        public static uint[] alphaSHA1(uint[] array)
+        public static uint[] AlphaEncrypt(uint[] message)
         {
             var alpha = new uint[5];
-            uint[] h = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
+            uint temp = 0;
+            uint a = H0;
+            uint b = H1;
+            uint c = H2;
+            uint d = H3;
+            uint e = H4;
 
-            uint a = h[0];
-            uint b = h[1];
-            uint c = h[2];
-            uint d = h[3];
-            uint e = h[4];
-            uint f = 0;
-            uint k = 0x5A827999;
-
-            //All functions calls seem to pass 8 for endRound so remove all the useless if checks
-            for (int i = 0; i <= 8; i++)
+            del Section1Calc = () => temp = ((a << 5) | (a >> 27)) + ((b & c) | (~b & d)) + e + K0 + temp;
+            del UpdateVars = () =>
             {
-                f = (b & c) | ((~b) & d);
-                uint temp = RotateLeft(a, 5) + f + e + k + array[i];
                 e = d;
                 d = c;
-                c = RotateRight(b, 2);
+                c = (b << 30) | (b >> 2);
                 b = a;
                 a = temp;
-            }
+            };
+
+            temp = message[0]; Section1Calc(); UpdateVars();
+            temp = message[1]; Section1Calc(); UpdateVars();
+            temp = message[2]; Section1Calc(); UpdateVars();
+            temp = message[3]; Section1Calc(); UpdateVars();
+            temp = message[4]; Section1Calc(); UpdateVars();
+            temp = message[5]; Section1Calc(); UpdateVars();
+            temp = message[6]; Section1Calc(); UpdateVars();
+            temp = message[7]; Section1Calc(); UpdateVars();
+            temp = message[8]; Section1Calc(); UpdateVars();
 
             alpha[0] = a;
             alpha[1] = b;
@@ -1601,6 +1293,124 @@ namespace RNGReporter.Objects
             alpha[4] = e;
 
             return alpha;
+        }
+
+
+        public static ulong EncryptSeed(uint[] message, uint[] alpha)
+        {
+            uint temp = 0;
+
+            uint a = alpha[0];
+            uint b = alpha[1];
+            uint c = alpha[2];
+            uint d = alpha[3];
+            uint e = alpha[4];
+            del Section1Calc = () => temp = ((a << 5) | (a >> 27)) + ((b & c) | (~b & d)) + e + K0 + temp;
+            del Section2Calc = () => temp = ((a << 5) | (a >> 27)) + (b ^ c ^ d) + e + K1 + temp;
+            del Section3Calc = () => temp = ((a << 5) | (a >> 27)) + ((b & c) | (b & d) | (c & d)) + e + K2 + temp;
+            del Section4Calc = () => temp = ((a << 5) | (a >> 27)) + (b ^ c ^ d) + e + K3 + temp;
+            del UpdateVars = () =>
+                {
+                    e = d;
+                    d = c;
+                    c = (b << 30) | (b >> 2);
+                    b = a;
+                    a = temp;
+                };
+
+            del2 CalcW = I =>
+                {
+                    temp = message[I - 3] ^ message[I - 8] ^ message[I - 14] ^ message[I - 16];
+                    message[I] = temp = (temp << 1) | (temp >> 31);
+                };
+
+            // Section 1: 0-19
+            temp = message[9]; Section1Calc(); UpdateVars();
+            temp = message[10]; Section1Calc(); UpdateVars();
+            temp = message[11]; Section1Calc(); UpdateVars();
+            temp = message[12]; Section1Calc(); UpdateVars();
+            temp = message[13]; Section1Calc(); UpdateVars();
+            temp = message[14]; Section1Calc(); UpdateVars();
+            temp = message[15]; Section1Calc(); UpdateVars();
+
+            temp = message[16]; Section1Calc(); UpdateVars();
+            CalcW(17); Section1Calc(); UpdateVars();
+            temp = message[18]; Section1Calc(); UpdateVars();
+            temp = message[19]; Section1Calc(); UpdateVars();
+
+            // Section 2: 20 - 39
+            CalcW(20); Section2Calc(); UpdateVars();
+            temp = message[21]; Section2Calc(); UpdateVars();
+            temp = message[22]; Section2Calc(); UpdateVars();
+            CalcW(23); Section2Calc(); UpdateVars();
+            temp = message[24]; Section2Calc(); UpdateVars();
+            CalcW(25); Section2Calc(); UpdateVars();
+            CalcW(26); Section2Calc(); UpdateVars();
+            temp = message[27]; Section2Calc(); UpdateVars();
+            CalcW(28); Section2Calc(); UpdateVars();
+            CalcW(29); Section2Calc(); UpdateVars();
+            CalcW(30); Section2Calc(); UpdateVars();
+            CalcW(31); Section2Calc(); UpdateVars();
+            CalcW(32); Section2Calc(); UpdateVars();
+            CalcW(33); Section2Calc(); UpdateVars();
+            CalcW(34); Section2Calc(); UpdateVars();
+            CalcW(35); Section2Calc(); UpdateVars();
+            CalcW(36); Section2Calc(); UpdateVars();
+            CalcW(37); Section2Calc(); UpdateVars();
+            CalcW(38); Section2Calc(); UpdateVars();
+            CalcW(39); Section2Calc(); UpdateVars();
+
+            // Section 3: 40 - 59
+            CalcW(40); Section3Calc(); UpdateVars();
+            CalcW(41); Section3Calc(); UpdateVars();
+            CalcW(42); Section3Calc(); UpdateVars();
+            CalcW(43); Section3Calc(); UpdateVars();
+            CalcW(44); Section3Calc(); UpdateVars();
+            CalcW(45); Section3Calc(); UpdateVars();
+            CalcW(46); Section3Calc(); UpdateVars();
+            CalcW(47); Section3Calc(); UpdateVars();
+            CalcW(48); Section3Calc(); UpdateVars();
+            CalcW(49); Section3Calc(); UpdateVars();
+            CalcW(50); Section3Calc(); UpdateVars();
+            CalcW(51); Section3Calc(); UpdateVars();
+            CalcW(52); Section3Calc(); UpdateVars();
+            CalcW(53); Section3Calc(); UpdateVars();
+            CalcW(54); Section3Calc(); UpdateVars();
+            CalcW(55); Section3Calc(); UpdateVars();
+            CalcW(56); Section3Calc(); UpdateVars();
+            CalcW(57); Section3Calc(); UpdateVars();
+            CalcW(58); Section3Calc(); UpdateVars();
+            CalcW(59); Section3Calc(); UpdateVars();
+
+            // Section 3: 60 - 79
+            CalcW(60); Section4Calc(); UpdateVars();
+            CalcW(61); Section4Calc(); UpdateVars();
+            CalcW(62); Section4Calc(); UpdateVars();
+            CalcW(63); Section4Calc(); UpdateVars();
+            CalcW(64); Section4Calc(); UpdateVars();
+            CalcW(65); Section4Calc(); UpdateVars();
+            CalcW(66); Section4Calc(); UpdateVars();
+            CalcW(67); Section4Calc(); UpdateVars();
+            CalcW(68); Section4Calc(); UpdateVars();
+            CalcW(69); Section4Calc(); UpdateVars();
+            CalcW(70); Section4Calc(); UpdateVars();
+            CalcW(71); Section4Calc(); UpdateVars();
+            CalcW(72); Section4Calc(); UpdateVars();
+            CalcW(73); Section4Calc(); UpdateVars();
+            CalcW(74); Section4Calc(); UpdateVars();
+            CalcW(75); Section4Calc(); UpdateVars();
+            CalcW(76); Section4Calc(); UpdateVars();
+            CalcW(77); Section4Calc(); UpdateVars();
+            CalcW(78); Section4Calc(); UpdateVars();
+            CalcW(79); Section4Calc();
+
+            ulong part1 = Reorder(temp + H0);
+            ulong part2 = Reorder(a + H1);
+
+            ulong seed = (part2 << 32) | part1;
+            seed = seed * 0x5d588b656c078965 + 0x269ec3;
+
+            return seed;
         }
 
         // speedup by forcing these to be inlined
@@ -1620,8 +1430,8 @@ namespace RNGReporter.Objects
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static uint Reorder(uint value)
         {
-            return ((value & 0xFF000000) >> 24 | (value & 0x00FF0000) >> 8 | (value & 0x0000FF00) << 8 |
-                    (value & 0x000000FF) << 24);
+            value = ((value << 8) & 0xFF00FF00) | ((value >> 8) & 0xFF00FF);
+            return (value << 16) | (value >> 16);
         }
 
         public static string NumericFilter(string input)

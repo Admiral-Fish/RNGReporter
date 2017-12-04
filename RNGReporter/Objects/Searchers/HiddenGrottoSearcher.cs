@@ -222,7 +222,7 @@ namespace RNGReporter.Objects.Searchers
                             // We are precomputing those 8 steps to save time
                             // Trying to precompute beyond 8 steps is complicated and does not save much time, also runs the risk of errors
 
-                            uint[] alpha = Functions.alphaSHA1(array);
+                            uint[] alpha = Functions.AlphaEncrypt(array);
 
                             // We are also precomputing select portions of the SHA-1 array during the expansion process
                             // As they are also the same

@@ -655,7 +655,7 @@ namespace RNGReporter
                     false,
                     false,
                     null,
-                    new NoGenderFilter());
+                    constructGenderFilter());
             }
 
             if (generator.FrameType == FrameType.Method5Natures)
@@ -1861,7 +1861,7 @@ namespace RNGReporter
                 comboBoxAbility.Enabled = false;
                 comboBoxEncounterType.Enabled = false;
                 comboBoxEncounterSlot.Enabled = false;
-                comboBoxCapGenderRatio.Enabled = false;
+                comboBoxCapGenderRatio.Enabled = ((ComboBoxItem)comboBoxMethod.SelectedItem).Reference.Equals(FrameType.Wondercard5thGenFixed);
                 //cbCapShinyCharm.Visible = false;
 
                 comboBoxCapMonth.Visible = true;

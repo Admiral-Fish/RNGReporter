@@ -552,7 +552,7 @@ namespace RNGReporter
                     false,
                     false,
                     null,
-                    new NoGenderFilter());
+                    (GenderFilter)(comboBoxGender.SelectedItem));
             }
             else if (generator.FrameType == FrameType.BWBred || generator.FrameType == FrameType.BWBredInternational ||
                      generator.FrameType == FrameType.BW2Bred || generator.FrameType == FrameType.BW2BredInternational)
@@ -1481,9 +1481,9 @@ namespace RNGReporter
                 Offset.Visible = false;
                 EncounterSlot.Visible = false;
                 ItemCalc.Visible = false;
-                PID.Visible = false;
+                PID.Visible = true;
                 Time.Visible = false;
-                Shiny.Visible = false;
+                Shiny.Visible = true;
                 Nature.Visible = true;
                 Ability.Visible = false;
                 Dream.Visible = false;

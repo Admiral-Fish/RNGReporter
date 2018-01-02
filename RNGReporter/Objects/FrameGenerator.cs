@@ -2985,10 +2985,57 @@ namespace RNGReporter.Objects
                     rngList.Add(rng64.GetNext32BitNumber());
                 }
 
+                int gender;
+
+                if (frameCompare.GenderFilter.GenderCriteria == GenderCriteria.Male)
+                {
+                    switch (frameCompare.GenderFilter.GenderValue)
+                    {
+                        case 127:
+                            gender = 1;
+                            break;
+                        case 191:
+                            gender = 3;
+                            break;
+                        case 63:
+                            gender = 2;
+                            break;
+                        case 31:
+                            gender = 4;
+                            break;
+                        default:
+                            gender = 5;
+                            break;
+                    }
+                }
+                else if (frameCompare.GenderFilter.GenderCriteria == GenderCriteria.Female)
+                {
+                    switch (frameCompare.GenderFilter.GenderValue)
+                    {
+                        case 127:
+                            gender = -1;
+                            break;
+                        case 191:
+                            gender = -2;
+                            break;
+                        case 63:
+                            gender = -3;
+                            break;
+                        case 31:
+                            gender = -4;
+                            break;
+                        default:
+                            gender = -5;
+                            break;
+                    }
+                }
+                else
+                    gender = 0;
+
                 for (uint cnt = 0; cnt < maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
                 {
                     //note: pid field is unused look into later
-                    uint pid = Functions.GenderModPID(rngList[30], rngList[31], 0);
+                    uint pid = Functions.GenderModPID(rngList[32], rngList[33], gender);
                     Frame frame =
                         Frame.GenerateFrame(
                             FrameType.Wondercard5thGenFixed,
@@ -3002,7 +3049,7 @@ namespace RNGReporter.Objects
                             rngList[28] >> 27,
                             rngList[29] >> 27,
                             rngList[35],
-                            rngList[30]);
+                            pid);
 
 
                     if (frameCompare.Compare(frame))
@@ -4188,9 +4235,56 @@ namespace RNGReporter.Objects
                 for (int cnt = 0; cnt < 36; cnt++)
                     rngList.Add(rng64.GetNext32BitNumber());
 
+                int gender;
+
+                if (frameCompare.GenderFilter.GenderCriteria == GenderCriteria.Male)
+                {
+                    switch (frameCompare.GenderFilter.GenderValue)
+                    {
+                        case 127:
+                            gender = 1;
+                            break;
+                        case 191:
+                            gender = 3;
+                            break;
+                        case 63:
+                            gender = 2;
+                            break;
+                        case 31:
+                            gender = 4;
+                            break;
+                        default:
+                            gender = 5;
+                            break;
+                    }
+                }
+                else if (frameCompare.GenderFilter.GenderCriteria == GenderCriteria.Female)
+                {
+                    switch (frameCompare.GenderFilter.GenderValue)
+                    {
+                        case 127:
+                            gender = -1;
+                            break;
+                        case 191:
+                            gender = -2;
+                            break;
+                        case 63:
+                            gender = -3;
+                            break;
+                        case 31:
+                            gender = -4;
+                            break;
+                        default:
+                            gender = -5;
+                            break;
+                    }
+                }
+                else
+                    gender = 0;
+
                 for (uint cnt = InitialFrame; cnt < InitialFrame + maxResults; cnt++, rngList.RemoveAt(0), rngList.Add(rng64.GetNext32BitNumber()))
                 {
-                    uint pid = Functions.GenderModPID(rngList[30], rngList[31], 0);
+                    uint pid = Functions.GenderModPID(rngList[32], rngList[33], gender);
                     switch (shiny)
                     {
                         case 0:

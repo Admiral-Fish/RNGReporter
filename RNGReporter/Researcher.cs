@@ -1047,18 +1047,15 @@ namespace RNGReporter
 
             if (dataGridViewValues.RowCount > 0 && textBoxSearch.Text.Length > 0)
             {
-                string newTextBoxValue = textBoxSearch.Text;
+                ulong value = ulong.Parse(textBoxSearch.Text, NumberStyles.HexNumber);
+                string column = "Column" + glassComboBox1.SelectedItem.ToString();
 
-                while (newTextBoxValue.Length > 1 && newTextBoxValue.Substring(0, 1) == "0")
-                {
-                    newTextBoxValue = newTextBoxValue.Substring(1, newTextBoxValue.Length - 1);
-                }
                 int rowIndex = 0;
                 int columnIndex = 0;
 
                 foreach (DataGridViewColumn col in dataGridViewValues.Columns)
                 {
-                    if (col.Name == "Column" + glassComboBox1.SelectedItem.ToString())
+                    if (col.Name == column)
                     {
                         break;
                     }
@@ -1069,9 +1066,9 @@ namespace RNGReporter
                 {
                     for (rowIndex = dataGridViewValues.CurrentCell.RowIndex + 1; rowIndex < dataGridViewValues.Rows.Count; rowIndex++)
                     {
-                        string cellValue = long.Parse(dataGridViewValues["Column" + glassComboBox1.SelectedItem.ToString(), rowIndex].Value.ToString()).ToString("X");
+                        ulong cellValue = ulong.Parse(dataGridViewValues[column, rowIndex].Value.ToString());
 
-                        if (cellValue == newTextBoxValue)
+                        if (cellValue == value)
                         {
                             dataGridViewValues.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
                             dataGridViewValues.Rows[rowIndex].Cells[columnIndex].Selected = true;
@@ -1083,9 +1080,9 @@ namespace RNGReporter
                 {
                     foreach (DataGridViewRow row in dataGridViewValues.Rows)
                     {
-                        string cellValue = long.Parse(dataGridViewValues["Column" + glassComboBox1.SelectedItem.ToString(), rowIndex].Value.ToString()).ToString("X");
+                        ulong cellValue = ulong.Parse(dataGridViewValues[column, rowIndex].Value.ToString());
 
-                        if (cellValue == newTextBoxValue)
+                        if (cellValue == value)
                         {
                             dataGridViewValues.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
                             dataGridViewValues.Rows[rowIndex].Cells[columnIndex].Selected = true;

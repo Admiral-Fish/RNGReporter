@@ -1,43 +1,28 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/github/Admiral-Fish/RNGReporter?branch=master&svg=true)](https://ci.appveyor.com/project/Admiral-Fish/rngreporter)
 
 # RNGReporter
-I will no longer be actively developing RNG Reporter. I will attempt to fix any bugs that are found. Checkout [PokeFinder](https://github.com/Admiral-Fish/PokeFinder) for a WIP cross platform RNG tool.
+I will no longer be working on RNG Reporter. Checkout [PokeFinder](https://github.com/Admiral-Fish/PokeFinder) for a WIP cross platform RNG tool.
 
 # Credits
-Original RNGReporter dev team(mingot, slashmolder, omegadonut) for creating RNGReporter. 
+mingot, Slashmolder, and OmegaDonut for creating [RNGReporter](https://github.com/Slashmolder/RNGReporter). 
 
-Credits to amab for all the Channel Jirachi logic and Pokespot RNG. 
+Zari, amab, Kaphotics, CollectorTogami, Signum21 for various inspiration, features, and optimizations.
 
-Credits to Zari for the 16-bit seed to time logic, GameCube RNG searching logic, Pokespot RNG, and generally other advice. 
-
-Credits to Kaphotics for PID to IVs (aka Find Frame) logic and Pokespot RNG. 
-
-Credits to CollectorTogami for TogamiCalc.
-
-Credits to Signum21 for IVs to Frame
-
-# Planned Features 
-Poke Walker Time Finder
- 
-Will update list with other things
-
-# Finished Features
-TogamiCalc
+# Additional Features
+GameCube RTC Calculator
 
 16-Bit Seed to Time
 
-Colosseum Time Finder
-
-Channel Time Finder
-
-Box Time Finder
-
-Wshmkr Time Finder
+GameCubeRNG
 
 PID to IVs
 
-Pokespot RNG
-
-Gales of Darkness Time Finder
+Pokespot
 
 IVs to Frame
+
+Gen 3 Stationary/Wild Spread Searcher(aka Wild tab)
+
+FRLG Eggs
+
+Various speed improvements

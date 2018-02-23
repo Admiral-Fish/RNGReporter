@@ -283,11 +283,11 @@
     <Compile Include="ProfileEditor.Designer.cs">
       <DependentUpon>ProfileEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="TogamiCalc.cs">
+    <Compile Include="GameCubeRTC.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TogamiCalc.Designer.cs">
-      <DependentUpon>TogamiCalc.cs</DependentUpon>
+    <Compile Include="GameCubeRTC.Designer.cs">
+      <DependentUpon>GameCubeRTC.cs</DependentUpon>
     </Compile>
     <Compile Include="UnovaLinkCalibration.cs">
       <SubType>Form</SubType>
@@ -559,8 +559,8 @@
     <EmbeddedResource Include="ProfileEditor.resx">
       <DependentUpon>ProfileEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TogamiCalc.resx">
-      <DependentUpon>TogamiCalc.cs</DependentUpon>
+    <EmbeddedResource Include="GameCubeRTC.resx">
+      <DependentUpon>GameCubeRTC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UnovaLinkCalibration.resx">
       <DependentUpon>UnovaLinkCalibration.cs</DependentUpon>

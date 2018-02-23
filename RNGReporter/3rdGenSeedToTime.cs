@@ -42,14 +42,11 @@ namespace RNGReporter
         private uint originSeed(uint seed)
         {
             while (seed > 0xFFFF)
-                seed = LCRNGR(seed);
+                seed = reverse(seed);
             return seed;
         }
 
-        private uint LCRNGR(uint seed)
-        {
-            return (seed * 0xEEB9EB65 + 0x0A3561A1);
-        }
+        private uint reverse(uint seed) => seed * 0xEEB9EB65 + 0x0A3561A1;
 
         //Credits to Zari for writing this
         private void seedToTime(uint seed, int year)

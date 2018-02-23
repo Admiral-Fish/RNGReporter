@@ -3106,10 +3106,10 @@ namespace RNGReporter
             thirdSeedtoTime.Show();
         }
 
-        private void togamiCalcToolStripMenuItem_Click(object sender, EventArgs e)
+        private void gameCubeRTCToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var togamiCalc = new TogamiCalc();
-            togamiCalc.Show();
+            var gameCubeRTC = new GameCubeRTC();
+            gameCubeRTC.Show();
         }
 
         private void jirachiGenerationToolStripMenuItem_Click(object sender, EventArgs e)

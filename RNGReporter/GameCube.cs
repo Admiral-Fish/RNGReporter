@@ -254,7 +254,7 @@ namespace RNGReporter
                 if ((test % 0x343fd) < 0x10000)
                 {
                     fullFirst = (uint)(first | (test / 0x343fd));
-                    pid1 = pid1 = fullFirst * 0x45C82BE5 + 0xD2F65B55; // Advances prng 3 times
+                    pid1 = fullFirst * 0x45C82BE5 + 0xD2F65B55; // Advances prng 3 times
                     pid2 = forwardXD(pid1);
                     pid = (pid1 & 0xFFFF0000) | (pid2 >> 16);
                     shinyval[7] = ((pid1 >> 16) ^ (pid2 >> 16)) >> 3;
@@ -1620,25 +1620,13 @@ namespace RNGReporter
             return ivs;
         }
 
-        private uint forwardXD(uint seed)
-        {
-            return seed * 0x343FD + 0x269EC3;
-        }
+        private uint forwardXD(uint seed) => seed * 0x343FD + 0x269EC3;
 
-        private uint reverseXD(uint seed)
-        {
-            return seed * 0xB9B33155 + 0xA170F641;
-        }
+        private uint reverseXD(uint seed) => seed * 0xB9B33155 + 0xA170F641;
 
-        private uint forward(uint seed)
-        {
-            return seed * 0x41c64e6d + 0x6073;
-        }
+        private uint forward(uint seed) => seed * 0x41c64e6d + 0x6073;
 
-        private uint reverse(uint seed)
-        {
-            return seed * 0xeeb9eb65 + 0xa3561a1;
-        }
+        private uint reverse(uint seed) => seed * 0xeeb9eb65 + 0xa3561a1;
 
         private int calcHPPower(uint hp, uint atk, uint def, uint spa, uint spd, uint spe)
         {

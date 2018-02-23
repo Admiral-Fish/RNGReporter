@@ -257,10 +257,10 @@ namespace RNGReporter
             uint iv4 = forwardXD(iv3);
             uint iv5 = forwardXD(iv4);
             uint iv6 = forwardXD(iv5);
-            uint[] ivContiner = { iv1, iv2, iv3, iv5, iv6, iv4 };
+            uint[] ivContainer = { iv1, iv2, iv3, iv5, iv6, iv4 };
             for (int x = 0; x < 6; x ++)
             {
-                uint iv = ivContiner[x] >> 27;
+                uint iv = ivContainer[x] >> 27;
                 ivs += iv.ToString();
                 if (x != 5)
                     ivs += ".";
@@ -269,25 +269,13 @@ namespace RNGReporter
             return ivs;
         }
 
-        private uint forward(uint seed)
-        {
-            return seed * 0x41c64e6d + 0x6073;
-        }
+        private uint forward(uint seed) => seed * 0x41c64e6d + 0x6073;
 
-        private uint reverse(uint seed)
-        {
-            return seed * 0xeeb9eb65 + 0xa3561a1;
-        }
+        private uint reverse(uint seed) => seed * 0xeeb9eb65 + 0xa3561a1;
 
-        private uint forwardXD(uint seed)
-        {
-            return seed * 0x343FD + 0x269EC3;
-        }
+        private uint forwardXD(uint seed) => seed * 0x343FD + 0x269EC3;
 
-        private uint reverseXD(uint seed)
-        {
-            return seed * 0xB9B33155 + 0xA170F641;
-        }
+        private uint reverseXD(uint seed) => seed * 0xB9B33155 + 0xA170F641;
 
         private void contextMenuStripGrid_Opening(object sender, CancelEventArgs e)
         {

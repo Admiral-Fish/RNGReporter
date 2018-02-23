@@ -2526,7 +2526,7 @@ namespace RNGReporter
                 if ((filter.atkValue >= 30) &&
                     (filter.atkCompare == CompareType.Equal || filter.atkCompare == CompareType.GtEqual))
                 {
-                    if ((filter.speValue >= 30) &&
+                    if ((filter.speValue == 31) &&
                         (filter.speCompare == CompareType.Equal || filter.speCompare == CompareType.GtEqual))
                         return true;
 
@@ -2553,7 +2553,13 @@ namespace RNGReporter
                          (((filter.speValue == 2) && (filter.speCompare == CompareType.Equal)) ||
                           ((filter.speValue == 3) && (filter.speCompare == CompareType.Equal)))))
                     {
-                        return true;
+                        if (((filter.atkValue >= 30) &&
+                            (filter.atkCompare == CompareType.Equal || filter.atkCompare == CompareType.GtEqual)) ||
+                            (filter.atkCompare == CompareType.Hidden || filter.atkCompare == CompareType.HiddenEven ||
+                            filter.atkCompare == CompareType.HiddenOdd))
+                            {
+                                return true;
+                            }
                     }
 
                     // no roamers have Trick Room spreads

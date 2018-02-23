@@ -88,7 +88,7 @@ namespace RNGReporter
             this.jirachiGenerationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pIDToIVsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iVsToFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.togamiCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameCubeRTCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokespotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.rubyEncounterTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -663,7 +663,7 @@ namespace RNGReporter
             this.jirachiGenerationToolStripMenuItem,
             this.pIDToIVsToolStripMenuItem,
             this.iVsToFrameToolStripMenuItem,
-            this.togamiCalcToolStripMenuItem,
+            this.gameCubeRTCToolStripMenuItem,
             this.pokespotToolStripMenuItem,
             this.toolStripSeparator4,
             this.rubyEncounterTableToolStripMenuItem,
@@ -710,12 +710,12 @@ namespace RNGReporter
             this.iVsToFrameToolStripMenuItem.Text = "IVs to Frame";
             this.iVsToFrameToolStripMenuItem.Click += new System.EventHandler(this.iVsToFrameToolStripMenuItem_Click);
             // 
-            // togamiCalcToolStripMenuItem
+            // gameCubeRTCToolStripMenuItem
             // 
-            this.togamiCalcToolStripMenuItem.Name = "togamiCalcToolStripMenuItem";
-            this.togamiCalcToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
-            this.togamiCalcToolStripMenuItem.Text = "TogamiCalc";
-            this.togamiCalcToolStripMenuItem.Click += new System.EventHandler(this.togamiCalcToolStripMenuItem_Click);
+            this.gameCubeRTCToolStripMenuItem.Name = "gameCubeRTCToolStripMenuItem";
+            this.gameCubeRTCToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
+            this.gameCubeRTCToolStripMenuItem.Text = "GameCube RTC";
+            this.gameCubeRTCToolStripMenuItem.Click += new System.EventHandler(this.gameCubeRTCToolStripMenuItem_Click);
             // 
             // pokespotToolStripMenuItem
             // 
@@ -2238,7 +2238,7 @@ namespace RNGReporter
         private System.Windows.Forms.ToolStripMenuItem unovaLinkParametersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hiddenGrottoEncounterTablesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitSeedToTimeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem togamiCalcToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gameCubeRTCToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem jirachiGenerationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pIDToIVsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pokespotToolStripMenuItem;

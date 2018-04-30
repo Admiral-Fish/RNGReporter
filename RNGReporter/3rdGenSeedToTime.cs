@@ -12,7 +12,6 @@ namespace RNGReporter
     public partial class thirdGenSeedToTime : Form
     {
         private List<SeedtoTime> seedTime;
-        DateTime start = new DateTime(2000, 1, 1, 0, 0, 0);
         TimeSpan addTime;
 
         public thirdGenSeedToTime()
@@ -48,11 +47,10 @@ namespace RNGReporter
 
         private uint reverse(uint seed) => seed * 0xEEB9EB65 + 0x0A3561A1;
 
-        //Credits to Zari for writing this
         private void seedToTime(uint seed, int year)
         {
-            int maxDay = 0;
-            int minDay = 0;
+            uint maxDay = 0;
+            uint minDay = 0;
 
             if (year < 2000 || year > 2037)
             {
@@ -60,47 +58,38 @@ namespace RNGReporter
                 return;
             }
 
-            if (year != 2000)
+            DateTime start = new DateTime(year == 2000 ? 2000 : 2001, 1, 1, 0, 0, 0);
+
+            // Game decides to ignore a year of counting days
+            for (int i = 2001; i < year; i++)
             {
-                for (int x = 2000; x < year; x++)
-                    for (int months = 1; months < 13; months++)
-                    {
-                        minDay += DateTime.DaysInMonth(x, months);
-                        maxDay += DateTime.DaysInMonth(x, months);
-                    }
+                minDay += DateTime.IsLeapYear(i) ? (uint)366 : 365;
+                maxDay += DateTime.IsLeapYear(i) ? (uint)366 : 365;
             }
 
             for (int month = 1; month < 13; month++)
             {
-                maxDay += DateTime.DaysInMonth(year, month);
-                for (int day = minDay; day < maxDay; day++)
+                maxDay += (uint)DateTime.DaysInMonth(year, month);
+                for (uint day = minDay; day < maxDay; day++)
                 {
-                    int x1 = (1440 * day) >> 16;
-                    int x2 = x1 + 1;
-
-                    int y1 = (int)((uint)x1 ^ seed);
-                    int y2 = (int)((uint)x2 ^ seed);
-
-                    int v1 = (x1 << 16) | y1;
-                    int v2 = (x2 << 16) | y2;
-
-                    for (int hour = 0; hour < 24; hour++)
+                    for (uint hour = 0; hour < 24; hour++)
                     {
-                        for (int minute = 0; minute < 60; minute++)
+                        for (uint minute = 0; minute < 60; minute++)
                         {
-                            int v = 1440 * day + 960 * (hour / 10) + 60 * (hour % 10) + 16 * (minute / 10) + (minute % 10) + 0x5a0;
-                            if (v1 == v || v2 == v)
+                            uint v = 1440 * day + 960 * (hour / 10) + 60 * (hour % 10) + 16 * (minute / 10) + (minute % 10) + 0x5a0;
+                            v = (v >> 16) ^ (v & 0xFFFF);
+                            if (v == seed)
                             {
-                                addTime = new TimeSpan(day, hour, minute, 0);
+                                addTime = new TimeSpan((int)day, (int)hour, (int)minute, 0);
                                 DateTime finalTime = start + addTime;
                                 String result = finalTime.ToString();
-                                int seconds = ((day * 86400) + (hour * 3600) + (minute * 60));
+                                int seconds = (int)((day * 86400) + (hour * 3600) + (minute * 60));
                                 seedTime.Add(new SeedtoTime { Time = result, Seconds = seconds });
                             }
                         }
                     }
                 }
-                minDay += DateTime.DaysInMonth(year, month);
+                minDay += (uint)DateTime.DaysInMonth(year, month);
             }
         }
     }

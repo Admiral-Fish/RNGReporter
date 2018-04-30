@@ -363,7 +363,7 @@ namespace RNGReporter.Objects
             //Backwards nature lock check loop
             for (x = 1; x < backCount; x++)
             {
-                reverse.GetNext32BitNumber(3);
+                reverse.GetNext32BitNumber(5);
                 pid = getPIDReverse();
                 getCurrLock();
                 if (nature != 500)
@@ -380,7 +380,7 @@ namespace RNGReporter.Objects
             //Forwards nature lock check loop
             for (x = frontCount; x >= 0; x--)
             {
-                forward.GetNext32BitNumber(3);
+                forward.GetNext32BitNumber(5);
                 pid = getPIDForward();
                 getCurrLock();
                 if (nature != 500)
@@ -410,7 +410,7 @@ namespace RNGReporter.Objects
             //Backwards nature lock check loop
             for (x = 1; x < backCount; x++)
             {
-                reverse.GetNext32BitNumber(3);
+                reverse.GetNext32BitNumber(5);
                 pid = getPIDReverse();
                 getCurrLock();
                 if (nature != 500)
@@ -427,7 +427,7 @@ namespace RNGReporter.Objects
             //Forwards nature lock check loop
             for (x = frontCount; x >= 0; x--)
             {
-                forward.GetNext32BitNumber(3);
+                forward.GetNext32BitNumber(5);
                 pid = getPIDForward();
                 getCurrLock();
                 if (nature != 500)
@@ -457,7 +457,7 @@ namespace RNGReporter.Objects
             //Backwards nature lock check loop
             for (x = 1; x < backCount; x++)
             {
-                reverse.GetNext32BitNumber(3);
+                reverse.GetNext32BitNumber(5);
                 pid = getPIDReverse();
                 getCurrLock();
                 if (nature != 500)
@@ -474,7 +474,7 @@ namespace RNGReporter.Objects
             //Forwards nature lock check loop
             for (x = frontCount; x >= 0; x--)
             {
-                forward.GetNext32BitNumber(3);
+                forward.GetNext32BitNumber(5);
                 pid = getPIDForward();
                 getCurrLock();
                 if (nature != 500)
@@ -513,7 +513,7 @@ namespace RNGReporter.Objects
             //Backwards nature lock check loop
             for (x = 1; x < backCount; x++)
             {
-                reverse.GetNext32BitNumber(3);
+                reverse.GetNext32BitNumber(5);
                 pid = getPIDReverse();
                 getCurrLock();
                 if (nature != 500)
@@ -530,7 +530,7 @@ namespace RNGReporter.Objects
             //Forwards nature lock check loop
             for (x = frontCount; x >= 0; x--)
             {
-                forward.GetNext32BitNumber(3);
+                forward.GetNext32BitNumber(5);
                 pid = getPIDForward();
                 getCurrLock();
                 if (nature != 500)

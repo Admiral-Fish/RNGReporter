@@ -67,8 +67,8 @@ namespace RNGReporter.Objects
                     {
                         Range[] ranges =
                             {
-                                new Range(0, 39), new Range(40, 69), new Range(70, 84), new Range(85, 94),
-                                new Range(95, 99)
+                                new Range(0, 39), new Range(40, 79), new Range(80, 94), new Range(95, 98),
+                                new Range(99, 99)
                             };
                         return CalcSlot(percent, ranges);
                     }

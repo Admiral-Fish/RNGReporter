@@ -554,7 +554,8 @@ namespace RNGReporter
             this.glassComboBox1.Items.AddRange(new object[] {
             "32Bit",
             "16BitHigh",
-            "16BitLow"});
+            "16BitLow",
+            "Frame"});
             this.glassComboBox1.Location = new System.Drawing.Point(217, 245);
             this.glassComboBox1.Name = "glassComboBox1";
             this.glassComboBox1.ShineColor = System.Drawing.SystemColors.Window;

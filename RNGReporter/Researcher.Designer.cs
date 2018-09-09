@@ -127,7 +127,7 @@ namespace RNGReporter
             this.textBoxMult = new RNGReporter.TextBox2();
             this.textBoxAdd = new RNGReporter.TextBox2();
             this.dataGridViewValues = new RNGReporter.DoubleBufferedDataGridView();
-            this.Frame = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column64Bit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column32Bit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column32BitHigh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -1523,7 +1523,7 @@ namespace RNGReporter
             this.dataGridViewValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Frame,
+            this.ColumnFrame,
             this.Column64Bit,
             this.Column32Bit,
             this.Column32BitHigh,
@@ -1575,13 +1575,13 @@ namespace RNGReporter
             this.dataGridViewValues.TabIndex = 33;
             this.dataGridViewValues.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewValues_MouseDown);
             // 
-            // Frame
+            // ColumnFrame
             // 
-            this.Frame.DataPropertyName = "FrameNumber";
-            this.Frame.HeaderText = "Frame";
-            this.Frame.Name = "Frame";
-            this.Frame.ReadOnly = true;
-            this.Frame.Width = 50;
+            this.ColumnFrame.DataPropertyName = "FrameNumber";
+            this.ColumnFrame.HeaderText = "Frame";
+            this.ColumnFrame.Name = "ColumnFrame";
+            this.ColumnFrame.ReadOnly = true;
+            this.ColumnFrame.Width = 50;
             // 
             // Column64Bit
             // 
@@ -1965,7 +1965,7 @@ namespace RNGReporter
         private TextBox2 textBoxSearch;
         private GlassButton buttonSearch;
         private GlassComboBox glassComboBox1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Frame;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFrame;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column64Bit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column32Bit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column32BitHigh;

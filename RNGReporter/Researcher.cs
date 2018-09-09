@@ -1047,7 +1047,16 @@ namespace RNGReporter
 
             if (dataGridViewValues.RowCount > 0 && textBoxSearch.Text.Length > 0)
             {
-                ulong value = ulong.Parse(textBoxSearch.Text, NumberStyles.HexNumber);
+                ulong value;
+
+                if(glassComboBox1.SelectedItem.ToString() == "Frame")
+                {
+                    value = ulong.Parse(textBoxSearch.Text);
+                }
+                else
+                {
+                    value = ulong.Parse(textBoxSearch.Text, NumberStyles.HexNumber);
+                }
                 string column = "Column" + glassComboBox1.SelectedItem.ToString();
 
                 int rowIndex = 0;

@@ -1051,7 +1051,15 @@ namespace RNGReporter
 
                 if(glassComboBox1.SelectedItem.ToString() == "Frame")
                 {
-                    value = ulong.Parse(textBoxSearch.Text);
+                    try
+                    {
+                        value = ulong.Parse(textBoxSearch.Text);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("The Frame research accepts only decimal numbers.", "Error");
+                        return;
+                    }
                 }
                 else
                 {
